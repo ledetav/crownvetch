@@ -1,9 +1,10 @@
 /**
  * Стили стартового экрана видоискателя PARADOX // DARKROOM.
- * Реализуют перфорацию киноплёнки по бокам, уголки камеры,
- * вытянутую массивную антиквенную типографику с засечками (OVERTHINK / VORTEX / VERTEX)
+ * Реализуют прямоугольную перфорацию киноплёнки по бокам, уголки камеры,
+ * вытянутую антиквенную типографику с засечками (OVERTHINK / VORTEX / VERTEX)
  * и бесшовную многополосную VHS-ленту глитчей (жёлтый, бирюзовый, красный),
- * вращающуюся орбиту полароидов вокруг спирального портала и правую панель телеметрии.
+ * выходящую на левую перфорацию плёнки, вращающуюся орбиту полароидов
+ * вокруг спирального портала и правую панель телеметрии.
  */
 
 .darkroom-hero {
@@ -36,33 +37,49 @@
   z-index: 6;
 }
 
-/* Вертикальные полосы перфорации киноплёнки слева и справа */
+/* Вертикальные полосы прямоугольной перфорации 35-мм киноплёнки слева и справа */
 .film-rail {
   position: relative;
-  z-index: 5;
-  width: 44px;
+  z-index: 2;
+  width: 46px;
   flex-shrink: 0;
-  background-color: var(--bg-film-strip);
-  border-right: 1px solid rgba(255, 255, 255, 0.06);
-  background-image: radial-gradient(
-    ellipse 11px 8px at 50% 50%,
-    #1c2529 0%,
-    #151c20 78%,
-    rgba(255, 255, 255, 0.12) 84%,
-    transparent 88%
-  );
-  background-size: 44px 44px;
+  background-color: #0b1013;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  /* Прямоугольные окошки перфорации с тёмной сердцевиной и тонкой рамкой */
+  background-image:
+    linear-gradient(
+      to bottom,
+      #0b1013 0px,
+      #0b1013 13px,
+      transparent 13px,
+      transparent 33px,
+      #0b1013 33px,
+      #0b1013 46px
+    ),
+    linear-gradient(
+      to right,
+      #0b1013 0px,
+      #0b1013 13px,
+      rgba(234, 226, 208, 0.16) 13px,
+      #1b2327 14.5px,
+      #161d21 31.5px,
+      rgba(234, 226, 208, 0.16) 33px,
+      #0b1013 33px,
+      #0b1013 46px
+    );
+  background-size: 46px 46px;
   background-repeat: repeat-y;
 }
 
 .film-rail--right {
   border-right: none;
-  border-left: 1px solid rgba(255, 255, 255, 0.06);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* Внутреннее рабочее поле видоискателя между полосами плёнки */
 .darkroom-stage {
   position: relative;
+  z-index: 3;
   flex: 1;
   min-width: 0;
   padding: 20px 32px 26px;
@@ -225,46 +242,45 @@
   font-size: 0.74rem;
   letter-spacing: 0.08em;
   color: var(--text-secondary);
-  margin: 10px 0;
+  margin: 14px 0;
 }
 
 .typo-quote--top {
   margin-left: 68px;
 }
 
-/* Обёртка OVERTHINK: массивный антиквенный текст с засечками */
+/* Обёртка OVERTHINK: стройный высокий антиквенный текст с засечками */
 .overthink-wrapper {
   position: relative;
   display: inline-block;
-  padding: 6px 0;
+  padding: 10px 0;
 }
 
 .serif-overthink {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   display: inline-block;
   margin: 0;
   font-family: var(--font-serif-display);
-  font-weight: 900;
-  font-size: clamp(3.3rem, 5.8vw, 5.1rem);
-  line-height: 0.9;
-  letter-spacing: -0.025em;
+  font-weight: 800;
+  font-size: clamp(3.3rem, 5.7vw, 5rem);
+  line-height: 0.88;
+  letter-spacing: -0.02em;
   color: var(--text-primary);
-  /* Усиливаем толщину основных стоек букв для монументального силуэта */
-  -webkit-text-stroke: 1.35px var(--text-primary);
   text-transform: uppercase;
-  transform: scale(0.76, 1.32);
+  /* Умеренная толщина без лишней обводки и выраженная вытяжка в высоту */
+  transform: scale(0.68, 1.48);
   transform-origin: left center;
-  margin-right: -20%;
+  margin-right: -28%;
 }
 
-/* Плотная бесшовная VHS-лента из 5 смежных дорожек ПОД надписью OVERTHINK */
+/* Плотная бесшовная VHS-лента из 5 дорожек ПОД надписью и с вылетом на левую плёнку */
 .overthink-ribbon {
   position: absolute;
-  left: -64px;
-  right: -140px;
+  left: -130px;
+  right: -135px;
   top: 43%;
-  height: 31%;
+  height: 29%;
   transform: translateY(-50%);
   z-index: 1;
   pointer-events: none;
@@ -272,16 +288,16 @@
   flex-direction: column;
   justify-content: stretch;
   gap: 0;
-  filter: blur(1.05px);
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 84%, transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 84%, transparent 100%);
+  filter: blur(0.95px);
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 84%, transparent 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 84%, transparent 100%);
 }
 
 .glitch-lane {
   display: block;
   width: 100%;
   flex: 1;
-  opacity: 0.9;
+  opacity: 0.88;
   will-change: transform, opacity;
 }
 
@@ -303,8 +319,7 @@
 .glitch-lane--2 {
   background: linear-gradient(
     90deg,
-    rgba(200, 58, 59, 0.35) 0% 6%,
-    var(--glitch-red) 6% 24%,
+    var(--glitch-red) 0% 24%,
     var(--glitch-yellow) 24% 43%,
     var(--glitch-cyan) 43% 62%,
     var(--glitch-red) 62% 80%,
@@ -333,8 +348,7 @@
 .glitch-lane--4 {
   background: linear-gradient(
     90deg,
-    transparent 0% 7%,
-    var(--glitch-yellow) 7% 28%,
+    var(--glitch-yellow) 0% 28%,
     var(--glitch-cyan) 28% 48%,
     var(--glitch-red) 48% 66%,
     var(--glitch-yellow) 66% 84%,
@@ -362,7 +376,7 @@
 @keyframes vhsGlitchLaneA {
   0%, 100% {
     transform: translateX(0) scaleX(1);
-    opacity: 0.9;
+    opacity: 0.88;
   }
   18% {
     transform: translateX(-18px) scaleX(1.06);
@@ -370,7 +384,7 @@
   }
   34% {
     transform: translateX(22px) scaleX(0.92);
-    opacity: 0.95;
+    opacity: 0.94;
   }
   52% {
     transform: translateX(-9px) scaleX(1.03);
@@ -378,22 +392,22 @@
   }
   71% {
     transform: translateX(15px) scaleX(0.96);
-    opacity: 0.92;
+    opacity: 0.9;
   }
   86% {
     transform: translateX(-24px) scaleX(1.08);
-    opacity: 0.84;
+    opacity: 0.82;
   }
 }
 
 @keyframes vhsGlitchLaneB {
   0%, 100% {
     transform: translateX(0) scaleX(1);
-    opacity: 0.86;
+    opacity: 0.84;
   }
   22% {
     transform: translateX(20px) scaleX(0.94);
-    opacity: 0.95;
+    opacity: 0.94;
   }
   44% {
     transform: translateX(-16px) scaleX(1.05);
@@ -401,7 +415,7 @@
   }
   63% {
     transform: translateX(11px) scaleX(1.02);
-    opacity: 0.9;
+    opacity: 0.88;
   }
   81% {
     transform: translateX(-21px) scaleX(0.93);
@@ -412,7 +426,7 @@
 @keyframes vhsGlitchLaneC {
   0%, 100% {
     transform: translateX(0) scaleX(1);
-    opacity: 0.92;
+    opacity: 0.9;
   }
   15% {
     transform: translateX(26px) scaleX(0.9);
@@ -420,7 +434,7 @@
   }
   37% {
     transform: translateX(-19px) scaleX(1.07);
-    opacity: 0.96;
+    opacity: 0.95;
   }
   58% {
     transform: translateX(14px) scaleX(0.95);
@@ -428,7 +442,7 @@
   }
   79% {
     transform: translateX(-25px) scaleX(1.04);
-    opacity: 0.94;
+    opacity: 0.92;
   }
 }
 
@@ -450,7 +464,7 @@
   left: 52px;
   writing-mode: vertical-rl;
   font-family: var(--font-serif-display);
-  font-weight: 900;
+  font-weight: 800;
   font-size: clamp(2.85rem, 4.7vw, 4rem);
   line-height: 0.88;
   letter-spacing: 0.01em;
@@ -467,7 +481,7 @@
   z-index: 2;
   writing-mode: vertical-rl;
   font-family: var(--font-serif-display);
-  font-weight: 900;
+  font-weight: 800;
   font-size: clamp(2.85rem, 4.7vw, 4rem);
   line-height: 0.88;
   letter-spacing: 0.01em;
@@ -501,7 +515,7 @@
   bottom: 24px;
   z-index: 3;
   font-family: var(--font-serif-display);
-  font-weight: 900;
+  font-weight: 800;
   font-size: clamp(2.4rem, 4.1vw, 3.5rem);
   line-height: 0.92;
   letter-spacing: 0.01em;
@@ -939,7 +953,7 @@
   }
 
   .serif-overthink {
-    transform: scale(0.8, 1.26);
+    transform: scale(0.72, 1.42);
     transform-origin: center center;
     margin-right: 0;
   }
@@ -1001,7 +1015,7 @@
   }
 
   .serif-overthink {
-    font-size: 2.5rem;
+    font-size: 2.35rem;
   }
 
   .vortex-center {
