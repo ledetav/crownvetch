@@ -1,10 +1,10 @@
 /**
  * Стили стартового экрана видоискателя PARADOX // DARKROOM.
- * Реализуют прямоугольную перфорацию киноплёнки по бокам, уголки камеры,
- * вытянутую антиквенную типографику с засечками (OVERTHINK / VORTEX / VERTEX)
+ * Реализуют равномерную прямоугольную перфорацию киноплёнки со скруглёнными углами,
+ * уголки камеры, вытянутую крупную антиквенную типографику с засечками (OVERTHINK / VORTEX / VERTEX)
  * и бесшовную многополосную VHS-ленту глитчей (жёлтый, бирюзовый, красный),
- * выходящую на левую перфорацию плёнки, вращающуюся орбиту полароидов
- * вокруг спирального портала и правую панель телеметрии.
+ * заходящую на основу левой плёнки под перфорационными окошками,
+ * вращающуюся орбиту полароидов вокруг спирального портала и правую панель телеметрии.
  */
 
 .darkroom-hero {
@@ -37,37 +37,25 @@
   z-index: 6;
 }
 
-/* Вертикальные полосы прямоугольной перфорации 35-мм киноплёнки слева и справа */
+/* Вертикальные полосы 35-мм киноплёнки слева и справа */
 .film-rail {
   position: relative;
   z-index: 2;
-  width: 46px;
+  width: 48px;
   flex-shrink: 0;
-  background-color: #0b1013;
+  background-color: #0d1317;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
-  /* Прямоугольные окошки перфорации с тёмной сердцевиной и тонкой рамкой */
-  background-image:
-    linear-gradient(
-      to bottom,
-      #0b1013 0px,
-      #0b1013 13px,
-      transparent 13px,
-      transparent 33px,
-      #0b1013 33px,
-      #0b1013 46px
-    ),
-    linear-gradient(
-      to right,
-      #0b1013 0px,
-      #0b1013 13px,
-      rgba(234, 226, 208, 0.16) 13px,
-      #1b2327 14.5px,
-      #161d21 31.5px,
-      rgba(234, 226, 208, 0.16) 33px,
-      #0b1013 33px,
-      #0b1013 46px
-    );
-  background-size: 46px 46px;
+}
+
+/* Равномерные сквозные чёрные окошки со скруглёнными углами поверх глитч-шлейфа */
+.film-rail::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='46' viewBox='0 0 48 46'%3E%3Crect x='13' y='11' width='22' height='24' rx='4' ry='4' fill='%23040608' stroke='%23253036' stroke-width='1.2'/%3E%3C/svg%3E");
+  background-size: 48px 46px;
   background-repeat: repeat-y;
 }
 
@@ -152,7 +140,7 @@
   margin-top: 16px;
   padding: 20px 24px;
   display: grid;
-  grid-template-columns: minmax(290px, 1.08fr) minmax(320px, 1.32fr) minmax(240px, 0.85fr);
+  grid-template-columns: minmax(310px, 1.12fr) minmax(320px, 1.28fr) minmax(240px, 0.85fr);
   align-items: center;
   gap: 16px;
 }
@@ -242,18 +230,18 @@
   font-size: 0.74rem;
   letter-spacing: 0.08em;
   color: var(--text-secondary);
-  margin: 14px 0;
+  margin: 16px 0;
 }
 
 .typo-quote--top {
-  margin-left: 68px;
+  margin-left: 78px;
 }
 
-/* Обёртка OVERTHINK: стройный высокий антиквенный текст с засечками */
+/* Обёртка OVERTHINK: крупный вытянутый антиквенный текст с засечками */
 .overthink-wrapper {
   position: relative;
   display: inline-block;
-  padding: 10px 0;
+  padding: 12px 0;
 }
 
 .serif-overthink {
@@ -263,24 +251,23 @@
   margin: 0;
   font-family: var(--font-serif-display);
   font-weight: 800;
-  font-size: clamp(3.3rem, 5.7vw, 5rem);
+  font-size: clamp(3.85rem, 6.7vw, 5.9rem);
   line-height: 0.88;
   letter-spacing: -0.02em;
   color: var(--text-primary);
   text-transform: uppercase;
-  /* Умеренная толщина без лишней обводки и выраженная вытяжка в высоту */
-  transform: scale(0.68, 1.48);
+  transform: scale(0.68, 1.5);
   transform-origin: left center;
-  margin-right: -28%;
+  margin-right: -30%;
 }
 
-/* Плотная бесшовная VHS-лента из 5 дорожек ПОД надписью и с вылетом на левую плёнку */
+/* Плотная бесшовная VHS-лента из 5 дорожек ПОД надписью и с вылетом на основу левой плёнки */
 .overthink-ribbon {
   position: absolute;
-  left: -130px;
+  left: -135px;
   right: -135px;
-  top: 43%;
-  height: 29%;
+  top: 44%;
+  height: 28%;
   transform: translateY(-50%);
   z-index: 1;
   pointer-events: none;
@@ -953,7 +940,7 @@
   }
 
   .serif-overthink {
-    transform: scale(0.72, 1.42);
+    transform: scale(0.72, 1.44);
     transform-origin: center center;
     margin-right: 0;
   }
@@ -993,8 +980,11 @@
 
 @media (max-width: 540px) {
   .film-rail {
-    width: 22px;
-    background-size: 22px 30px;
+    width: 24px;
+  }
+
+  .film-rail::after {
+    background-size: 24px 30px;
   }
 
   .darkroom-stage {
@@ -1015,7 +1005,7 @@
   }
 
   .serif-overthink {
-    font-size: 2.35rem;
+    font-size: 2.65rem;
   }
 
   .vortex-center {
