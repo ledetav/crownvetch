@@ -1,32 +1,42 @@
 /**
- * Дизайн-токены приложения crownvetch.
- * Определяют базовую палитру фотолаборатории, типографическую шкалу,
- * радиусы скругления и отступы. Значения согласованы с src/data/palette.json.
+ * Дизайн-токены приложения crownvetch (PARADOX // DARKROOM).
+ * Определяют тёмно-лабораторную палитру видоискателя, хроматические акценты
+ * глитча (cyan/red/amber), типографическую шкалу и геометрию контейнеров.
  */
 :root {
-  /* Фоны и поверхности */
-  --bg-void: #0e1110;
-  --bg-surface: #171c1a;
-  --bg-surface-elevated: #1f2623;
+  /* Фоны и поверхности фотолаборатории */
+  --bg-void: #0a0f12;
+  --bg-surface: #11181c;
+  --bg-surface-elevated: #172126;
+  --bg-film-strip: #080b0d;
 
   /* Текст */
-  --text-primary: #eceeeb;
-  --text-secondary: #b4bcb7;
-  --text-muted: #7f8983;
+  --text-primary: #eceae4;
+  --text-secondary: #aab5b8;
+  --text-muted: #68757a;
 
-  /* Акценты */
+  /* Акценты видоискателя и глитча */
   --accent-sage: #a8d5ba;
-  --accent-amber: #f2dc9b;
+  --accent-amber: #f2c879;
   --accent-violet: #c5b4e3;
+  --accent-rec: #e63946;
+  --glitch-cyan: #38e8ff;
+  --glitch-red: #ff3b4e;
 
-  /* Границы и тени */
-  --border-subtle: rgba(236, 238, 235, 0.12);
-  --border-accent: rgba(168, 213, 186, 0.35);
+  /* Границы */
+  --border-subtle: rgba(236, 234, 228, 0.14);
+  --border-strong: rgba(236, 234, 228, 0.35);
+  --border-accent: rgba(242, 200, 121, 0.55);
 
-  /* Типографика и геометрия */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, monospace;
-  --radius-md: 12px;
-  --radius-lg: 18px;
-  --container-max: 1120px;
+  /* Типографика */
+  --font-display: 'Anton', 'Oswald', Impact, sans-serif;
+  --font-condensed: 'Oswald', sans-serif;
+  --font-sans: 'Oswald', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+  /* Геометрия */
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --container-max: 1320px;
 }
