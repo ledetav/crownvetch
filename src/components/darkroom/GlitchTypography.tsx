@@ -1,7 +1,12 @@
 /**
  * Компонент анимированной глитч-типографики левой части видоискателя.
- * Включает мигающий индикатор записи ● REC, слоганы временной петли,
- * крупный заголовок OVERTHINK с RGB-сдвигом и пересекающуюся связку VORTEX / VERTEX.
+ * Отрисовывает:
+ * - индикатор записи ● REC;
+ * - заголовок OVERTHINK шрифтом с засечками на фоне анимированных
+ *   перемежающихся горизонтальных полос (жёлтых, бирюзовых и красных);
+ * - пересекающуюся связку вертикального VORTEX (с глитч-полосами по тексту
+ *   и полупрозрачной красной дублирующей тенью) и горизонтального VERTEX
+ *   в полупрозрачном цвете основного текста.
  */
 
 /** Входные свойства компонента глитч-типографики */
@@ -16,12 +21,12 @@ interface GlitchTypographyProps {
   primaryWord: string;
   /** Вертикальное слово (VORTEX) */
   verticalWord: string;
-  /** Горизонтальное полупрозрачное слово (VERTEX) */
+  /** Горизонтальное пересекающее слово (VERTEX) */
   crossWord: string;
 }
 
 /**
- * Рендерит типографическую композицию с непрерывными глитч-анимациями.
+ * Рендерит типографическую композицию с засечками и раздельными глитч-слоями.
  * @param props Тексты и таймкоды из JSON-конфигурации первого экрана.
  * @returns JSX-разметка левой типографической колонки.
  */
@@ -43,20 +48,35 @@ export function GlitchTypography({
       <div className="typo-stack">
         <p className="typo-quote typo-quote--top">{topQuote}</p>
 
-        <h1 className="glitch-overthink" data-text={primaryWord}>
-          {primaryWord}
-        </h1>
+        {/* OVERTHINK с засечками и перемежающимися цветными глитч-полосками позади текста */}
+        <div className="overthink-wrapper">
+          <div className="overthink-stripes" aria-hidden="true">
+            <span className="glitch-bar glitch-bar--yellow-1" />
+            <span className="glitch-bar glitch-bar--cyan-1" />
+            <span className="glitch-bar glitch-bar--red-1" />
+            <span className="glitch-bar glitch-bar--yellow-2" />
+            <span className="glitch-bar glitch-bar--cyan-2" />
+            <span className="glitch-bar glitch-bar--red-2" />
+          </div>
+          <h1 className="serif-overthink">{primaryWord}</h1>
+        </div>
 
         <p className="typo-quote">{bottomQuote}</p>
 
+        {/* Пересекающаяся связка VORTEX (вертикальный) + VERTEX (горизонтальный) */}
         <div className="vortex-cross-lockup" aria-label={`${verticalWord} / ${crossWord}`}>
-          <span className="vortex-vertical">
-            <span className="vortex-vertical__ghost" aria-hidden="true">
-              {verticalWord}
-            </span>
+          {/* Полупрозрачный красный дубль под вертикальным VORTEX */}
+          <span className="vortex-vertical-ghost" aria-hidden="true">
             {verticalWord}
           </span>
-          <span className="vertex-horizontal" aria-hidden="true">
+
+          {/* Основной вертикальный VORTEX с глитч-полосами по самому тексту */}
+          <span className="vortex-vertical" data-text={verticalWord}>
+            {verticalWord}
+          </span>
+
+          {/* Горизонтальный полупрозрачный VERTEX в цвет основного текста с глитч-срезами */}
+          <span className="vertex-horizontal" data-text={crossWord} aria-hidden="true">
             {crossWord}
           </span>
         </div>
