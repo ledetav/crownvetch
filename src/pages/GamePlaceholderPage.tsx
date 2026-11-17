@@ -27,7 +27,7 @@ export function GamePlaceholderPage() {
     quest.scenes[currentSceneId] ?? quest.scenes[quest.startSceneId];
 
   return (
-    <div>
+    <div className="app-main">
       <section className="page-hero">
         <div className="page-hero__eyebrow">
           <Sparkles size={14} />
