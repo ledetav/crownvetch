@@ -1,0 +1,32 @@
+/**
+ * Дизайн-токены приложения crownvetch.
+ * Определяют базовую палитру фотолаборатории, типографическую шкалу,
+ * радиусы скругления и отступы. Значения согласованы с src/data/palette.json.
+ */
+:root {
+  /* Фоны и поверхности */
+  --bg-void: #0e1110;
+  --bg-surface: #171c1a;
+  --bg-surface-elevated: #1f2623;
+
+  /* Текст */
+  --text-primary: #eceeeb;
+  --text-secondary: #b4bcb7;
+  --text-muted: #7f8983;
+
+  /* Акценты */
+  --accent-sage: #a8d5ba;
+  --accent-amber: #f2dc9b;
+  --accent-violet: #c5b4e3;
+
+  /* Границы и тени */
+  --border-subtle: rgba(236, 238, 235, 0.12);
+  --border-accent: rgba(168, 213, 186, 0.35);
+
+  /* Типографика и геометрия */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, monospace;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --container-max: 1120px;
+}
