@@ -1,16 +1,19 @@
 /**
  * Модуль доступа к JSON-хранилищу проекта crownvetch.
  * Инкапсулирует импорт статических JSON-файлов и предоставляет
- * типизированные функции выборки палитры, модулей и стартовых данных квеста.
+ * типизированные функции выборки палитры, модулей, сценария квеста
+ * и конфигурации стартового экрана видоискателя.
  */
 import paletteRaw from '../data/palette.json';
 import modulesRaw from '../data/modules.json';
 import questRaw from '../data/quest.json';
+import tzHeroRaw from '../data/tzHero.json';
 import type {
   ModulesDataset,
   PaletteDataset,
   QuestDataset,
   QuestModuleItem,
+  TzHeroDataset,
 } from '../types/project';
 
 /**
@@ -44,4 +47,12 @@ export function getEnabledModules(): QuestModuleItem[] {
  */
 export function getQuestDataset(): QuestDataset {
   return questRaw as QuestDataset;
+}
+
+/**
+ * Возвращает конфигурацию стартового экрана ТЗ (PARADOX // DARKROOM).
+ * @returns Типизированный объект с цитатами, таймкодами, меню и полароидами.
+ */
+export function getTzHeroDataset(): TzHeroDataset {
+  return tzHeroRaw as TzHeroDataset;
 }
