@@ -1,8 +1,8 @@
 /**
  * Стили стартового экрана видоискателя PARADOX // DARKROOM.
  * Реализуют перфорацию киноплёнки по бокам, уголки камеры,
- * вытянутую антиквенную типографику с клиновидными засечками (OVERTHINK / VORTEX / VERTEX)
- * и многополосной сегментной глитч-лентой (жёлтый, бирюзовый, красный),
+ * вытянутую массивную антиквенную типографику с засечками (OVERTHINK / VORTEX / VERTEX)
+ * и бесшовную многополосную VHS-ленту глитчей (жёлтый, бирюзовый, красный),
  * вращающуюся орбиту полароидов вокруг спирального портала и правую панель телеметрии.
  */
 
@@ -225,14 +225,14 @@
   font-size: 0.74rem;
   letter-spacing: 0.08em;
   color: var(--text-secondary);
-  margin: 8px 0;
+  margin: 10px 0;
 }
 
 .typo-quote--top {
-  margin-left: 72px;
+  margin-left: 68px;
 }
 
-/* Обёртка OVERTHINK: высокий антиквенный текст с клиновидными засечками */
+/* Обёртка OVERTHINK: массивный антиквенный текст с засечками */
 .overthink-wrapper {
   position: relative;
   display: inline-block;
@@ -245,157 +245,190 @@
   display: inline-block;
   margin: 0;
   font-family: var(--font-serif-display);
-  font-weight: 700;
-  font-size: clamp(3.6rem, 6.4vw, 5.6rem);
-  line-height: 0.88;
-  letter-spacing: -0.01em;
+  font-weight: 900;
+  font-size: clamp(3.3rem, 5.8vw, 5.1rem);
+  line-height: 0.9;
+  letter-spacing: -0.025em;
   color: var(--text-primary);
+  /* Усиливаем толщину основных стоек букв для монументального силуэта */
+  -webkit-text-stroke: 1.35px var(--text-primary);
   text-transform: uppercase;
-  /* Узкая вытяжка по вертикали для точного соответствия высоким антиквенным буквам */
-  transform: scale(0.78, 1.28);
+  transform: scale(0.76, 1.32);
   transform-origin: left center;
-  margin-right: -18%;
+  margin-right: -20%;
 }
 
-/* Плотная горизонтальная лента из 5 дорожек чередующихся цветных сегментов ПОД надписью */
+/* Плотная бесшовная VHS-лента из 5 смежных дорожек ПОД надписью OVERTHINK */
 .overthink-ribbon {
   position: absolute;
-  left: -58px;
-  right: -135px;
-  top: 41%;
-  height: 30%;
+  left: -64px;
+  right: -140px;
+  top: 43%;
+  height: 31%;
   transform: translateY(-50%);
   z-index: 1;
   pointer-events: none;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 2px;
-  filter: blur(0.45px);
+  justify-content: stretch;
+  gap: 0;
+  filter: blur(1.05px);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 84%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 84%, transparent 100%);
 }
 
 .glitch-lane {
   display: block;
   width: 100%;
-  height: 18%;
-  opacity: 0.88;
+  flex: 1;
+  opacity: 0.9;
+  will-change: transform, opacity;
 }
 
-/* Дорожка 1: бирюзовый -> красный -> жёлтый -> бирюзовый -> красный */
+/* Дорожка 1: бирюзовый -> красный -> жёлтый -> бирюзовый с VHS-сдвигами */
 .glitch-lane--1 {
   background: linear-gradient(
     90deg,
-    var(--glitch-cyan) 0% 16%,
-    var(--glitch-red) 16% 32%,
-    var(--glitch-yellow) 32% 49%,
-    var(--glitch-cyan) 49% 73%,
-    var(--glitch-red) 73% 88%,
-    transparent 88% 100%
+    var(--glitch-cyan) 0% 18%,
+    var(--glitch-red) 18% 35%,
+    var(--glitch-yellow) 35% 53%,
+    var(--glitch-cyan) 53% 76%,
+    var(--glitch-red) 76% 90%,
+    transparent 90% 100%
   );
-  animation: ribbonSlideA 3.4s steps(4, end) infinite;
+  animation: vhsGlitchLaneA 2.4s steps(1, end) infinite;
 }
 
-/* Дорожка 2: красный -> жёлтый -> бирюзовый -> красный -> жёлтый */
+/* Дорожка 2: красный -> жёлтый -> бирюзовый -> красный */
 .glitch-lane--2 {
   background: linear-gradient(
     90deg,
-    transparent 0% 4%,
-    var(--glitch-red) 4% 21%,
-    var(--glitch-yellow) 21% 39%,
-    var(--glitch-cyan) 39% 58%,
-    var(--glitch-red) 58% 76%,
-    var(--glitch-yellow) 76% 94%,
-    transparent 94% 100%
+    rgba(200, 58, 59, 0.35) 0% 6%,
+    var(--glitch-red) 6% 24%,
+    var(--glitch-yellow) 24% 43%,
+    var(--glitch-cyan) 43% 62%,
+    var(--glitch-red) 62% 80%,
+    var(--glitch-yellow) 80% 95%,
+    transparent 95% 100%
   );
-  animation: ribbonSlideB 2.7s steps(3, end) infinite;
+  animation: vhsGlitchLaneB 1.9s steps(1, end) infinite;
 }
 
-/* Дорожка 3: бирюзовый -> тёмный провал -> жёлтый -> красный -> бирюзовый */
+/* Дорожка 3: центральный разрыв с яркими бирюзово-жёлтыми всполохами */
 .glitch-lane--3 {
-  height: 22%;
+  flex: 1.25;
   background: linear-gradient(
     90deg,
-    var(--glitch-cyan) 0% 24%,
-    rgba(11, 19, 23, 0.35) 24% 31%,
-    var(--glitch-yellow) 31% 52%,
-    var(--glitch-red) 52% 71%,
-    var(--glitch-cyan) 71% 92%,
-    var(--glitch-yellow) 92% 100%
+    var(--glitch-cyan) 0% 26%,
+    rgba(11, 19, 23, 0.55) 26% 33%,
+    var(--glitch-yellow) 33% 54%,
+    var(--glitch-red) 54% 72%,
+    var(--glitch-cyan) 72% 91%,
+    var(--glitch-yellow) 91% 100%
   );
-  animation: ribbonSlideA 2.2s steps(3, end) infinite reverse;
+  animation: vhsGlitchLaneC 1.6s steps(1, end) infinite;
 }
 
-/* Дорожка 4: жёлтый -> бирюзовый -> красный -> жёлтый -> бирюзовый */
+/* Дорожка 4: жёлтый -> бирюзовый -> красный -> жёлтый */
 .glitch-lane--4 {
   background: linear-gradient(
     90deg,
-    transparent 0% 8%,
-    var(--glitch-yellow) 8% 26%,
-    var(--glitch-cyan) 26% 45%,
-    var(--glitch-red) 45% 63%,
-    var(--glitch-yellow) 63% 81%,
-    var(--glitch-cyan) 81% 96%,
-    transparent 96% 100%
+    transparent 0% 7%,
+    var(--glitch-yellow) 7% 28%,
+    var(--glitch-cyan) 28% 48%,
+    var(--glitch-red) 48% 66%,
+    var(--glitch-yellow) 66% 84%,
+    var(--glitch-cyan) 84% 97%,
+    transparent 97% 100%
   );
-  animation: ribbonSlideB 3.1s steps(4, end) infinite reverse;
+  animation: vhsGlitchLaneB 2.2s steps(1, end) infinite reverse;
 }
 
-/* Дорожка 5: короткие шлейфы бирюзового и жёлтого по краям */
+/* Дорожка 5: нижний шлейф помех */
 .glitch-lane--5 {
   background: linear-gradient(
     90deg,
-    var(--glitch-cyan) 0% 18%,
-    transparent 18% 42%,
-    var(--glitch-red) 42% 56%,
-    transparent 56% 74%,
-    var(--glitch-yellow) 74% 95%,
-    transparent 95% 100%
+    var(--glitch-cyan) 0% 21%,
+    rgba(216, 169, 85, 0.25) 21% 41%,
+    var(--glitch-red) 41% 58%,
+    rgba(52, 185, 200, 0.2) 58% 74%,
+    var(--glitch-yellow) 74% 94%,
+    transparent 94% 100%
   );
-  animation: ribbonFlicker 2.5s steps(2, start) infinite;
+  animation: vhsGlitchLaneA 1.8s steps(1, end) infinite reverse;
 }
 
-@keyframes ribbonSlideA {
+/* Рваная VHS-анимация: резкие скачки длины, позиции и яркости сегментов */
+@keyframes vhsGlitchLaneA {
   0%, 100% {
     transform: translateX(0) scaleX(1);
-    opacity: 0.88;
+    opacity: 0.9;
   }
-  30% {
-    transform: translateX(-14px) scaleX(0.97);
-    opacity: 0.72;
+  18% {
+    transform: translateX(-18px) scaleX(1.06);
+    opacity: 0.78;
   }
-  65% {
-    transform: translateX(12px) scaleX(1.03);
-    opacity: 0.94;
+  34% {
+    transform: translateX(22px) scaleX(0.92);
+    opacity: 0.95;
   }
-}
-
-@keyframes ribbonSlideB {
-  0%, 100% {
-    transform: translateX(0) scaleX(1);
+  52% {
+    transform: translateX(-9px) scaleX(1.03);
+    opacity: 0.62;
+  }
+  71% {
+    transform: translateX(15px) scaleX(0.96);
+    opacity: 0.92;
+  }
+  86% {
+    transform: translateX(-24px) scaleX(1.08);
     opacity: 0.84;
   }
-  38% {
-    transform: translateX(16px) scaleX(0.96);
-    opacity: 0.94;
+}
+
+@keyframes vhsGlitchLaneB {
+  0%, 100% {
+    transform: translateX(0) scaleX(1);
+    opacity: 0.86;
   }
-  72% {
-    transform: translateX(-11px) scaleX(1.02);
+  22% {
+    transform: translateX(20px) scaleX(0.94);
+    opacity: 0.95;
+  }
+  44% {
+    transform: translateX(-16px) scaleX(1.05);
     opacity: 0.68;
+  }
+  63% {
+    transform: translateX(11px) scaleX(1.02);
+    opacity: 0.9;
+  }
+  81% {
+    transform: translateX(-21px) scaleX(0.93);
+    opacity: 0.74;
   }
 }
 
-@keyframes ribbonFlicker {
-  0%, 62%, 100% {
-    opacity: 0.82;
-    transform: translateX(0);
-  }
-  68% {
-    opacity: 0.35;
-    transform: translateX(14px);
-  }
-  78% {
+@keyframes vhsGlitchLaneC {
+  0%, 100% {
+    transform: translateX(0) scaleX(1);
     opacity: 0.92;
-    transform: translateX(-10px);
+  }
+  15% {
+    transform: translateX(26px) scaleX(0.9);
+    opacity: 0.72;
+  }
+  37% {
+    transform: translateX(-19px) scaleX(1.07);
+    opacity: 0.96;
+  }
+  58% {
+    transform: translateX(14px) scaleX(0.95);
+    opacity: 0.54;
+  }
+  79% {
+    transform: translateX(-25px) scaleX(1.04);
+    opacity: 0.94;
   }
 }
 
@@ -417,8 +450,8 @@
   left: 52px;
   writing-mode: vertical-rl;
   font-family: var(--font-serif-display);
-  font-weight: 700;
-  font-size: clamp(3rem, 4.9vw, 4.2rem);
+  font-weight: 900;
+  font-size: clamp(2.85rem, 4.7vw, 4rem);
   line-height: 0.88;
   letter-spacing: 0.01em;
   color: var(--vortex-ghost-red);
@@ -434,8 +467,8 @@
   z-index: 2;
   writing-mode: vertical-rl;
   font-family: var(--font-serif-display);
-  font-weight: 700;
-  font-size: clamp(3rem, 4.9vw, 4.2rem);
+  font-weight: 900;
+  font-size: clamp(2.85rem, 4.7vw, 4rem);
   line-height: 0.88;
   letter-spacing: 0.01em;
   color: var(--text-primary);
@@ -468,8 +501,8 @@
   bottom: 24px;
   z-index: 3;
   font-family: var(--font-serif-display);
-  font-weight: 700;
-  font-size: clamp(2.5rem, 4.3vw, 3.65rem);
+  font-weight: 900;
+  font-size: clamp(2.4rem, 4.1vw, 3.5rem);
   line-height: 0.92;
   letter-spacing: 0.01em;
   color: rgba(234, 226, 208, 0.34);
@@ -906,7 +939,7 @@
   }
 
   .serif-overthink {
-    transform: scale(0.82, 1.24);
+    transform: scale(0.8, 1.26);
     transform-origin: center center;
     margin-right: 0;
   }
@@ -968,7 +1001,7 @@
   }
 
   .serif-overthink {
-    font-size: 2.65rem;
+    font-size: 2.5rem;
   }
 
   .vortex-center {

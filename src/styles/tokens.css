@@ -30,8 +30,8 @@
   --border-strong: rgba(234, 226, 208, 0.36);
   --border-accent: rgba(232, 190, 103, 0.65);
 
-  /* Типографика: узкий антиквенный шрифт с клиновидными засечками для OVERTHINK / VORTEX */
-  --font-serif-display: 'Cormorant Garamond', 'Cinzel', 'Times New Roman', Georgia, serif;
+  /* Типографика: плотный массивный антиквенный шрифт с засечками для OVERTHINK / VORTEX */
+  --font-serif-display: 'Playfair Display', 'DM Serif Display', 'Cinzel', Georgia, serif;
   --font-condensed: 'Oswald', sans-serif;
   --font-sans: 'Oswald', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
