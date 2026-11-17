@@ -12,6 +12,10 @@ permissions:
   contents: write
   pull-requests: write
 
+concurrency:
+  group: ci-verify-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   verify-and-audit:
     name: Lint, Build & Visual Audit
