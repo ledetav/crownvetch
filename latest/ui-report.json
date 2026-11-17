@@ -1,0 +1,50 @@
+{
+  "baseUrl": "http://127.0.0.1:4173",
+  "checks": [
+    {
+      "route": "/tz",
+      "viewport": "desktop",
+      "dimensions": "1440x900",
+      "httpStatus": 200,
+      "hasHorizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "tz_desktop.png",
+      "passed": true
+    },
+    {
+      "route": "/game",
+      "viewport": "desktop",
+      "dimensions": "1440x900",
+      "httpStatus": 200,
+      "hasHorizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "game_desktop.png",
+      "passed": true
+    },
+    {
+      "route": "/tz",
+      "viewport": "mobile",
+      "dimensions": "390x844",
+      "httpStatus": 200,
+      "hasHorizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "tz_mobile.png",
+      "passed": true
+    },
+    {
+      "route": "/game",
+      "viewport": "mobile",
+      "dimensions": "390x844",
+      "httpStatus": 200,
+      "hasHorizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "game_mobile.png",
+      "passed": true
+    }
+  ],
+  "passed": true
+}
