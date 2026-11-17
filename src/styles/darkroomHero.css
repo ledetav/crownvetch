@@ -1,9 +1,9 @@
 /**
  * Стили стартового экрана видоискателя PARADOX // DARKROOM.
  * Реализуют перфорацию киноплёнки по бокам, уголки камеры,
- * вытянутую типографику с засечками (OVERTHINK / VORTEX / VERTEX) с глитч-полосами
- * жёлтого, бирюзового и красного цветов, вращающуюся орбиту полароидов
- * вокруг спирального портала и правую панель телеметрии.
+ * вытянутую антиквенную типографику с клиновидными засечками (OVERTHINK / VORTEX / VERTEX)
+ * и многополосной сегментной глитч-лентой (жёлтый, бирюзовый, красный),
+ * вращающуюся орбиту полароидов вокруг спирального портала и правую панель телеметрии.
  */
 
 .darkroom-hero {
@@ -174,7 +174,7 @@
   border-width: 0 2px 2px 0;
 }
 
-/* Левая колонка: индикатор REC и типографика с засечками */
+/* Левая колонка: индикатор REC и типографика с клиновидными засечками */
 .typo-column {
   position: relative;
   z-index: 5;
@@ -225,153 +225,184 @@
   font-size: 0.74rem;
   letter-spacing: 0.08em;
   color: var(--text-secondary);
-  margin: 6px 0;
+  margin: 8px 0;
 }
 
 .typo-quote--top {
-  margin-left: 76px;
+  margin-left: 72px;
 }
 
-/* Обёртка OVERTHINK: текст чистый с засечками, анимированные цветные полосы ПОД ним */
+/* Обёртка OVERTHINK: высокий антиквенный текст с клиновидными засечками */
 .overthink-wrapper {
   position: relative;
   display: inline-block;
-  padding: 2px 0;
+  padding: 6px 0;
 }
 
 .serif-overthink {
   position: relative;
   z-index: 2;
+  display: inline-block;
   margin: 0;
   font-family: var(--font-serif-display);
-  font-weight: 800;
-  font-size: clamp(2.85rem, 5.1vw, 4.45rem);
-  line-height: 0.96;
-  letter-spacing: -0.02em;
+  font-weight: 700;
+  font-size: clamp(3.6rem, 6.4vw, 5.6rem);
+  line-height: 0.88;
+  letter-spacing: -0.01em;
   color: var(--text-primary);
   text-transform: uppercase;
-  transform: scaleY(1.24);
+  /* Узкая вытяжка по вертикали для точного соответствия высоким антиквенным буквам */
+  transform: scale(0.78, 1.28);
   transform-origin: left center;
+  margin-right: -18%;
 }
 
-/* Перемежающиеся горизонтальные полоски (жёлтые, бирюзовые, красные) ПОД надписью OVERTHINK */
-.overthink-stripes {
+/* Плотная горизонтальная лента из 5 дорожек чередующихся цветных сегментов ПОД надписью */
+.overthink-ribbon {
   position: absolute;
-  inset: -6px -18px;
+  left: -58px;
+  right: -135px;
+  top: 41%;
+  height: 30%;
+  transform: translateY(-50%);
   z-index: 1;
   pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2px;
+  filter: blur(0.45px);
 }
 
-.glitch-bar {
-  position: absolute;
-  height: 3px;
-  border-radius: 1px;
-  opacity: 0.85;
+.glitch-lane {
+  display: block;
+  width: 100%;
+  height: 18%;
+  opacity: 0.88;
 }
 
-.glitch-bar--yellow-1 {
-  top: 18%;
-  left: -14px;
-  width: 58%;
-  height: 3px;
-  background: var(--glitch-yellow);
-  animation: barDriftLeft 2.8s steps(3, end) infinite;
+/* Дорожка 1: бирюзовый -> красный -> жёлтый -> бирюзовый -> красный */
+.glitch-lane--1 {
+  background: linear-gradient(
+    90deg,
+    var(--glitch-cyan) 0% 16%,
+    var(--glitch-red) 16% 32%,
+    var(--glitch-yellow) 32% 49%,
+    var(--glitch-cyan) 49% 73%,
+    var(--glitch-red) 73% 88%,
+    transparent 88% 100%
+  );
+  animation: ribbonSlideA 3.4s steps(4, end) infinite;
 }
 
-.glitch-bar--cyan-1 {
-  top: 34%;
-  right: -12px;
-  width: 64%;
-  height: 2px;
-  background: var(--glitch-cyan);
-  animation: barDriftRight 2.3s steps(3, end) infinite;
+/* Дорожка 2: красный -> жёлтый -> бирюзовый -> красный -> жёлтый */
+.glitch-lane--2 {
+  background: linear-gradient(
+    90deg,
+    transparent 0% 4%,
+    var(--glitch-red) 4% 21%,
+    var(--glitch-yellow) 21% 39%,
+    var(--glitch-cyan) 39% 58%,
+    var(--glitch-red) 58% 76%,
+    var(--glitch-yellow) 76% 94%,
+    transparent 94% 100%
+  );
+  animation: ribbonSlideB 2.7s steps(3, end) infinite;
 }
 
-.glitch-bar--red-1 {
-  top: 50%;
-  left: 6%;
-  width: 88%;
-  height: 4px;
-  background: var(--glitch-red);
-  animation: barFlicker 1.9s steps(2, start) infinite;
+/* Дорожка 3: бирюзовый -> тёмный провал -> жёлтый -> красный -> бирюзовый */
+.glitch-lane--3 {
+  height: 22%;
+  background: linear-gradient(
+    90deg,
+    var(--glitch-cyan) 0% 24%,
+    rgba(11, 19, 23, 0.35) 24% 31%,
+    var(--glitch-yellow) 31% 52%,
+    var(--glitch-red) 52% 71%,
+    var(--glitch-cyan) 71% 92%,
+    var(--glitch-yellow) 92% 100%
+  );
+  animation: ribbonSlideA 2.2s steps(3, end) infinite reverse;
 }
 
-.glitch-bar--yellow-2 {
-  top: 66%;
-  right: 4%;
-  width: 52%;
-  height: 2.5px;
-  background: var(--glitch-yellow);
-  animation: barDriftRight 3.2s steps(3, end) infinite;
+/* Дорожка 4: жёлтый -> бирюзовый -> красный -> жёлтый -> бирюзовый */
+.glitch-lane--4 {
+  background: linear-gradient(
+    90deg,
+    transparent 0% 8%,
+    var(--glitch-yellow) 8% 26%,
+    var(--glitch-cyan) 26% 45%,
+    var(--glitch-red) 45% 63%,
+    var(--glitch-yellow) 63% 81%,
+    var(--glitch-cyan) 81% 96%,
+    transparent 96% 100%
+  );
+  animation: ribbonSlideB 3.1s steps(4, end) infinite reverse;
 }
 
-.glitch-bar--cyan-2 {
-  top: 79%;
-  left: -10px;
-  width: 72%;
-  height: 3px;
-  background: var(--glitch-cyan);
-  animation: barDriftLeft 2.5s steps(3, end) infinite;
+/* Дорожка 5: короткие шлейфы бирюзового и жёлтого по краям */
+.glitch-lane--5 {
+  background: linear-gradient(
+    90deg,
+    var(--glitch-cyan) 0% 18%,
+    transparent 18% 42%,
+    var(--glitch-red) 42% 56%,
+    transparent 56% 74%,
+    var(--glitch-yellow) 74% 95%,
+    transparent 95% 100%
+  );
+  animation: ribbonFlicker 2.5s steps(2, start) infinite;
 }
 
-.glitch-bar--red-2 {
-  top: 26%;
-  left: 28%;
-  width: 46%;
-  height: 2px;
-  background: var(--glitch-red);
-  animation: barFlicker 2.6s steps(2, start) infinite reverse;
-}
-
-@keyframes barDriftLeft {
+@keyframes ribbonSlideA {
   0%, 100% {
     transform: translateX(0) scaleX(1);
-    opacity: 0.85;
+    opacity: 0.88;
   }
-  35% {
-    transform: translateX(-14px) scaleX(0.86);
-    opacity: 0.55;
+  30% {
+    transform: translateX(-14px) scaleX(0.97);
+    opacity: 0.72;
   }
-  70% {
-    transform: translateX(8px) scaleX(1.08);
-    opacity: 0.95;
+  65% {
+    transform: translateX(12px) scaleX(1.03);
+    opacity: 0.94;
   }
 }
 
-@keyframes barDriftRight {
+@keyframes ribbonSlideB {
   0%, 100% {
     transform: translateX(0) scaleX(1);
-    opacity: 0.8;
+    opacity: 0.84;
   }
-  40% {
-    transform: translateX(14px) scaleX(0.9);
-    opacity: 0.95;
+  38% {
+    transform: translateX(16px) scaleX(0.96);
+    opacity: 0.94;
   }
-  75% {
-    transform: translateX(-10px) scaleX(1.06);
-    opacity: 0.5;
+  72% {
+    transform: translateX(-11px) scaleX(1.02);
+    opacity: 0.68;
   }
 }
 
-@keyframes barFlicker {
-  0%, 60%, 100% {
+@keyframes ribbonFlicker {
+  0%, 62%, 100% {
     opacity: 0.82;
     transform: translateX(0);
   }
-  65% {
-    opacity: 0.25;
-    transform: translateX(10px);
+  68% {
+    opacity: 0.35;
+    transform: translateX(14px);
   }
-  75% {
-    opacity: 0.95;
-    transform: translateX(-8px);
+  78% {
+    opacity: 0.92;
+    transform: translateX(-10px);
   }
 }
 
 /* Пересекающийся блок VORTEX (вертикальный) + VERTEX (горизонтальный) */
 .vortex-cross-lockup {
   position: relative;
-  margin-top: 20px;
+  margin-top: 22px;
   width: 280px;
   height: 245px;
   display: flex;
@@ -386,9 +417,9 @@
   left: 52px;
   writing-mode: vertical-rl;
   font-family: var(--font-serif-display);
-  font-weight: 800;
-  font-size: clamp(2.65rem, 4.4vw, 3.75rem);
-  line-height: 0.92;
+  font-weight: 700;
+  font-size: clamp(3rem, 4.9vw, 4.2rem);
+  line-height: 0.88;
   letter-spacing: 0.01em;
   color: var(--vortex-ghost-red);
   text-transform: uppercase;
@@ -403,9 +434,9 @@
   z-index: 2;
   writing-mode: vertical-rl;
   font-family: var(--font-serif-display);
-  font-weight: 800;
-  font-size: clamp(2.65rem, 4.4vw, 3.75rem);
-  line-height: 0.92;
+  font-weight: 700;
+  font-size: clamp(3rem, 4.9vw, 4.2rem);
+  line-height: 0.88;
   letter-spacing: 0.01em;
   color: var(--text-primary);
   text-transform: uppercase;
@@ -437,10 +468,10 @@
   bottom: 24px;
   z-index: 3;
   font-family: var(--font-serif-display);
-  font-weight: 800;
-  font-size: clamp(2.25rem, 3.9vw, 3.35rem);
-  line-height: 1;
-  letter-spacing: 0.02em;
+  font-weight: 700;
+  font-size: clamp(2.5rem, 4.3vw, 3.65rem);
+  line-height: 0.92;
+  letter-spacing: 0.01em;
   color: rgba(234, 226, 208, 0.34);
   text-transform: uppercase;
   pointer-events: none;
@@ -875,7 +906,14 @@
   }
 
   .serif-overthink {
+    transform: scale(0.82, 1.24);
     transform-origin: center center;
+    margin-right: 0;
+  }
+
+  .overthink-ribbon {
+    left: -18px;
+    right: -18px;
   }
 
   .vortex-cross-lockup {
@@ -930,7 +968,7 @@
   }
 
   .serif-overthink {
-    font-size: 2.35rem;
+    font-size: 2.65rem;
   }
 
   .vortex-center {

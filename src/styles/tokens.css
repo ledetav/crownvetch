@@ -20,9 +20,9 @@
   --accent-sage: #a8d5ba;
   --accent-violet: #c5b4e3;
   --accent-rec: #d63638;
-  --glitch-yellow: #e8be67;
-  --glitch-cyan: #3bc7d6;
-  --glitch-red: #d63638;
+  --glitch-yellow: #d8a955;
+  --glitch-cyan: #34b9c8;
+  --glitch-red: #c83a3b;
   --vortex-ghost-red: rgba(164, 34, 42, 0.56);
 
   /* Границы */
@@ -30,8 +30,8 @@
   --border-strong: rgba(234, 226, 208, 0.36);
   --border-accent: rgba(232, 190, 103, 0.65);
 
-  /* Типографика: высокий шрифт с засечками для OVERTHINK / VORTEX */
-  --font-serif-display: 'Bodoni Moda', 'Playfair Display', 'Times New Roman', Georgia, serif;
+  /* Типографика: узкий антиквенный шрифт с клиновидными засечками для OVERTHINK / VORTEX */
+  --font-serif-display: 'Cormorant Garamond', 'Cinzel', 'Times New Roman', Georgia, serif;
   --font-condensed: 'Oswald', sans-serif;
   --font-sans: 'Oswald', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;

@@ -2,8 +2,8 @@
  * Компонент анимированной глитч-типографики левой части видоискателя.
  * Отрисовывает:
  * - индикатор записи ● REC;
- * - заголовок OVERTHINK шрифтом с засечками на фоне анимированных
- *   перемежающихся горизонтальных полос (жёлтых, бирюзовых и красных);
+ * - заголовок OVERTHINK узким шрифтом с клиновидными засечками поверх
+ *   многополосной глитч-ленты из перемежающихся сегментов жёлтого, бирюзового и красного цветов;
  * - пересекающуюся связку вертикального VORTEX (с глитч-полосами по тексту
  *   и полупрозрачной красной дублирующей тенью) и горизонтального VERTEX
  *   в полупрозрачном цвете основного текста.
@@ -26,7 +26,7 @@ interface GlitchTypographyProps {
 }
 
 /**
- * Рендерит типографическую композицию с засечками и раздельными глитч-слоями.
+ * Рендерит типографическую композицию с клиновидными засечками и раздельными глитч-слоями.
  * @param props Тексты и таймкоды из JSON-конфигурации первого экрана.
  * @returns JSX-разметка левой типографической колонки.
  */
@@ -48,15 +48,14 @@ export function GlitchTypography({
       <div className="typo-stack">
         <p className="typo-quote typo-quote--top">{topQuote}</p>
 
-        {/* OVERTHINK с засечками и перемежающимися цветными глитч-полосками позади текста */}
+        {/* OVERTHINK: чистый высокий антиквенный текст поверх сегментной глитч-ленты */}
         <div className="overthink-wrapper">
-          <div className="overthink-stripes" aria-hidden="true">
-            <span className="glitch-bar glitch-bar--yellow-1" />
-            <span className="glitch-bar glitch-bar--cyan-1" />
-            <span className="glitch-bar glitch-bar--red-1" />
-            <span className="glitch-bar glitch-bar--yellow-2" />
-            <span className="glitch-bar glitch-bar--cyan-2" />
-            <span className="glitch-bar glitch-bar--red-2" />
+          <div className="overthink-ribbon" aria-hidden="true">
+            <span className="glitch-lane glitch-lane--1" />
+            <span className="glitch-lane glitch-lane--2" />
+            <span className="glitch-lane glitch-lane--3" />
+            <span className="glitch-lane glitch-lane--4" />
+            <span className="glitch-lane glitch-lane--5" />
           </div>
           <h1 className="serif-overthink">{primaryWord}</h1>
         </div>
