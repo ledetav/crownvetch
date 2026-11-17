@@ -2,8 +2,8 @@
  * Стили стартового экрана видоискателя PARADOX // DARKROOM.
  * Реализуют равномерную прямоугольную перфорацию киноплёнки со скруглёнными углами,
  * уголки камеры, вытянутую крупную антиквенную типографику с засечками (OVERTHINK / VORTEX / VERTEX)
- * и бесшовную многополосную VHS-ленту глитчей (жёлтый, бирюзовый, красный),
- * заходящую на основу левой плёнки под перфорационными окошками,
+ * и компактную 3-полосную VHS-ленту глитчей (жёлтый, бирюзовый, красный),
+ * смещённую ниже середины слова и заходящую на левую плёнку,
  * вращающуюся орбиту полароидов вокруг спирального портала и правую панель телеметрии.
  */
 
@@ -261,13 +261,13 @@
   margin-right: -30%;
 }
 
-/* Плотная бесшовная VHS-лента из 5 дорожек ПОД надписью и с вылетом на основу левой плёнки */
+/* Компактная 3-полосная VHS-лента глитчей, смещённая ниже середины OVERTHINK */
 .overthink-ribbon {
   position: absolute;
   left: -135px;
   right: -135px;
-  top: 44%;
-  height: 28%;
+  top: 53%;
+  height: 20%;
   transform: translateY(-50%);
   z-index: 1;
   pointer-events: none;
@@ -275,7 +275,7 @@
   flex-direction: column;
   justify-content: stretch;
   gap: 0;
-  filter: blur(0.95px);
+  filter: blur(0.85px);
   -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 84%, transparent 100%);
   mask-image: linear-gradient(90deg, #000 0%, #000 84%, transparent 100%);
 }
@@ -288,102 +288,58 @@
   will-change: transform, opacity;
 }
 
-/* Дорожка 1: бирюзовый -> красный -> жёлтый -> бирюзовый с VHS-сдвигами */
+/* Дорожка 1: бирюзовый -> красный -> жёлтый с VHS-сдвигами */
 .glitch-lane--1 {
   background: linear-gradient(
     90deg,
-    var(--glitch-cyan) 0% 18%,
-    var(--glitch-red) 18% 35%,
-    var(--glitch-yellow) 35% 53%,
-    var(--glitch-cyan) 53% 76%,
-    var(--glitch-red) 76% 90%,
-    transparent 90% 100%
+    var(--glitch-cyan) 0% 22%,
+    var(--glitch-red) 22% 46%,
+    var(--glitch-yellow) 46% 72%,
+    var(--glitch-cyan) 72% 92%,
+    transparent 92% 100%
   );
   animation: vhsGlitchLaneA 2.4s steps(1, end) infinite;
 }
 
-/* Дорожка 2: красный -> жёлтый -> бирюзовый -> красный */
+/* Дорожка 2: центральная смещённая полоса (красный -> жёлтый -> бирюзовый) */
 .glitch-lane--2 {
+  flex: 1.35;
   background: linear-gradient(
     90deg,
-    var(--glitch-red) 0% 24%,
-    var(--glitch-yellow) 24% 43%,
-    var(--glitch-cyan) 43% 62%,
-    var(--glitch-red) 62% 80%,
-    var(--glitch-yellow) 80% 95%,
+    var(--glitch-red) 0% 28%,
+    var(--glitch-yellow) 28% 52%,
+    var(--glitch-cyan) 52% 78%,
+    var(--glitch-red) 78% 95%,
     transparent 95% 100%
-  );
-  animation: vhsGlitchLaneB 1.9s steps(1, end) infinite;
-}
-
-/* Дорожка 3: центральный разрыв с яркими бирюзово-жёлтыми всполохами */
-.glitch-lane--3 {
-  flex: 1.25;
-  background: linear-gradient(
-    90deg,
-    var(--glitch-cyan) 0% 26%,
-    rgba(11, 19, 23, 0.55) 26% 33%,
-    var(--glitch-yellow) 33% 54%,
-    var(--glitch-red) 54% 72%,
-    var(--glitch-cyan) 72% 91%,
-    var(--glitch-yellow) 91% 100%
   );
   animation: vhsGlitchLaneC 1.6s steps(1, end) infinite;
 }
 
-/* Дорожка 4: жёлтый -> бирюзовый -> красный -> жёлтый */
-.glitch-lane--4 {
+/* Дорожка 3: нижний шлейф жёлтого и бирюзового */
+.glitch-lane--3 {
   background: linear-gradient(
     90deg,
-    var(--glitch-yellow) 0% 28%,
-    var(--glitch-cyan) 28% 48%,
-    var(--glitch-red) 48% 66%,
-    var(--glitch-yellow) 66% 84%,
-    var(--glitch-cyan) 84% 97%,
-    transparent 97% 100%
+    var(--glitch-yellow) 0% 32%,
+    var(--glitch-cyan) 32% 64%,
+    var(--glitch-red) 64% 88%,
+    transparent 88% 100%
   );
   animation: vhsGlitchLaneB 2.2s steps(1, end) infinite reverse;
 }
 
-/* Дорожка 5: нижний шлейф помех */
-.glitch-lane--5 {
-  background: linear-gradient(
-    90deg,
-    var(--glitch-cyan) 0% 21%,
-    rgba(216, 169, 85, 0.25) 21% 41%,
-    var(--glitch-red) 41% 58%,
-    rgba(52, 185, 200, 0.2) 58% 74%,
-    var(--glitch-yellow) 74% 94%,
-    transparent 94% 100%
-  );
-  animation: vhsGlitchLaneA 1.8s steps(1, end) infinite reverse;
-}
-
-/* Рваная VHS-анимация: резкие скачки длины, позиции и яркости сегментов */
+/* Рваная VHS-анимация: резкие скачки длины и позиции сегментов */
 @keyframes vhsGlitchLaneA {
   0%, 100% {
     transform: translateX(0) scaleX(1);
     opacity: 0.88;
   }
-  18% {
-    transform: translateX(-18px) scaleX(1.06);
+  24% {
+    transform: translateX(-16px) scaleX(1.05);
     opacity: 0.78;
   }
-  34% {
-    transform: translateX(22px) scaleX(0.92);
+  58% {
+    transform: translateX(18px) scaleX(0.94);
     opacity: 0.94;
-  }
-  52% {
-    transform: translateX(-9px) scaleX(1.03);
-    opacity: 0.62;
-  }
-  71% {
-    transform: translateX(15px) scaleX(0.96);
-    opacity: 0.9;
-  }
-  86% {
-    transform: translateX(-24px) scaleX(1.08);
-    opacity: 0.82;
   }
 }
 
@@ -392,21 +348,13 @@
     transform: translateX(0) scaleX(1);
     opacity: 0.84;
   }
-  22% {
-    transform: translateX(20px) scaleX(0.94);
+  32% {
+    transform: translateX(15px) scaleX(0.95);
     opacity: 0.94;
   }
-  44% {
-    transform: translateX(-16px) scaleX(1.05);
+  74% {
+    transform: translateX(-14px) scaleX(1.04);
     opacity: 0.68;
-  }
-  63% {
-    transform: translateX(11px) scaleX(1.02);
-    opacity: 0.88;
-  }
-  81% {
-    transform: translateX(-21px) scaleX(0.93);
-    opacity: 0.74;
   }
 }
 
@@ -415,21 +363,13 @@
     transform: translateX(0) scaleX(1);
     opacity: 0.9;
   }
-  15% {
-    transform: translateX(26px) scaleX(0.9);
+  20% {
+    transform: translateX(22px) scaleX(0.91);
     opacity: 0.72;
   }
-  37% {
-    transform: translateX(-19px) scaleX(1.07);
+  62% {
+    transform: translateX(-18px) scaleX(1.06);
     opacity: 0.95;
-  }
-  58% {
-    transform: translateX(14px) scaleX(0.95);
-    opacity: 0.54;
-  }
-  79% {
-    transform: translateX(-25px) scaleX(1.04);
-    opacity: 0.92;
   }
 }
 
@@ -940,7 +880,7 @@
   }
 
   .serif-overthink {
-    transform: scale(0.72, 1.44);
+    transform: scale(0.74, 1.44);
     transform-origin: center center;
     margin-right: 0;
   }
@@ -1005,7 +945,7 @@
   }
 
   .serif-overthink {
-    font-size: 2.65rem;
+    font-size: 2.8rem;
   }
 
   .vortex-center {
