@@ -129,13 +129,13 @@
   border-width: 0 2px 2px 0;
 }
 
-/* Верхняя панель видоискателя: навигация справа */
+/* Верхняя панель видоискателя: счётчик REC слева и навигация справа */
 .darkroom-topbar {
   position: relative;
   z-index: 8;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
 }
@@ -185,7 +185,7 @@
   gap: 24px;
 }
 
-/* Левая колонка: приподнятый индикатор REC и типографика с клиновидными засечками */
+/* Левая колонка: типографика с клиновидными засечками */
 .typo-column {
   position: relative;
   z-index: 5;
@@ -195,11 +195,6 @@
   justify-content: space-between;
   height: 100%;
   padding: 0;
-}
-
-/* Поднимаем REC выше в левой колонке, чтобы он располагался ближе к верхнему левому уголку */
-.rec-slot {
-  margin-top: -28px;
 }
 
 /* Индикатор ● REC с обратным отсчётом от 00:12:00 и глитч-сбросом на 00:03:04 */
@@ -732,10 +727,6 @@
     grid-template-columns: 1fr 1.2fr;
     gap: 12px;
     padding: 4px 4px 0;
-  }
-
-  .rec-slot {
-    margin-top: -18px;
   }
 
   .serif-overthink,

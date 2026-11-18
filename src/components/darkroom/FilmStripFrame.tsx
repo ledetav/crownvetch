@@ -1,16 +1,18 @@
 /**
- * Компонент каркаса киноплёнки и рамки видоискателя.
- * Отрисовывает левую и правую перфорацию 35-мм плёнки, белые уголки камеры
- * с равномерными внешними и внутренними отступами, а также пункты навигации
- * в правом верхнем углу с поддержкой якорных переходов внутри ТЗ.
+ * Компонент каркаса киноплёнки и неподвижной рамки видоискателя.
+ * Отрисовывает левую и правую перфорацию 35-мм плёнки, 4 белых уголка камеры,
+ * верхнюю панель с индикатором записи ● REC слева и навигацией справа.
+ * Внутренняя сцена передаётся через children и может переключаться горизонтально,
+ * не смещая саму оболочку видоискателя.
  */
 import type { MouseEvent, ReactNode } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import type { HeroNavTab } from '../../types/project';
+import { RecTimer } from './RecTimer';
 
 /** Входные свойства оболочки видоискателя */
 interface FilmStripFrameProps {
-  /** Необязательный HTML-идентификатор секции для якорной навигации */
+  /** Необязательный HTML-идентификатор секции */
   sectionId?: string;
   /** Доступная подпись секции для скринридеров */
   sectionLabel?: string;
@@ -25,8 +27,9 @@ interface FilmStripFrameProps {
 }
 
 /**
- * Оборачивает полноэкранную сцену в рамку киноплёнки с уголками видоискателя и верхней навигацией.
- * @param props Свойства оболочки видоискателя и якорной секции.
+ * Оборачивает сцену в неподвижную рамку киноплёнки с уголками видоискателя,
+ * счётчиком REC и верхней навигацией.
+ * @param props Свойства оболочки видоискателя и навигации.
  * @returns JSX-разметка полноэкранного видоискателя с перфорацией.
  */
 export function FilmStripFrame({
@@ -42,7 +45,7 @@ export function FilmStripFrame({
 
   /**
    * Обрабатывает клик по пункту верхнего меню:
-   * - для якорных ссылок (#...) выполняет плавный скролл внутри /tz или переход на /tz#...;
+   * - для якорных ссылок (#...) переключает активную вкладку и обновляет хэш URL (или переходит на /tz#...);
    * - для маршрутов (/...) выполняет переход через React Router.
    */
   const handleTabClick = (event: MouseEvent<HTMLAnchorElement>, tab: HeroNavTab) => {
@@ -56,10 +59,6 @@ export function FilmStripFrame({
         return;
       }
 
-      const targetElement = document.getElementById(targetId);
-      if (targetElement) {
-        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
       window.history.replaceState(null, '', tab.target);
       return;
     }
@@ -81,6 +80,8 @@ export function FilmStripFrame({
           <span className="viewfinder-corner viewfinder-corner--br" aria-hidden="true" />
 
           <header className="darkroom-topbar">
+            <RecTimer />
+
             <nav className="darkroom-nav" aria-label="Навигация видоискателя">
               {navTabs.map((tab) => {
                 const isHighlighted = tab.id === activeTabId;
@@ -92,6 +93,7 @@ export function FilmStripFrame({
                     className={`darkroom-nav__item ${
                       isHighlighted ? 'darkroom-nav__item--highlighted' : ''
                     }`}
+                    aria-current={isHighlighted ? 'page' : undefined}
                     onClick={(event) => handleTabClick(event, tab)}
                   >
                     {tab.label}
@@ -101,7 +103,7 @@ export function FilmStripFrame({
             </nav>
           </header>
 
-          <div className="viewfinder-frame">{children}</div>
+          {children}
         </div>
       </div>
 

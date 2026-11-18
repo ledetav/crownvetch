@@ -66,16 +66,18 @@ export function DarkroomViewfinderScreen({
           }
         }}
       >
-        <GlitchTypography
-          topQuote={heroData.topQuote}
-          bottomQuote={heroData.bottomQuote}
-          primaryWord={heroData.primaryWord}
-          verticalWord={heroData.verticalWord}
-          crossWord={heroData.crossWord}
-          headingLevel={headingLevel}
-        />
+        <div className="viewfinder-frame">
+          <GlitchTypography
+            topQuote={heroData.topQuote}
+            bottomQuote={heroData.bottomQuote}
+            primaryWord={heroData.primaryWord}
+            verticalWord={heroData.verticalWord}
+            crossWord={heroData.crossWord}
+            headingLevel={headingLevel}
+          />
 
-        <PolaroidVortex polaroids={heroData.polaroids} />
+          <PolaroidVortex polaroids={heroData.polaroids} />
+        </div>
       </FilmStripFrame>
     </>
   );
