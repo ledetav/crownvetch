@@ -242,9 +242,9 @@
   width: 100%;
   padding: 10px 4px 0;
   display: grid;
-  grid-template-columns: minmax(320px, 1.05fr) minmax(300px, 0.95fr) minmax(280px, 0.9fr);
+  grid-template-columns: minmax(305px, 1fr) minmax(265px, 0.86fr) minmax(350px, 1.08fr);
   align-items: center;
-  gap: 24px;
+  gap: 20px;
 }
 
 /* Индикатор ● REC с обратным отсчётом от 00:12:00 и глитч-сбросом на 00:03:04 */
@@ -513,7 +513,7 @@
   pointer-events: none;
 }
 
-/* Смещённая тень строго по альфа-силуэту кота */
+/* Смещённая тень строго по альфа-силуэту кота с мягким контровым отделением от фона */
 .darkroom-character-shadow {
   position: absolute;
   inset: 0;
@@ -521,9 +521,13 @@
   height: auto;
   display: block;
   object-fit: contain;
-  transform: translate(26px, -10px) scale(0.99);
-  filter: brightness(0) saturate(0) blur(1.2px);
-  opacity: 0.58;
+  transform: translate(38px, -18px) scale(1.01);
+  filter:
+    brightness(0)
+    saturate(0)
+    blur(1.2px)
+    drop-shadow(0 0 12px rgba(232, 190, 103, 0.26));
+  opacity: 0.86;
   z-index: 1;
   user-select: none;
   pointer-events: none;
@@ -593,11 +597,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
   font-family: var(--font-condensed);
-  font-size: clamp(1.18rem, 1.8vw, 1.62rem);
+  font-size: clamp(1.04rem, 1.42vw, 1.42rem);
   font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--text-primary);
   text-decoration: none;
@@ -609,7 +613,7 @@
 .external-menu__label-group {
   display: inline-flex;
   align-items: baseline;
-  gap: 10px;
+  gap: 8px;
   min-width: 0;
 }
 
@@ -621,8 +625,7 @@
 }
 
 .external-menu__text {
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .external-menu__arrow {

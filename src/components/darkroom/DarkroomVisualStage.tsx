@@ -56,14 +56,14 @@ export function DarkroomVisualStage({
         aria-hidden="true"
       >
         <defs>
-          <radialGradient id="vyazelAuraGlow" cx="50%" cy="48%" r="48%">
-            <stop offset="0%" stopColor="#3BC7D6" stopOpacity="0.24" />
-            <stop offset="48%" stopColor="#E8BE67" stopOpacity="0.14" />
+          <radialGradient id="vyazelAuraGlow" cx="55%" cy="44%" r="50%">
+            <stop offset="0%" stopColor="#3BC7D6" stopOpacity="0.36" />
+            <stop offset="46%" stopColor="#E8BE67" stopOpacity="0.22" />
             <stop offset="100%" stopColor="#0B1317" stopOpacity="0" />
           </radialGradient>
         </defs>
 
-        <circle cx="240" cy="260" r="228" fill="url(#vyazelAuraGlow)" />
+        <circle cx="246" cy="252" r="236" fill="url(#vyazelAuraGlow)" />
 
         {/* Диагональная плёнка позади персонажа */}
         <g transform="translate(24 218) rotate(-13)" opacity="0.72">
