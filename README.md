@@ -5,7 +5,7 @@ SPA-приложение на **React + TypeScript + Vite** для проект�
 ## Маршруты приложения
 
 - `/` — автоматический редирект на `/tz`
-- `/tz` — полноэкранный видоискатель (`100vh`) с прямоугольной перфорацией киноплёнки, глитч-типографикой `OVERTHINK / VORTEX`, вращающимся по кругу кольцом полароидов с управлением `PLAY / REVERSE` и оверлеем поворота устройства для узких экранов
+- `/tz` — полноэкранный видоискатель (`100vh`) с прямоугольной перфорацией киноплёнки, глитч-типографикой `OVERTHINK / VORTEX`, вращающимся по кругу кольцом полароидов и оверлеем поворота устройства для узких экранов
 - `/game` — полная копия основного полноэкранного видоискателя (заготовка для последующей интеграции игрового движка)
 
 ## Структура проекта
@@ -15,7 +15,7 @@ SPA-приложение на **React + TypeScript + Vite** для проект�
 │   └── ui_audit.py              # Playwright-скрипт визуального аудита (1440x900 и 390x844)
 ├── src/
 │   ├── components/
-│   │   ├── darkroom/            # Компоненты видоискателя (DarkroomViewfinderScreen, FilmStripFrame, GlitchTypography, PolaroidVortex, DarkroomTelemetryPanel, RotateDeviceOverlay)
+│   │   ├── darkroom/            # Компоненты видоискателя (DarkroomViewfinderScreen, FilmStripFrame, GlitchTypography, PolaroidVortex, RotateDeviceOverlay)
 │   │   ├── AppHeader.tsx
 │   │   └── InteractivePalette.tsx
 │   ├── data/                    # JSON-хранилище данных (tzHero.json, palette.json, modules.json, quest.json)
