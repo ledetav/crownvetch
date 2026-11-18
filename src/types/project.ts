@@ -1,7 +1,7 @@
 /**
  * TypeScript-интерфейсы и схемы данных для проекта crownvetch.
  * Описывают конфигурацию первого экрана (tzHero.json), навигацию,
- * телеметрию, палитру и параметры вращения полароидов.
+ * палитру и параметры вращения полароидов.
  */
 
 /** Пункт меню в верхнем правом углу видоискателя */
@@ -10,11 +10,6 @@ export interface HeroNavTab {
   label: string;
   target: string;
   highlighted?: boolean;
-}
-
-/** Параметры телеметрической панели */
-export interface HeroTelemetryData {
-  negativeTimecode: string;
 }
 
 /** Возможные типы иллюстраций/контента внутри полароида */
@@ -54,6 +49,5 @@ export interface TzHeroDataset {
   verticalWord: string;
   crossWord: string;
   navTabs: HeroNavTab[];
-  telemetry: HeroTelemetryData;
   polaroids: HeroPolaroidCard[];
 }
