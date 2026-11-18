@@ -1,12 +1,13 @@
 /**
  * Компонент каркаса киноплёнки и верхней панели видоискателя.
- * Отрисовывает левую и правую перфорацию 35-мм плёнки, пункты навигации
- * в правом верхнем углу (ARCHIVE, DIVE IN, GLITCH PLAYERS, ABOUT)
- * и белые уголки рамки камеры без лишнего текстового заголовка слева.
+ * Отрисовывает левую и правую перфорацию 35-мм плёнки, белые уголки камеры
+ * в самом верху и снизу рабочего поля, живой индикатор записи ● REC слева вверху
+ * и пункты навигации в правом верхнем углу.
  */
 import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { HeroNavTab } from '../../types/project';
+import { RecTimer } from './RecTimer';
 
 /** Входные свойства оболочки видоискателя */
 interface FilmStripFrameProps {
@@ -21,7 +22,7 @@ interface FilmStripFrameProps {
 }
 
 /**
- * Оборачивает полноэкранную сцену в рамку киноплёнки с перфорацией и верхней навигацией.
+ * Оборачивает полноэкранную сцену в рамку киноплёнки с верхними уголками, REC и навигацией.
  * @param props Свойства оболочки видоискателя.
  * @returns JSX-разметка полноэкранного видоискателя с перфорацией.
  */
@@ -49,32 +50,35 @@ export function FilmStripFrame({
       <div className="film-rail film-rail--left" aria-hidden="true" />
 
       <div className="darkroom-stage">
-        <header className="darkroom-topbar">
-          <nav className="darkroom-nav" aria-label="Навигация видоискателя">
-            {navTabs.map((tab) => {
-              const isHighlighted = tab.id === activeTabId;
-              return (
-                <button
-                  key={tab.id}
-                  type="button"
-                  className={`darkroom-nav__item ${
-                    isHighlighted ? 'darkroom-nav__item--highlighted' : ''
-                  }`}
-                  onClick={() => handleTabClick(tab)}
-                >
-                  {tab.label}
-                </button>
-              );
-            })}
-          </nav>
-        </header>
-
-        <div className="viewfinder-frame">
+        <div className="viewfinder-shell">
           <span className="viewfinder-corner viewfinder-corner--tl" aria-hidden="true" />
           <span className="viewfinder-corner viewfinder-corner--tr" aria-hidden="true" />
           <span className="viewfinder-corner viewfinder-corner--bl" aria-hidden="true" />
           <span className="viewfinder-corner viewfinder-corner--br" aria-hidden="true" />
-          {children}
+
+          <header className="darkroom-topbar">
+            <RecTimer />
+
+            <nav className="darkroom-nav" aria-label="Навигация видоискателя">
+              {navTabs.map((tab) => {
+                const isHighlighted = tab.id === activeTabId;
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    className={`darkroom-nav__item ${
+                      isHighlighted ? 'darkroom-nav__item--highlighted' : ''
+                    }`}
+                    onClick={() => handleTabClick(tab)}
+                  >
+                    {tab.label}
+                  </button>
+                );
+              })}
+            </nav>
+          </header>
+
+          <div className="viewfinder-frame">{children}</div>
         </div>
       </div>
 

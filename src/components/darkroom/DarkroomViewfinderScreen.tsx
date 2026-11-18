@@ -1,8 +1,8 @@
 /**
  * Переиспользуемый полноэкранный контейнер видоискателя.
- * Объединяет рамку киноплёнки, анимированную глитч-типографику OVERTHINK / VORTEX,
- * вращающуюся орбиту полароидов, правую телеметрическую панель с управлением PLAY / REVERSE
- * и перекрывающее окно поворота экрана для узких мобильных устройств.
+ * Объединяет рамку киноплёнки, верхние уголки камеры, счётчик REC,
+ * анимированную глитч-типографику OVERTHINK / VORTEX, вращающуюся орбиту полароидов,
+ * правую телеметрическую панель с управлением PLAY / REVERSE и оверлей поворота экрана.
  * Используется на маршрутах /tz и /game.
  */
 import { useState } from 'react';
@@ -47,7 +47,6 @@ export function DarkroomViewfinderScreen({ initialTabId }: DarkroomViewfinderScr
         onSelectTab={(tab) => setActiveTabId(tab.id)}
       >
         <GlitchTypography
-          recTimecode={heroData.recTimecode}
           topQuote={heroData.topQuote}
           bottomQuote={heroData.bottomQuote}
           primaryWord={heroData.primaryWord}

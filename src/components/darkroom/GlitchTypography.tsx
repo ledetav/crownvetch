@@ -1,10 +1,8 @@
 /**
  * Компонент анимированной глитч-типографики левой части видоискателя.
  * Отрисовывает:
- * - индикатор записи ● REC;
  * - заголовок OVERTHINK узким антиквенным шрифтом с засечками поверх
- *   световых VHS/RGB-прострелов (бирюзовый, белый, красный, жёлтый),
- *   выполненных в единой стилистике со световым глитчем VORTEX;
+ *   световых VHS/RGB-прострелов (бирюзовый, белый, красный, жёлтый);
  * - пересекающуюся связку вертикального VORTEX (с локальным глитчем строго
  *   на букве E), статичного полупрозрачного красного дубля и горизонтального
  *   полупрозрачного VORTEX, выровненных по единой нижней границе.
@@ -12,8 +10,6 @@
 
 /** Входные свойства компонента глитч-типографики */
 interface GlitchTypographyProps {
-  /** Таймкод записи возле красной точки REC */
-  recTimecode: string;
   /** Верхняя цитата над OVERTHINK */
   topQuote: string;
   /** Нижняя цитата под композицией */
@@ -28,11 +24,10 @@ interface GlitchTypographyProps {
 
 /**
  * Рендерит типографическую композицию с клиновидными засечками и световыми VHS-глитчами.
- * @param props Тексты и таймкоды из JSON-конфигурации первого экрана.
+ * @param props Тексты и цитаты из JSON-конфигурации первого экрана.
  * @returns JSX-разметка левой типографической колонки.
  */
 export function GlitchTypography({
-  recTimecode,
   topQuote,
   bottomQuote,
   primaryWord,
@@ -41,11 +36,6 @@ export function GlitchTypography({
 }: GlitchTypographyProps) {
   return (
     <div className="typo-column">
-      <div className="rec-indicator" aria-label={`Запись ${recTimecode}`}>
-        <span className="rec-indicator__dot" aria-hidden="true" />
-        <span>REC {recTimecode}</span>
-      </div>
-
       <div className="typo-stack">
         <p className="typo-quote typo-quote--top">{topQuote}</p>
 
