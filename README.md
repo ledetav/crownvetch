@@ -5,7 +5,7 @@ SPA-приложение на **React + TypeScript + Vite** для проект�
 ## Маршруты приложения
 
 - `/` — автоматический редирект на `/tz`
-- `/tz` — полноэкранный видоискатель (`min-height: 100vh`) с автопродлеваемой перфорацией киноплёнки, липкой верхней шапкой (`● REC`, уголки и меню `О персонаже`, `О владельце`, `О блоге`), досье `ВЯЗЕЛЬ` и центральной сценой тёмной фотолаборатории, а также оверлеем поворота устройства для узких экранов
+- `/tz` — полноэкранный видоискатель (`min-height: 100vh`) с автопродлеваемой перфорацией киноплёнки, липкой верхней шапкой (`● REC`, уголки и меню `О персонаже`, `О владельце`, `О блоге`), досье `ВЯЗЕЛЬ`, артом персонажа в центре и вертикальным меню внешних ресурсов справа, а также оверлеем поворота устройства для узких экранов
 - `/game` — копия основного экрана видоискателя (заготовка для последующей интеграции игрового движка)
 
 ## Структура проекта
@@ -15,7 +15,7 @@ SPA-приложение на **React + TypeScript + Vite** для проект�
 │   └── ui_audit.py              # Playwright-скрипт визуального аудита (1440x900 и 390x844)
 ├── src/
 │   ├── components/
-│   │   ├── darkroom/            # Компоненты видоискателя (CharacterDossier, DarkroomVisualStage, DarkroomViewfinderScreen, FilmStripFrame, RotateDeviceOverlay)
+│   │   ├── darkroom/            # Компоненты видоискателя (CharacterDossier, DarkroomVisualStage, ExternalResourceMenu, DarkroomViewfinderScreen, FilmStripFrame, RotateDeviceOverlay)
 │   │   ├── tz/                  # Якорные секции страницы ТЗ (CharacterSection, OwnerSection, BlogSection)
 │   │   ├── AppHeader.tsx
 │   │   └── InteractivePalette.tsx
