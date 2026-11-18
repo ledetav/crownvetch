@@ -1,7 +1,7 @@
 /**
  * Страница игрового маршрута (/game).
- * Содержит полную копию полноэкранного видоискателя с перфорацией киноплёнки,
- * анимированной глитч-типографикой и вращающейся орбитой полароидов.
+ * Содержит копию полноэкранного видоискателя с перфорацией киноплёнки,
+ * досье персонажа ВЯЗЕЛЬ и центральной сценой фотолаборатории.
  */
 import { useEffect } from 'react';
 import { DarkroomViewfinderScreen } from '../components/darkroom/DarkroomViewfinderScreen';
@@ -12,7 +12,7 @@ import { DarkroomViewfinderScreen } from '../components/darkroom/DarkroomViewfin
  */
 export function GamePlaceholderPage() {
   useEffect(() => {
-    document.title = 'OVERTHINK // VORTEX — Игра';
+    document.title = 'ВЯЗЕЛЬ // CROWNVETCH — Игра';
   }, []);
 
   return <DarkroomViewfinderScreen initialTabId="character" />;

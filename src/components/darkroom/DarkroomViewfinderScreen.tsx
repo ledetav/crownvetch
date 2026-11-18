@@ -1,15 +1,14 @@
 /**
  * Переиспользуемый полноэкранный контейнер видоискателя.
- * Объединяет рамку киноплёнки, верхние уголки камеры, счётчик REC,
- * анимированную глитч-типографику OVERTHINK / VORTEX, вращающуюся орбиту полароидов
- * и оверлей поворота экрана.
- * Используется на маршрутах /tz и /game.
+ * Объединяет рамку киноплёнки, липкую верхнюю панель, счётчик REC,
+ * досье персонажа ВЯЗЕЛЬ, сцену фотолаборатории и оверлей поворота экрана.
+ * Используется на маршруте /game.
  */
 import { useState } from 'react';
 import { getTzHeroDataset } from '../../services/projectDataStore';
+import { CharacterDossier } from './CharacterDossier';
+import { DarkroomVisualStage } from './DarkroomVisualStage';
 import { FilmStripFrame } from './FilmStripFrame';
-import { GlitchTypography } from './GlitchTypography';
-import { PolaroidVortex } from './PolaroidVortex';
 import { RotateDeviceOverlay } from './RotateDeviceOverlay';
 import '../../styles/darkroomHero.css';
 
@@ -23,12 +22,12 @@ interface DarkroomViewfinderScreenProps {
   sectionLabel?: string;
   /** Нужно ли рендерить оверлей поворота устройства (отключается у дублирующих секций) */
   showOrientationOverlay?: boolean;
-  /** Уровень заголовка для композиции OVERTHINK */
+  /** Уровень заголовка для композиции ВЯЗЕЛЬ */
   headingLevel?: 'h1' | 'h2';
 }
 
 /**
- * Рендерит полноэкранный видоискатель со всеми интерактивными элементами.
+ * Рендерит полноэкранный видоискатель со всеми элементами сцены.
  * @param props Параметры активного пункта меню, якоря и оверлея.
  * @returns JSX-разметка полноэкранного видоискателя.
  */
@@ -67,16 +66,18 @@ export function DarkroomViewfinderScreen({
         }}
       >
         <div className="viewfinder-frame">
-          <GlitchTypography
-            topQuote={heroData.topQuote}
-            bottomQuote={heroData.bottomQuote}
+          <CharacterDossier
             primaryWord={heroData.primaryWord}
-            verticalWord={heroData.verticalWord}
-            crossWord={heroData.crossWord}
+            secondaryWord={heroData.secondaryWord}
+            roleMeta={heroData.roleMeta}
+            timecodeTag={heroData.timecodeTag}
+            dossierHeading={heroData.dossierHeading}
+            dossierBody={heroData.dossierBody}
+            dossierQuote={heroData.dossierQuote}
             headingLevel={headingLevel}
           />
 
-          <PolaroidVortex polaroids={heroData.polaroids} />
+          <DarkroomVisualStage />
         </div>
       </FilmStripFrame>
     </>

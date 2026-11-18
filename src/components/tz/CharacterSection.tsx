@@ -1,10 +1,10 @@
 /**
  * Секция «О персонаже» внутри горизонтального слайдера страницы ТЗ (/tz#character).
- * Представляет базовый кадр видоискателя с глитч-типографикой и орбитой полароидов.
+ * Отображает досье персонажа ВЯЗЕЛЬ и центральную композицию тёмной фотолаборатории.
  */
 import type { TzHeroDataset } from '../../types/project';
-import { GlitchTypography } from '../darkroom/GlitchTypography';
-import { PolaroidVortex } from '../darkroom/PolaroidVortex';
+import { CharacterDossier } from '../darkroom/CharacterDossier';
+import { DarkroomVisualStage } from '../darkroom/DarkroomVisualStage';
 
 /** Входные свойства слайда секции ТЗ */
 export interface TzSectionSlideProps {
@@ -28,16 +28,18 @@ export function CharacterSection({ heroData, isActive }: TzSectionSlideProps) {
       aria-hidden={!isActive}
     >
       <div className="viewfinder-frame">
-        <GlitchTypography
-          topQuote={heroData.topQuote}
-          bottomQuote={heroData.bottomQuote}
+        <CharacterDossier
           primaryWord={heroData.primaryWord}
-          verticalWord={heroData.verticalWord}
-          crossWord={heroData.crossWord}
+          secondaryWord={heroData.secondaryWord}
+          roleMeta={heroData.roleMeta}
+          timecodeTag={heroData.timecodeTag}
+          dossierHeading={heroData.dossierHeading}
+          dossierBody={heroData.dossierBody}
+          dossierQuote={heroData.dossierQuote}
           headingLevel="h1"
         />
 
-        <PolaroidVortex polaroids={heroData.polaroids} />
+        <DarkroomVisualStage />
       </div>
     </section>
   );
