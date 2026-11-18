@@ -30,17 +30,7 @@
     }
   ],
   "telemetry": {
-    "topTimecode": "ТАЙМ3:45",
-    "struckTimecode": "ТАЙМКОДО",
-    "channelLabel": "БЕГУЩИЕ THEKSUN",
-    "struckSerial": "307997414",
-    "glitchExcerpt": [
-      "\"OVERTHINK OR WALMINE",
-      "THEREOWORY RUOTI38. TAKE FEEL",
-      "BTAWMOHNY NOU PUNU"
-    ],
-    "negativeTimecode": "-00:03:45",
-    "corruptedFooterCode": "M/OM404  5:00:49:06"
+    "negativeTimecode": "-00:03:45"
   },
   "polaroids": [
     {

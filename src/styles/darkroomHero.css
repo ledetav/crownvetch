@@ -6,7 +6,7 @@
  * вытянутую антиквенную типографику с засечками (OVERTHINK / VORTEX),
  * световые VHS/RGB-прострелы позади OVERTHINK, выровненные по общей нижней границе
  * слои VORTEX со статичным красным дублем и глитчем строго на букве E,
- * увеличенную вращающуюся орбиту полароидов, правую панель телеметрии
+ * увеличенную вращающуюся орбиту полароидов, чистую правую панель телеметрии
  * и статичное перекрывающее окно поворота экрана для узких мобильных устройств.
  */
 
@@ -728,7 +728,7 @@
   opacity: 0.88;
 }
 
-/* Правая панель телеметрии: растянута по всей высоте экрана */
+/* Правая панель телеметрии: чистая, без лишнего мусора */
 .telemetry-column {
   position: relative;
   z-index: 6;
@@ -740,53 +740,6 @@
   height: 100%;
   padding: 4px 0;
   font-family: var(--font-mono);
-}
-
-.telemetry-glitch-block {
-  width: 100%;
-  max-width: 255px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 0.74rem;
-  color: var(--text-muted);
-}
-
-.telemetry-struck {
-  position: relative;
-  display: inline-block;
-  width: fit-content;
-  font-size: 0.98rem;
-  color: var(--text-secondary);
-  text-shadow: -1px 0 var(--glitch-cyan), 1px 0 var(--glitch-red);
-}
-
-.telemetry-struck::after {
-  content: '';
-  position: absolute;
-  left: -4px;
-  right: -4px;
-  top: 52%;
-  height: 1.5px;
-  background: var(--glitch-red);
-}
-
-.telemetry-struck--right {
-  align-self: flex-end;
-}
-
-.telemetry-channel {
-  align-self: flex-end;
-  font-size: 0.76rem;
-  letter-spacing: 0.08em;
-  color: var(--text-secondary);
-}
-
-.telemetry-excerpt {
-  margin-top: 4px;
-  font-size: 0.66rem;
-  line-height: 1.48;
-  color: var(--text-muted);
 }
 
 .waveform-box {
@@ -916,14 +869,6 @@
   background: rgba(232, 190, 103, 0.08);
 }
 
-.telemetry-footer-code {
-  font-size: 0.8rem;
-  letter-spacing: 0.1em;
-  color: var(--text-muted);
-  text-decoration: line-through;
-  text-decoration-color: rgba(214, 54, 56, 0.7);
-}
-
 /* Всплывающее окно поворота устройства: скрыто на широких экранах */
 .rotate-device-overlay {
   display: none;
@@ -1013,7 +958,7 @@
     font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--text-primary);
+    (color: var(--text-primary);
   }
 
   .rotate-device-subtitle {

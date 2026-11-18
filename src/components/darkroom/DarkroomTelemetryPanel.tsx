@@ -1,7 +1,8 @@
 /**
  * Компонент правой телеметрической панели видоискателя.
- * Отображает зачёркнутые системные метки, аудио-осциллограмму,
- * шкалу перемотки, мини-монитор проявочной комнаты и кнопки PLAY / REVERSE.
+ * Отображает чистую аудио-осциллограмму, шкалу перемотки,
+ * мини-монитор проявочной комнаты и кнопки PLAY / REVERSE
+ * без лишних текстовых и глитч-заглушек.
  */
 import { Pause, Play, RotateCcw } from 'lucide-react';
 import type { TzHeroDataset } from '../../types/project';
@@ -34,20 +35,6 @@ export function DarkroomTelemetryPanel({
 }: DarkroomTelemetryPanelProps) {
   return (
     <aside className="telemetry-column" aria-label="Телеметрия и управление вихрем">
-      <div className="telemetry-glitch-block">
-        <span className="telemetry-struck">{telemetry.struckTimecode}</span>
-        <span className="telemetry-channel">{telemetry.channelLabel}</span>
-        <span className="telemetry-struck telemetry-struck--right">
-          {telemetry.struckSerial}
-        </span>
-
-        <div className="telemetry-excerpt">
-          {telemetry.glitchExcerpt.map((line) => (
-            <div key={line}>{line}</div>
-          ))}
-        </div>
-      </div>
-
       {/* Двухканальная аудио-волна с хроматическим сдвигом */}
       <div className="waveform-box" aria-hidden="true">
         <svg
@@ -110,8 +97,6 @@ export function DarkroomTelemetryPanel({
           <RotateCcw size={13} />
         </button>
       </div>
-
-      <div className="telemetry-footer-code">{telemetry.corruptedFooterCode}</div>
     </aside>
   );
 }
