@@ -24,11 +24,8 @@ export function BlogSection({ heroData, isActive }: TzSectionSlideProps) {
         <CharacterDossier
           primaryWord={heroData.primaryWord}
           secondaryWord={heroData.secondaryWord}
-          roleMeta={heroData.roleMeta}
-          timecodeTag={heroData.timecodeTag}
           dossierHeading={heroData.dossierHeading}
           dossierBody={heroData.dossierBody}
-          dossierQuote={heroData.dossierQuote}
           headingLevel="h2"
         />
 

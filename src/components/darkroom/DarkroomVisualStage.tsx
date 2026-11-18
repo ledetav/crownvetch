@@ -62,6 +62,19 @@ export function DarkroomVisualStage() {
             <stop offset="100%" stopColor="#060A0D" stopOpacity="0.18" />
           </linearGradient>
 
+          {/* Градиенты затухания бирюзовой и янтарной обводки к низу кадра */}
+          <linearGradient id="rimCyanFade" x1="130" y1="60" x2="130" y2="564" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor="#3BC7D6" stopOpacity="0.95" />
+            <stop offset="76%" stopColor="#3BC7D6" stopOpacity="0.85" />
+            <stop offset="100%" stopColor="#3BC7D6" stopOpacity="0" />
+          </linearGradient>
+
+          <linearGradient id="rimAmberFade" x1="330" y1="60" x2="330" y2="564" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor="#E8BE67" stopOpacity="0.9" />
+            <stop offset="76%" stopColor="#E8BE67" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#E8BE67" stopOpacity="0" />
+          </linearGradient>
+
           <filter id="rimCyanGlow" x="-15%" y="-15%" width="130%" height="130%">
             <feGaussianBlur stdDeviation="2.5" result="blur" />
             <feMerge>
@@ -154,39 +167,35 @@ export function DarkroomVisualStage() {
         <polygon points="94,478 118,464 106,492" fill="rgba(234, 226, 208, 0.24)" stroke="rgba(59, 199, 214, 0.45)" strokeWidth="0.8" />
         <polygon points="348,176 358,170 353,182" fill="rgba(232, 190, 103, 0.65)" />
 
-        {/* Основной силуэт персонажа в худи со смещённым бирюзовым и янтарным контуром */}
+        {/* Основной силуэт персонажа в худи с открытой нижней кромкой и хроматической подсветкой */}
         <g className="vyazel-silhouette-group">
-          {/* Левый бирюзовый хроматический сдвиг контура */}
+          {/* Левый бирюзовый хроматический сдвиг контура (без замкнутой нижней линии) */}
           <path
-            d="M206 54
+            d="M136 564 L126 392 C122 308, 134 228, 166 184
+               L180 156 C164 146, 156 124, 160 100
+               C162 80, 174 64, 188 58 L194 46 L206 54
                L220 44 L224 58 L244 48 L242 64 C264 72, 272 94, 266 118
                C262 136, 248 152, 236 156 L246 172
-               C286 184, 314 232, 326 326 L342 564
-               L136 564 L126 392 C122 308, 134 228, 166 184
-               L180 156 C164 146, 156 124, 160 100
-               C162 80, 174 64, 188 58 L194 46 Z"
+               C286 184, 314 232, 326 326 L342 564"
             transform="translate(-4, 0)"
             fill="none"
-            stroke="#3BC7D6"
-            strokeWidth="3.5"
-            opacity="0.88"
+            stroke="url(#rimCyanFade)"
+            strokeWidth="3.4"
             filter="url(#rimCyanGlow)"
           />
 
-          {/* Правый янтарный хроматический сдвиг контура */}
+          {/* Правый янтарный хроматический сдвиг контура (без замкнутой нижней линии) */}
           <path
-            d="M206 54
+            d="M136 564 L126 392 C122 308, 134 228, 166 184
+               L180 156 C164 146, 156 124, 160 100
+               C162 80, 174 64, 188 58 L194 46 L206 54
                L220 44 L224 58 L244 48 L242 64 C264 72, 272 94, 266 118
                C262 136, 248 152, 236 156 L246 172
-               C286 184, 314 232, 326 326 L342 564
-               L136 564 L126 392 C122 308, 134 228, 166 184
-               L180 156 C164 146, 156 124, 160 100
-               C162 80, 174 64, 188 58 L194 46 Z"
+               C286 184, 314 232, 326 326 L342 564"
             transform="translate(4, 1)"
             fill="none"
-            stroke="#E8BE67"
+            stroke="url(#rimAmberFade)"
             strokeWidth="3.2"
-            opacity="0.85"
           />
 
           {/* Заполнение силуэта в худи */}
@@ -199,8 +208,6 @@ export function DarkroomVisualStage() {
                L180 156 C164 146, 156 124, 160 100
                C162 80, 174 64, 188 58 L194 46 Z"
             fill="url(#vyazelBodyFill)"
-            stroke="rgba(234, 226, 208, 0.24)"
-            strokeWidth="1.1"
           />
 
           {/* Графичные линии складок капюшона, ворота и шнурков худи */}

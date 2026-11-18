@@ -297,7 +297,7 @@
   }
 }
 
-/* Левая колонка досье персонажа (ВЯЗЕЛЬ / CROWNVETCH / О ПЕРСОНАЖЕ) */
+/* Левая колонка досье персонажа (ВЯЗЕЛЬ / ЛИН ВЭЙ / О ПЕРСОНАЖЕ) */
 .dossier-column {
   position: relative;
   z-index: 5;
@@ -305,7 +305,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  gap: 28px;
+  gap: 24px;
   padding: 8px 0;
 }
 
@@ -424,31 +424,12 @@
   color: rgba(234, 226, 208, 0.42);
 }
 
-.dossier-meta {
-  margin-top: 10px;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.08em;
-  line-height: 1.55;
-  color: var(--text-secondary);
-}
-
-.dossier-meta__line,
-.dossier-meta__time {
-  margin: 0;
-}
-
-.dossier-meta__time {
-  margin-top: 2px;
-  color: var(--text-muted);
-}
-
 .dossier-bio {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 12px;
-  max-width: 40ch;
+  max-width: 50ch;
 }
 
 .dossier-bio__heading {
@@ -464,19 +445,9 @@
 .dossier-bio__text {
   margin: 0;
   font-family: var(--font-mono);
-  font-size: 0.88rem;
-  line-height: 1.65;
+  font-size: 0.84rem;
+  line-height: 1.66;
   color: var(--text-secondary);
-}
-
-.dossier-bio__quote {
-  margin: 6px 0 0;
-  padding: 0;
-  font-family: var(--font-mono);
-  font-size: 0.86rem;
-  line-height: 1.5;
-  color: var(--text-primary);
-  opacity: 0.9;
 }
 
 @keyframes streakPulseA {

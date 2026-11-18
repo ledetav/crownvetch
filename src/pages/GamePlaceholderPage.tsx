@@ -12,7 +12,7 @@ import { DarkroomViewfinderScreen } from '../components/darkroom/DarkroomViewfin
  */
 export function GamePlaceholderPage() {
   useEffect(() => {
-    document.title = 'ВЯЗЕЛЬ // CROWNVETCH — Игра';
+    document.title = 'ВЯЗЕЛЬ // ЛИН ВЭЙ — Игра';
   }, []);
 
   return <DarkroomViewfinderScreen initialTabId="character" />;
