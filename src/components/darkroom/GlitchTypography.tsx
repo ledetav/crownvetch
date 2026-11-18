@@ -2,11 +2,12 @@
  * Компонент анимированной глитч-типографики левой части видоискателя.
  * Отрисовывает:
  * - индикатор записи ● REC;
- * - заголовок OVERTHINK узким шрифтом с клиновидными засечками поверх
- *   многополосной глитч-ленты из перемежающихся сегментов жёлтого, бирюзового и красного цветов;
+ * - заголовок OVERTHINK узким антиквенным шрифтом с засечками поверх
+ *   3-полосной глитч-ленты с зазорами из перемежающихся сегментов жёлтого,
+ *   бирюзового и красного цветов;
  * - пересекающуюся связку вертикального VORTEX (с глитч-полосами по тексту
  *   и полупрозрачной красной дублирующей тенью) и горизонтального VERTEX
- *   в полупрозрачном цвете основного текста.
+ *   в едином типографическом стиле с OVERTHINK.
  */
 
 /** Входные свойства компонента глитч-типографики */
@@ -48,21 +49,19 @@ export function GlitchTypography({
       <div className="typo-stack">
         <p className="typo-quote typo-quote--top">{topQuote}</p>
 
-        {/* OVERTHINK: чистый высокий антиквенный текст поверх сегментной глитч-ленты */}
+        {/* OVERTHINK: вытянутый антиквенный текст поверх 3-полосной глитч-ленты с зазорами */}
         <div className="overthink-wrapper">
           <div className="overthink-ribbon" aria-hidden="true">
             <span className="glitch-lane glitch-lane--1" />
             <span className="glitch-lane glitch-lane--2" />
             <span className="glitch-lane glitch-lane--3" />
-            <span className="glitch-lane glitch-lane--4" />
-            <span className="glitch-lane glitch-lane--5" />
           </div>
           <h1 className="serif-overthink">{primaryWord}</h1>
         </div>
 
         <p className="typo-quote">{bottomQuote}</p>
 
-        {/* Пересекающаяся связка VORTEX (вертикальный) + VERTEX (горизонтальный) */}
+        {/* Пересекающаяся связка VORTEX (вертикальный) + VERTEX (горизонтальный) в стиле OVERTHINK */}
         <div className="vortex-cross-lockup" aria-label={`${verticalWord} / ${crossWord}`}>
           {/* Полупрозрачный красный дубль под вертикальным VORTEX */}
           <span className="vortex-vertical-ghost" aria-hidden="true">
