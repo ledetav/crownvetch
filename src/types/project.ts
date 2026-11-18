@@ -1,82 +1,53 @@
 /**
- * Типы данных для JSON-хранилища проекта crownvetch.
- * Описывают структуру палитры, реестра подключаемых модулей-заданий
- * и графа сцен визуальной новеллы и текстового квеста.
+ * TypeScript-интерфейсы и схемы данных для проекта crownvetch.
+ * Описывают конфигурацию первого экрана (tzHero.json), навигацию,
+ * палитру и параметры вращения полароидов.
  */
 
-/** Описание одного цветового токена палитры проекта */
-export interface PaletteSwatch {
-  /** Уникальный идентификатор цвета (используется как ключ и CSS-ссылка) */
+/** Пункт меню в верхнем правом углу видоискателя */
+export interface HeroNavTab {
   id: string;
-  /** Человекочитаемое название оттенка */
+  label: string;
+  target: string;
+  highlighted?: boolean;
+}
+
+/** Возможные типы иллюстраций/контента внутри полароида */
+export type PolaroidArtworkKind =
+  | 'darkroom-monitor'
+  | 'silhouette-hand'
+  | 'antique-clock'
+  | 'sunset-figure'
+  | 'dark-dial'
+  | 'hourglass'
+  | 'pocket-watch';
+
+/** Сущность полароида на орбите спирального портала */
+export interface HeroPolaroidCard {
+  id: string;
+  caption: string;
+  artworkKind: PolaroidArtworkKind;
+  angleDeg: number;
+  tiltDeg: number;
+}
+
+/** Элемент палитры цветов из src/data/palette.json */
+export interface PaletteSwatch {
+  id: string;
   name: string;
-  /** HEX-код цвета с решёткой (например, #0D1110) */
   hex: string;
-  /** Назначение цвета в интерфейсе или артах */
   role: string;
 }
 
-/** Структура JSON-файла с цветовой палитрой */
-export interface PaletteDataset {
-  /** Название концепта или темы оформления */
-  themeTitle: string;
-  /** Список цветовых образцов */
-  swatches: PaletteSwatch[];
-}
-
-/** Статус готовности подключаемого модуля-задания */
-export type ModuleStatus = 'planned' | 'in_progress' | 'ready';
-
-/** Описание одного подключаемого модуля (задания или механики квеста) */
-export interface QuestModuleItem {
-  /** Уникальный идентификатор модуля */
-  id: string;
-  /** Название модуля или задания */
-  title: string;
-  /** Краткое описание механики или назначения */
-  summary: string;
-  /** Текущий статус разработки модуля */
-  status: ModuleStatus;
-  /** Флаг активности: подключён ли модуль в текущую сборку */
-  enabled: boolean;
-  /** Связанный идентификатор стартовой сцены в quest.json (если есть) */
-  entrySceneId?: string;
-}
-
-/** Структура JSON-файла со списком подключаемых модулей */
-export interface ModulesDataset {
-  /** Список модулей-заданий, которыми управляет конфиг */
-  modules: QuestModuleItem[];
-}
-
-/** Вариант выбора игрока в диалоге или текстовом квесте */
-export interface QuestChoice {
-  /** Текст кнопки выбора */
-  label: string;
-  /** Идентификатор следующей сцены при выборе этого варианта */
-  nextSceneId: string;
-}
-
-/** Отдельная сцена или реплика визуальной новеллы / текстового квеста */
-export interface QuestScene {
-  /** Уникальный идентификатор сцены */
-  id: string;
-  /** Заголовок эпизода или локации */
-  chapter: string;
-  /** Имя говорящего персонажа (или «Нарратор» / «Система») */
-  speaker: string;
-  /** Текст реплики или описания сцены */
-  text: string;
-  /** Список доступных вариантов действия */
-  choices: QuestChoice[];
-}
-
-/** Структура JSON-файла со сценарием визуальной новеллы и квеста */
-export interface QuestDataset {
-  /** Рабочее название новеллы */
-  projectTitle: string;
-  /** Идентификатор стартовой сцены */
-  startSceneId: string;
-  /** Словарь сцен, индексированный по id сцены */
-  scenes: Record<string, QuestScene>;
+/** Полная структура данных конфигурации tzHero.json */
+export interface TzHeroDataset {
+  brandTitle: string;
+  recTimecode: string;
+  topQuote: string;
+  bottomQuote: string;
+  primaryWord: string;
+  verticalWord: string;
+  crossWord: string;
+  navTabs: HeroNavTab[];
+  polaroids: HeroPolaroidCard[];
 }

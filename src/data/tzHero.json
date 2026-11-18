@@ -1,0 +1,83 @@
+{
+  "brandTitle": "PARADOX // DARKROOM",
+  "recTimecode": "00:11:59",
+  "topQuote": "\"THERE IS NO BLOCK ESCAPE FROM THE LOOP\"",
+  "bottomQuote": "\"THERE IS NO ESCAPE FROM THE LOOP\"",
+  "primaryWord": "OVERTHINK",
+  "verticalWord": "VORTEX",
+  "crossWord": "VORTEX",
+  "navTabs": [
+    {
+      "id": "archive",
+      "label": "ARCHIVE",
+      "target": "/tz",
+      "highlighted": true
+    },
+    {
+      "id": "dive-in",
+      "label": "DIVE IN",
+      "target": "/game"
+    },
+    {
+      "id": "glitch-players",
+      "label": "GLITCH PLAYERS",
+      "target": "#glitch-players"
+    },
+    {
+      "id": "about",
+      "label": "ABOUT",
+      "target": "#about"
+    }
+  ],
+  "polaroids": [
+    {
+      "id": "frame-01",
+      "caption": "Кадр 01 · Проявочная комната",
+      "artworkKind": "darkroom-monitor",
+      "angleDeg": -102,
+      "tiltDeg": -8
+    },
+    {
+      "id": "frame-02",
+      "caption": "Кадр 02 · Силуэт во вспышке",
+      "artworkKind": "silhouette-hand",
+      "angleDeg": -52,
+      "tiltDeg": 16
+    },
+    {
+      "id": "frame-03",
+      "caption": "Кадр 03 · Старинный циферблат",
+      "artworkKind": "antique-clock",
+      "angleDeg": -6,
+      "tiltDeg": 7
+    },
+    {
+      "id": "frame-04",
+      "caption": "Кадр 04 · Закатный горизонт",
+      "artworkKind": "sunset-figure",
+      "angleDeg": 44,
+      "tiltDeg": -14
+    },
+    {
+      "id": "frame-05",
+      "caption": "Кадр 05 · Тёмный хронометр",
+      "artworkKind": "dark-dial",
+      "angleDeg": 92,
+      "tiltDeg": 18
+    },
+    {
+      "id": "frame-06",
+      "caption": "Кадр 06 · Песочные часы",
+      "artworkKind": "hourglass",
+      "angleDeg": 140,
+      "tiltDeg": -12
+    },
+    {
+      "id": "frame-07",
+      "caption": "Кадр 07 · Карманные часы",
+      "artworkKind": "pocket-watch",
+      "angleDeg": 192,
+      "tiltDeg": 10
+    }
+  ]
+}

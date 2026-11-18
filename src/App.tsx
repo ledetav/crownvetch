@@ -1,23 +1,21 @@
 /**
  * Корневой компонент маршрутизации SPA-приложения crownvetch.
- * Настраивает редирект с корневого маршрута '/' на '/tz',
- * а также отдельные маршруты '/tz' (ТЗ) и '/game' (заглушка игры).
+ * Настраивает полноэкранное отображение маршрутов /tz и /game без лишней
+ * верхней панели и автоматический редирект с '/' на '/tz'.
  */
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { AppHeader } from './components/AppHeader';
 import { GamePlaceholderPage } from './pages/GamePlaceholderPage';
 import { TzPage } from './pages/TzPage';
 
 /**
- * Определяет карту маршрутов приложения и общую оболочку интерфейса.
+ * Определяет корневой роутер приложения crownvetch.
  * @returns Корневое дерево маршрутизации React.
  */
 export function App() {
   return (
     <BrowserRouter>
       <div className="app-shell">
-        <AppHeader />
-        <main className="app-main">
+        <main className="app-content">
           <Routes>
             {/* Корневой адрес временно перенаправляет на страницу ТЗ */}
             <Route path="/" element={<Navigate to="/tz" replace />} />

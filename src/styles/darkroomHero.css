@@ -1,0 +1,812 @@
+/**
+ * Стили полноэкранного видоискателя (100vh на десктопе).
+ * Реализуют широкую перфорацию киноплёнки с горизонтальными прямоугольными окошками,
+ * рамку видоискателя с равномерными внешними и внутренними отступами у всех 4 уголков,
+ * приподнятый индикатор REC с обратным отсчётом от 00:12:00 в левой колонке,
+ * вытянутую антиквенную типографику с засечками (OVERTHINK / VORTEX),
+ * световые VHS/RGB-прострелы позади OVERTHINK, выровненные по общей нижней границе
+ * слои VORTEX со статичным красным дублем и глитчем строго на букве E,
+ * увеличенную вращающуюся орбиту полароидов
+ * и статичное перекрывающее окно поворота экрана для узких мобильных устройств.
+ */
+
+.darkroom-hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background:
+    radial-gradient(circle at 50% 52%, rgba(46, 78, 90, 0.34) 0%, rgba(11, 19, 23, 0.96) 58%, #070c0f 100%);
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  user-select: none;
+}
+
+/* Тонкие сканлайны плёнки поверх всего экрана */
+.darkroom-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.015) 0px,
+    rgba(255, 255, 255, 0.015) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  z-index: 6;
+}
+
+/* Вертикальные широкие полосы 35-мм киноплёнки слева и справа */
+.film-rail {
+  position: relative;
+  z-index: 2;
+  width: 62px;
+  flex-shrink: 0;
+  background-color: #0d1317;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Широкие невысокие прямоугольные окошки перфорации со скруглёнными углами */
+.film-rail::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='62' height='44' viewBox='0 0 62 44'%3E%3Crect x='15' y='13' width='32' height='18' rx='3.5' ry='3.5' fill='%23040608' stroke='%23253036' stroke-width='1.2'/%3E%3C/svg%3E");
+  background-size: 62px 44px;
+  background-repeat: repeat-y;
+}
+
+.film-rail--right {
+  border-right: none;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Внутреннее рабочее поле видоискателя с равномерными отступами для всех 4 уголков */
+.darkroom-stage {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  min-width: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 28px 42px 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Внешняя рамка видоискателя с внутренним воздухом от уголков до контента */
+.viewfinder-shell {
+  position: relative;
+  flex: 1;
+  padding: 22px 26px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.viewfinder-corner {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-color: rgba(234, 226, 208, 0.74);
+  border-style: solid;
+  pointer-events: none;
+  z-index: 7;
+}
+
+.viewfinder-corner--tl {
+  top: 0;
+  left: 0;
+  border-width: 2px 0 0 2px;
+}
+
+.viewfinder-corner--tr {
+  top: 0;
+  right: 0;
+  border-width: 2px 2px 0 0;
+}
+
+.viewfinder-corner--bl {
+  bottom: 0;
+  left: 0;
+  border-width: 0 0 2px 2px;
+}
+
+.viewfinder-corner--br {
+  bottom: 0;
+  right: 0;
+  border-width: 0 2px 2px 0;
+}
+
+/* Верхняя панель видоискателя: навигация справа */
+.darkroom-topbar {
+  position: relative;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.darkroom-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.darkroom-nav__item {
+  padding: 6px 15px;
+  font-family: var(--font-condensed);
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.darkroom-nav__item:hover {
+  color: var(--accent-amber);
+  border-color: rgba(232, 190, 103, 0.45);
+}
+
+.darkroom-nav__item--highlighted {
+  border-color: var(--accent-amber);
+  background: rgba(232, 190, 103, 0.06);
+  box-shadow: 0 0 12px rgba(232, 190, 103, 0.14);
+}
+
+/* Основная 2-колоночная сетка внутри видоискателя */
+.viewfinder-frame {
+  position: relative;
+  flex: 1;
+  margin-top: 6px;
+  padding: 4px 4px 0;
+  display: grid;
+  grid-template-columns: minmax(360px, 0.9fr) minmax(460px, 1.3fr);
+  align-items: center;
+  gap: 24px;
+}
+
+/* Левая колонка: приподнятый индикатор REC и типографика с клиновидными засечками */
+.typo-column {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0;
+}
+
+/* Поднимаем REC выше в левой колонке, чтобы он располагался ближе к верхнему левому уголку */
+.rec-slot {
+  margin-top: -28px;
+}
+
+/* Индикатор ● REC с обратным отсчётом от 00:12:00 и глитч-сбросом на 00:03:04 */
+.rec-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+  color: var(--text-primary);
+}
+
+.rec-indicator__dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent-rec);
+  box-shadow: 0 0 12px var(--accent-rec);
+  animation: recBlink 0.9s steps(2, start) infinite;
+}
+
+.rec-indicator--glitch .rec-indicator__text {
+  color: var(--glitch-cyan);
+  text-shadow:
+    -3px 0 var(--glitch-red),
+    3px 0 var(--glitch-yellow);
+  animation: recGlitchBurst 0.12s steps(2, end) infinite;
+}
+
+@keyframes recGlitchBurst {
+  0% {
+    transform: translate(-3px, 1px) skewX(-8deg);
+  }
+  50% {
+    transform: translate(4px, -1px) skewX(10deg);
+  }
+  100% {
+    transform: translate(-2px, 0) skewX(-4deg);
+  }
+}
+
+@keyframes recBlink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0.25;
+  }
+}
+
+.typo-stack {
+  position: relative;
+  margin: auto 0;
+  padding: 4px 0;
+}
+
+.typo-quote {
+  position: relative;
+  z-index: 4;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  margin: 14px 0;
+}
+
+.typo-quote--top {
+  margin-left: 82px;
+}
+
+.typo-quote--middle {
+  margin-bottom: 8px;
+}
+
+.typo-quote--bottom {
+  margin-top: 8px;
+}
+
+/* Обёртка OVERTHINK: стройный высокий антиквенный текст с воздухом между буквами */
+.overthink-wrapper {
+  position: relative;
+  display: inline-block;
+  padding: 12px 0;
+}
+
+.serif-overthink {
+  position: relative;
+  z-index: 3;
+  display: inline-block;
+  margin: 0;
+  font-family: var(--font-serif-display);
+  font-weight: 700;
+  font-size: clamp(4.1rem, 7.1vw, 6.4rem);
+  line-height: 0.88;
+  letter-spacing: 0.015em;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  transform: scale(0.68, 1.5);
+  transform-origin: left center;
+  margin-right: -28%;
+}
+
+/* Световые VHS/RGB-прострелы позади OVERTHINK в единой стилистике со световым глитчем VORTEX */
+.overthink-ribbon {
+  position: absolute;
+  left: -155px;
+  right: -140px;
+  top: 58%;
+  height: 48px;
+  transform: translateY(-50%);
+  z-index: 1;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: blur(0.95px);
+}
+
+.overthink-streak {
+  position: absolute;
+  border-radius: 1px;
+  will-change: transform, opacity;
+}
+
+.overthink-streak--1 {
+  top: 4px;
+  left: 0;
+  width: 78%;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    rgba(59, 199, 214, 0.85) 0%,
+    rgba(255, 255, 255, 0.92) 22%,
+    rgba(214, 54, 56, 0.85) 48%,
+    rgba(232, 190, 103, 0.82) 74%,
+    transparent 100%
+  );
+  animation: streakPulseA 2.6s steps(1, end) infinite;
+}
+
+.overthink-streak--2 {
+  top: 20px;
+  left: 24px;
+  width: 88%;
+  height: 4.5px;
+  background: linear-gradient(
+    90deg,
+    rgba(214, 54, 56, 0.88) 0%,
+    rgba(232, 190, 103, 0.9) 28%,
+    rgba(255, 250, 238, 0.95) 50%,
+    rgba(59, 199, 214, 0.92) 75%,
+    transparent 100%
+  );
+  animation: streakPulseB 2s steps(1, end) infinite;
+}
+
+.overthink-streak--3 {
+  bottom: 3px;
+  left: 56px;
+  width: 74%;
+  height: 2.5px;
+  background: linear-gradient(
+    90deg,
+    rgba(59, 199, 214, 0.88) 0%,
+    rgba(255, 255, 255, 0.82) 34%,
+    rgba(232, 190, 103, 0.88) 66%,
+    transparent 100%
+  );
+  animation: streakPulseA 3.1s steps(1, end) infinite reverse;
+}
+
+/*
+ * Пересекающаяся связка VORTEX (вертикальный) + VORTEX (горизонтальный):
+ * все три слоя (белый вертикальный VORTEX, статичный полупрозрачный красный дубль
+ * и горизонтальный полупрозрачный VORTEX) выровнены по одной нижней границе (bottom: 0).
+ */
+.vortex-cross-lockup {
+  position: relative;
+  margin-top: 6px;
+  width: 360px;
+  height: 320px;
+  overflow: visible;
+}
+
+.vortex-vertical {
+  position: absolute;
+  bottom: 0;
+  left: 34px;
+  z-index: 3;
+  writing-mode: vertical-rl;
+  font-family: var(--font-serif-display);
+  font-weight: 700;
+  font-size: clamp(4.1rem, 7.1vw, 6.4rem);
+  line-height: 0.88;
+  letter-spacing: 0.015em;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  text-shadow:
+    -3px 1px 0 rgba(59, 199, 214, 0.65),
+    3px -1px 0 rgba(214, 54, 56, 0.75);
+  transform: scale(1.36, 0.68);
+  transform-origin: bottom left;
+}
+
+.vortex-vertical::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  color: var(--text-primary);
+  text-shadow:
+    6px 0 rgba(59, 199, 214, 0.95),
+    -5px 0 rgba(232, 190, 103, 0.85);
+  clip-path: inset(67% 0 17% 0);
+  animation: vortexTearLetterE 2.7s steps(1, end) infinite;
+  pointer-events: none;
+}
+
+.vortex-vertical-ghost {
+  position: absolute;
+  bottom: 0;
+  left: 72px;
+  z-index: 1;
+  writing-mode: vertical-rl;
+  font-family: var(--font-serif-display);
+  font-weight: 700;
+  font-size: clamp(4.1rem, 7.1vw, 6.4rem);
+  line-height: 0.88;
+  letter-spacing: 0.015em;
+  color: rgba(182, 32, 38, 0.52);
+  text-transform: uppercase;
+  transform: scale(1.36, 0.68);
+  transform-origin: bottom left;
+  pointer-events: none;
+}
+
+.vertex-horizontal {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+  font-family: var(--font-serif-display);
+  font-weight: 700;
+  font-size: clamp(4.1rem, 7.1vw, 6.4rem);
+  line-height: 0.88;
+  letter-spacing: 0.015em;
+  color: rgba(234, 226, 208, 0.28);
+  text-transform: uppercase;
+  transform: scale(0.68, 1.36);
+  transform-origin: bottom left;
+  pointer-events: none;
+}
+
+.vertex-horizontal::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  color: rgba(234, 226, 208, 0.48);
+  text-shadow: -3px 0 rgba(59, 199, 214, 0.6), 3px 0 rgba(214, 54, 56, 0.6);
+  clip-path: inset(0 17% 0 67%);
+  animation: horizontalVortexTearE 3.5s steps(1, end) infinite;
+}
+
+.vortex-glitch-streaks {
+  position: absolute;
+  left: -36px;
+  right: 10px;
+  bottom: 40px;
+  height: 36px;
+  z-index: 4;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: blur(0.9px);
+}
+
+.vortex-streak {
+  position: absolute;
+  height: 3px;
+  border-radius: 1px;
+}
+
+.vortex-streak--1 {
+  top: 2px;
+  left: 0;
+  width: 64%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(59, 199, 214, 0.85) 24%,
+    rgba(255, 255, 255, 0.92) 48%,
+    rgba(214, 54, 56, 0.85) 74%,
+    transparent 100%
+  );
+  animation: streakPulseA 2.5s steps(1, end) infinite;
+}
+
+.vortex-streak--2 {
+  top: 16px;
+  left: 14px;
+  width: 76%;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    rgba(214, 54, 56, 0.85) 0%,
+    rgba(255, 248, 232, 0.9) 38%,
+    rgba(59, 199, 214, 0.9) 68%,
+    transparent 100%
+  );
+  animation: streakPulseB 1.9s steps(1, end) infinite;
+}
+
+.vortex-streak--3 {
+  bottom: 2px;
+  left: 26px;
+  width: 56%;
+  height: 2.5px;
+  background: linear-gradient(
+    90deg,
+    rgba(59, 199, 214, 0.85) 0%,
+    rgba(232, 190, 103, 0.85) 55%,
+    transparent 100%
+  );
+  animation: streakPulseA 3.1s steps(1, end) infinite reverse;
+}
+
+@keyframes vortexTearLetterE {
+  0%, 70%, 100% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  74% {
+    transform: translateX(8px);
+    opacity: 1;
+  }
+  82% {
+    transform: translateX(-6px);
+    opacity: 0.92;
+  }
+  90% {
+    transform: translateX(4px);
+    opacity: 0.88;
+  }
+}
+
+@keyframes horizontalVortexTearE {
+  0%, 75%, 100% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  79% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+  87% {
+    transform: translateY(3px);
+    opacity: 0.85;
+  }
+}
+
+@keyframes streakPulseA {
+  0%, 66%, 100% {
+    opacity: 0.35;
+    transform: translateX(0) scaleX(0.92);
+  }
+  70% {
+    opacity: 0.98;
+    transform: translateX(-10px) scaleX(1.06);
+  }
+  82% {
+    opacity: 0.85;
+    transform: translateX(8px) scaleX(0.98);
+  }
+}
+
+@keyframes streakPulseB {
+  0%, 60%, 100% {
+    opacity: 0.28;
+    transform: translateX(0) scaleX(0.9);
+  }
+  65% {
+    opacity: 0.96;
+    transform: translateX(12px) scaleX(1.08);
+  }
+  78% {
+    opacity: 0.82;
+    transform: translateX(-8px) scaleX(0.95);
+  }
+}
+
+/* Центральная сцена: увеличенный вихрь + вращающееся кольцо полароидов */
+.vortex-center {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vortex-portal-svg {
+  position: absolute;
+  inset: 4%;
+  width: 92%;
+  height: 92%;
+  pointer-events: none;
+  animation: portalSpin 38s linear infinite;
+}
+
+@keyframes portalSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.polaroid-orbit {
+  position: absolute;
+  inset: 0;
+  animation: orbitRotate 34s linear infinite;
+}
+
+@keyframes orbitRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.polaroid-card-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 124px;
+  height: 142px;
+  margin-left: -62px;
+  margin-top: -71px;
+  transform: rotate(var(--orbit-angle)) translateY(calc(var(--orbit-radius, 245px) * -1))
+    rotate(calc(var(--orbit-angle) * -1));
+  z-index: 4;
+}
+
+.polaroid-card-item__inner {
+  width: 100%;
+  height: 100%;
+  padding: 8px 8px 22px;
+  background: var(--text-primary);
+  border-radius: 3px;
+  box-shadow:
+    -3px 0 0 rgba(59, 199, 214, 0.7),
+    3px 0 0 rgba(214, 54, 56, 0.7),
+    0 14px 28px rgba(0, 0, 0, 0.72);
+  transform: rotate(var(--card-tilt, 0deg));
+  animation: counterOrbitRotate 34s linear infinite;
+  transition: box-shadow 0.25s ease;
+}
+
+@keyframes counterOrbitRotate {
+  from {
+    transform: rotate(var(--card-tilt, 0deg));
+  }
+  to {
+    transform: rotate(calc(var(--card-tilt, 0deg) - 360deg));
+  }
+}
+
+.polaroid-card-item:hover .polaroid-card-item__inner {
+  box-shadow:
+    -4px 0 0 rgba(59, 199, 214, 0.95),
+    4px 0 0 rgba(214, 54, 56, 0.95),
+    0 0 24px rgba(232, 190, 103, 0.5);
+}
+
+.polaroid-card-item__photo {
+  width: 100%;
+  height: 100%;
+  background: #10171b;
+  overflow: hidden;
+  position: relative;
+}
+
+.polaroid-card-item__photo img,
+.polaroid-card-item__photo svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.vortex-core-badge {
+  position: relative;
+  z-index: 5;
+  width: 172px;
+  height: 172px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(22, 36, 44, 0.92) 0%, rgba(11, 19, 23, 0.85) 72%, transparent 100%);
+  border: 1px solid rgba(59, 199, 214, 0.32);
+  box-shadow: 0 0 36px rgba(59, 199, 214, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.reticle-crosshair {
+  position: absolute;
+  right: 8%;
+  bottom: 4%;
+  width: 42px;
+  height: 42px;
+  pointer-events: none;
+  opacity: 0.88;
+}
+
+/* Всплывающее окно поворота устройства: скрыто на широких экранах */
+.rotate-device-overlay {
+  display: none;
+}
+
+/* Компактная адаптация для альбомных мобильных и планшетов (ширина 769..1040px) */
+@media (max-width: 1040px) and (min-width: 769px) {
+  .darkroom-stage {
+    padding: 18px 24px 20px;
+  }
+
+  .viewfinder-frame {
+    grid-template-columns: 1fr 1.2fr;
+    gap: 12px;
+    padding: 4px 4px 0;
+  }
+
+  .rec-slot {
+    margin-top: -18px;
+  }
+
+  .serif-overthink,
+  .vortex-vertical,
+  .vortex-vertical-ghost,
+  .vertex-horizontal {
+    font-size: 3.1rem;
+  }
+
+  .vortex-center {
+    max-width: 340px;
+  }
+
+  .polaroid-card-item {
+    width: 78px;
+    height: 90px;
+    margin-left: -39px;
+    margin-top: -45px;
+    --orbit-radius: 132px;
+  }
+}
+
+/* Для узких экранов (<= 768px): перекрываем/заменяем основной экран просьбой повернуть устройство */
+@media (max-width: 768px) {
+  .darkroom-hero {
+    display: none;
+  }
+
+  .rotate-device-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background:
+      radial-gradient(circle at 50% 45%, rgba(59, 199, 214, 0.14) 0%, #0b1317 68%, #06090b 100%);
+  }
+
+  .rotate-device-card {
+    width: 100%;
+    max-width: 340px;
+    padding: 28px 22px;
+    background: rgba(18, 24, 27, 0.94);
+    border: 1px solid rgba(232, 190, 103, 0.55);
+    box-shadow:
+      -4px 0 0 rgba(59, 199, 214, 0.45),
+      4px 0 0 rgba(214, 54, 56, 0.45),
+      0 20px 44px rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+  }
+
+  /* Иконка поворота строго статична */
+  .rotate-device-icon {
+    width: 116px;
+    height: 122px;
+  }
+
+  .rotate-device-title {
+    margin: 0;
+    font-family: var(--font-condensed);
+    font-size: 1.32rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+  }
+
+  .rotate-device-subtitle {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+}

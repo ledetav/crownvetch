@@ -1,7 +1,7 @@
 /**
  * Глобальные стили приложения crownvetch.
  * Обеспечивают сброс браузерных отступов, защиту от горизонтального скролла
- * и базовую адаптивную сетку для страниц ТЗ и игры.
+ * и базовую адаптивную сетку для нижних секций ТЗ и маршрута игры.
  */
 @import './tokens.css';
 
@@ -18,7 +18,7 @@ body {
   min-height: 100%;
   background-color: var(--bg-void);
   color: var(--text-primary);
-  font-family: var(--font-sans);
+  font-family: var(--font-mono);
   line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -39,11 +39,16 @@ button {
   flex-direction: column;
 }
 
+.app-content {
+  flex: 1;
+  width: 100%;
+}
+
 .app-header {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: rgba(14, 17, 16, 0.88);
+  background: rgba(10, 15, 18, 0.9);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-subtle);
 }
@@ -63,11 +68,11 @@ button {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-family: var(--font-mono);
-  font-size: 0.95rem;
+  font-family: var(--font-condensed);
+  font-size: 1.05rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
-  color: var(--accent-sage);
+  letter-spacing: 0.08em;
+  color: var(--accent-amber);
 }
 
 .app-nav {
@@ -81,8 +86,8 @@ button {
   align-items: center;
   gap: 6px;
   padding: 8px 14px;
-  border-radius: 999px;
-  font-size: 0.9rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
   color: var(--text-secondary);
   border: 1px solid transparent;
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
@@ -94,8 +99,8 @@ button {
 }
 
 .app-nav__link--active {
-  color: var(--accent-sage);
-  background: rgba(168, 213, 186, 0.1);
+  color: var(--accent-amber);
+  background: rgba(242, 200, 121, 0.08);
   border-color: var(--border-accent);
 }
 
@@ -104,7 +109,7 @@ button {
   width: 100%;
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: 32px 20px 64px;
+  padding: 36px 24px 72px;
 }
 
 .page-hero {
@@ -125,7 +130,9 @@ button {
 
 .page-hero__title {
   margin: 0 0 10px;
+  font-family: var(--font-condensed);
   font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  letter-spacing: 0.04em;
   line-height: 1.2;
   font-weight: 700;
 }
@@ -134,11 +141,11 @@ button {
   margin: 0;
   max-width: 68ch;
   color: var(--text-secondary);
-  font-size: 1rem;
+  font-size: 0.94rem;
 }
 
 .section-block {
-  margin-top: 36px;
+  margin-top: 40px;
 }
 
 .section-block__header {
@@ -152,13 +159,15 @@ button {
 
 .section-block__title {
   margin: 0;
-  font-size: 1.25rem;
+  font-family: var(--font-condensed);
+  font-size: 1.35rem;
+  letter-spacing: 0.05em;
   font-weight: 600;
 }
 
 .section-block__hint {
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
 }
 
@@ -189,7 +198,7 @@ button {
 
 .palette-card__preview {
   height: 56px;
-  border-radius: 8px;
+  border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
@@ -202,7 +211,7 @@ button {
 
 .palette-card__name {
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
 }
 
 .palette-card__hex {
@@ -211,12 +220,12 @@ button {
   gap: 5px;
   font-family: var(--font-mono);
   font-size: 0.82rem;
-  color: var(--accent-sage);
+  color: var(--accent-amber);
 }
 
 .palette-card__role {
   margin: 0;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--text-secondary);
 }
 
@@ -245,7 +254,7 @@ button {
 
 .module-badge {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.74rem;
   padding: 3px 9px;
   border-radius: 999px;
   background: rgba(197, 180, 227, 0.14);
@@ -259,13 +268,13 @@ button {
 
 .module-card__title {
   margin: 0;
-  font-size: 1.02rem;
+  font-size: 1rem;
   font-weight: 600;
 }
 
 .module-card__summary {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.86rem;
   color: var(--text-secondary);
 }
 
@@ -273,8 +282,9 @@ button {
   padding: 24px;
   border-radius: var(--radius-lg);
   border: 1px dashed var(--border-accent);
-  background: rgba(23, 28, 26, 0.55);
+  background: rgba(17, 24, 28, 0.65);
   color: var(--text-secondary);
+  font-size: 0.9rem;
 }
 
 .game-stub {
@@ -314,15 +324,18 @@ button {
   align-items: center;
   gap: 8px;
   padding: 10px 16px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border-accent);
-  background: rgba(168, 213, 186, 0.14);
-  color: var(--accent-sage);
-  font-weight: 500;
+  background: rgba(242, 200, 121, 0.1);
+  color: var(--accent-amber);
+  font-family: var(--font-condensed);
+  font-size: 0.96rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
 .btn-primary:hover {
-  background: rgba(168, 213, 186, 0.24);
+  background: rgba(242, 200, 121, 0.2);
 }
