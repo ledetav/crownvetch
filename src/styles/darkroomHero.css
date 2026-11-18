@@ -1,11 +1,13 @@
 /**
  * Стили полноэкранного видоискателя (100vh на десктопе).
  * Реализуют широкую перфорацию киноплёнки с горизонтальными прямоугольными окошками,
- * уголки камеры, вытянутую антиквенную типографику с засечками (OVERTHINK / VORTEX),
+ * внешнюю рамку видоискателя с уголками в самом верху и снизу,
+ * верхнюю строку с живым счётчиком REC (сброс на 00:03:04) и навигацией справа,
+ * вытянутую антиквенную типографику с засечками (OVERTHINK / VORTEX),
  * световые VHS/RGB-прострелы позади OVERTHINK, выровненные по общей нижней границе
  * слои VORTEX со статичным красным дублем и глитчем строго на букве E,
  * увеличенную вращающуюся орбиту полароидов, правую панель телеметрии
- * и перекрывающее окно поворота экрана для узких мобильных устройств.
+ * и статичное перекрывающее окно поворота экрана для узких мобильных устройств.
  */
 
 .darkroom-hero {
@@ -73,64 +75,19 @@
   min-width: 0;
   min-height: 100vh;
   min-height: 100dvh;
-  padding: 22px 36px 28px;
+  padding: 18px 30px 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Внешняя рамка видоискателя: верхние уголки подняты на уровень верхней панели */
+.viewfinder-shell {
+  position: relative;
+  flex: 1;
+  padding: 16px 22px 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-
-/* Верхняя панель видоискателя: навигация справа без заголовка слева */
-.darkroom-topbar {
-  position: relative;
-  z-index: 8;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.darkroom-nav {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.darkroom-nav__item {
-  padding: 6px 15px;
-  font-family: var(--font-condensed);
-  font-size: 1rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-primary);
-  border: 1px solid transparent;
-  background: transparent;
-  cursor: pointer;
-  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
-}
-
-.darkroom-nav__item:hover {
-  color: var(--accent-amber);
-  border-color: rgba(232, 190, 103, 0.45);
-}
-
-.darkroom-nav__item--highlighted {
-  border-color: var(--accent-amber);
-  background: rgba(232, 190, 103, 0.06);
-  box-shadow: 0 0 12px rgba(232, 190, 103, 0.14);
-}
-
-/* Белые уголки видоискателя камеры вокруг основной сцены на всю высоту окна */
-.viewfinder-frame {
-  position: relative;
-  flex: 1;
-  margin-top: 14px;
-  padding: 22px 26px;
-  display: grid;
-  grid-template-columns: minmax(320px, 1.1fr) minmax(380px, 1.35fr) minmax(250px, 0.85fr);
-  align-items: center;
-  gap: 18px;
 }
 
 .viewfinder-corner {
@@ -167,7 +124,61 @@
   border-width: 0 2px 2px 0;
 }
 
-/* Левая колонка: индикатор REC и типографика с клиновидными засечками */
+/* Верхняя панель видоискателя: слева ● REC, справа навигация */
+.darkroom-topbar {
+  position: relative;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.darkroom-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.darkroom-nav__item {
+  padding: 6px 15px;
+  font-family: var(--font-condensed);
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.darkroom-nav__item:hover {
+  color: var(--accent-amber);
+  border-color: rgba(232, 190, 103, 0.45);
+}
+
+.darkroom-nav__item--highlighted {
+  border-color: var(--accent-amber);
+  background: rgba(232, 190, 103, 0.06);
+  box-shadow: 0 0 12px rgba(232, 190, 103, 0.14);
+}
+
+/* Основная 3-колоночная сетка внутри видоискателя */
+.viewfinder-frame {
+  position: relative;
+  flex: 1;
+  margin-top: 8px;
+  padding: 6px 6px 0;
+  display: grid;
+  grid-template-columns: minmax(320px, 1.1fr) minmax(380px, 1.35fr) minmax(250px, 0.85fr);
+  align-items: center;
+  gap: 18px;
+}
+
+/* Левая колонка: типографика с клиновидными засечками */
 .typo-column {
   position: relative;
   z-index: 5;
@@ -176,9 +187,10 @@
   align-items: flex-start;
   justify-content: space-between;
   height: 100%;
-  padding: 6px 0;
+  padding: 4px 0;
 }
 
+/* Индикатор ● REC с быстрым отсчётом и глитч-сбросом на 00:03:04 */
 .rec-indicator {
   display: inline-flex;
   align-items: center;
@@ -195,7 +207,27 @@
   border-radius: 50%;
   background: var(--accent-rec);
   box-shadow: 0 0 12px var(--accent-rec);
-  animation: recBlink 1.3s steps(2, start) infinite;
+  animation: recBlink 0.9s steps(2, start) infinite;
+}
+
+.rec-indicator--glitch .rec-indicator__text {
+  color: var(--glitch-cyan);
+  text-shadow:
+    -3px 0 var(--glitch-red),
+    3px 0 var(--glitch-yellow);
+  animation: recGlitchBurst 0.12s steps(2, end) infinite;
+}
+
+@keyframes recGlitchBurst {
+  0% {
+    transform: translate(-3px, 1px) skewX(-8deg);
+  }
+  50% {
+    transform: translate(4px, -1px) skewX(10deg);
+  }
+  100% {
+    transform: translate(-2px, 0) skewX(-4deg);
+  }
 }
 
 @keyframes recBlink {
@@ -210,7 +242,7 @@
 .typo-stack {
   position: relative;
   margin: auto 0;
-  padding: 8px 0;
+  padding: 4px 0;
 }
 
 .typo-quote {
@@ -701,14 +733,8 @@
   justify-content: space-between;
   gap: 16px;
   height: 100%;
-  padding: 6px 0;
+  padding: 4px 0;
   font-family: var(--font-mono);
-}
-
-.telemetry-top-time {
-  font-size: 1.2rem;
-  letter-spacing: 0.1em;
-  color: var(--text-primary);
 }
 
 .telemetry-glitch-block {
@@ -907,7 +933,7 @@
   .viewfinder-frame {
     grid-template-columns: 1fr 1.2fr 0.85fr;
     gap: 10px;
-    padding: 14px 16px;
+    padding: 6px 6px 0;
   }
 
   .serif-overthink,
@@ -965,19 +991,10 @@
     gap: 14px;
   }
 
+  /* Иконка поворота строго статична */
   .rotate-device-icon {
-    width: 112px;
-    height: 112px;
-    animation: phoneTiltHint 2.6s ease-in-out infinite alternate;
-  }
-
-  @keyframes phoneTiltHint {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(-12deg);
-    }
+    width: 116px;
+    height: 122px;
   }
 
   .rotate-device-title {

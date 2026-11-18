@@ -1,8 +1,8 @@
 /**
  * Компонент-заглушка для узких/портретных экранов мобильных устройств.
- * Перекрывает основной экран видоискателя при ширине вьюпорта <= 768px (в портретной ориентации),
- * отображая иконку смартфона в вертикально-горизонтальном положении со скруглёнными стрелками
- * и просьбу повернуть устройство горизонтально.
+ * Перекрывает основной экран видоискателя при ширине вьюпорта <= 768px,
+ * отображая статичную иконку смартфона в вертикально-горизонтальном положении
+ * со скруглёнными стрелками и просьбу повернуть устройство горизонтально.
  */
 
 /**
@@ -18,10 +18,10 @@ export function RotateDeviceOverlay() {
       aria-label="Поверните устройство горизонтально"
     >
       <div className="rotate-device-card">
-        {/* Иконка телефона в вертикальном и горизонтальном положении со скруглёнными стрелками */}
+        {/* Статичная иконка телефона в вертикальном и горизонтальном положении со скруглёнными стрелками */}
         <svg
           className="rotate-device-icon"
-          viewBox="0 0 120 120"
+          viewBox="0 0 120 128"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
@@ -29,7 +29,7 @@ export function RotateDeviceOverlay() {
           {/* Горизонтальный контур телефона (пунктирный/полупрозрачный) */}
           <rect
             x="34"
-            y="54"
+            y="50"
             width="68"
             height="38"
             rx="6"
@@ -38,12 +38,12 @@ export function RotateDeviceOverlay() {
             strokeDasharray="4 3"
             fill="rgba(59, 199, 214, 0.08)"
           />
-          <circle cx="95" cy="73" r="2" fill="#3bc7d6" />
+          <circle cx="95" cy="69" r="2" fill="#3bc7d6" />
 
           {/* Вертикальный контур телефона */}
           <rect
             x="24"
-            y="24"
+            y="20"
             width="38"
             height="68"
             rx="6"
@@ -51,33 +51,33 @@ export function RotateDeviceOverlay() {
             strokeWidth="2.4"
             fill="#12181b"
           />
-          <line x1="39" y1="30" x2="47" y2="30" stroke="#eae2d0" strokeWidth="1.8" strokeLinecap="round" />
-          <circle cx="43" cy="85" r="2.2" fill="#e8be67" />
+          <line x1="39" y1="26" x2="47" y2="26" stroke="#eae2d0" strokeWidth="1.8" strokeLinecap="round" />
+          <circle cx="43" cy="81" r="2.2" fill="#e8be67" />
 
           {/* Верхняя скруглённая стрелка поворота вправо */}
           <path
-            d="M70 24 C86 24, 96 34, 96 48"
+            d="M70 20 C86 20, 96 30, 96 44"
             stroke="#e8be67"
             strokeWidth="2.4"
             strokeLinecap="round"
           />
           <path
-            d="M90 43 L96 49 L102 43"
+            d="M90 39 L96 45 L102 39"
             stroke="#e8be67"
             strokeWidth="2.4"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
 
-          {/* Нижняя скруглённая стрелка поворота влево */}
+          {/* Нижняя скруглённая стрелка поворота влево (опущена ниже контура телефона) */}
           <path
-            d="M50 102 C34 102, 24 94, 24 84"
+            d="M52 114 C36 114, 24 106, 24 96"
             stroke="#d63638"
             strokeWidth="2.2"
             strokeLinecap="round"
           />
           <path
-            d="M19 89 L24 83 L30 88"
+            d="M19 101 L24 95 L30 100"
             stroke="#d63638"
             strokeWidth="2.2"
             strokeLinecap="round"
