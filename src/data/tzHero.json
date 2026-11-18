@@ -10,7 +10,7 @@
     {
       "id": "archive",
       "label": "ARCHIVE",
-      "target": "#section-custom",
+      "target": "/tz",
       "highlighted": true
     },
     {
@@ -21,12 +21,12 @@
     {
       "id": "glitch-players",
       "label": "GLITCH PLAYERS",
-      "target": "#section-modules"
+      "target": "#glitch-players"
     },
     {
       "id": "about",
       "label": "ABOUT",
-      "target": "#section-palette"
+      "target": "#about"
     }
   ],
   "telemetry": {
