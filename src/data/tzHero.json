@@ -29,21 +29,21 @@
       "id": "lorebook",
       "indexLabel": "01",
       "label": "Лордок персонажа",
-      "url": "",
+      "url": "https://docs.google.com/document/d/1hCq268lLkawFPP0pJLp_6R6v3bQzFkgYOpsTmn54820/edit?tab=t.rccpmrlynpls",
       "accent": "cyan"
     },
     {
       "id": "gallery",
       "indexLabel": "02",
       "label": "Галерея персонажа",
-      "url": "",
+      "url": "https://awamiess.pixieset.com/viazelcoronilla/",
       "accent": "amber"
     },
     {
       "id": "playlist",
       "indexLabel": "03",
       "label": "Плейлист персонажа",
-      "url": "",
+      "url": "https://music.yandex.ru/users/vishnyovskayadiana/playlists/1086?utm_source=web&utm_medium=copy_link",
       "accent": "red"
     }
   ]
