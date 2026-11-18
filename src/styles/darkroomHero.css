@@ -24,6 +24,11 @@
   user-select: none;
 }
 
+/* Тонкий разделитель границы кадра между вертикальными секциями ТЗ */
+.darkroom-hero + .darkroom-hero {
+  border-top: 1px solid rgba(234, 226, 208, 0.08);
+}
+
 /* Тонкие сканлайны плёнки поверх всего экрана */
 .darkroom-hero::before {
   content: '';
@@ -143,6 +148,8 @@
 }
 
 .darkroom-nav__item {
+  display: inline-flex;
+  align-items: center;
   padding: 6px 15px;
   font-family: var(--font-condensed);
   font-size: 1rem;

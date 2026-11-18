@@ -22,6 +22,8 @@ interface GlitchTypographyProps {
   verticalWord: string;
   /** Горизонтальное пересекающее слово (VORTEX) */
   crossWord: string;
+  /** Уровень HTML-заголовка для основного слова */
+  headingLevel?: 'h1' | 'h2';
 }
 
 /**
@@ -35,7 +37,10 @@ export function GlitchTypography({
   primaryWord,
   verticalWord,
   crossWord,
+  headingLevel = 'h1',
 }: GlitchTypographyProps) {
+  const HeadingTag = headingLevel;
+
   return (
     <div className="typo-column">
       <div className="rec-slot">
@@ -52,7 +57,7 @@ export function GlitchTypography({
             <span className="overthink-streak overthink-streak--2" />
             <span className="overthink-streak overthink-streak--3" />
           </div>
-          <h1 className="serif-overthink">{primaryWord}</h1>
+          <HeadingTag className="serif-overthink">{primaryWord}</HeadingTag>
         </div>
 
         <p className="typo-quote typo-quote--middle">{bottomQuote}</p>
