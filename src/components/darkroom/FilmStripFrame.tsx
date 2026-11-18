@@ -1,7 +1,8 @@
 /**
- * Компонент каркаса киноплёнки и верхней панели видоискателя (PARADOX // DARKROOM).
- * Отрисовывает левую и правую перфорацию плёнки, логотип, пункты навигации
- * (ARCHIVE, DIVE IN, GLITCH PLAYERS, ABOUT) и белые уголки рамки камеры.
+ * Компонент каркаса киноплёнки и верхней панели видоискателя.
+ * Отрисовывает левую и правую перфорацию 35-мм плёнки, пункты навигации
+ * в правом верхнем углу (ARCHIVE, DIVE IN, GLITCH PLAYERS, ABOUT)
+ * и белые уголки рамки камеры без лишнего текстового заголовка слева.
  */
 import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -9,8 +10,6 @@ import type { HeroNavTab } from '../../types/project';
 
 /** Входные свойства оболочки видоискателя */
 interface FilmStripFrameProps {
-  /** Заголовок бренда в левом верхнем углу */
-  brandTitle: string;
   /** Пункты меню в правом верхнем углу */
   navTabs: HeroNavTab[];
   /** Идентификатор текущего активного таба */
@@ -22,12 +21,11 @@ interface FilmStripFrameProps {
 }
 
 /**
- * Оборачивает первый экран в рамку киноплёнки с перфорацией и верхней навигацией.
+ * Оборачивает полноэкранную сцену в рамку киноплёнки с перфорацией и верхней навигацией.
  * @param props Свойства оболочки видоискателя.
- * @returns JSX-разметка первого экрана с перфорацией.
+ * @returns JSX-разметка полноэкранного видоискателя с перфорацией.
  */
 export function FilmStripFrame({
-  brandTitle,
   navTabs,
   activeTabId,
   onSelectTab,
@@ -37,41 +35,21 @@ export function FilmStripFrame({
 
   /**
    * Обрабатывает клик по пункту верхнего меню:
-   * если цель начинается с '/', выполняет переход по маршруту React Router,
-   * иначе прокручивает страницу к соответствующей секции ТЗ.
+   * при наличии маршрута выполняет переход через React Router.
    */
   const handleTabClick = (tab: HeroNavTab) => {
     onSelectTab(tab);
     if (tab.target.startsWith('/')) {
       navigate(tab.target);
-      return;
-    }
-
-    const sectionEl = document.querySelector(tab.target);
-    if (sectionEl) {
-      sectionEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
-  // Разделяем заголовок по '//' для подсветки двойного слэша акцентом
-  const [brandLeft, brandRight] = brandTitle.split('//').map((part) => part.trim());
-
   return (
-    <section className="darkroom-hero" aria-label="Стартовый экран видоискателя">
+    <section className="darkroom-hero" aria-label="Экран видоискателя">
       <div className="film-rail film-rail--left" aria-hidden="true" />
 
       <div className="darkroom-stage">
         <header className="darkroom-topbar">
-          <div className="darkroom-brand">
-            <span>{brandLeft}</span>
-            {brandRight && (
-              <>
-                <span className="darkroom-brand__slash">//</span>
-                <span>{brandRight}</span>
-              </>
-            )}
-          </div>
-
           <nav className="darkroom-nav" aria-label="Навигация видоискателя">
             {navTabs.map((tab) => {
               const isHighlighted = tab.id === activeTabId;
