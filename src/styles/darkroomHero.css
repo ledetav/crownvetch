@@ -1,19 +1,20 @@
 /**
- * Стили стартового экрана видоискателя PARADOX // DARKROOM.
+ * Стили полноэкранного видоискателя (100vh на десктопе).
  * Реализуют широкую перфорацию киноплёнки с горизонтальными прямоугольными окошками,
  * уголки камеры, вытянутую антиквенную типографику с засечками (OVERTHINK / VORTEX),
  * световые VHS/RGB-прострелы позади OVERTHINK, выровненные по общей нижней границе
  * слои VORTEX со статичным красным дублем и глитчем строго на букве E,
- * вращающуюся орбиту полароидов и правую панель телеметрии.
+ * увеличенную вращающуюся орбиту полароидов, правую панель телеметрии
+ * и перекрывающее окно поворота экрана для узких мобильных устройств.
  */
 
 .darkroom-hero {
   position: relative;
   width: 100%;
-  min-height: clamp(640px, 88vh, 880px);
+  min-height: 100vh;
+  min-height: 100dvh;
   background:
     radial-gradient(circle at 50% 52%, rgba(46, 78, 90, 0.34) 0%, rgba(11, 19, 23, 0.96) 58%, #070c0f 100%);
-  border-bottom: 1px solid var(--border-subtle);
   overflow: hidden;
   display: flex;
   align-items: stretch;
@@ -21,7 +22,7 @@
   user-select: none;
 }
 
-/* Тонкие сканлайны плёнки поверх всего первого экрана */
+/* Тонкие сканлайны плёнки поверх всего экрана */
 .darkroom-hero::before {
   content: '';
   position: absolute;
@@ -41,7 +42,7 @@
 .film-rail {
   position: relative;
   z-index: 2;
-  width: 58px;
+  width: 62px;
   flex-shrink: 0;
   background-color: #0d1317;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
@@ -54,8 +55,8 @@
   inset: 0;
   z-index: 4;
   pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='58' height='44' viewBox='0 0 58 44'%3E%3Crect x='14' y='13' width='30' height='18' rx='3.5' ry='3.5' fill='%23040608' stroke='%23253036' stroke-width='1.2'/%3E%3C/svg%3E");
-  background-size: 58px 44px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='62' height='44' viewBox='0 0 62 44'%3E%3Crect x='15' y='13' width='32' height='18' rx='3.5' ry='3.5' fill='%23040608' stroke='%23253036' stroke-width='1.2'/%3E%3C/svg%3E");
+  background-size: 62px 44px;
   background-repeat: repeat-y;
 }
 
@@ -70,49 +71,36 @@
   z-index: 3;
   flex: 1;
   min-width: 0;
-  padding: 20px 32px 26px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 22px 36px 28px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-/* Верхняя панель видоискателя: PARADOX // DARKROOM и кнопки меню */
+/* Верхняя панель видоискателя: навигация справа без заголовка слева */
 .darkroom-topbar {
   position: relative;
   z-index: 8;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 16px;
   flex-wrap: wrap;
-}
-
-.darkroom-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-condensed);
-  font-size: 1.25rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  color: var(--text-primary);
-}
-
-.darkroom-brand__slash {
-  color: var(--accent-amber);
 }
 
 .darkroom-nav {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
 .darkroom-nav__item {
-  padding: 6px 14px;
+  padding: 6px 15px;
   font-family: var(--font-condensed);
-  font-size: 0.98rem;
+  font-size: 1rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-primary);
@@ -133,23 +121,23 @@
   box-shadow: 0 0 12px rgba(232, 190, 103, 0.14);
 }
 
-/* Белые уголки видоискателя камеры вокруг основной сцены */
+/* Белые уголки видоискателя камеры вокруг основной сцены на всю высоту окна */
 .viewfinder-frame {
   position: relative;
   flex: 1;
-  margin-top: 16px;
-  padding: 20px 24px;
+  margin-top: 14px;
+  padding: 22px 26px;
   display: grid;
-  grid-template-columns: minmax(310px, 1.12fr) minmax(320px, 1.28fr) minmax(240px, 0.85fr);
+  grid-template-columns: minmax(320px, 1.1fr) minmax(380px, 1.35fr) minmax(250px, 0.85fr);
   align-items: center;
-  gap: 16px;
+  gap: 18px;
 }
 
 .viewfinder-corner {
   position: absolute;
-  width: 28px;
-  height: 28px;
-  border-color: rgba(234, 226, 208, 0.72);
+  width: 30px;
+  height: 30px;
+  border-color: rgba(234, 226, 208, 0.74);
   border-style: solid;
   pointer-events: none;
   z-index: 7;
@@ -196,14 +184,14 @@
   align-items: center;
   gap: 10px;
   font-family: var(--font-mono);
-  font-size: 1rem;
+  font-size: 1.05rem;
   letter-spacing: 0.12em;
   color: var(--text-primary);
 }
 
 .rec-indicator__dot {
-  width: 13px;
-  height: 13px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: var(--accent-rec);
   box-shadow: 0 0 12px var(--accent-rec);
@@ -229,29 +217,29 @@
   position: relative;
   z-index: 4;
   font-family: var(--font-mono);
-  font-size: 0.74rem;
+  font-size: 0.76rem;
   letter-spacing: 0.08em;
   color: var(--text-secondary);
-  margin: 12px 0;
+  margin: 14px 0;
 }
 
 .typo-quote--top {
-  margin-left: 78px;
+  margin-left: 82px;
 }
 
 .typo-quote--middle {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .typo-quote--bottom {
-  margin-top: 6px;
+  margin-top: 8px;
 }
 
 /* Обёртка OVERTHINK: стройный высокий антиквенный текст с воздухом между буквами */
 .overthink-wrapper {
   position: relative;
   display: inline-block;
-  padding: 10px 0;
+  padding: 12px 0;
 }
 
 .serif-overthink {
@@ -261,7 +249,7 @@
   margin: 0;
   font-family: var(--font-serif-display);
   font-weight: 700;
-  font-size: clamp(3.85rem, 6.7vw, 5.9rem);
+  font-size: clamp(4.1rem, 7.1vw, 6.4rem);
   line-height: 0.88;
   letter-spacing: 0.015em;
   color: var(--text-primary);
@@ -274,10 +262,10 @@
 /* Световые VHS/RGB-прострелы позади OVERTHINK в единой стилистике со световым глитчем VORTEX */
 .overthink-ribbon {
   position: absolute;
-  left: -145px;
-  right: -135px;
+  left: -150px;
+  right: -140px;
   top: 58%;
-  height: 46px;
+  height: 48px;
   transform: translateY(-50%);
   z-index: 1;
   pointer-events: none;
@@ -291,7 +279,6 @@
   will-change: transform, opacity;
 }
 
-/* Верхний тонкий бирюзово-белый луч с красным шлейфом */
 .overthink-streak--1 {
   top: 4px;
   left: 0;
@@ -308,7 +295,6 @@
   animation: streakPulseA 2.6s steps(1, end) infinite;
 }
 
-/* Центральный широкий световой VHS-прострел с пересветом */
 .overthink-streak--2 {
   top: 20px;
   left: 24px;
@@ -325,7 +311,6 @@
   animation: streakPulseB 2s steps(1, end) infinite;
 }
 
-/* Нижний разреженный бирюзово-жёлтый блик с воздушным зазором */
 .overthink-streak--3 {
   bottom: 3px;
   left: 56px;
@@ -348,13 +333,12 @@
  */
 .vortex-cross-lockup {
   position: relative;
-  margin-top: 2px;
-  width: 340px;
-  height: 295px;
+  margin-top: 6px;
+  width: 360px;
+  height: 320px;
   overflow: visible;
 }
 
-/* Основной вертикальный VORTEX: опущен вниз, нижняя граница совпадает с горизонтальным VORTEX */
 .vortex-vertical {
   position: absolute;
   bottom: 0;
@@ -363,7 +347,7 @@
   writing-mode: vertical-rl;
   font-family: var(--font-serif-display);
   font-weight: 700;
-  font-size: clamp(3.85rem, 6.7vw, 5.9rem);
+  font-size: clamp(4.1rem, 7.1vw, 6.4rem);
   line-height: 0.88;
   letter-spacing: 0.015em;
   color: var(--text-primary);
@@ -375,7 +359,6 @@
   transform-origin: bottom left;
 }
 
-/* Локальный VHS-разрез вертикального VORTEX строго в зоне буквы E (5-я из 6 букв: 67%..83%) */
 .vortex-vertical::after {
   content: attr(data-text);
   position: absolute;
@@ -389,16 +372,15 @@
   pointer-events: none;
 }
 
-/* Статичный полупрозрачный красный дубль: выровнен по нижней границе и сдвинут вправо на 50% ширины */
 .vortex-vertical-ghost {
   position: absolute;
   bottom: 0;
-  left: 69px;
+  left: 72px;
   z-index: 1;
   writing-mode: vertical-rl;
   font-family: var(--font-serif-display);
   font-weight: 700;
-  font-size: clamp(3.85rem, 6.7vw, 5.9rem);
+  font-size: clamp(4.1rem, 7.1vw, 6.4rem);
   line-height: 0.88;
   letter-spacing: 0.015em;
   color: rgba(182, 32, 38, 0.52);
@@ -408,7 +390,6 @@
   pointer-events: none;
 }
 
-/* Горизонтальный полупрозрачный VORTEX в цвет текста, задающий общую нижнюю границу */
 .vertex-horizontal {
   position: absolute;
   left: 0;
@@ -416,7 +397,7 @@
   z-index: 2;
   font-family: var(--font-serif-display);
   font-weight: 700;
-  font-size: clamp(3.85rem, 6.7vw, 5.9rem);
+  font-size: clamp(4.1rem, 7.1vw, 6.4rem);
   line-height: 0.88;
   letter-spacing: 0.015em;
   color: rgba(234, 226, 208, 0.28);
@@ -426,7 +407,6 @@
   pointer-events: none;
 }
 
-/* Локальный срез горизонтального VORTEX строго в зоне буквы E (5-я из 6 букв: слева 67%, справа 17%) */
 .vertex-horizontal::before {
   content: attr(data-text);
   position: absolute;
@@ -437,12 +417,11 @@
   animation: horizontalVortexTearE 3.5s steps(1, end) infinite;
 }
 
-/* Горизонтальные световые VHS-прострелы локально поперёк буквы E в VORTEX */
 .vortex-glitch-streaks {
   position: absolute;
   left: -36px;
   right: 10px;
-  bottom: 36px;
+  bottom: 40px;
   height: 36px;
   z-index: 4;
   pointer-events: none;
@@ -564,12 +543,12 @@
   }
 }
 
-/* Центральная сцена: спиральный вихрь + вращающееся кольцо полароидов */
+/* Центральная сцена: увеличенный вихрь + вращающееся кольцо полароидов */
 .vortex-center {
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
-  max-width: 580px;
+  max-width: 680px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -578,9 +557,9 @@
 
 .vortex-portal-svg {
   position: absolute;
-  inset: 6%;
-  width: 88%;
-  height: 88%;
+  inset: 4%;
+  width: 92%;
+  height: 92%;
   pointer-events: none;
   animation: portalSpin 38s linear infinite;
 }
@@ -604,7 +583,6 @@
   }
 }
 
-/* Орбита полароидов, крутящаяся по кругу */
 .polaroid-orbit {
   position: absolute;
   inset: 0;
@@ -628,20 +606,19 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 112px;
-  height: 128px;
-  margin-left: -56px;
-  margin-top: -64px;
-  transform: rotate(var(--orbit-angle)) translateY(calc(var(--orbit-radius, 215px) * -1))
+  width: 124px;
+  height: 142px;
+  margin-left: -62px;
+  margin-top: -71px;
+  transform: rotate(var(--orbit-angle)) translateY(calc(var(--orbit-radius, 245px) * -1))
     rotate(calc(var(--orbit-angle) * -1));
   z-index: 4;
 }
 
-/* Компенсируем вращение орбиты, чтобы карточки плавно кружились без переворота вверх ногами */
 .polaroid-card-item__inner {
   width: 100%;
   height: 100%;
-  padding: 7px 7px 20px;
+  padding: 8px 8px 22px;
   background: var(--text-primary);
   border-radius: 3px;
   box-shadow:
@@ -689,12 +666,11 @@
   display: block;
 }
 
-/* Центральное ядро портала с двумя фигурами в вихре */
 .vortex-core-badge {
   position: relative;
   z-index: 5;
-  width: 152px;
-  height: 152px;
+  width: 172px;
+  height: 172px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(22, 36, 44, 0.92) 0%, rgba(11, 19, 23, 0.85) 72%, transparent 100%);
   border: 1px solid rgba(59, 199, 214, 0.32);
@@ -705,18 +681,17 @@
   pointer-events: none;
 }
 
-/* Перекрестие прицела внизу справа от портала */
 .reticle-crosshair {
   position: absolute;
   right: 8%;
   bottom: 4%;
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   pointer-events: none;
   opacity: 0.88;
 }
 
-/* Правая панель телеметрии: таймеры, волна, мини-превью и кнопки PLAY / REVERSE */
+/* Правая панель телеметрии: растянута по всей высоте экрана */
 .telemetry-column {
   position: relative;
   z-index: 6;
@@ -724,24 +699,25 @@
   flex-direction: column;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 14px;
+  gap: 16px;
   height: 100%;
+  padding: 6px 0;
   font-family: var(--font-mono);
 }
 
 .telemetry-top-time {
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   letter-spacing: 0.1em;
   color: var(--text-primary);
 }
 
 .telemetry-glitch-block {
   width: 100%;
-  max-width: 245px;
+  max-width: 255px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  font-size: 0.72rem;
+  gap: 6px;
+  font-size: 0.74rem;
   color: var(--text-muted);
 }
 
@@ -749,7 +725,7 @@
   position: relative;
   display: inline-block;
   width: fit-content;
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   color: var(--text-secondary);
   text-shadow: -1px 0 var(--glitch-cyan), 1px 0 var(--glitch-red);
 }
@@ -770,23 +746,22 @@
 
 .telemetry-channel {
   align-self: flex-end;
-  font-size: 0.75rem;
+  font-size: 0.76rem;
   letter-spacing: 0.08em;
   color: var(--text-secondary);
 }
 
 .telemetry-excerpt {
   margin-top: 4px;
-  font-size: 0.65rem;
-  line-height: 1.45;
+  font-size: 0.66rem;
+  line-height: 1.48;
   color: var(--text-muted);
 }
 
-/* Аудио-осциллограмма с двуцветным глитч-сигналом */
 .waveform-box {
   width: 100%;
-  max-width: 245px;
-  height: 54px;
+  max-width: 255px;
+  height: 60px;
   display: flex;
   align-items: center;
 }
@@ -814,10 +789,9 @@
   }
 }
 
-/* Полоса прогресса и отрицательный таймкод -00:03:45 */
 .scrubber-row {
   width: 100%;
-  max-width: 245px;
+  max-width: 255px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -847,15 +821,14 @@
 }
 
 .scrubber-time {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   color: var(--text-secondary);
 }
 
-/* Мини-монитор тёмной комнаты с полароидом внутри */
 .darkroom-monitor-preview {
   width: 100%;
-  max-width: 245px;
-  height: 92px;
+  max-width: 255px;
+  height: 104px;
   border: 1px solid var(--border-strong);
   background: linear-gradient(125deg, #2b1315 0%, #0d1316 55%, #1d1514 100%);
   position: relative;
@@ -866,8 +839,8 @@
 }
 
 .darkroom-monitor-preview__polaroid {
-  width: 56px;
-  height: 66px;
+  width: 60px;
+  height: 72px;
   padding: 4px 4px 12px;
   background: var(--text-primary);
   transform: rotate(-4deg);
@@ -880,10 +853,9 @@
   background: #141a1d;
 }
 
-/* Кнопки управления вращением PLAY и REVERSE */
 .telemetry-controls {
   width: 100%;
-  max-width: 245px;
+  max-width: 255px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
@@ -894,12 +866,12 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 7px 10px;
+  padding: 8px 12px;
   background: rgba(11, 19, 23, 0.88);
   border: 1px solid rgba(234, 226, 208, 0.55);
   color: var(--text-primary);
   font-family: var(--font-condensed);
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
@@ -914,122 +886,9 @@
 }
 
 .telemetry-footer-code {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   letter-spacing: 0.1em;
   color: var(--text-muted);
   text-decoration: line-through;
   text-decoration-color: rgba(214, 54, 56, 0.7);
-}
-
-/* Адаптация под планшеты и мобильные экраны (390x844) */
-@media (max-width: 1040px) {
-  .viewfinder-frame {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    padding: 18px 14px;
-  }
-
-  .typo-column {
-    align-items: center;
-    text-align: center;
-  }
-
-  .typo-quote--top {
-    margin-left: 0;
-  }
-
-  .serif-overthink {
-    transform: scale(0.74, 1.44);
-    transform-origin: center center;
-    margin-right: 0;
-  }
-
-  .overthink-ribbon {
-    left: -18px;
-    right: -18px;
-  }
-
-  .vortex-cross-lockup {
-    width: 240px;
-    height: 215px;
-    margin: 12px auto 0;
-  }
-
-  .vortex-vertical {
-    left: 24px;
-    font-size: 2.8rem;
-  }
-
-  .vortex-vertical-ghost {
-    left: 48px;
-    font-size: 2.8rem;
-  }
-
-  .vertex-horizontal {
-    font-size: 2.8rem;
-  }
-
-  .vortex-center {
-    max-width: 330px;
-  }
-
-  .polaroid-card-item {
-    width: 72px;
-    height: 84px;
-    margin-left: -36px;
-    margin-top: -42px;
-    --orbit-radius: 122px;
-  }
-
-  .vortex-core-badge {
-    width: 104px;
-    height: 104px;
-  }
-
-  .telemetry-column {
-    align-items: center;
-  }
-}
-
-@media (max-width: 540px) {
-  .film-rail {
-    width: 30px;
-  }
-
-  .film-rail::after {
-    background-size: 30px 30px;
-  }
-
-  .darkroom-stage {
-    padding: 14px 12px 20px;
-  }
-
-  .darkroom-brand {
-    font-size: 1.05rem;
-  }
-
-  .darkroom-nav {
-    gap: 6px;
-  }
-
-  .darkroom-nav__item {
-    padding: 5px 9px;
-    font-size: 0.82rem;
-  }
-
-  .serif-overthink {
-    font-size: 2.8rem;
-  }
-
-  .vortex-center {
-    max-width: 290px;
-  }
-
-  .polaroid-card-item {
-    width: 64px;
-    height: 76px;
-    margin-left: -32px;
-    margin-top: -38px;
-    --orbit-radius: 108px;
-  }
 }
