@@ -1,8 +1,8 @@
 /**
  * Стили полноэкранного видоискателя (100vh на десктопе).
  * Реализуют широкую перфорацию киноплёнки с горизонтальными прямоугольными окошками,
- * внешнюю рамку видоискателя с уголками в самом верху и снизу,
- * верхнюю строку с живым счётчиком REC (сброс на 00:03:04) и навигацией справа,
+ * рамку видоискателя с равномерными внешними и внутренними отступами у всех 4 уголков,
+ * приподнятый индикатор REC с обратным отсчётом от 00:12:00 в левой колонке,
  * вытянутую антиквенную типографику с засечками (OVERTHINK / VORTEX),
  * световые VHS/RGB-прострелы позади OVERTHINK, выровненные по общей нижней границе
  * слои VORTEX со статичным красным дублем и глитчем строго на букве E,
@@ -67,7 +67,7 @@
   border-left: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Внутреннее рабочее поле видоискателя между полосами плёнки */
+/* Внутреннее рабочее поле видоискателя с равномерными отступами для всех 4 уголков */
 .darkroom-stage {
   position: relative;
   z-index: 3;
@@ -75,16 +75,16 @@
   min-width: 0;
   min-height: 100vh;
   min-height: 100dvh;
-  padding: 18px 30px 22px;
+  padding: 28px 42px 30px;
   display: flex;
   flex-direction: column;
 }
 
-/* Внешняя рамка видоискателя: верхние уголки подняты на уровень верхней панели */
+/* Внешняя рамка видоискателя с внутренним воздухом от уголков до контента */
 .viewfinder-shell {
   position: relative;
   flex: 1;
-  padding: 16px 22px 20px;
+  padding: 22px 26px 22px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -124,13 +124,13 @@
   border-width: 0 2px 2px 0;
 }
 
-/* Верхняя панель видоискателя: слева ● REC, справа навигация */
+/* Верхняя панель видоискателя: навигация справа */
 .darkroom-topbar {
   position: relative;
   z-index: 8;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 16px;
   flex-wrap: wrap;
 }
@@ -170,15 +170,15 @@
 .viewfinder-frame {
   position: relative;
   flex: 1;
-  margin-top: 8px;
-  padding: 6px 6px 0;
+  margin-top: 6px;
+  padding: 4px 4px 0;
   display: grid;
   grid-template-columns: minmax(320px, 1.1fr) minmax(380px, 1.35fr) minmax(250px, 0.85fr);
   align-items: center;
   gap: 18px;
 }
 
-/* Левая колонка: типографика с клиновидными засечками */
+/* Левая колонка: приподнятый индикатор REC и типографика с клиновидными засечками */
 .typo-column {
   position: relative;
   z-index: 5;
@@ -187,10 +187,15 @@
   align-items: flex-start;
   justify-content: space-between;
   height: 100%;
-  padding: 4px 0;
+  padding: 0;
 }
 
-/* Индикатор ● REC с быстрым отсчётом и глитч-сбросом на 00:03:04 */
+/* Поднимаем REC выше в левой колонке, чтобы он располагался ближе к верхнему левому уголку */
+.rec-slot {
+  margin-top: -28px;
+}
+
+/* Индикатор ● REC с обратным отсчётом от 00:12:00 и глитч-сбросом на 00:03:04 */
 .rec-indicator {
   display: inline-flex;
   align-items: center;
@@ -294,7 +299,7 @@
 /* Световые VHS/RGB-прострелы позади OVERTHINK в единой стилистике со световым глитчем VORTEX */
 .overthink-ribbon {
   position: absolute;
-  left: -150px;
+  left: -155px;
   right: -140px;
   top: 58%;
   height: 48px;
@@ -927,13 +932,17 @@
 /* Компактная адаптация для альбомных мобильных и планшетов (ширина 769..1040px) */
 @media (max-width: 1040px) and (min-width: 769px) {
   .darkroom-stage {
-    padding: 14px 18px 18px;
+    padding: 18px 24px 20px;
   }
 
   .viewfinder-frame {
     grid-template-columns: 1fr 1.2fr 0.85fr;
     gap: 10px;
-    padding: 6px 6px 0;
+    padding: 4px 4px 0;
+  }
+
+  .rec-slot {
+    margin-top: -18px;
   }
 
   .serif-overthink,

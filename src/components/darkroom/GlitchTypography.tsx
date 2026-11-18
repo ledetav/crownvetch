@@ -1,12 +1,14 @@
 /**
  * Компонент анимированной глитч-типографики левой части видоискателя.
  * Отрисовывает:
+ * - приподнятый индикатор записи ● REC с обратным отсчётом петли;
  * - заголовок OVERTHINK узким антиквенным шрифтом с засечками поверх
  *   световых VHS/RGB-прострелов (бирюзовый, белый, красный, жёлтый);
  * - пересекающуюся связку вертикального VORTEX (с локальным глитчем строго
  *   на букве E), статичного полупрозрачного красного дубля и горизонтального
  *   полупрозрачного VORTEX, выровненных по единой нижней границе.
  */
+import { RecTimer } from './RecTimer';
 
 /** Входные свойства компонента глитч-типографики */
 interface GlitchTypographyProps {
@@ -36,6 +38,10 @@ export function GlitchTypography({
 }: GlitchTypographyProps) {
   return (
     <div className="typo-column">
+      <div className="rec-slot">
+        <RecTimer />
+      </div>
+
       <div className="typo-stack">
         <p className="typo-quote typo-quote--top">{topQuote}</p>
 
