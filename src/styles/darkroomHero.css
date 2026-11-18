@@ -3,9 +3,8 @@
  * Реализуют бесконечную вертикальную перфорацию киноплёнки с прямоугольными окошками,
  * липкую верхнюю панель (верхние уголки, индикатор ● REC и меню навигации),
  * нижние уголки рамки на границе контента, возможность выхода визуальных эффектов за рамку,
- * вытянутую антиквенную типографику ВЯЗЕЛЬ со световыми VHS/RGB-прострелами,
- * блок досье О ПЕРСОНАЖЕ, центральную композицию тёмной фотолаборатории
- * (негативная 35-мм плёнка, силуэт с бирюзово-янтарным контурным свечением)
+ * 3-колоночную сетку (слева досье ВЯЗЕЛЬ // ЛИН ВЭЙ В БЛОГЕ, в центре прозрачный арт
+ * персонажа с альфа-обводкой и тенью, справа вертикальное меню внешних ресурсов со стрелками ↗)
  * и статичное перекрывающее окно поворота экрана для узких мобильных устройств.
  */
 
@@ -236,16 +235,16 @@
   }
 }
 
-/* Основная 2-колоночная сетка внутри видоискателя: слева досье, в центре сцена фотолаборатории */
+/* Основная 3-колоночная сетка внутри видоискателя: досье слева, арт в центре, меню справа */
 .viewfinder-frame {
   position: relative;
   flex: 1;
   width: 100%;
-  padding: 12px 4px 0;
+  padding: 10px 4px 0;
   display: grid;
-  grid-template-columns: minmax(360px, 0.92fr) minmax(420px, 1.25fr);
+  grid-template-columns: minmax(320px, 1.05fr) minmax(300px, 0.95fr) minmax(280px, 0.9fr);
   align-items: center;
-  gap: 28px;
+  gap: 24px;
 }
 
 /* Индикатор ● REC с обратным отсчётом от 00:12:00 и глитч-сбросом на 00:03:04 */
@@ -480,35 +479,215 @@
   }
 }
 
-/* Центральная сцена фотолаборатории: силуэт в контурном свете, негативная плёнка и перекрестие */
+/* Центральная сцена персонажа: прозрачный PNG с хроматической обводкой по контуру и тенью */
 .darkroom-visual-stage {
   position: relative;
   width: 100%;
-  height: 100%;
-  min-height: 460px;
+  min-height: 480px;
   display: flex;
   align-items: flex-end;
-  justify-content: flex-start;
+  justify-content: center;
   overflow: visible;
 }
 
-.darkroom-silhouette-svg {
+.darkroom-backdrop-svg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 112%;
+  max-width: 490px;
+  height: auto;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.darkroom-character-figure {
+  position: relative;
+  z-index: 3;
   width: 100%;
-  max-width: 560px;
+  max-width: 390px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* Смещённая тень строго по альфа-силуэту кота */
+.darkroom-character-shadow {
+  position: absolute;
+  inset: 0;
+  width: 100%;
   height: auto;
   display: block;
+  object-fit: contain;
+  transform: translate(26px, -10px) scale(0.99);
+  filter: brightness(0) saturate(0) blur(1.2px);
+  opacity: 0.58;
+  z-index: 1;
+  user-select: none;
   pointer-events: none;
-  overflow: visible;
+}
+
+/* Основной арт кота с хроматической обводкой строго по контуру прозрачного PNG */
+.darkroom-character-art {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  filter:
+    drop-shadow(-2.5px 0 0 rgba(59, 199, 214, 0.92))
+    drop-shadow(2.5px 0 0 rgba(232, 190, 103, 0.9))
+    drop-shadow(0 -1.5px 0 rgba(234, 226, 208, 0.45))
+    drop-shadow(0 1.5px 0 rgba(59, 199, 214, 0.4))
+    drop-shadow(0 16px 24px rgba(0, 0, 0, 0.88));
+  user-select: none;
+}
+
+.darkroom-character-fallback {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 320px;
+  min-height: 360px;
+  border: 1px solid rgba(234, 226, 208, 0.24);
+  background: rgba(18, 24, 27, 0.86);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-condensed);
+  font-size: 1.4rem;
+  letter-spacing: 0.14em;
+  color: var(--text-primary);
+}
+
+/* Правая колонка: вертикальное меню внешних ресурсов со стрелками в верхний правый угол */
+.external-menu-column {
+  position: relative;
+  z-index: 5;
+  height: 100%;
+  min-height: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 16px;
+}
+
+.external-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 22px;
+}
+
+.external-menu__item {
+  width: 100%;
+  min-height: 44px;
+  padding: 6px 2px 10px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(234, 226, 208, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-family: var(--font-condensed);
+  font-size: clamp(1.18rem, 1.8vw, 1.62rem);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+
+.external-menu__label-group {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+}
+
+.external-menu__index {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  letter-spacing: 0.04em;
+  opacity: 0.92;
+}
+
+.external-menu__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.external-menu__arrow {
+  flex-shrink: 0;
+  transition: transform 0.18s ease;
+}
+
+.external-menu__item--cyan {
+  color: var(--glitch-cyan);
+  border-bottom-color: rgba(59, 199, 214, 0.72);
+}
+
+.external-menu__item--amber {
+  color: var(--accent-amber);
+  border-bottom-color: rgba(232, 190, 103, 0.72);
+}
+
+.external-menu__item--red {
+  color: var(--text-primary);
+  border-bottom-color: rgba(214, 54, 56, 0.76);
+}
+
+.external-menu__item--red .external-menu__index,
+.external-menu__item--red .external-menu__arrow {
+  color: var(--accent-rec);
+}
+
+.external-menu__item:hover,
+.external-menu__item:focus-visible {
+  outline: none;
+  filter: brightness(1.14);
+}
+
+.external-menu__item:focus-visible {
+  box-shadow: 0 0 0 2px rgba(232, 190, 103, 0.55);
+}
+
+.external-menu__item:hover .external-menu__arrow,
+.external-menu__item:focus-visible .external-menu__arrow {
+  transform: translate(3px, -3px);
+}
+
+.external-menu__notice {
+  margin: 4px 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .external-menu__item,
+  .external-menu__arrow {
+    transition: none;
+  }
 }
 
 .reticle-crosshair {
   position: absolute;
-  right: 2%;
-  bottom: 4%;
-  width: 42px;
-  height: 42px;
+  right: 0;
+  bottom: 2%;
+  width: 40px;
+  height: 40px;
   pointer-events: none;
-  opacity: 0.88;
+  opacity: 0.85;
 }
 
 /* Всплывающее окно поворота устройства: скрыто на широких экранах */
@@ -532,8 +711,8 @@
   }
 
   .viewfinder-frame {
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 18px;
     padding: 4px 4px 0;
   }
 
@@ -549,8 +728,25 @@
     min-height: 320px;
   }
 
-  .darkroom-silhouette-svg {
-    max-width: 340px;
+  .darkroom-character-figure {
+    max-width: 280px;
+  }
+
+  .external-menu-column {
+    grid-column: 1 / -1;
+    min-height: auto;
+    padding-bottom: 18px;
+  }
+
+  .external-menu {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px 24px;
+  }
+
+  .external-menu__item {
+    width: auto;
+    font-size: 1.05rem;
   }
 }
 

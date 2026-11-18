@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { getTzHeroDataset } from '../../services/projectDataStore';
 import { CharacterDossier } from './CharacterDossier';
 import { DarkroomVisualStage } from './DarkroomVisualStage';
+import { ExternalResourceMenu } from './ExternalResourceMenu';
 import { FilmStripFrame } from './FilmStripFrame';
 import { RotateDeviceOverlay } from './RotateDeviceOverlay';
 import '../../styles/darkroomHero.css';
@@ -74,7 +75,12 @@ export function DarkroomViewfinderScreen({
             headingLevel={headingLevel}
           />
 
-          <DarkroomVisualStage />
+          <DarkroomVisualStage
+            artworkSrc={heroData.characterArtworkSrc}
+            altText={`${heroData.primaryWord} (${heroData.secondaryWord}) — персонаж`}
+          />
+
+          <ExternalResourceMenu links={heroData.externalLinks} />
         </div>
       </FilmStripFrame>
     </>

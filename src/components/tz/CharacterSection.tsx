@@ -1,10 +1,12 @@
 /**
  * Секция «О персонаже» внутри горизонтального слайдера страницы ТЗ (/tz#character).
- * Отображает досье персонажа ВЯЗЕЛЬ и центральную композицию тёмной фотолаборатории.
+ * Отображает 3-колоночную композицию: досье ВЯЗЕЛЬ слева, арт персонажа с контурной
+ * обводкой и тенью в центре и вертикальное меню внешних ресурсов справа.
  */
 import type { TzHeroDataset } from '../../types/project';
 import { CharacterDossier } from '../darkroom/CharacterDossier';
 import { DarkroomVisualStage } from '../darkroom/DarkroomVisualStage';
+import { ExternalResourceMenu } from '../darkroom/ExternalResourceMenu';
 
 /** Входные свойства слайда секции ТЗ */
 export interface TzSectionSlideProps {
@@ -36,7 +38,12 @@ export function CharacterSection({ heroData, isActive }: TzSectionSlideProps) {
           headingLevel="h1"
         />
 
-        <DarkroomVisualStage />
+        <DarkroomVisualStage
+          artworkSrc={heroData.characterArtworkSrc}
+          altText={`${heroData.primaryWord} (${heroData.secondaryWord}) — персонаж`}
+        />
+
+        <ExternalResourceMenu links={heroData.externalLinks} />
       </div>
     </section>
   );

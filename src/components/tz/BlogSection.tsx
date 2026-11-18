@@ -5,6 +5,7 @@
  */
 import { CharacterDossier } from '../darkroom/CharacterDossier';
 import { DarkroomVisualStage } from '../darkroom/DarkroomVisualStage';
+import { ExternalResourceMenu } from '../darkroom/ExternalResourceMenu';
 import type { TzSectionSlideProps } from './CharacterSection';
 
 /**
@@ -29,7 +30,12 @@ export function BlogSection({ heroData, isActive }: TzSectionSlideProps) {
           headingLevel="h2"
         />
 
-        <DarkroomVisualStage />
+        <DarkroomVisualStage
+          artworkSrc={heroData.characterArtworkSrc}
+          altText={`${heroData.primaryWord} (${heroData.secondaryWord}) — персонаж`}
+        />
+
+        <ExternalResourceMenu links={heroData.externalLinks} />
       </div>
     </section>
   );
