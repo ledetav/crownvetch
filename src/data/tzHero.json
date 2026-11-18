@@ -8,25 +8,20 @@
   "crossWord": "VORTEX",
   "navTabs": [
     {
-      "id": "archive",
-      "label": "ARCHIVE",
-      "target": "/tz",
+      "id": "character",
+      "label": "О персонаже",
+      "target": "#character",
       "highlighted": true
     },
     {
-      "id": "dive-in",
-      "label": "DIVE IN",
-      "target": "/game"
+      "id": "owner",
+      "label": "О владельце",
+      "target": "#owner"
     },
     {
-      "id": "glitch-players",
-      "label": "GLITCH PLAYERS",
-      "target": "#glitch-players"
-    },
-    {
-      "id": "about",
-      "label": "ABOUT",
-      "target": "#about"
+      "id": "blog",
+      "label": "О блоге",
+      "target": "#blog"
     }
   ],
   "polaroids": [

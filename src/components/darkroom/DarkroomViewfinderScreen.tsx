@@ -17,41 +17,67 @@ import '../../styles/darkroomHero.css';
 interface DarkroomViewfinderScreenProps {
   /** Идентификатор таба, подсвеченного жёлтой рамкой по умолчанию */
   initialTabId?: string;
+  /** HTML-идентификатор секции для якорных переходов */
+  sectionId?: string;
+  /** Доступное имя секции для скринридеров */
+  sectionLabel?: string;
+  /** Нужно ли рендерить оверлей поворота устройства (отключается у дублирующих секций) */
+  showOrientationOverlay?: boolean;
+  /** Уровень заголовка для композиции OVERTHINK */
+  headingLevel?: 'h1' | 'h2';
 }
 
 /**
  * Рендерит полноэкранный видоискатель со всеми интерактивными элементами.
- * @param props Необязательный идентификатор активного пункта навигации.
+ * @param props Параметры активного пункта меню, якоря и оверлея.
  * @returns JSX-разметка полноэкранного видоискателя.
  */
-export function DarkroomViewfinderScreen({ initialTabId }: DarkroomViewfinderScreenProps) {
+export function DarkroomViewfinderScreen({
+  initialTabId,
+  sectionId,
+  sectionLabel,
+  showOrientationOverlay = true,
+  headingLevel = 'h1',
+}: DarkroomViewfinderScreenProps) {
   const heroData = getTzHeroDataset();
 
   const resolvedDefaultTab =
     initialTabId ??
     heroData.navTabs.find((tab) => tab.highlighted)?.id ??
     heroData.navTabs[0]?.id ??
-    'archive';
+    'character';
 
   const [activeTabId, setActiveTabId] = useState<string>(resolvedDefaultTab);
 
+  // При наличии sectionId секция всегда подсвечивает собственный пункт меню
+  const effectiveActiveTabId = sectionId ? resolvedDefaultTab : activeTabId;
+
   return (
     <>
-      <RotateDeviceOverlay />
+      {showOrientationOverlay ? <RotateDeviceOverlay /> : null}
       <FilmStripFrame
+        sectionId={sectionId}
+        sectionLabel={sectionLabel}
         navTabs={heroData.navTabs}
-        activeTabId={activeTabId}
-        onSelectTab={(tab) => setActiveTabId(tab.id)}
+        activeTabId={effectiveActiveTabId}
+        onSelectTab={(tab) => {
+          if (!sectionId) {
+            setActiveTabId(tab.id);
+          }
+        }}
       >
-        <GlitchTypography
-          topQuote={heroData.topQuote}
-          bottomQuote={heroData.bottomQuote}
-          primaryWord={heroData.primaryWord}
-          verticalWord={heroData.verticalWord}
-          crossWord={heroData.crossWord}
-        />
+        <div className="viewfinder-frame">
+          <GlitchTypography
+            topQuote={heroData.topQuote}
+            bottomQuote={heroData.bottomQuote}
+            primaryWord={heroData.primaryWord}
+            verticalWord={heroData.verticalWord}
+            crossWord={heroData.crossWord}
+            headingLevel={headingLevel}
+          />
 
-        <PolaroidVortex polaroids={heroData.polaroids} />
+          <PolaroidVortex polaroids={heroData.polaroids} />
+        </div>
       </FilmStripFrame>
     </>
   );
