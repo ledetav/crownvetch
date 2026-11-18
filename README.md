@@ -1,12 +1,12 @@
-# crownvetch (`PARADOX // DARKROOM`)
+# crownvetch
 
-SPA-приложение на **React + TypeScript + Vite** для проектного технического задания (`/tz`) и последующей интеграции визуальной новеллы и текстового квеста (`/game`).
+SPA-приложение на **React + TypeScript + Vite** для проектного технического задания (`/tz`) и визуальной новеллы / текстового квеста (`/game`).
 
 ## Маршруты приложения
 
 - `/` — автоматический редирект на `/tz`
-- `/tz` — стартовый экран видоискателя `PARADOX // DARKROOM` (перфорация плёнки, глитч-типографика `OVERTHINK / VORTEX`, вращающееся по кругу кольцо полароидов с управлением `PLAY / REVERSE`) и секции ТЗ из JSON-базы
-- `/game` — маршрут визуальной новеллы и текстового квеста (сейчас подключена интерактивная заглушка на базе `src/data/quest.json`)
+- `/tz` — полноэкранный видоискатель (`100vh`) с прямоугольной перфорацией киноплёнки, глитч-типографикой `OVERTHINK / VORTEX`, вращающимся по кругу кольцом полароидов с управлением `PLAY / REVERSE` и оверлеем поворота устройства для узких экранов
+- `/game` — полная копия основного полноэкранного видоискателя (заготовка для последующей интеграции игрового движка)
 
 ## Структура проекта
 
@@ -15,8 +15,8 @@ SPA-приложение на **React + TypeScript + Vite** для проект�
 │   └── ui_audit.py              # Playwright-скрипт визуального аудита (1440x900 и 390x844)
 ├── src/
 │   ├── components/
-│   │   ├── darkroom/            # Компоненты первого экрана (FilmStripFrame, GlitchTypography, PolaroidVortex, DarkroomTelemetryPanel)
-│   │   ├── AppHeader.tsx        # Навигационная шапка для маршрута /game
+│   │   ├── darkroom/            # Компоненты видоискателя (DarkroomViewfinderScreen, FilmStripFrame, GlitchTypography, PolaroidVortex, DarkroomTelemetryPanel, RotateDeviceOverlay)
+│   │   ├── AppHeader.tsx
 │   │   └── InteractivePalette.tsx
 │   ├── data/                    # JSON-хранилище данных (tzHero.json, palette.json, modules.json, quest.json)
 │   ├── pages/                   # Страницы маршрутов (TzPage, GamePlaceholderPage)
