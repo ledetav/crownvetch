@@ -1,22 +1,37 @@
 /**
- * Секция «О блоге» на странице технического задания (/tz#blog).
- * На текущем этапе дублирует структуру экрана «О персонаже» для дальнейшего
- * наполнения контентом и точечной доработки дизайна.
+ * Секция «О блоге» внутри горизонтального слайдера страницы ТЗ (/tz#blog).
+ * На текущем этапе копирует внутреннее наполнение секции «О персонаже»
+ * для последующей кастомизации контента.
  */
-import { DarkroomViewfinderScreen } from '../darkroom/DarkroomViewfinderScreen';
+import { GlitchTypography } from '../darkroom/GlitchTypography';
+import { PolaroidVortex } from '../darkroom/PolaroidVortex';
+import type { TzSectionSlideProps } from './CharacterSection';
 
 /**
- * Рендерит якорную секцию «О блоге» на странице ТЗ.
- * @returns JSX-разметка секции #blog.
+ * Рендерит внутреннее содержимое секции «О блоге» для горизонтального слайдера.
+ * @param props Данные секции и флаг активности слайда.
+ * @returns JSX-разметка слайда #blog.
  */
-export function BlogSection() {
+export function BlogSection({ heroData, isActive }: TzSectionSlideProps) {
   return (
-    <DarkroomViewfinderScreen
-      sectionId="blog"
-      sectionLabel="Секция: О блоге"
-      initialTabId="blog"
-      showOrientationOverlay={false}
-      headingLevel="h2"
-    />
+    <section
+      data-section="blog"
+      className={`viewfinder-slide ${isActive ? 'viewfinder-slide--active' : 'viewfinder-slide--inactive'}`}
+      aria-label="Секция: О блоге"
+      aria-hidden={!isActive}
+    >
+      <div className="viewfinder-frame">
+        <GlitchTypography
+          topQuote={heroData.topQuote}
+          bottomQuote={heroData.bottomQuote}
+          primaryWord={heroData.primaryWord}
+          verticalWord={heroData.verticalWord}
+          crossWord={heroData.crossWord}
+          headingLevel="h2"
+        />
+
+        <PolaroidVortex polaroids={heroData.polaroids} />
+      </div>
+    </section>
   );
 }
