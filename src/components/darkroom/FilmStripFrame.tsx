@@ -1,9 +1,10 @@
 /**
- * Компонент каркаса киноплёнки и неподвижной рамки видоискателя.
- * Отрисовывает левую и правую перфорацию 35-мм плёнки, 4 белых уголка камеры,
- * верхнюю панель с индикатором записи ● REC слева и навигацией справа.
- * Внутренняя сцена передаётся через children и может переключаться горизонтально,
- * не смещая саму оболочку видоискателя.
+ * Компонент каркаса киноплёнки и рамки видоискателя.
+ * Отрисовывает повторяющуюся по высоте перфорацию 35-мм плёнки, липкую верхнюю панель
+ * (верхние белые уголки камеры, индикатор записи ● REC слева и навигацию справа)
+ * и нижние уголки рамки на нижней границе контента.
+ * Внутренняя сцена передаётся через children и переключается горизонтально,
+ * при этом её эффекты могут выходить за пределы рамки.
  */
 import type { MouseEvent, ReactNode } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -74,34 +75,37 @@ export function FilmStripFrame({
 
       <div className="darkroom-stage">
         <div className="viewfinder-shell">
-          <span className="viewfinder-corner viewfinder-corner--tl" aria-hidden="true" />
-          <span className="viewfinder-corner viewfinder-corner--tr" aria-hidden="true" />
+          <div className="viewfinder-sticky-header">
+            <span className="viewfinder-corner viewfinder-corner--tl" aria-hidden="true" />
+            <span className="viewfinder-corner viewfinder-corner--tr" aria-hidden="true" />
+
+            <header className="darkroom-topbar">
+              <RecTimer />
+
+              <nav className="darkroom-nav" aria-label="Навигация видоискателя">
+                {navTabs.map((tab) => {
+                  const isHighlighted = tab.id === activeTabId;
+                  const href = tab.target.startsWith('#') ? `/tz${tab.target}` : tab.target;
+                  return (
+                    <a
+                      key={tab.id}
+                      href={href}
+                      className={`darkroom-nav__item ${
+                        isHighlighted ? 'darkroom-nav__item--highlighted' : ''
+                      }`}
+                      aria-current={isHighlighted ? 'page' : undefined}
+                      onClick={(event) => handleTabClick(event, tab)}
+                    >
+                      {tab.label}
+                    </a>
+                  );
+                })}
+              </nav>
+            </header>
+          </div>
+
           <span className="viewfinder-corner viewfinder-corner--bl" aria-hidden="true" />
           <span className="viewfinder-corner viewfinder-corner--br" aria-hidden="true" />
-
-          <header className="darkroom-topbar">
-            <RecTimer />
-
-            <nav className="darkroom-nav" aria-label="Навигация видоискателя">
-              {navTabs.map((tab) => {
-                const isHighlighted = tab.id === activeTabId;
-                const href = tab.target.startsWith('#') ? `/tz${tab.target}` : tab.target;
-                return (
-                  <a
-                    key={tab.id}
-                    href={href}
-                    className={`darkroom-nav__item ${
-                      isHighlighted ? 'darkroom-nav__item--highlighted' : ''
-                    }`}
-                    aria-current={isHighlighted ? 'page' : undefined}
-                    onClick={(event) => handleTabClick(event, tab)}
-                  >
-                    {tab.label}
-                  </a>
-                );
-              })}
-            </nav>
-          </header>
 
           {children}
         </div>

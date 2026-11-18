@@ -68,7 +68,13 @@ export function TzPage() {
         sectionLabel="Техническое задание — видоискатель"
         navTabs={heroData.navTabs}
         activeTabId={activeTabId}
-        onSelectTab={(tab) => setActiveTabId(tab.id)}
+        onSelectTab={(tab) => {
+          setActiveTabId(tab.id);
+          // При переключении секции из нижней прокрученной позиции плавно возвращаемся к началу нового слайда
+          if (window.scrollY > 0) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        }}
       >
         <div className="viewfinder-carousel">
           <div

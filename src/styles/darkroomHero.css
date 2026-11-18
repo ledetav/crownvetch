@@ -1,8 +1,8 @@
 /**
- * Стили полноэкранного видоискателя (100vh на десктопе).
- * Реализуют широкую перфорацию киноплёнки с горизонтальными прямоугольными окошками,
- * рамку видоискателя с равномерными внешними и внутренними отступами у всех 4 уголков,
- * приподнятый индикатор REC с обратным отсчётом от 00:12:00 в левой колонке,
+ * Стили полноэкранного видоискателя (min-height: 100vh на десктопе с автопродлением при скролле).
+ * Реализуют бесконечную вертикальную перфорацию киноплёнки с прямоугольными окошками,
+ * липкую верхнюю панель (верхние уголки, индикатор ● REC и меню навигации),
+ * нижние уголки рамки на границе контента, возможность выхода визуальных эффектов за рамку,
  * вытянутую антиквенную типографику с засечками (OVERTHINK / VORTEX),
  * световые VHS/RGB-прострелы позади OVERTHINK, выровненные по общей нижней границе
  * слои VORTEX со статичным красным дублем и глитчем строго на букве E,
@@ -17,7 +17,8 @@
   min-height: 100dvh;
   background:
     radial-gradient(circle at 50% 52%, rgba(46, 78, 90, 0.34) 0%, rgba(11, 19, 23, 0.96) 58%, #070c0f 100%);
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
   display: flex;
   align-items: stretch;
   justify-content: space-between;
@@ -67,7 +68,7 @@
   border-left: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Внутреннее рабочее поле видоискателя с равномерными отступами для всех 4 уголков */
+/* Внутреннее рабочее поле видоискателя с боковыми и нижним отступами */
 .darkroom-stage {
   position: relative;
   z-index: 3;
@@ -75,19 +76,43 @@
   min-width: 0;
   min-height: 100vh;
   min-height: 100dvh;
-  padding: 28px 42px 30px;
+  padding: 0 42px 30px;
   display: flex;
   flex-direction: column;
 }
 
-/* Внешняя рамка видоискателя с внутренним воздухом от уголков до контента */
+/* Внешняя рамка видоискателя; нижние уголки остаются у нижней границы контента */
 .viewfinder-shell {
   position: relative;
   flex: 1;
-  padding: 22px 26px 22px;
+  padding: 0 26px 22px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+/* Липкая верхняя панель: фиксирует верхние уголки, счётчик REC и меню при вертикальном скролле */
+.viewfinder-sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 12;
+  margin: 0 -26px;
+  padding: 50px 26px 6px;
+  pointer-events: none;
+}
+
+.viewfinder-sticky-header::before {
+  content: '';
+  position: absolute;
+  inset: 0 -16px -14px;
+  background: linear-gradient(
+    to bottom,
+    rgba(9, 15, 18, 0.94) 0%,
+    rgba(9, 15, 18, 0.74) 68%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 0;
 }
 
 .viewfinder-corner {
@@ -101,13 +126,13 @@
 }
 
 .viewfinder-corner--tl {
-  top: 0;
+  top: 28px;
   left: 0;
   border-width: 2px 0 0 2px;
 }
 
 .viewfinder-corner--tr {
-  top: 0;
+  top: 28px;
   right: 0;
   border-width: 2px 2px 0 0;
 }
@@ -127,12 +152,13 @@
 /* Верхняя панель видоискателя: счётчик REC слева и навигация справа */
 .darkroom-topbar {
   position: relative;
-  z-index: 8;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
+  pointer-events: auto;
 }
 
 .darkroom-nav {
@@ -168,21 +194,20 @@
   box-shadow: 0 0 12px rgba(232, 190, 103, 0.14);
 }
 
-/* Горизонтальный контейнер смены внутреннего наполнения при неподвижном каркасе */
+/* Горизонтальный контейнер смены наполнения: overflow: visible разрешает выход эффектов за пределы рамки */
 .viewfinder-carousel {
   position: relative;
   flex: 1;
   min-width: 0;
   min-height: 0;
-  margin-top: 6px;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
 }
 
 .viewfinder-carousel__track {
   display: flex;
+  align-items: stretch;
   width: 100%;
-  height: 100%;
   transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
 }
@@ -191,14 +216,18 @@
   flex: 0 0 100%;
   width: 100%;
   min-width: 100%;
-  height: 100%;
+  min-height: 100%;
   display: flex;
-  transition: opacity 0.35s ease;
+  transition: opacity 0.35s ease, visibility 0s linear 0s;
 }
 
 .viewfinder-slide--inactive {
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
+  max-height: calc(100vh - 120px);
+  overflow: hidden;
+  transition: opacity 0.35s ease, visibility 0s linear 0.35s;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -755,7 +784,16 @@
 /* Компактная адаптация для альбомных мобильных и планшетов (ширина 769..1040px) */
 @media (max-width: 1040px) and (min-width: 769px) {
   .darkroom-stage {
-    padding: 18px 24px 20px;
+    padding: 0 24px 20px;
+  }
+
+  .viewfinder-sticky-header {
+    padding: 40px 26px 6px;
+  }
+
+  .viewfinder-corner--tl,
+  .viewfinder-corner--tr {
+    top: 18px;
   }
 
   .viewfinder-frame {
