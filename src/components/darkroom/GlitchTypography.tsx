@@ -3,11 +3,11 @@
  * Отрисовывает:
  * - индикатор записи ● REC;
  * - заголовок OVERTHINK узким антиквенным шрифтом с засечками поверх
- *   многослойных оптических VHS-треков (бирюзовый, красный, жёлтый с белыми ядрами)
- *   и лёгкого горизонтального сдвига центральной полосы слова;
- * - пересекающуюся связку вертикального VORTEX, его полупрозрачного красного дубля
- *   (выступающего из-под основы ровно наполовину) и горизонтального полупрозрачного VORTEX,
- *   выровненных по единой нижней границе с реалистичными VHS-разрезами и хроматической аберрацией.
+ *   световых VHS/RGB-прострелов (бирюзовый, белый, красный, жёлтый),
+ *   выполненных в единой стилистике со световым глитчем VORTEX;
+ * - пересекающуюся связку вертикального VORTEX (с локальным глитчем строго
+ *   на букве E), статичного полупрозрачного красного дубля и горизонтального
+ *   полупрозрачного VORTEX, выровненных по единой нижней границе.
  */
 
 /** Входные свойства компонента глитч-типографики */
@@ -27,7 +27,7 @@ interface GlitchTypographyProps {
 }
 
 /**
- * Рендерит типографическую композицию с клиновидными засечками и многослойными VHS-глитчами.
+ * Рендерит типографическую композицию с клиновидными засечками и световыми VHS-глитчами.
  * @param props Тексты и таймкоды из JSON-конфигурации первого экрана.
  * @returns JSX-разметка левой типографической колонки.
  */
@@ -49,28 +49,26 @@ export function GlitchTypography({
       <div className="typo-stack">
         <p className="typo-quote typo-quote--top">{topQuote}</p>
 
-        {/* OVERTHINK: вытянутый антиквенный текст поверх мягких VHS-треков с оптическим сдвигом */}
+        {/* OVERTHINK: вытянутый антиквенный текст поверх световых VHS/RGB-прострелов */}
         <div className="overthink-wrapper">
           <div className="overthink-ribbon" aria-hidden="true">
-            <span className="glitch-lane glitch-lane--1" />
-            <span className="glitch-lane glitch-lane--2" />
-            <span className="glitch-lane glitch-lane--3" />
+            <span className="overthink-streak overthink-streak--1" />
+            <span className="overthink-streak overthink-streak--2" />
+            <span className="overthink-streak overthink-streak--3" />
           </div>
-          <h1 className="serif-overthink" data-text={primaryWord}>
-            {primaryWord}
-          </h1>
+          <h1 className="serif-overthink">{primaryWord}</h1>
         </div>
 
         <p className="typo-quote typo-quote--middle">{bottomQuote}</p>
 
         {/* Пересекающаяся связка VORTEX (вертикальный) + VORTEX (горизонтальный) по общей нижней линии */}
         <div className="vortex-cross-lockup" aria-label={`${verticalWord} / ${crossWord}`}>
-          {/* Полупрозрачный красный дубль, выровненный по нижней границе и выступающий вправо наполовину */}
+          {/* Статичный полупрозрачный красный дубль, выступающий из-под основы ровно наполовину */}
           <span className="vortex-vertical-ghost" aria-hidden="true">
             {verticalWord}
           </span>
 
-          {/* Основной вертикальный VORTEX с VHS-разрезами и хроматической аберрацией */}
+          {/* Основной вертикальный VORTEX с локальным VHS-разрезом строго на букве E */}
           <span className="vortex-vertical" data-text={verticalWord}>
             {verticalWord}
           </span>
@@ -80,7 +78,7 @@ export function GlitchTypography({
             {crossWord}
           </span>
 
-          {/* Поперечные VHS-прострелы по связке VORTEX */}
+          {/* Световые VHS-прострелы локально в зоне буквы E */}
           <div className="vortex-glitch-streaks" aria-hidden="true">
             <span className="vortex-streak vortex-streak--1" />
             <span className="vortex-streak vortex-streak--2" />
