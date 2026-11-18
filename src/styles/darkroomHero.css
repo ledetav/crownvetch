@@ -1,10 +1,10 @@
 /**
  * Стили стартового экрана видоискателя PARADOX // DARKROOM.
  * Реализуют широкую перфорацию киноплёнки с горизонтальными прямоугольными окошками,
- * уголки камеры, вытянутую антиквенную типографику с засечками (OVERTHINK / VORTEX / VERTEX)
- * и 3-полосную VHS-ленту глитчей с зазорами (жёлтый, бирюзовый, красный),
- * смещённую ниже середины слова и заходящую на левую плёнку,
- * вращающуюся орбиту полароидов вокруг спирального портала и правую панель телеметрии.
+ * уголки камеры, вытянутую антиквенную типографику с засечками (OVERTHINK / VORTEX),
+ * выровненные по общей нижней границе слои VORTEX с выступающим наполовину красным дублем
+ * и реалистичные многослойные VHS/RGB-глитчи (хроматические ореолы, разрезы clip-path,
+ * световые треки), вращающуюся орбиту полароидов и правую панель телеметрии.
  */
 
 .darkroom-hero {
@@ -222,26 +222,36 @@
 .typo-stack {
   position: relative;
   margin: auto 0;
-  padding: 12px 0;
+  padding: 8px 0;
 }
 
 .typo-quote {
+  position: relative;
+  z-index: 4;
   font-family: var(--font-mono);
   font-size: 0.74rem;
   letter-spacing: 0.08em;
   color: var(--text-secondary);
-  margin: 16px 0;
+  margin: 12px 0;
 }
 
 .typo-quote--top {
   margin-left: 78px;
 }
 
+.typo-quote--middle {
+  margin-bottom: 6px;
+}
+
+.typo-quote--bottom {
+  margin-top: 6px;
+}
+
 /* Обёртка OVERTHINK: стройный высокий антиквенный текст с воздухом между буквами */
 .overthink-wrapper {
   position: relative;
   display: inline-block;
-  padding: 12px 0;
+  padding: 10px 0;
 }
 
 .serif-overthink {
@@ -253,7 +263,6 @@
   font-weight: 700;
   font-size: clamp(3.85rem, 6.7vw, 5.9rem);
   line-height: 0.88;
-  /* Чуть увеличиваем трекинг, чтобы засечки и края букв не склеивались */
   letter-spacing: 0.015em;
   color: var(--text-primary);
   text-transform: uppercase;
@@ -262,12 +271,45 @@
   margin-right: -28%;
 }
 
-/* 3-полосная VHS-лента глитчей с зазорами, смещённая ниже середины OVERTHINK */
+/* Тонкий оптический срез-сдвиг центральной полосы букв OVERTHINK */
+.serif-overthink::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  color: var(--text-primary);
+  text-shadow:
+    -2px 0 rgba(59, 199, 214, 0.75),
+    2px 0 rgba(214, 54, 56, 0.75);
+  clip-path: inset(48% 0 36% 0);
+  animation: overthinkMicroTear 4.5s steps(1, end) infinite;
+  pointer-events: none;
+}
+
+@keyframes overthinkMicroTear {
+  0%, 84%, 100% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  86% {
+    transform: translateX(-5px);
+    opacity: 0.95;
+  }
+  90% {
+    transform: translateX(4px);
+    opacity: 0.9;
+  }
+  94% {
+    transform: translateX(-2px);
+    opacity: 0.85;
+  }
+}
+
+/* Реалистичные многослойные VHS-треки позади OVERTHINK с оптическим размытием и световыми ядрами */
 .overthink-ribbon {
   position: absolute;
   left: -145px;
   right: -135px;
-  top: 60%;
+  top: 56%;
   height: 22%;
   transform: translateY(-50%);
   z-index: 1;
@@ -275,89 +317,91 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* Небольшой зазор между линиями, чтобы просвечивал тёмный фон видоискателя */
   gap: 3px;
-  filter: blur(0.8px);
-  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 84%, transparent 100%);
-  mask-image: linear-gradient(90deg, #000 0%, #000 84%, transparent 100%);
+  filter: blur(1.35px) contrast(1.18);
+  mix-blend-mode: screen;
+  -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0%, #000 18%, #000 82%, transparent 100%);
+  mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0%, #000 18%, #000 82%, transparent 100%);
 }
 
 .glitch-lane {
   display: block;
   width: 100%;
   flex: 1;
-  opacity: 0.88;
+  opacity: 0.92;
   will-change: transform, opacity;
 }
 
-/* Дорожка 1: бирюзовый -> красный -> жёлтый с VHS-сдвигами */
+/* Дорожка 1: бирюзовый шлейф с белым пересветом -> красный -> жёлтый */
 .glitch-lane--1 {
   background: linear-gradient(
     90deg,
-    var(--glitch-cyan) 0% 22%,
-    var(--glitch-red) 22% 46%,
-    var(--glitch-yellow) 46% 72%,
-    var(--glitch-cyan) 72% 92%,
-    transparent 92% 100%
+    rgba(59, 199, 214, 0.85) 0% 10%,
+    rgba(234, 248, 255, 0.72) 10% 14%,
+    rgba(59, 199, 214, 0.78) 14% 25%,
+    rgba(214, 54, 56, 0.82) 26% 45%,
+    rgba(232, 190, 103, 0.8) 46% 68%,
+    rgba(59, 199, 214, 0.75) 70% 88%,
+    transparent 94% 100%
   );
-  animation: vhsGlitchLaneA 2.4s steps(1, end) infinite;
+  animation: vhsGlitchLaneA 2.8s steps(1, end) infinite;
 }
 
-/* Дорожка 2: центральная полоса (красный -> жёлтый -> бирюзовый) */
+/* Дорожка 2: центральная яркая полоса помех */
 .glitch-lane--2 {
-  flex: 1.25;
+  flex: 1.3;
   background: linear-gradient(
     90deg,
-    var(--glitch-red) 0% 28%,
-    var(--glitch-yellow) 28% 52%,
-    var(--glitch-cyan) 52% 78%,
-    var(--glitch-red) 78% 95%,
-    transparent 95% 100%
+    rgba(214, 54, 56, 0.85) 0% 19%,
+    rgba(232, 190, 103, 0.88) 20% 44%,
+    rgba(255, 246, 224, 0.65) 44% 49%,
+    rgba(59, 199, 214, 0.85) 50% 74%,
+    rgba(214, 54, 56, 0.8) 76% 92%,
+    transparent 97% 100%
   );
-  animation: vhsGlitchLaneC 1.6s steps(1, end) infinite;
+  animation: vhsGlitchLaneC 1.9s steps(1, end) infinite;
 }
 
-/* Дорожка 3: нижний шлейф с дополнительным воздушным зазором сверху */
+/* Дорожка 3: нижний разорванный шлейф */
 .glitch-lane--3 {
   margin-top: 2px;
   background: linear-gradient(
     90deg,
-    var(--glitch-yellow) 0% 32%,
-    transparent 32% 38%,
-    var(--glitch-cyan) 38% 68%,
-    var(--glitch-red) 68% 90%,
-    transparent 90% 100%
+    rgba(232, 190, 103, 0.75) 0% 24%,
+    transparent 26% 36%,
+    rgba(59, 199, 214, 0.82) 38% 64%,
+    rgba(214, 54, 56, 0.76) 66% 85%,
+    transparent 91% 100%
   );
-  animation: vhsGlitchLaneB 2.2s steps(1, end) infinite reverse;
+  animation: vhsGlitchLaneB 2.4s steps(1, end) infinite reverse;
 }
 
-/* Рваная VHS-анимация: резкие скачки длины и позиции сегментов */
 @keyframes vhsGlitchLaneA {
   0%, 100% {
     transform: translateX(0) scaleX(1);
-    opacity: 0.88;
+    opacity: 0.9;
   }
-  24% {
-    transform: translateX(-16px) scaleX(1.05);
-    opacity: 0.78;
+  28% {
+    transform: translateX(-14px) scaleX(1.04);
+    opacity: 0.76;
   }
-  58% {
-    transform: translateX(18px) scaleX(0.94);
-    opacity: 0.94;
+  64% {
+    transform: translateX(16px) scaleX(0.95);
+    opacity: 0.95;
   }
 }
 
 @keyframes vhsGlitchLaneB {
   0%, 100% {
     transform: translateX(0) scaleX(1);
-    opacity: 0.84;
+    opacity: 0.86;
   }
-  32% {
-    transform: translateX(15px) scaleX(0.95);
+  35% {
+    transform: translateX(14px) scaleX(0.96);
     opacity: 0.94;
   }
-  74% {
-    transform: translateX(-14px) scaleX(1.04);
+  76% {
+    transform: translateX(-12px) scaleX(1.03);
     opacity: 0.68;
   }
 }
@@ -365,54 +409,37 @@
 @keyframes vhsGlitchLaneC {
   0%, 100% {
     transform: translateX(0) scaleX(1);
-    opacity: 0.9;
+    opacity: 0.92;
   }
-  20% {
-    transform: translateX(22px) scaleX(0.91);
-    opacity: 0.72;
+  22% {
+    transform: translateX(18px) scaleX(0.93);
+    opacity: 0.74;
   }
-  62% {
-    transform: translateX(-18px) scaleX(1.06);
-    opacity: 0.95;
+  68% {
+    transform: translateX(-15px) scaleX(1.05);
+    opacity: 0.96;
   }
 }
 
-/* Пересекающийся блок VORTEX (вертикальный) + VERTEX (горизонтальный) в едином стиле с OVERTHINK */
+/*
+ * Пересекающаяся связка VORTEX (вертикальный) + VORTEX (горизонтальный):
+ * все три слоя (белый вертикальный VORTEX, полупрозрачный красный дубль
+ * и горизонтальный полупрозрачный VORTEX) выровнены по одной нижней границе (bottom: 0).
+ */
 .vortex-cross-lockup {
   position: relative;
-  margin-top: 24px;
-  width: 310px;
+  margin-top: 2px;
+  width: 340px;
   height: 295px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  overflow: visible;
 }
 
-/* Полупрозрачная красная дублирующая копия под вертикальным VORTEX (шрифт, размер и пропорции как у OVERTHINK) */
-.vortex-vertical-ghost {
-  position: absolute;
-  top: 0;
-  left: 62px;
-  writing-mode: vertical-rl;
-  font-family: var(--font-serif-display);
-  font-weight: 700;
-  font-size: clamp(3.85rem, 6.7vw, 5.9rem);
-  line-height: 0.88;
-  letter-spacing: 0.015em;
-  color: var(--vortex-ghost-red);
-  text-transform: uppercase;
-  /* В vertical-rl ось Y — вдоль строки (высота букв), ось X — ширина букв */
-  transform: scale(1.38, 0.68);
-  transform-origin: top left;
-  pointer-events: none;
-  z-index: 1;
-  animation: vortexGhostShift 3.4s steps(3, end) infinite;
-}
-
-/* Основной вертикальный VORTEX: идентичный шрифт, размер и глитч-срезы по тексту */
+/* Основной вертикальный VORTEX: опущен вниз, нижняя граница совпадает с горизонтальным VORTEX */
 .vortex-vertical {
-  position: relative;
-  z-index: 2;
+  position: absolute;
+  bottom: 0;
+  left: 34px;
+  z-index: 3;
   writing-mode: vertical-rl;
   font-family: var(--font-serif-display);
   font-weight: 700;
@@ -421,11 +448,15 @@
   letter-spacing: 0.015em;
   color: var(--text-primary);
   text-transform: uppercase;
-  margin-left: 42px;
-  transform: scale(1.38, 0.68);
-  transform-origin: top left;
+  /* Оптическая хроматическая аберрация по краям букв как на референсе */
+  text-shadow:
+    -3px 1px 0 rgba(59, 199, 214, 0.65),
+    3px -1px 0 rgba(214, 54, 56, 0.75);
+  transform: scale(1.36, 0.68);
+  transform-origin: bottom left;
 }
 
+/* Верхний и нижний VHS-разрезы самого вертикального VORTEX */
 .vortex-vertical::before,
 .vortex-vertical::after {
   content: attr(data-text);
@@ -435,30 +466,59 @@
 }
 
 .vortex-vertical::before {
-  color: var(--glitch-cyan);
-  animation: textSliceA 2.6s infinite linear alternate-reverse;
+  color: var(--text-primary);
+  text-shadow:
+    -5px 0 rgba(59, 199, 214, 0.9),
+    5px 0 rgba(214, 54, 56, 0.9);
+  clip-path: inset(28% 0 56% 0);
+  animation: vortexTearUpper 3.2s steps(1, end) infinite;
 }
 
 .vortex-vertical::after {
-  color: var(--glitch-yellow);
-  animation: textSliceB 3.1s infinite linear alternate-reverse;
+  color: var(--text-primary);
+  text-shadow:
+    6px 0 rgba(59, 199, 214, 0.95),
+    -5px 0 rgba(232, 190, 103, 0.85);
+  clip-path: inset(66% 0 18% 0);
+  animation: vortexTearLower 2.7s steps(1, end) infinite;
 }
 
-/* Горизонтальный полупрозрачный VERTEX в цвет основного текста и пропорциях OVERTHINK */
-.vertex-horizontal {
+/* Полупрозрачный красный дубль: выровнен по той же нижней границе и сдвинут вправо на 50% ширины */
+.vortex-vertical-ghost {
   position: absolute;
-  left: 0;
-  bottom: 28px;
-  z-index: 3;
+  bottom: 0;
+  /* Основной VORTEX начинается в left: 34px и имеет визуальную ширину ~70px -> сдвиг на +35px даёт вылет ровно наполовину */
+  left: 69px;
+  z-index: 1;
+  writing-mode: vertical-rl;
   font-family: var(--font-serif-display);
   font-weight: 700;
   font-size: clamp(3.85rem, 6.7vw, 5.9rem);
   line-height: 0.88;
   letter-spacing: 0.015em;
-  color: rgba(234, 226, 208, 0.34);
+  color: rgba(182, 32, 38, 0.52);
   text-transform: uppercase;
-  transform: scale(0.68, 1.5);
-  transform-origin: left center;
+  transform: scale(1.36, 0.68);
+  transform-origin: bottom left;
+  pointer-events: none;
+  animation: vortexGhostShift 3.8s steps(1, end) infinite;
+}
+
+/* Горизонтальный полупрозрачный VORTEX в цвет текста, задающий общую нижнюю границу */
+.vertex-horizontal {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+  font-family: var(--font-serif-display);
+  font-weight: 700;
+  font-size: clamp(3.85rem, 6.7vw, 5.9rem);
+  line-height: 0.88;
+  letter-spacing: 0.015em;
+  color: rgba(234, 226, 208, 0.28);
+  text-transform: uppercase;
+  transform: scale(0.68, 1.36);
+  transform-origin: bottom left;
   pointer-events: none;
 }
 
@@ -466,53 +526,167 @@
   content: attr(data-text);
   position: absolute;
   inset: 0;
-  color: rgba(234, 226, 208, 0.52);
-  animation: textSliceA 2.9s infinite linear;
+  color: rgba(234, 226, 208, 0.45);
+  text-shadow: -3px 0 rgba(59, 199, 214, 0.55), 3px 0 rgba(214, 54, 56, 0.55);
+  clip-path: inset(44% 0 38% 0);
+  animation: horizontalVortexTear 3.5s steps(1, end) infinite;
+}
+
+/* Горизонтальные световые VHS-прострелы поперёк нижней части связки VORTEX */
+.vortex-glitch-streaks {
+  position: absolute;
+  left: -36px;
+  right: 10px;
+  bottom: 22px;
+  height: 78px;
+  z-index: 4;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: blur(0.9px);
+}
+
+.vortex-streak {
+  position: absolute;
+  height: 3px;
+  border-radius: 1px;
+}
+
+.vortex-streak--1 {
+  top: 6px;
+  left: 0;
+  width: 66%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(59, 199, 214, 0.85) 24%,
+    rgba(255, 255, 255, 0.92) 48%,
+    rgba(214, 54, 56, 0.85) 74%,
+    transparent 100%
+  );
+  animation: streakPulseA 2.5s steps(1, end) infinite;
+}
+
+.vortex-streak--2 {
+  top: 44px;
+  left: 14px;
+  width: 78%;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    rgba(214, 54, 56, 0.85) 0%,
+    rgba(255, 248, 232, 0.9) 38%,
+    rgba(59, 199, 214, 0.9) 68%,
+    transparent 100%
+  );
+  animation: streakPulseB 1.9s steps(1, end) infinite;
+}
+
+.vortex-streak--3 {
+  bottom: 4px;
+  left: 28px;
+  width: 58%;
+  height: 2.5px;
+  background: linear-gradient(
+    90deg,
+    rgba(59, 199, 214, 0.85) 0%,
+    rgba(232, 190, 103, 0.85) 55%,
+    transparent 100%
+  );
+  animation: streakPulseA 3.1s steps(1, end) infinite reverse;
+}
+
+@keyframes vortexTearUpper {
+  0%, 78%, 100% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  81% {
+    transform: translateX(-7px);
+    opacity: 1;
+  }
+  86% {
+    transform: translateX(5px);
+    opacity: 0.9;
+  }
+  92% {
+    transform: translateX(-3px);
+    opacity: 0.95;
+  }
+}
+
+@keyframes vortexTearLower {
+  0%, 70%, 100% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  74% {
+    transform: translateX(8px);
+    opacity: 1;
+  }
+  82% {
+    transform: translateX(-6px);
+    opacity: 0.92;
+  }
+  90% {
+    transform: translateX(4px);
+    opacity: 0.88;
+  }
+}
+
+@keyframes horizontalVortexTear {
+  0%, 75%, 100% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  79% {
+    transform: translateX(-8px);
+    opacity: 1;
+  }
+  87% {
+    transform: translateX(6px);
+    opacity: 0.85;
+  }
 }
 
 @keyframes vortexGhostShift {
-  0%, 82%, 100% {
-    transform: scale(1.38, 0.68) translate(0, 0);
+  0%, 84%, 100% {
+    transform: scale(1.36, 0.68) translateX(0);
   }
-  86% {
-    transform: scale(1.38, 0.68) translate(4px, -3px);
+  88% {
+    transform: scale(1.36, 0.68) translateX(4px);
   }
-  92% {
-    transform: scale(1.38, 0.68) translate(-3px, 4px);
+  94% {
+    transform: scale(1.36, 0.68) translateX(-3px);
   }
 }
 
-@keyframes textSliceA {
-  0%, 72%, 100% {
-    clip-path: inset(0 0 100% 0);
-    transform: translateX(0);
+@keyframes streakPulseA {
+  0%, 66%, 100% {
+    opacity: 0.35;
+    transform: translateX(0) scaleX(0.92);
   }
-  75% {
-    clip-path: inset(18% 0 58% 0);
-    transform: translateX(-6px);
+  70% {
+    opacity: 0.98;
+    transform: translateX(-10px) scaleX(1.06);
   }
   82% {
-    clip-path: inset(48% 0 32% 0);
-    transform: translateX(5px);
-  }
-  90% {
-    clip-path: inset(72% 0 12% 0);
-    transform: translateX(-4px);
+    opacity: 0.85;
+    transform: translateX(8px) scaleX(0.98);
   }
 }
 
-@keyframes textSliceB {
-  0%, 68%, 100% {
-    clip-path: inset(100% 0 0 0);
-    transform: translateX(0);
+@keyframes streakPulseB {
+  0%, 60%, 100% {
+    opacity: 0.28;
+    transform: translateX(0) scaleX(0.9);
   }
-  73% {
-    clip-path: inset(30% 0 48% 0);
-    transform: translateX(6px);
+  65% {
+    opacity: 0.96;
+    transform: translateX(12px) scaleX(1.08);
   }
-  84% {
-    clip-path: inset(62% 0 18% 0);
-    transform: translateX(-5px);
+  78% {
+    opacity: 0.82;
+    transform: translateX(-8px) scaleX(0.95);
   }
 }
 
@@ -902,13 +1076,18 @@
   }
 
   .vortex-cross-lockup {
-    width: 260px;
-    height: 225px;
-    margin: 14px auto 0;
+    width: 240px;
+    height: 215px;
+    margin: 12px auto 0;
   }
 
-  .vortex-vertical,
+  .vortex-vertical {
+    left: 24px;
+    font-size: 2.8rem;
+  }
+
   .vortex-vertical-ghost {
+    left: 48px;
     font-size: 2.8rem;
   }
 
