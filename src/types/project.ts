@@ -1,7 +1,7 @@
 /**
  * TypeScript-интерфейсы и схемы данных для проекта crownvetch.
  * Описывают конфигурацию первого экрана (tzHero.json), навигацию,
- * телеметрию и параметры вращения полароидов.
+ * телеметрию, палитру и параметры вращения полароидов.
  */
 
 /** Пункт меню в верхнем правом углу видоискателя */
@@ -34,6 +34,14 @@ export interface HeroPolaroidCard {
   artworkKind: PolaroidArtworkKind;
   angleDeg: number;
   tiltDeg: number;
+}
+
+/** Элемент палитры цветов из src/data/palette.json */
+export interface PaletteSwatch {
+  id: string;
+  name: string;
+  hex: string;
+  role: string;
 }
 
 /** Полная структура данных конфигурации tzHero.json */
