@@ -235,16 +235,16 @@
   }
 }
 
-/* Основная 3-колоночная сетка внутри видоискателя: досье слева, арт в центре, меню справа */
+/* Основная 3-колоночная сетка внутри видоискателя: досье слева, крупный арт в центре, компактное меню справа */
 .viewfinder-frame {
   position: relative;
   flex: 1;
   width: 100%;
-  padding: 10px 4px 0;
+  padding: 6px 4px 0;
   display: grid;
-  grid-template-columns: minmax(305px, 1fr) minmax(265px, 0.86fr) minmax(350px, 1.08fr);
+  grid-template-columns: minmax(305px, 1.04fr) minmax(290px, 1fr) minmax(250px, auto);
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 }
 
 /* Индикатор ● REC с обратным отсчётом от 00:12:00 и глитч-сбросом на 00:03:04 */
@@ -479,11 +479,12 @@
   }
 }
 
-/* Центральная сцена персонажа: прозрачный PNG с хроматической обводкой по контуру и тенью */
+/* Центральная сцена персонажа: крупный прозрачный PNG, расширенный фон с зигзаг-плёнкой и тень */
 .darkroom-visual-stage {
   position: relative;
+  z-index: 3;
   width: 100%;
-  min-height: 480px;
+  min-height: 540px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -492,10 +493,10 @@
 
 .darkroom-backdrop-svg {
   position: absolute;
-  left: 50%;
+  left: 52%;
   top: 50%;
-  width: 112%;
-  max-width: 490px;
+  width: 162%;
+  max-width: 720px;
   height: auto;
   transform: translate(-50%, -50%);
   pointer-events: none;
@@ -505,8 +506,9 @@
 .darkroom-character-figure {
   position: relative;
   z-index: 3;
-  width: 100%;
-  max-width: 390px;
+  width: clamp(395px, 33.8vw, 490px);
+  max-width: none;
+  transform: translateX(20px);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -567,39 +569,42 @@
   color: var(--text-primary);
 }
 
-/* Правая колонка: вертикальное меню внешних ресурсов со стрелками в верхний правый угол */
+/* Правая колонка: компактное вертикальное меню, допускающее лёгкое наложение на край арта */
 .external-menu-column {
   position: relative;
-  z-index: 5;
+  z-index: 6;
   height: 100%;
-  min-height: 440px;
+  min-height: 480px;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: flex-end;
   justify-content: center;
   gap: 16px;
 }
 
 .external-menu {
+  position: relative;
+  margin-left: -26px;
+  padding: 10px 0;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  gap: 22px;
+  align-items: flex-start;
+  gap: 20px;
 }
 
 .external-menu__item {
-  width: 100%;
+  width: auto;
   min-height: 44px;
-  padding: 6px 2px 10px;
+  padding: 6px 2px 9px;
   background: transparent;
   border: none;
   border-bottom: 2px solid rgba(234, 226, 208, 0.35);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 16px;
   font-family: var(--font-condensed);
-  font-size: clamp(1.04rem, 1.42vw, 1.42rem);
+  font-size: clamp(1.06rem, 1.38vw, 1.38rem);
   font-weight: 500;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -635,22 +640,22 @@
 
 .external-menu__item--cyan {
   color: var(--glitch-cyan);
-  border-bottom-color: rgba(59, 199, 214, 0.72);
+  border-bottom-color: rgba(59, 199, 214, 0.78);
 }
 
 .external-menu__item--amber {
   color: var(--accent-amber);
-  border-bottom-color: rgba(232, 190, 103, 0.72);
+  border-bottom-color: rgba(232, 190, 103, 0.78);
 }
 
 .external-menu__item--red {
-  color: var(--text-primary);
-  border-bottom-color: rgba(214, 54, 56, 0.76);
+  color: #eb4d4f;
+  border-bottom-color: rgba(235, 77, 79, 0.82);
 }
 
 .external-menu__item--red .external-menu__index,
 .external-menu__item--red .external-menu__arrow {
-  color: var(--accent-rec);
+  color: #eb4d4f;
 }
 
 .external-menu__item:hover,
@@ -728,20 +733,28 @@
   }
 
   .darkroom-visual-stage {
-    min-height: 320px;
+    min-height: 360px;
+  }
+
+  .darkroom-backdrop-svg {
+    width: 140%;
+    max-width: 460px;
   }
 
   .darkroom-character-figure {
-    max-width: 280px;
+    width: 310px;
+    transform: none;
   }
 
   .external-menu-column {
     grid-column: 1 / -1;
+    align-items: flex-start;
     min-height: auto;
     padding-bottom: 18px;
   }
 
   .external-menu {
+    margin-left: 0;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 16px 24px;
