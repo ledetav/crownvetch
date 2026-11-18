@@ -15,5 +15,5 @@ export function GamePlaceholderPage() {
     document.title = 'OVERTHINK // VORTEX — Игра';
   }, []);
 
-  return <DarkroomViewfinderScreen initialTabId="dive-in" />;
+  return <DarkroomViewfinderScreen initialTabId="character" />;
 }
