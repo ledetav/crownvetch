@@ -892,3 +892,109 @@
   text-decoration: line-through;
   text-decoration-color: rgba(214, 54, 56, 0.7);
 }
+
+/* Всплывающее окно поворота устройства: скрыто на широких экранах */
+.rotate-device-overlay {
+  display: none;
+}
+
+/* Компактная адаптация для альбомных мобильных и планшетов (ширина 769..1040px) */
+@media (max-width: 1040px) and (min-width: 769px) {
+  .darkroom-stage {
+    padding: 14px 18px 18px;
+  }
+
+  .viewfinder-frame {
+    grid-template-columns: 1fr 1.2fr 0.85fr;
+    gap: 10px;
+    padding: 14px 16px;
+  }
+
+  .serif-overthink,
+  .vortex-vertical,
+  .vortex-vertical-ghost,
+  .vertex-horizontal {
+    font-size: 3.1rem;
+  }
+
+  .vortex-center {
+    max-width: 340px;
+  }
+
+  .polaroid-card-item {
+    width: 78px;
+    height: 90px;
+    margin-left: -39px;
+    margin-top: -45px;
+    --orbit-radius: 132px;
+  }
+}
+
+/* Для узких экранов (<= 768px): перекрываем/заменяем основной экран просьбой повернуть устройство */
+@media (max-width: 768px) {
+  .darkroom-hero {
+    display: none;
+  }
+
+  .rotate-device-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background:
+      radial-gradient(circle at 50% 45%, rgba(59, 199, 214, 0.14) 0%, #0b1317 68%, #06090b 100%);
+  }
+
+  .rotate-device-card {
+    width: 100%;
+    max-width: 340px;
+    padding: 28px 22px;
+    background: rgba(18, 24, 27, 0.94);
+    border: 1px solid rgba(232, 190, 103, 0.55);
+    box-shadow:
+      -4px 0 0 rgba(59, 199, 214, 0.45),
+      4px 0 0 rgba(214, 54, 56, 0.45),
+      0 20px 44px rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+  }
+
+  .rotate-device-icon {
+    width: 112px;
+    height: 112px;
+    animation: phoneTiltHint 2.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes phoneTiltHint {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-12deg);
+    }
+  }
+
+  .rotate-device-title {
+    margin: 0;
+    font-family: var(--font-condensed);
+    font-size: 1.32rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+  }
+
+  .rotate-device-subtitle {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+}
