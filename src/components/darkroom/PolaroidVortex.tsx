@@ -1,33 +1,27 @@
 /**
  * Компонент центральной сцены видоискателя.
  * Рендерит спиральный вихрь портала, фоновый крестик прицела
- * и вращающуюся орбиту полароидов с интерактивной остановкой и реверсом.
+ * и непрерывно вращающуюся орбиту полароидов.
  */
 import type { HeroPolaroidCard } from '../../types/project';
 
 /** Входные свойства компонента PolaroidVortex */
 interface PolaroidVortexProps {
-  /** Список полароидов */
+  /** Список полароидов на орбите */
   polaroids: HeroPolaroidCard[];
-  /** Состояние воспроизведения вращения */
-  isPlaying: boolean;
-  /** Состояние реверса */
-  isReversed: boolean;
 }
 
 /**
  * Рендерит центральный портал и кольцо полароидов.
- * @param props Свойства орбиты и списка карточек.
+ * @param props Свойства со списком карточек-полароидов.
  * @returns JSX-разметка центральной сцены.
  */
-export function PolaroidVortex({ polaroids, isPlaying, isReversed }: PolaroidVortexProps) {
+export function PolaroidVortex({ polaroids }: PolaroidVortexProps) {
   return (
     <div className="vortex-center">
       {/* Фоновый вращающийся спиральный портал */}
       <svg
-        className={`vortex-portal-svg ${isReversed ? 'vortex-portal-svg--reverse' : ''} ${
-          !isPlaying ? 'vortex-portal-svg--paused' : ''
-        }`}
+        className="vortex-portal-svg"
         viewBox="0 0 400 400"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -51,11 +45,7 @@ export function PolaroidVortex({ polaroids, isPlaying, isReversed }: PolaroidVor
       </svg>
 
       {/* Орбита вращающихся полароидов */}
-      <div
-        className={`polaroid-orbit ${isReversed ? 'polaroid-orbit--reverse' : ''} ${
-          !isPlaying ? 'polaroid-orbit--paused' : ''
-        }`}
-      >
+      <div className="polaroid-orbit">
         {polaroids.map((card) => (
           <div
             key={card.id}
@@ -67,11 +57,7 @@ export function PolaroidVortex({ polaroids, isPlaying, isReversed }: PolaroidVor
               } as React.CSSProperties
             }
           >
-            <div
-              className={`polaroid-card-item__inner ${
-                !isPlaying ? 'polaroid-card-item__inner--paused' : ''
-              }`}
-            >
+            <div className="polaroid-card-item__inner">
               <div className="polaroid-card-item__photo">
                 <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <rect width="100" height="100" fill="#141a1d" />

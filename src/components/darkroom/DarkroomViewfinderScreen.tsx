@@ -1,13 +1,12 @@
 /**
  * Переиспользуемый полноэкранный контейнер видоискателя.
  * Объединяет рамку киноплёнки, верхние уголки камеры, счётчик REC,
- * анимированную глитч-типографику OVERTHINK / VORTEX, вращающуюся орбиту полароидов,
- * правую телеметрическую панель с управлением PLAY / REVERSE и оверлей поворота экрана.
+ * анимированную глитч-типографику OVERTHINK / VORTEX, вращающуюся орбиту полароидов
+ * и оверлей поворота экрана.
  * Используется на маршрутах /tz и /game.
  */
 import { useState } from 'react';
 import { getTzHeroDataset } from '../../services/projectDataStore';
-import { DarkroomTelemetryPanel } from './DarkroomTelemetryPanel';
 import { FilmStripFrame } from './FilmStripFrame';
 import { GlitchTypography } from './GlitchTypography';
 import { PolaroidVortex } from './PolaroidVortex';
@@ -35,8 +34,6 @@ export function DarkroomViewfinderScreen({ initialTabId }: DarkroomViewfinderScr
     'archive';
 
   const [activeTabId, setActiveTabId] = useState<string>(resolvedDefaultTab);
-  const [isPlaying, setIsPlaying] = useState<boolean>(true);
-  const [isReversed, setIsReversed] = useState<boolean>(false);
 
   return (
     <>
@@ -54,19 +51,7 @@ export function DarkroomViewfinderScreen({ initialTabId }: DarkroomViewfinderScr
           crossWord={heroData.crossWord}
         />
 
-        <PolaroidVortex
-          polaroids={heroData.polaroids}
-          isPlaying={isPlaying}
-          isReversed={isReversed}
-        />
-
-        <DarkroomTelemetryPanel
-          telemetry={heroData.telemetry}
-          isPlaying={isPlaying}
-          isReversed={isReversed}
-          onTogglePlay={() => setIsPlaying((prev) => !prev)}
-          onToggleReverse={() => setIsReversed((prev) => !prev)}
-        />
+        <PolaroidVortex polaroids={heroData.polaroids} />
       </FilmStripFrame>
     </>
   );
