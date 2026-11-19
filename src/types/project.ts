@@ -91,3 +91,62 @@ export interface TzHeroDataset {
   /** Пункты правого вертикального меню внешних ресурсов */
   externalLinks: ExternalResourceLink[];
 }
+
+/** Отдельная запись контакта в таблице «Круг общения» */
+export interface OwnerContactItem {
+  /** Уникальный идентификатор записи */
+  id: string;
+  /** Копируемый числовой/строковый ID пользователя (при наличии) */
+  copyId?: string;
+  /** Тип внешней площадки для подписи и фильтрации */
+  platform: 'vk' | 'tg';
+  /** Короткое отображаемое имя или дескриптор профиля */
+  handle: string;
+  /** Полный URL профиля в ВК или Telegram */
+  url: string;
+}
+
+/** Логическая группа контактов с заголовком и авторским комментарием */
+export interface OwnerContactGroup {
+  /** Уникальный идентификатор группы */
+  id: string;
+  /** Название группы контактов */
+  title: string;
+  /** Дословный комментарий автора к группе (при наличии) */
+  comment?: string;
+  /** Список контактов группы */
+  contacts: OwnerContactItem[];
+}
+
+/** Полная конфигурация данных секции «О владельце» из tzOwner.json */
+export interface TzOwnerDataset {
+  /** Главный акцентный заголовок секции */
+  primaryWord: string;
+  /** Приглушённый подзаголовок секции */
+  secondaryWord: string;
+  /** Микрокнопка внешней ссылки рядом с подзаголовком (например, VK) */
+  subtitleLink?: {
+    /** Короткая подпись на кнопке */
+    label: string;
+    /** Целевой URL ссылки */
+    url: string;
+  };
+  /** Заголовок блока предпочтений */
+  preferencesHeading: string;
+  /** Дословный авторский текст о предпочтениях */
+  preferencesBody: string;
+  /** Заголовок блока дополнительной информации */
+  extraHeading: string;
+  /** Дословный текст блока «Дополнительно» об атрибутике персонажа и контактах для вопросов */
+  extraBody: string;
+  /** Заголовок блока плейлистов */
+  playlistsHeading: string;
+  /** Ссылки на плейлисты владельца в стиле правого меню персонажа */
+  playlists: ExternalResourceLink[];
+  /** Заголовок таблицы круга общения */
+  socialCircleHeading: string;
+  /** Сгруппированные списки контактов круга общения */
+  contactGroups: OwnerContactGroup[];
+  /** Заключительный авторский комментарий под таблицей */
+  closingComment: string;
+}

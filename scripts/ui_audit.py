@@ -16,6 +16,7 @@ OUTPUT_DIR = Path(os.environ.get("AUDIT_OUTPUT_DIR", "ci-artifacts"))
 
 ROUTES = [
     {"name": "tz", "path": "/tz"},
+    {"name": "owner", "path": "/tz#owner"},
     {"name": "game", "path": "/game"},
 ]
 
@@ -41,9 +42,10 @@ def run_audit() -> int:
                 context = browser.new_context(
                     viewport={"width": viewport["width"], "height": viewport["height"]}
                 )
-                page = context.new_page()
 
                 for route in ROUTES:
+                    # Открываем изолированную вкладку на каждый маршрут для чистого статуса HTTP 200 и логов
+                    page = context.new_page()
                     console_errors: list[str] = []
                     page_errors: list[str] = []
 
@@ -67,6 +69,7 @@ def run_audit() -> int:
                     screenshot_name = f"{route['name']}_{viewport['name']}.png"
                     screenshot_path = OUTPUT_DIR / screenshot_name
                     page.screenshot(path=str(screenshot_path), full_page=True)
+                    page.close()
 
                     check_ok = (
                         200 <= status < 400

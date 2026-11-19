@@ -16,7 +16,7 @@ interface ExternalResourceMenuProps {
  * Рисует геометрическую стрелку внешнего перехода в верхний правый угол (↗).
  * @returns JSX-иконка диагональной стрелки.
  */
-function ExternalArrowIcon() {
+export function ExternalArrowIcon() {
   return (
     <svg
       className="external-menu__arrow"
