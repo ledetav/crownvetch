@@ -128,6 +128,10 @@ export interface TzOwnerDataset {
   preferencesHeading: string;
   /** Дословный авторский текст о предпочтениях */
   preferencesBody: string;
+  /** Заголовок блока дополнительной информации */
+  extraHeading: string;
+  /** Дословный текст блока «Дополнительно» об атрибутике персонажа и контактах для вопросов */
+  extraBody: string;
   /** Заголовок блока плейлистов */
   playlistsHeading: string;
   /** Ссылки на плейлисты владельца в стиле правого меню персонажа */
