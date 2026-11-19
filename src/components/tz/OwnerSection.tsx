@@ -29,6 +29,7 @@ export function OwnerSection({ isActive }: TzSectionSlideProps) {
           <OwnerPreferences
             primaryWord={ownerData.primaryWord}
             secondaryWord={ownerData.secondaryWord}
+            subtitleLink={ownerData.subtitleLink}
             preferencesHeading={ownerData.preferencesHeading}
             preferencesBody={ownerData.preferencesBody}
           />
