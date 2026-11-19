@@ -496,7 +496,7 @@
 
 .darkroom-backdrop-svg {
   position: absolute;
-  left: 53%;
+  left: 55%;
   top: 48%;
   width: 178%;
   max-width: 860px;
@@ -512,7 +512,7 @@
   width: clamp(500px, 44vw, 820px);
   height: clamp(560px, 81vh, 860px);
   max-width: none;
-  transform: translate(34px, -18px);
+  transform: translate(54px, -18px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -575,13 +575,13 @@
     drop-shadow(0 -1.5px 0 rgba(234, 226, 208, 0.45))
     drop-shadow(0 1.5px 0 rgba(59, 199, 214, 0.4))
     drop-shadow(0 16px 24px rgba(0, 0, 0, 0.88));
-  animation: artworkFadeIn 0.34s ease;
+  animation: artworkFadeIn 0.22s ease;
   user-select: none;
 }
 
 @keyframes artworkFadeIn {
   from {
-    opacity: 0.25;
+    opacity: 0.9;
   }
   to {
     opacity: 1;
