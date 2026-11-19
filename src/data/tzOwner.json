@@ -1,0 +1,178 @@
+{
+  "primaryWord": "ВЛАДЕЛЕЦ",
+  "secondaryWord": "ЛИН ВЭЙ // АНКЕТА",
+  "preferencesHeading": "ПРЕДПОЧТЕНИЯ",
+  "preferencesBody": "Из цветов предпочитаю оттенки зелёного, жёлтого и фиолетового (особенно пастельные!). Увлекаюсь писательством и фотографированием, изучаю с недавних времён три иностранных языка (помогите, пожалуйста...), не разлей вода с международной безопасностью и со всем, что связано с глобальным регулированием. Варюсь во множестве тайтлов, всех, признаться честно, не перечислить, но особое место в моём сердце до сих пор занимают такие фандомы, как Агент времени (залпом посмотрела все три сезона и главу Инду, теперь довольно пересматриваю всё с самого начала), Магическая битва и Человек-бензопила. Я заядлый геймер, сейчас по большей части время убиваю в Валоранте, Вархаммере, Хонкай: Стар Рейл и во всяких недавно выпущенных инди игрушках. Очень люблю детективы и, конечно же, копаться в запутанных материалах, которые на первый взгляд могут показаться пугающими и непонятными.",
+  "playlistsHeading": "ПЛЕЙЛИСТЫ ВЛАДЕЛЬЦА",
+  "playlists": [
+    {
+      "id": "owner-playlist-1087",
+      "indexLabel": "01",
+      "label": "Плейлист владельца I",
+      "url": "https://music.yandex.ru/users/vishnyovskayadiana/playlists/1087?utm_source=web&utm_medium=copy_link",
+      "accent": "amber"
+    },
+    {
+      "id": "owner-playlist-1081",
+      "indexLabel": "02",
+      "label": "Плейлист владельца II",
+      "url": "https://music.yandex.ru/users/vishnyovskayadiana/playlists/1081?utm_source=web&utm_medium=copy_link",
+      "accent": "red"
+    }
+  ],
+  "socialCircleHeading": "КРУГ ОБЩЕНИЯ",
+  "contactGroups": [
+    {
+      "id": "besto-friends",
+      "title": "Мои бесто френды",
+      "comment": "Большая часть из них в Вар не играет, поэтому пишите им напрямую в Вк!",
+      "contacts": [
+        {
+          "id": "bf-henry",
+          "platform": "vk",
+          "handle": "vk.com/henry_cavi11",
+          "url": "https://vk.com/henry_cavi11"
+        },
+        {
+          "id": "bf-aidenok",
+          "platform": "vk",
+          "handle": "vk.com/aidenok228",
+          "url": "https://vk.com/aidenok228"
+        },
+        {
+          "id": "bf-bard",
+          "platform": "vk",
+          "handle": "vk.com/im_a_bard",
+          "url": "https://vk.com/im_a_bard"
+        },
+        {
+          "id": "bf-kertss",
+          "platform": "vk",
+          "handle": "vk.com/a.kertss",
+          "url": "https://vk.com/a.kertss"
+        },
+        {
+          "id": "bf-yashka",
+          "platform": "vk",
+          "handle": "vk.com/yashka_nyashka",
+          "url": "https://vk.com/yashka_nyashka"
+        },
+        {
+          "id": "bf-888606513",
+          "platform": "vk",
+          "handle": "vk.com/id888606513",
+          "url": "https://vk.com/id888606513"
+        },
+        {
+          "id": "bf-pechenya",
+          "platform": "vk",
+          "handle": "vk.com/idpechenya73",
+          "url": "https://vk.com/idpechenya73"
+        },
+        {
+          "id": "bf-sdre",
+          "platform": "vk",
+          "handle": "vk.com/s_dre",
+          "url": "https://vk.com/s_dre"
+        },
+        {
+          "id": "bf-suicul",
+          "platform": "vk",
+          "handle": "vk.com/suicul_f",
+          "url": "https://vk.com/suicul_f"
+        }
+      ]
+    },
+    {
+      "id": "severyata",
+      "title": "А тут мои любимые северята и не только",
+      "contacts": [
+        {
+          "id": "sev-1064270",
+          "copyId": "1064270",
+          "platform": "vk",
+          "handle": "vk.com/litshine",
+          "url": "https://vk.com/litshine"
+        },
+        {
+          "id": "sev-1606888",
+          "copyId": "1606888",
+          "platform": "vk",
+          "handle": "vk.com/rasscxx",
+          "url": "https://vk.com/rasscxx"
+        },
+        {
+          "id": "sev-1155964",
+          "copyId": "1155964",
+          "platform": "vk",
+          "handle": "vk.com/id348273342",
+          "url": "https://vk.com/id348273342"
+        },
+        {
+          "id": "sev-1710713",
+          "copyId": "1710713",
+          "platform": "vk",
+          "handle": "vk.com/lieeben",
+          "url": "https://vk.com/lieeben"
+        },
+        {
+          "id": "sev-864741",
+          "copyId": "864741",
+          "platform": "vk",
+          "handle": "vk.com/id64826742",
+          "url": "https://vk.com/id64826742"
+        },
+        {
+          "id": "sev-1582480",
+          "copyId": "1582480",
+          "platform": "vk",
+          "handle": "vk.com/korobochka0",
+          "url": "https://vk.com/korobochka0"
+        },
+        {
+          "id": "sev-1326666",
+          "copyId": "1326666",
+          "platform": "vk",
+          "handle": "vk.com/shimonjola",
+          "url": "https://vk.com/shimonjola"
+        },
+        {
+          "id": "sev-1546471",
+          "copyId": "1546471",
+          "platform": "tg",
+          "handle": "t.me/nokaori",
+          "url": "https://t.me/nokaori"
+        },
+        {
+          "id": "sev-1630130",
+          "copyId": "1630130",
+          "platform": "vk",
+          "handle": "vk.com/id314113676",
+          "url": "https://vk.com/id314113676"
+        },
+        {
+          "id": "sev-1684781",
+          "copyId": "1684781",
+          "platform": "vk",
+          "handle": "vk.com/id262543912",
+          "url": "https://vk.com/id262543912"
+        },
+        {
+          "id": "sev-1645689",
+          "copyId": "1645689",
+          "platform": "vk",
+          "handle": "vk.com/id877293879",
+          "url": "https://vk.com/id877293879"
+        },
+        {
+          "id": "sev-1699052",
+          "copyId": "1699052",
+          "platform": "vk",
+          "handle": "vk.com/id492743388",
+          "url": "https://vk.com/id492743388"
+        }
+      ]
+    }
+  ],
+  "closingComment": "Всегда можете собрать и с самих Дарителей тепла! Буду безмерно рада, если и они напишут <З"
+}
