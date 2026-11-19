@@ -3,8 +3,9 @@
  * На текущем этапе копирует внутреннее наполнение секции «О персонаже»
  * для последующей кастомизации контента.
  */
-import { GlitchTypography } from '../darkroom/GlitchTypography';
-import { PolaroidVortex } from '../darkroom/PolaroidVortex';
+import { CharacterDossier } from '../darkroom/CharacterDossier';
+import { DarkroomVisualStage } from '../darkroom/DarkroomVisualStage';
+import { ExternalResourceMenu } from '../darkroom/ExternalResourceMenu';
 import type { TzSectionSlideProps } from './CharacterSection';
 
 /**
@@ -21,16 +22,22 @@ export function BlogSection({ heroData, isActive }: TzSectionSlideProps) {
       aria-hidden={!isActive}
     >
       <div className="viewfinder-frame">
-        <GlitchTypography
-          topQuote={heroData.topQuote}
-          bottomQuote={heroData.bottomQuote}
+        <CharacterDossier
           primaryWord={heroData.primaryWord}
-          verticalWord={heroData.verticalWord}
-          crossWord={heroData.crossWord}
+          secondaryWord={heroData.secondaryWord}
+          dossierHeading={heroData.dossierHeading}
+          dossierBody={heroData.dossierBody}
           headingLevel="h2"
         />
 
-        <PolaroidVortex polaroids={heroData.polaroids} />
+        <DarkroomVisualStage
+          artworkSrc={heroData.characterArtworkSrc}
+          artworks={heroData.characterArtworks}
+          isStageActive={isActive}
+          altText={`${heroData.primaryWord} (${heroData.secondaryWord}) — персонаж`}
+        />
+
+        <ExternalResourceMenu links={heroData.externalLinks} />
       </div>
     </section>
   );

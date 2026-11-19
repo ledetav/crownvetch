@@ -1,10 +1,12 @@
 /**
  * Секция «О персонаже» внутри горизонтального слайдера страницы ТЗ (/tz#character).
- * Представляет базовый кадр видоискателя с глитч-типографикой и орбитой полароидов.
+ * Отображает 3-колоночную композицию: досье ВЯЗЕЛЬ слева, арт персонажа с контурной
+ * обводкой и тенью в центре и вертикальное меню внешних ресурсов справа.
  */
 import type { TzHeroDataset } from '../../types/project';
-import { GlitchTypography } from '../darkroom/GlitchTypography';
-import { PolaroidVortex } from '../darkroom/PolaroidVortex';
+import { CharacterDossier } from '../darkroom/CharacterDossier';
+import { DarkroomVisualStage } from '../darkroom/DarkroomVisualStage';
+import { ExternalResourceMenu } from '../darkroom/ExternalResourceMenu';
 
 /** Входные свойства слайда секции ТЗ */
 export interface TzSectionSlideProps {
@@ -28,16 +30,22 @@ export function CharacterSection({ heroData, isActive }: TzSectionSlideProps) {
       aria-hidden={!isActive}
     >
       <div className="viewfinder-frame">
-        <GlitchTypography
-          topQuote={heroData.topQuote}
-          bottomQuote={heroData.bottomQuote}
+        <CharacterDossier
           primaryWord={heroData.primaryWord}
-          verticalWord={heroData.verticalWord}
-          crossWord={heroData.crossWord}
+          secondaryWord={heroData.secondaryWord}
+          dossierHeading={heroData.dossierHeading}
+          dossierBody={heroData.dossierBody}
           headingLevel="h1"
         />
 
-        <PolaroidVortex polaroids={heroData.polaroids} />
+        <DarkroomVisualStage
+          artworkSrc={heroData.characterArtworkSrc}
+          artworks={heroData.characterArtworks}
+          isStageActive={isActive}
+          altText={`${heroData.primaryWord} (${heroData.secondaryWord}) — персонаж`}
+        />
+
+        <ExternalResourceMenu links={heroData.externalLinks} />
       </div>
     </section>
   );

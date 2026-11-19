@@ -1,11 +1,76 @@
 {
   "brandTitle": "PARADOX // DARKROOM",
   "recTimecode": "00:11:59",
-  "topQuote": "\"THERE IS NO BLOCK ESCAPE FROM THE LOOP\"",
-  "bottomQuote": "\"THERE IS NO ESCAPE FROM THE LOOP\"",
-  "primaryWord": "OVERTHINK",
-  "verticalWord": "VORTEX",
-  "crossWord": "VORTEX",
+  "primaryWord": "ВЯЗЕЛЬ",
+  "secondaryWord": "ЛИН ВЭЙ В БЛОГЕ",
+  "dossierHeading": "О ПЕРСОНАЖЕ",
+  "dossierBody": "Вязель — кот, что с детства привык к безграничной свободе и трепетно обжигающей изнутри надежде. Ему свойственно засматриваться раскудрявыми облаками, рассекающими небосвод, наблюдать за колышущимися листьями, которые то и дело сорвутся в любую секунду и, гонимые ветром, пустятся в пляс, убегать по ночам в глушь таёжную и в тишине, которую время от времени прерывает трещание сверчков, наблюдать за тем, как старые звёзды, чья жизнь к концу подошла, сменяются новыми, впоследствии сплетающимися с соседними огоньками в созвездия.\n\nКаждый раз, когда провалы с неудачами случаются, Вязель нисколько не разочаровывается в себе — он ведь знает, что когда ошибки свои проанализирует и поймёт, как иначе нужно будет поступить в похожей ситуации, чтобы на те же сорняки не наткнуться, тогда и успеха добьётся. Даже если и идею его отклонят, он сдаваться и лапы опускать на полпути так просто не собирается: просмотрит её ещё, может, разок-второй, правки внесёт и попробует снова. Для него истиной является опыт, который он получает по мере того, как самосовершенствуется, продвигаясь по предначертанному пути, и обретает понимание окружающих его жизненных процессов, а всё остальное — движущая сила, благодаря которой он как раз и познаёт себя самого.",
+  "characterArtworkSrc": "/assets/aistudio/image_755b7c8c.png",
+  "characterArtworks": [
+    {
+      "id": "vyazel-classic",
+      "src": "/assets/aistudio/image_755b7c8c.png",
+      "downloadName": "vyazel-classic-lerrruch.png",
+      "alt": "Вязель — сидящий тёмно-пегий кот с косами и пером",
+      "stylePreset": "classic-cyan-amber"
+    },
+    {
+      "id": "vyazel-winter-marmot",
+      "src": "/assets/aistudio/image_859fff37.png",
+      "downloadName": "vyazel-winter-marmot-fee4ka.png",
+      "alt": "Вязель в зимних сумерках рядом с сурком",
+      "stylePreset": "frost-vignette"
+    },
+    {
+      "id": "vyazel-crimson-grin",
+      "src": "/assets/aistudio/image_42e2379f.png",
+      "downloadName": "vyazel-crimson-grin-fee4ka.png",
+      "alt": "Вязель — выразительный портрет с оскалом и косами",
+      "stylePreset": "crimson-grin"
+    },
+    {
+      "id": "vyazel-robin-flight",
+      "src": "/assets/aistudio/image_ae3239c8.png",
+      "downloadName": "vyazel-robin-flight.png",
+      "alt": "Вязель и летящая зарянка",
+      "stylePreset": "robin-flight"
+    },
+    {
+      "id": "vyazel-golden-embrace",
+      "src": "/assets/aistudio/image_9c3589de.png",
+      "downloadName": "vyazel-golden-embrace-milkver.png",
+      "alt": "Вязель в тёплых объятиях с золотистым котом",
+      "stylePreset": "golden-embrace"
+    },
+    {
+      "id": "vyazel-snow-prowl",
+      "src": "/assets/aistudio/image_f3d1b81f.png",
+      "downloadName": "vyazel-snow-prowl-fee4ka.png",
+      "alt": "Вязель крадётся по заснеженной тропе",
+      "stylePreset": "snow-prowl"
+    },
+    {
+      "id": "vyazel-ember-profile",
+      "src": "/assets/aistudio/image_20514338.png",
+      "downloadName": "vyazel-ember-profile.png",
+      "alt": "Вязель — профильный портрет с тлеющим пером",
+      "stylePreset": "ember-profile"
+    },
+    {
+      "id": "vyazel-fullbody-stride",
+      "src": "/assets/aistudio/image_9f0dc1c1.png",
+      "downloadName": "vyazel-fullbody-stride.png",
+      "alt": "Вязель в полный рост с поднятой лапой и коротким хвостом",
+      "stylePreset": "fullbody-stride"
+    },
+    {
+      "id": "vyazel-salmon-catch",
+      "src": "/assets/aistudio/image_0845ba30.png",
+      "downloadName": "vyazel-salmon-catch.png",
+      "alt": "Вязель держит в зубах пойманную красную рыбу",
+      "stylePreset": "salmon-catch"
+    }
+  ],
   "navTabs": [
     {
       "id": "character",
@@ -24,55 +89,27 @@
       "target": "#blog"
     }
   ],
-  "polaroids": [
+  "externalLinks": [
     {
-      "id": "frame-01",
-      "caption": "Кадр 01 · Проявочная комната",
-      "artworkKind": "darkroom-monitor",
-      "angleDeg": -102,
-      "tiltDeg": -8
+      "id": "lorebook",
+      "indexLabel": "01",
+      "label": "Лордок персонажа",
+      "url": "https://docs.google.com/document/d/1hCq268lLkawFPP0pJLp_6R6v3bQzFkgYOpsTmn54820/edit?tab=t.rccpmrlynpls",
+      "accent": "cyan"
     },
     {
-      "id": "frame-02",
-      "caption": "Кадр 02 · Силуэт во вспышке",
-      "artworkKind": "silhouette-hand",
-      "angleDeg": -52,
-      "tiltDeg": 16
+      "id": "gallery",
+      "indexLabel": "02",
+      "label": "Галерея персонажа",
+      "url": "https://awamiess.pixieset.com/viazelcoronilla/",
+      "accent": "amber"
     },
     {
-      "id": "frame-03",
-      "caption": "Кадр 03 · Старинный циферблат",
-      "artworkKind": "antique-clock",
-      "angleDeg": -6,
-      "tiltDeg": 7
-    },
-    {
-      "id": "frame-04",
-      "caption": "Кадр 04 · Закатный горизонт",
-      "artworkKind": "sunset-figure",
-      "angleDeg": 44,
-      "tiltDeg": -14
-    },
-    {
-      "id": "frame-05",
-      "caption": "Кадр 05 · Тёмный хронометр",
-      "artworkKind": "dark-dial",
-      "angleDeg": 92,
-      "tiltDeg": 18
-    },
-    {
-      "id": "frame-06",
-      "caption": "Кадр 06 · Песочные часы",
-      "artworkKind": "hourglass",
-      "angleDeg": 140,
-      "tiltDeg": -12
-    },
-    {
-      "id": "frame-07",
-      "caption": "Кадр 07 · Карманные часы",
-      "artworkKind": "pocket-watch",
-      "angleDeg": 192,
-      "tiltDeg": 10
+      "id": "playlist",
+      "indexLabel": "03",
+      "label": "Плейлист персонажа",
+      "url": "https://music.yandex.ru/users/vishnyovskayadiana/playlists/1086?utm_source=web&utm_medium=copy_link",
+      "accent": "red"
     }
   ]
 }

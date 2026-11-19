@@ -44,7 +44,7 @@ export function TzPage() {
   );
 
   useEffect(() => {
-    document.title = 'OVERTHINK // VORTEX — Техническое задание';
+    document.title = 'ВЯЗЕЛЬ // ЛИН ВЭЙ — Техническое задание';
   }, []);
 
   useEffect(() => {
