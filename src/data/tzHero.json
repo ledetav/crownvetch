@@ -6,6 +6,57 @@
   "dossierHeading": "О ПЕРСОНАЖЕ",
   "dossierBody": "Вязель — кот, что с детства привык к безграничной свободе и трепетно обжигающей изнутри надежде. Ему свойственно засматриваться раскудрявыми облаками, рассекающими небосвод, наблюдать за колышущимися листьями, которые то и дело сорвутся в любую секунду и, гонимые ветром, пустятся в пляс, убегать по ночам в глушь таёжную и в тишине, которую время от времени прерывает трещание сверчков, наблюдать за тем, как старые звёзды, чья жизнь к концу подошла, сменяются новыми, впоследствии сплетающимися с соседними огоньками в созвездия.",
   "characterArtworkSrc": "/assets/aistudio/image_755b7c8c.png",
+  "characterArtworks": [
+    {
+      "id": "vyazel-classic",
+      "src": "/assets/aistudio/image_755b7c8c.png",
+      "downloadName": "vyazel-classic-lerrruch.png",
+      "alt": "Вязель — сидящий тёмно-пегий кот с косами и пером",
+      "stylePreset": "classic-cyan-amber"
+    },
+    {
+      "id": "vyazel-winter-marmot",
+      "src": "/assets/aistudio/image_859fff37.png",
+      "downloadName": "vyazel-winter-marmot-fee4ka.png",
+      "alt": "Вязель в зимних сумерках рядом с сурком",
+      "stylePreset": "frost-vignette"
+    },
+    {
+      "id": "vyazel-crimson-grin",
+      "src": "/assets/aistudio/image_42e2379f.png",
+      "downloadName": "vyazel-crimson-grin-fee4ka.png",
+      "alt": "Вязель — выразительный портрет с оскалом и косами",
+      "stylePreset": "crimson-grin"
+    },
+    {
+      "id": "vyazel-robin-flight",
+      "src": "/assets/aistudio/image_ae3239c8.png",
+      "downloadName": "vyazel-robin-flight.png",
+      "alt": "Вязель и летящая зарянка",
+      "stylePreset": "robin-flight"
+    },
+    {
+      "id": "vyazel-golden-embrace",
+      "src": "/assets/aistudio/image_9c3589de.png",
+      "downloadName": "vyazel-golden-embrace-milkver.png",
+      "alt": "Вязель в тёплых объятиях с золотистым котом",
+      "stylePreset": "golden-embrace"
+    },
+    {
+      "id": "vyazel-snow-prowl",
+      "src": "/assets/aistudio/image_f3d1b81f.png",
+      "downloadName": "vyazel-snow-prowl-fee4ka.png",
+      "alt": "Вязель крадётся по заснеженной тропе",
+      "stylePreset": "snow-prowl"
+    },
+    {
+      "id": "vyazel-ember-profile",
+      "src": "/assets/aistudio/image_20514338.png",
+      "downloadName": "vyazel-ember-profile.png",
+      "alt": "Вязель — профильный портрет с тлеющим пером",
+      "stylePreset": "ember-profile"
+    }
+  ],
   "navTabs": [
     {
       "id": "character",

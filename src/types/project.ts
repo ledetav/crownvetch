@@ -42,6 +42,30 @@ export interface ExternalResourceLink {
   accent: 'cyan' | 'amber' | 'red';
 }
 
+/** Стилистический пресет контурной обводки и тени для конкретной иллюстрации персонажа */
+export type CharacterArtworkStylePreset =
+  | 'classic-cyan-amber'
+  | 'frost-vignette'
+  | 'crimson-grin'
+  | 'robin-flight'
+  | 'golden-embrace'
+  | 'snow-prowl'
+  | 'ember-profile';
+
+/** Элемент коллекции иллюстраций персонажа со своей обводкой и тенью */
+export interface CharacterArtworkItem {
+  /** Уникальный идентификатор иллюстрации */
+  id: string;
+  /** Локальный путь к оригинальному PNG-файлу */
+  src: string;
+  /** Имя файла при скачивании оригинала */
+  downloadName: string;
+  /** Описание иллюстрации для атрибута alt */
+  alt: string;
+  /** Стилистический пресет обводки и тени */
+  stylePreset: CharacterArtworkStylePreset;
+}
+
 /** Полная структура данных конфигурации tzHero.json для досье и видоискателя */
 export interface TzHeroDataset {
   /** Служебное название темы проекта */
@@ -58,6 +82,8 @@ export interface TzHeroDataset {
   dossierBody: string;
   /** Локальный путь к основному арту персонажа с прозрачным фоном */
   characterArtworkSrc: string;
+  /** Полная галерея сменяемых иллюстраций персонажа с индивидуальными стилями обводки и тени */
+  characterArtworks: CharacterArtworkItem[];
   /** Пункты навигации в верхней шапке видоискателя */
   navTabs: HeroNavTab[];
   /** Пункты правого вертикального меню внешних ресурсов */
