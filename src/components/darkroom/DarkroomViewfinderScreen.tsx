@@ -77,6 +77,8 @@ export function DarkroomViewfinderScreen({
 
           <DarkroomVisualStage
             artworkSrc={heroData.characterArtworkSrc}
+            artworks={heroData.characterArtworks}
+            isStageActive
             altText={`${heroData.primaryWord} (${heroData.secondaryWord}) — персонаж`}
           />
 

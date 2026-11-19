@@ -1,18 +1,26 @@
 /**
  * Компонент центральной визуальной сцены персонажа.
- * Отрисовывает увеличенный прозрачный арт кота Вязеля с контурной хроматической обводкой
- * и смещённой тенью-двойником, а также расширенный фон фотолаборатории:
- * извивающуюся зигзагом 35-мм фотоплёнку с перфорацией, жёлто-золотые световые полосы,
- * штрихи засветки, осколки негатива и видоискательные метки.
+ * Отрисовывает крупный прозрачный арт кота Вязеля с галереей сменяемых иллюстраций,
+ * индивидуальными пресетами контурной обводки и тени для каждой картинки,
+ * автопереключением раз в 10 секунд (с паузой при наведении курсора), переключением по клику/тапу,
+ * кнопкой скачивания оригинала при наведении и фоном с извивающейся 35-мм фотоплёнкой.
  */
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import type { CharacterArtworkItem } from '../../types/project';
+
+/** Интервал автоматического переключения иллюстраций персонажа (10 секунд) */
+const AUTO_SWITCH_INTERVAL_MS = 10000;
 
 /** Входные свойства компонента визуальной сцены персонажа */
 interface DarkroomVisualStageProps {
-  /** Путь к прозрачному изображению персонажа */
+  /** Основной путь к изображению (резерв при отсутствии массива artworks) */
   artworkSrc: string;
-  /** Альтернативный текст для изображения персонажа */
+  /** Альтернативный текст по умолчанию */
   altText?: string;
+  /** Массив сменяемых иллюстраций персонажа со своими пресетами обводки и тени */
+  artworks?: CharacterArtworkItem[];
+  /** Признак активности родительского слайда (останавливает таймер на скрытых экранах) */
+  isStageActive?: boolean;
 }
 
 /** Опорная точка вдоль извивающейся ленты фотоплёнки */
@@ -24,7 +32,7 @@ interface FilmSamplePoint {
   ny: number;
 }
 
-/** Оформленный элемент фоновой перфорации или кадра вдоль изгиба плёнки */
+/** Геометрия извивающейся зигзагом 35-мм фотоплёнки */
 interface FilmBandGeometry {
   ribbonPath: string;
   sprocketHoles: ReadonlyArray<{
@@ -65,13 +73,12 @@ function buildWindingFilmGeometry(): FilmBandGeometry {
     const phase = (y - 50) * angularFreq - 0.55;
     const x = centerX + amplitude * Math.sin(phase);
 
-    // Аналитическая производная dx/dy для точного расчёта касательной без артефактов на поворотах
+    // Аналитическая производная dx/dy для точного расчёта касательной на поворотах
     const dxdy = amplitude * angularFreq * Math.cos(phase);
     const tangentLen = Math.hypot(dxdy, 1);
     const tx = dxdy / tangentLen;
     const ty = 1 / tangentLen;
 
-    // Единичный вектор нормали перпендикулярно ходу плёнки
     const nx = -ty;
     const ny = tx;
     const angleDeg = (Math.atan2(ty, tx) * 180) / Math.PI;
@@ -79,7 +86,7 @@ function buildWindingFilmGeometry(): FilmBandGeometry {
     samples.push({ x, y, angleDeg, nx, ny });
   }
 
-  // Формируем замкнутый контур ленты из левого и правого краёв с шагом halfWidth
+  // Формируем замкнутый контур ленты из левого и правого краёв
   const leftEdge = samples.map((pt, index) => {
     const cmd = index === 0 ? 'M' : 'L';
     return `${cmd} ${(pt.x + pt.nx * halfWidth).toFixed(1)} ${(pt.y + pt.ny * halfWidth).toFixed(1)}`;
@@ -189,21 +196,101 @@ const AMBER_STREAKS: ReadonlyArray<{
 ];
 
 /**
- * Отрисовывает центральную сцену с увеличенным артом Вязеля, контурной обводкой,
- * тенью-двойником и декоративной зигзагообразной фотоплёнкой позади персонажа.
- * @param props Путь к прозрачному арту персонажа и подпись alt.
+ * Иконка стрелки вниз на подставке для кнопки скачивания оригинала иллюстрации.
+ * @returns JSX-иконка загрузки файла.
+ */
+function DownloadIcon() {
+  return (
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path
+        d="M12 4V16M12 16L7 11M12 16L17 11M5 20H19"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="square"
+        strokeLinejoin="miter"
+      />
+    </svg>
+  );
+}
+
+/**
+ * Отрисовывает центральную сцену с крупной интерактивной галереей артов Вязеля,
+ * индивидуальными пресетами обводки/тени, автосменой каждые 10с и скачиванием оригинала.
+ * @param props Коллекция иллюстраций, резервный путь и флаг активности экрана.
  * @returns JSX-разметка центральной визуальной зоны.
  */
 export function DarkroomVisualStage({
   artworkSrc,
   altText = 'Вязель — иллюстрация персонажа',
+  artworks,
+  isStageActive = true,
 }: DarkroomVisualStageProps) {
-  const [hasImageError, setHasImageError] = useState(false);
+  const resolvedArtworks = useMemo<CharacterArtworkItem[]>(() => {
+    if (artworks && artworks.length > 0) {
+      return artworks;
+    }
+
+    return [
+      {
+        id: 'default-vyazel',
+        src: artworkSrc,
+        downloadName: 'vyazel-original.png',
+        alt: altText,
+        stylePreset: 'classic-cyan-amber',
+      },
+    ];
+  }, [artworks, artworkSrc, altText]);
+
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const [failedSrcs, setFailedSrcs] = useState<Record<string, boolean>>({});
 
   const filmBand = useMemo(() => buildWindingFilmGeometry(), []);
 
+  const safeIndex = activeIndex % resolvedArtworks.length;
+  const currentArtwork = resolvedArtworks[safeIndex];
+  const hasImageError = Boolean(failedSrcs[currentArtwork.src]);
+
+  // Предзагружаем все арты галереи, чтобы ручное и автоматическое переключение происходило мгновенно
+  useEffect(() => {
+    if (!isStageActive) return;
+
+    resolvedArtworks.forEach((item) => {
+      const preloadImg = new window.Image();
+      preloadImg.src = item.src;
+    });
+  }, [isStageActive, resolvedArtworks]);
+
+  /**
+   * Переключает текущую иллюстрацию на следующую по кругу.
+   */
+  const handleNextArtwork = useCallback(() => {
+    if (resolvedArtworks.length <= 1) return;
+    setActiveIndex((prev) => (prev + 1) % resolvedArtworks.length);
+  }, [resolvedArtworks.length]);
+
+  // Таймер автопереключения раз в 10 секунд; ставится на паузу при наведении курсора
+  useEffect(() => {
+    if (!isStageActive || isHovered || resolvedArtworks.length <= 1) {
+      return undefined;
+    }
+
+    const timerId = window.setTimeout(handleNextArtwork, AUTO_SWITCH_INTERVAL_MS);
+    return () => window.clearTimeout(timerId);
+  }, [activeIndex, handleNextArtwork, isHovered, isStageActive, resolvedArtworks.length]);
+
+  const presetClass = `darkroom-character-figure--${currentArtwork.stylePreset}`;
+  const stagePresetClass = `darkroom-visual-stage--${currentArtwork.stylePreset}`;
+
   return (
-    <div className="darkroom-visual-stage">
+    <div className={`darkroom-visual-stage ${stagePresetClass}`}>
       {/* Расширенный задний план: извивающаяся зигзагом плёнка, жёлтые полосы и оформительские штрихи */}
       <svg
         className="darkroom-backdrop-svg"
@@ -354,32 +441,69 @@ export function DarkroomVisualStage({
         ))}
       </svg>
 
-      {!hasImageError ? (
-        <div className="darkroom-character-figure">
-          {/* Смещённый силуэт-тень позади кота по альфа-маске того же PNG */}
-          <img
-            src={artworkSrc}
-            alt=""
-            aria-hidden="true"
-            className="darkroom-character-shadow"
-            referrerPolicy="no-referrer"
-          />
+      {/* Интерактивный контейнер персонажа: клик переключает кадр, наведение ставит паузу и открывает скачивание */}
+      <div
+        className={`darkroom-character-figure ${presetClass}`}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {!hasImageError ? (
+          <button
+            type="button"
+            className="darkroom-character-trigger"
+            onClick={handleNextArtwork}
+            aria-label={`Переключить иллюстрацию персонажа (${safeIndex + 1} из ${resolvedArtworks.length}): ${currentArtwork.alt}`}
+            title="Нажмите, чтобы переключить иллюстрацию"
+          >
+            {/* Смещённый силуэт-тень позади арта по альфа-маске текущего PNG */}
+            <img
+              key={`${currentArtwork.id}-shadow`}
+              src={currentArtwork.src}
+              alt=""
+              aria-hidden="true"
+              className="darkroom-character-shadow"
+              referrerPolicy="no-referrer"
+            />
 
-          {/* Основной арт персонажа с хроматической контурной обводкой (бирюза + янтарь) */}
-          <img
-            src={artworkSrc}
-            alt={altText}
-            className="darkroom-character-art"
-            referrerPolicy="no-referrer"
-            onError={() => setHasImageError(true)}
-          />
-        </div>
-      ) : (
-        /* Стилизованный резервный блок на случай недоступности файла изображения */
-        <div className="darkroom-character-fallback" role="img" aria-label={altText}>
-          <span>ВЯЗЕЛЬ</span>
-        </div>
-      )}
+            {/* Основной арт персонажа со стилизованной контурной обводкой */}
+            <img
+              key={`${currentArtwork.id}-art`}
+              src={currentArtwork.src}
+              alt={currentArtwork.alt}
+              className="darkroom-character-art"
+              referrerPolicy="no-referrer"
+              onError={() =>
+                setFailedSrcs((prev) => ({
+                  ...prev,
+                  [currentArtwork.src]: true,
+                }))
+              }
+            />
+          </button>
+        ) : (
+          /* Стилизованный резервный блок на случай недоступности файла изображения */
+          <button
+            type="button"
+            className="darkroom-character-fallback"
+            onClick={handleNextArtwork}
+            aria-label="Переключить иллюстрацию персонажа"
+          >
+            <span>ВЯЗЕЛЬ</span>
+          </button>
+        )}
+
+        {/* Кнопка скачивания оригинала, проявляющаяся при наведении или фокусе на арте */}
+        <a
+          href={currentArtwork.src}
+          download={currentArtwork.downloadName}
+          className="darkroom-download-btn"
+          aria-label={`Скачать оригинал: ${currentArtwork.downloadName}`}
+          onClick={(event) => event.stopPropagation()}
+        >
+          <DownloadIcon />
+          <span>СКАЧАТЬ</span>
+        </a>
+      </div>
     </div>
   );
 }

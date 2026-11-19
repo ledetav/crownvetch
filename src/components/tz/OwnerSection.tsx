@@ -32,6 +32,8 @@ export function OwnerSection({ heroData, isActive }: TzSectionSlideProps) {
 
         <DarkroomVisualStage
           artworkSrc={heroData.characterArtworkSrc}
+          artworks={heroData.characterArtworks}
+          isStageActive={isActive}
           altText={`${heroData.primaryWord} (${heroData.secondaryWord}) — персонаж`}
         />
 
