@@ -4,8 +4,10 @@
  * /tz/character, /tz/owner, отдельный раздел /tz/blog/* и /game.
  */
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BlogSection } from './components/tz/BlogSection';
 import { CharacterSection } from './components/tz/CharacterSection';
 import { OwnerSection } from './components/tz/OwnerSection';
+import { BlogPage } from './pages/BlogPage';
 import { GamePlaceholderPage } from './pages/GamePlaceholderPage';
 import { TzPage } from './pages/TzPage';
 import { getTzHeroDataset } from './services/projectDataStore';
@@ -28,6 +30,20 @@ export function App() {
               <Route index element={<Navigate to="/tz/character" replace />} />
               <Route path="character" element={<CharacterSection heroData={heroData} />} />
               <Route path="owner" element={<OwnerSection />} />
+            </Route>
+            <Route path="/tz/blog" element={<BlogPage />}>
+              <Route index element={<Navigate to="/tz/blog/overview" replace />} />
+              <Route
+                path="overview"
+                element={<BlogSection sectionId="overview" title="Общая информация" />}
+              />
+              <Route
+                path="characters"
+                element={<BlogSection sectionId="characters" title="Персонажи" />}
+              />
+              <Route path="palette" element={<BlogSection sectionId="palette" title="Палитра" />} />
+              <Route path="header" element={<BlogSection sectionId="header" title="Шапка" />} />
+              <Route path="acts" element={<BlogSection sectionId="acts" title="Акты" />} />
             </Route>
             <Route path="/game" element={<GamePlaceholderPage />} />
             {/* Любые неизвестные маршруты ведут на страницу персонажа */}
