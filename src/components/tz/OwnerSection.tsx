@@ -1,10 +1,11 @@
 /**
  * Секция «О владельце» внутри горизонтального слайдера страницы ТЗ (/tz#owner).
- * Объединяет левую колонку с дословными предпочтениями и плейлистами владельца
- * и правую таблицу «Круг общения» в единой тёмной эстетике видоискателя.
+ * Верхняя часть разделена на две колонки («Предпочтения» слева, «Дополнительно» и плейлисты справа),
+ * а внизу во всю ширину расположена горизонтальная таблица «Круг общения» (две группы бок о бок).
  */
 import { getTzOwnerDataset } from '../../services/projectDataStore';
 import type { TzSectionSlideProps } from './CharacterSection';
+import { OwnerExtra } from './OwnerExtra';
 import { OwnerPreferences } from './OwnerPreferences';
 import { SocialCircleTable } from './SocialCircleTable';
 
@@ -24,14 +25,21 @@ export function OwnerSection({ isActive }: TzSectionSlideProps) {
       aria-hidden={!isActive}
     >
       <div className="owner-viewfinder-frame">
-        <OwnerPreferences
-          primaryWord={ownerData.primaryWord}
-          secondaryWord={ownerData.secondaryWord}
-          preferencesHeading={ownerData.preferencesHeading}
-          preferencesBody={ownerData.preferencesBody}
-          playlistsHeading={ownerData.playlistsHeading}
-          playlists={ownerData.playlists}
-        />
+        <div className="owner-top-grid">
+          <OwnerPreferences
+            primaryWord={ownerData.primaryWord}
+            secondaryWord={ownerData.secondaryWord}
+            preferencesHeading={ownerData.preferencesHeading}
+            preferencesBody={ownerData.preferencesBody}
+          />
+
+          <OwnerExtra
+            extraHeading={ownerData.extraHeading}
+            extraBody={ownerData.extraBody}
+            playlistsHeading={ownerData.playlistsHeading}
+            playlists={ownerData.playlists}
+          />
+        </div>
 
         <SocialCircleTable
           heading={ownerData.socialCircleHeading}
