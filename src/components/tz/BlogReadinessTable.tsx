@@ -158,7 +158,8 @@ export function BlogReadinessTable({ heading, note, initialActs }: BlogReadiness
   return (
     <section
       id="readiness"
-      className="blog-anchor-section blog-readiness-panel"
+      role="tabpanel"
+      className="blog-readiness-panel"
       aria-labelledby="blog-readiness-title"
     >
       <div className="blog-readiness-head">

@@ -1,43 +1,39 @@
 /**
  * Секция «Общая информация» внутри отдельной страницы «О блоге» (/tz/blog/overview).
- * Объединяет заголовок со световыми прострелами фотолаборатории, две внутренние
- * якорные микровкладки («Синопсис» и «Таблица готовности») и обе секции ниже.
+ * Отображает заголовок со световыми прострелами, переключатель двух отдельных
+ * внутренних вкладок («Аннотация» и «Таблица готовности») и содержимое активной вкладки.
  */
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getTzBlogOverviewDataset } from '../../services/projectDataStore';
+import { BlogAnnotationBlock } from './BlogAnnotationBlock';
 import { BlogOverviewSubnav } from './BlogOverviewSubnav';
 import { BlogReadinessTable } from './BlogReadinessTable';
-import { BlogSynopsisBlock } from './BlogSynopsisBlock';
 
 /**
- * Определяет активную микровкладку по хэшу адресной строки (#synopsis | #readiness).
+ * Определяет активную внутреннюю вкладку по хэшу адресной строки (#annotation | #readiness).
  * @param hash Текущий хэш URL.
- * @returns Идентификатор активной микровкладки.
+ * @returns Идентификатор активной вкладки.
  */
-function resolveMicroTabFromHash(hash: string): 'synopsis' | 'readiness' {
-  return hash === '#readiness' ? 'readiness' : 'synopsis';
+function resolveOverviewTabFromHash(hash: string): 'annotation' | 'readiness' {
+  return hash === '#readiness' ? 'readiness' : 'annotation';
 }
 
 /**
- * Отрисовывает содержимое вкладки «Общая информация» раздела «О блоге».
+ * Отрисовывает содержимое вкладки «Общая информация» с раздельной сменой
+ * вкладок «Аннотация» и «Таблица готовности».
  * @returns JSX-разметка страницы /tz/blog/overview.
  */
 export function BlogOverviewSection() {
   const { hash } = useLocation();
   const overviewData = getTzBlogOverviewDataset();
-  const [activeMicroTab, setActiveMicroTab] = useState<'synopsis' | 'readiness'>(() =>
-    resolveMicroTabFromHash(hash),
+  const [activeTab, setActiveTab] = useState<'annotation' | 'readiness'>(() =>
+    resolveOverviewTabFromHash(hash),
   );
 
   useEffect(() => {
-    if (hash === '#synopsis' || hash === '#readiness') {
-      const targetId = hash.slice(1) as 'synopsis' | 'readiness';
-      setActiveMicroTab(targetId);
-      const element = document.getElementById(targetId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+    if (hash === '#annotation' || hash === '#readiness') {
+      setActiveTab(hash.slice(1) as 'annotation' | 'readiness');
     }
   }, [hash]);
 
@@ -63,22 +59,20 @@ export function BlogOverviewSection() {
 
           <BlogOverviewSubnav
             tabs={overviewData.microTabs}
-            activeId={activeMicroTab}
-            onSelect={setActiveMicroTab}
+            activeId={activeTab}
+            onSelect={setActiveTab}
           />
         </div>
 
-        <BlogSynopsisBlock
-          heading={overviewData.synopsisHeading}
-          lead={overviewData.synopsisLead}
-          slots={overviewData.synopsisSlots}
-        />
-
-        <BlogReadinessTable
-          heading={overviewData.readinessHeading}
-          note={overviewData.readinessNote}
-          initialActs={overviewData.acts}
-        />
+        {activeTab === 'annotation' ? (
+          <BlogAnnotationBlock body={overviewData.annotationBody} />
+        ) : (
+          <BlogReadinessTable
+            heading={overviewData.readinessHeading}
+            note={overviewData.readinessNote}
+            initialActs={overviewData.acts}
+          />
+        )}
       </div>
     </section>
   );
