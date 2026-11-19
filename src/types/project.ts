@@ -124,6 +124,13 @@ export interface TzOwnerDataset {
   primaryWord: string;
   /** Приглушённый подзаголовок секции */
   secondaryWord: string;
+  /** Микрокнопка внешней ссылки рядом с подзаголовком (например, VK) */
+  subtitleLink?: {
+    /** Короткая подпись на кнопке */
+    label: string;
+    /** Целевой URL ссылки */
+    url: string;
+  };
   /** Заголовок блока предпочтений */
   preferencesHeading: string;
   /** Дословный авторский текст о предпочтениях */
