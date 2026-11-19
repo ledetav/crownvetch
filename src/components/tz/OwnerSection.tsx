@@ -1,19 +1,21 @@
 /**
  * Секция «О владельце» внутри горизонтального слайдера страницы ТЗ (/tz#owner).
- * На текущем этапе копирует внутреннее наполнение секции «О персонаже»
- * для последующей кастомизации контента.
+ * Объединяет левую колонку с дословными предпочтениями и плейлистами владельца
+ * и правую таблицу «Круг общения» в единой тёмной эстетике видоискателя.
  */
-import { CharacterDossier } from '../darkroom/CharacterDossier';
-import { DarkroomVisualStage } from '../darkroom/DarkroomVisualStage';
-import { ExternalResourceMenu } from '../darkroom/ExternalResourceMenu';
+import { getTzOwnerDataset } from '../../services/projectDataStore';
 import type { TzSectionSlideProps } from './CharacterSection';
+import { OwnerPreferences } from './OwnerPreferences';
+import { SocialCircleTable } from './SocialCircleTable';
 
 /**
  * Рендерит внутреннее содержимое секции «О владельце» для горизонтального слайдера.
- * @param props Данные секции и флаг активности слайда.
+ * @param props Флаг активности слайда в горизонтальной ленте.
  * @returns JSX-разметка слайда #owner.
  */
-export function OwnerSection({ heroData, isActive }: TzSectionSlideProps) {
+export function OwnerSection({ isActive }: TzSectionSlideProps) {
+  const ownerData = getTzOwnerDataset();
+
   return (
     <section
       data-section="owner"
@@ -21,23 +23,21 @@ export function OwnerSection({ heroData, isActive }: TzSectionSlideProps) {
       aria-label="Секция: О владельце"
       aria-hidden={!isActive}
     >
-      <div className="viewfinder-frame">
-        <CharacterDossier
-          primaryWord={heroData.primaryWord}
-          secondaryWord={heroData.secondaryWord}
-          dossierHeading={heroData.dossierHeading}
-          dossierBody={heroData.dossierBody}
-          headingLevel="h2"
+      <div className="owner-viewfinder-frame">
+        <OwnerPreferences
+          primaryWord={ownerData.primaryWord}
+          secondaryWord={ownerData.secondaryWord}
+          preferencesHeading={ownerData.preferencesHeading}
+          preferencesBody={ownerData.preferencesBody}
+          playlistsHeading={ownerData.playlistsHeading}
+          playlists={ownerData.playlists}
         />
 
-        <DarkroomVisualStage
-          artworkSrc={heroData.characterArtworkSrc}
-          artworks={heroData.characterArtworks}
-          isStageActive={isActive}
-          altText={`${heroData.primaryWord} (${heroData.secondaryWord}) — персонаж`}
+        <SocialCircleTable
+          heading={ownerData.socialCircleHeading}
+          groups={ownerData.contactGroups}
+          closingComment={ownerData.closingComment}
         />
-
-        <ExternalResourceMenu links={heroData.externalLinks} />
       </div>
     </section>
   );
