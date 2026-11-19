@@ -43,7 +43,7 @@
 .film-rail {
   position: relative;
   z-index: 2;
-  width: 62px;
+  width: 50px;
   flex-shrink: 0;
   background-color: #0d1317;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
@@ -56,8 +56,8 @@
   inset: 0;
   z-index: 4;
   pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='62' height='44' viewBox='0 0 62 44'%3E%3Crect x='15' y='13' width='32' height='18' rx='3.5' ry='3.5' fill='%23040608' stroke='%23253036' stroke-width='1.2'/%3E%3C/svg%3E");
-  background-size: 62px 44px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='35' viewBox='0 0 50 35'%3E%3Crect x='12' y='10' width='26' height='15' rx='3' ry='3' fill='%23040608' stroke='%23253036' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 50px 35px;
   background-repeat: repeat-y;
 }
 
@@ -74,7 +74,7 @@
   min-width: 0;
   min-height: 100vh;
   min-height: 100dvh;
-  padding: 0 42px 16px;
+  padding: 0 34px 14px;
   display: flex;
   flex-direction: column;
 }
@@ -83,7 +83,7 @@
 .viewfinder-shell {
   position: relative;
   flex: 1;
-  padding: 0 26px 12px;
+  padding: 0 20px 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -94,15 +94,15 @@
   position: sticky;
   top: 0;
   z-index: 12;
-  margin: 0 -26px;
-  padding: 50px 26px 6px;
+  margin: 0 -20px;
+  padding: 34px 20px 6px;
   pointer-events: none;
 }
 
 .viewfinder-sticky-header::before {
   content: '';
   position: absolute;
-  inset: 0 -16px -14px;
+  inset: 0 -14px -12px;
   background: linear-gradient(
     to bottom,
     rgba(9, 15, 18, 0.94) 0%,
@@ -115,8 +115,8 @@
 
 .viewfinder-corner {
   position: absolute;
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   border-color: rgba(234, 226, 208, 0.74);
   border-style: solid;
   pointer-events: none;
@@ -124,13 +124,13 @@
 }
 
 .viewfinder-corner--tl {
-  top: 28px;
+  top: 18px;
   left: 0;
   border-width: 2px 0 0 2px;
 }
 
 .viewfinder-corner--tr {
-  top: 28px;
+  top: 18px;
   right: 0;
   border-width: 2px 2px 0 0;
 }
@@ -154,7 +154,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 14px;
   flex-wrap: wrap;
   pointer-events: auto;
 }
@@ -162,16 +162,16 @@
 .darkroom-nav {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
 .darkroom-nav__item {
   display: inline-flex;
   align-items: center;
-  padding: 6px 15px;
+  padding: 5px 12px;
   font-family: var(--font-condensed);
-  font-size: 1rem;
+  font-size: 0.82rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-primary);
@@ -242,28 +242,28 @@
   width: 100%;
   padding: 4px 4px 0;
   display: grid;
-  grid-template-columns: minmax(340px, 1.12fr) minmax(320px, 1.04fr) minmax(240px, auto);
+  grid-template-columns: minmax(320px, 1.16fr) minmax(280px, 1fr) minmax(200px, auto);
   align-items: center;
-  gap: 16px;
+  gap: 12px;
 }
 
 /* Индикатор ● REC с обратным отсчётом от 00:12:00 и глитч-сбросом на 00:03:04 */
 .rec-indicator {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   font-family: var(--font-mono);
-  font-size: 1.05rem;
+  font-size: 0.86rem;
   letter-spacing: 0.12em;
   color: var(--text-primary);
 }
 
 .rec-indicator__dot {
-  width: 14px;
-  height: 14px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
   background: var(--accent-rec);
-  box-shadow: 0 0 12px var(--accent-rec);
+  box-shadow: 0 0 10px var(--accent-rec);
   animation: recBlink 0.9s steps(2, start) infinite;
 }
 
@@ -304,8 +304,8 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  gap: 24px;
-  padding: 8px 0;
+  gap: 16px;
+  padding: 4px 0;
 }
 
 .dossier-headline-block {
@@ -319,7 +319,7 @@
 .vyazel-wrapper {
   position: relative;
   display: inline-block;
-  padding: 16px 0 8px;
+  padding: 10px 0 4px;
 }
 
 .serif-vyazel {
@@ -329,7 +329,7 @@
   margin: 0;
   font-family: var(--font-serif-display);
   font-weight: 900;
-  font-size: clamp(3.9rem, 6.6vw, 6rem);
+  font-size: clamp(3.1rem, 5.2vw, 4.8rem);
   line-height: 0.9;
   letter-spacing: 0.02em;
   color: var(--text-primary);
@@ -342,15 +342,15 @@
 /* Световые VHS/RGB-прострелы позади ВЯЗЕЛЬ, выходящие на левую перфорацию */
 .vyazel-ribbon {
   position: absolute;
-  left: -155px;
-  right: -56px;
+  left: -124px;
+  right: -45px;
   top: 56%;
-  height: 48px;
+  height: 38px;
   transform: translateY(-50%);
   z-index: 1;
   pointer-events: none;
   mix-blend-mode: screen;
-  filter: blur(0.95px);
+  filter: blur(0.9px);
 }
 
 .vyazel-streak {
@@ -413,10 +413,10 @@
 }
 
 .dossier-secondary-word {
-  margin: 14px 0 0;
+  margin: 10px 0 0;
   font-family: var(--font-condensed);
   font-weight: 500;
-  font-size: clamp(1.45rem, 2.5vw, 2.2rem);
+  font-size: clamp(1.16rem, 2vw, 1.76rem);
   letter-spacing: 0.08em;
   line-height: 1.05;
   text-transform: uppercase;
@@ -427,15 +427,15 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 14px;
+  gap: 10px;
   width: 100%;
-  max-width: min(100%, clamp(48ch, 34vw, 62ch));
+  max-width: min(100%, clamp(52ch, 37vw, 68ch));
 }
 
 .dossier-bio__heading {
   margin: 0;
   font-family: var(--font-condensed);
-  font-size: 1.35rem;
+  font-size: 1.08rem;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -445,8 +445,8 @@
 .dossier-bio__text {
   margin: 0;
   font-family: var(--font-mono);
-  font-size: 0.84rem;
-  line-height: 1.66;
+  font-size: clamp(0.69rem, 0.73vw, 0.76rem);
+  line-height: 1.56;
   color: var(--text-secondary);
 }
 
@@ -480,14 +480,14 @@
   }
 }
 
-/* Центральная сцена персонажа: крупный арт по всей центральной зоне с подъёмом выше и сменной галереей */
+/* Центральная сцена персонажа: крупный арт с пропорциями 80%-вида и сдвигом на 60px влево от предыдущего положения */
 .darkroom-visual-stage {
   position: relative;
   z-index: 3;
   align-self: stretch;
   width: 100%;
   height: 100%;
-  min-height: 640px;
+  min-height: 490px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -496,10 +496,10 @@
 
 .darkroom-backdrop-svg {
   position: absolute;
-  left: 55%;
+  left: 48%;
   top: 48%;
-  width: 178%;
-  max-width: 860px;
+  width: 146%;
+  max-width: 690px;
   height: auto;
   transform: translate(-50%, -50%);
   pointer-events: none;
@@ -509,10 +509,10 @@
 .darkroom-character-figure {
   position: relative;
   z-index: 3;
-  width: clamp(500px, 44vw, 820px);
-  height: clamp(560px, 81vh, 860px);
+  width: clamp(400px, 36vw, 660px);
+  height: clamp(450px, 72vh, 690px);
   max-width: none;
-  transform: translate(54px, -18px);
+  transform: translate(-6px, -10px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -714,21 +714,21 @@
 /* Кнопка скачивания оригинала, проявляющаяся только при наведении или фокусе на картинке */
 .darkroom-download-btn {
   position: absolute;
-  left: 16px;
-  bottom: 18px;
+  left: 14px;
+  bottom: 14px;
   z-index: 8;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
+  gap: 6px;
+  padding: 6px 12px;
   background: rgba(11, 19, 23, 0.88);
   border: 1px solid rgba(232, 190, 103, 0.76);
   box-shadow:
-    -3px 0 0 rgba(59, 199, 214, 0.52),
-    0 10px 24px rgba(0, 0, 0, 0.8);
+    -2px 0 0 rgba(59, 199, 214, 0.52),
+    0 8px 18px rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(4px);
   font-family: var(--font-mono);
-  font-size: 0.76rem;
+  font-size: 0.66rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -786,37 +786,37 @@
   position: relative;
   z-index: 6;
   height: 100%;
-  min-height: 480px;
+  min-height: 380px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
-  gap: 16px;
+  gap: 14px;
 }
 
 .external-menu {
   position: relative;
-  margin-left: -26px;
-  padding: 10px 0;
+  margin-left: -20px;
+  padding: 8px 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 20px;
+  gap: 16px;
 }
 
 .external-menu__item {
   width: auto;
-  min-height: 44px;
-  padding: 6px 2px 9px;
+  min-height: 36px;
+  padding: 5px 2px 7px;
   background: transparent;
   border: none;
-  border-bottom: 2px solid rgba(234, 226, 208, 0.35);
+  border-bottom: 1.5px solid rgba(234, 226, 208, 0.35);
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
   font-family: var(--font-condensed);
-  font-size: clamp(1.06rem, 1.38vw, 1.38rem);
+  font-size: clamp(0.86rem, 1.12vw, 1.12rem);
   font-weight: 500;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -904,8 +904,8 @@
   position: absolute;
   right: 0;
   bottom: 2%;
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   pointer-events: none;
   opacity: 0.85;
 }
