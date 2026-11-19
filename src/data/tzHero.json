@@ -55,6 +55,20 @@
       "downloadName": "vyazel-ember-profile.png",
       "alt": "Вязель — профильный портрет с тлеющим пером",
       "stylePreset": "ember-profile"
+    },
+    {
+      "id": "vyazel-fullbody-stride",
+      "src": "/assets/aistudio/image_9f0dc1c1.png",
+      "downloadName": "vyazel-fullbody-stride.png",
+      "alt": "Вязель в полный рост с поднятой лапой и коротким хвостом",
+      "stylePreset": "fullbody-stride"
+    },
+    {
+      "id": "vyazel-salmon-catch",
+      "src": "/assets/aistudio/image_0845ba30.png",
+      "downloadName": "vyazel-salmon-catch.png",
+      "alt": "Вязель держит в зубах пойманную красную рыбу",
+      "stylePreset": "salmon-catch"
     }
   ],
   "navTabs": [

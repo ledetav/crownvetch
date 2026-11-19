@@ -50,7 +50,9 @@ export type CharacterArtworkStylePreset =
   | 'robin-flight'
   | 'golden-embrace'
   | 'snow-prowl'
-  | 'ember-profile';
+  | 'ember-profile'
+  | 'fullbody-stride'
+  | 'salmon-catch';
 
 /** Элемент коллекции иллюстраций персонажа со своей обводкой и тенью */
 export interface CharacterArtworkItem {
