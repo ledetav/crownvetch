@@ -75,18 +75,18 @@
     {
       "id": "character",
       "label": "О персонаже",
-      "target": "#character",
+      "target": "/tz/character",
       "highlighted": true
     },
     {
       "id": "owner",
       "label": "О владельце",
-      "target": "#owner"
+      "target": "/tz/owner"
     },
     {
       "id": "blog",
       "label": "О блоге",
-      "target": "#blog"
+      "target": "/tz/blog"
     }
   ],
   "externalLinks": [

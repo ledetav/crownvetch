@@ -1,0 +1,32 @@
+{
+  "backTarget": "/tz/character",
+  "backAriaLabel": "Вернуться на страницу «О персонаже»",
+  "navTabs": [
+    {
+      "id": "overview",
+      "label": "Общая информация",
+      "target": "/tz/blog/overview",
+      "highlighted": true
+    },
+    {
+      "id": "characters",
+      "label": "Персонажи",
+      "target": "/tz/blog/characters"
+    },
+    {
+      "id": "palette",
+      "label": "Палитра",
+      "target": "/tz/blog/palette"
+    },
+    {
+      "id": "header",
+      "label": "Шапка",
+      "target": "/tz/blog/header"
+    },
+    {
+      "id": "acts",
+      "label": "Акты",
+      "target": "/tz/blog/acts"
+    }
+  ]
+}
