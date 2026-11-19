@@ -1,28 +1,25 @@
 /**
- * Секция «О владельце» внутри горизонтального слайдера страницы ТЗ (/tz#owner).
+ * Секция «О владельце» на маршруте /tz/owner.
  * Верхняя часть разделена на две колонки («Предпочтения» слева, «Дополнительно» и плейлисты справа),
  * а внизу во всю ширину расположена горизонтальная таблица «Круг общения» (две группы бок о бок).
  */
 import { getTzOwnerDataset } from '../../services/projectDataStore';
-import type { TzSectionSlideProps } from './CharacterSection';
 import { OwnerExtra } from './OwnerExtra';
 import { OwnerPreferences } from './OwnerPreferences';
 import { SocialCircleTable } from './SocialCircleTable';
 
 /**
- * Рендерит внутреннее содержимое секции «О владельце» для горизонтального слайдера.
- * @param props Флаг активности слайда в горизонтальной ленте.
- * @returns JSX-разметка слайда #owner.
+ * Рендерит содержимое маршрута /tz/owner внутри рамки видоискателя.
+ * @returns JSX-разметка раздела «О владельце».
  */
-export function OwnerSection({ isActive }: TzSectionSlideProps) {
+export function OwnerSection() {
   const ownerData = getTzOwnerDataset();
 
   return (
     <section
       data-section="owner"
-      className={`viewfinder-slide ${isActive ? 'viewfinder-slide--active' : 'viewfinder-slide--inactive'}`}
+      className="viewfinder-slide viewfinder-slide--active"
       aria-label="Секция: О владельце"
-      aria-hidden={!isActive}
     >
       <div className="owner-viewfinder-frame">
         <div className="owner-top-grid">

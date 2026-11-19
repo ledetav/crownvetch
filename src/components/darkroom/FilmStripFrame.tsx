@@ -1,13 +1,11 @@
 /**
  * Компонент каркаса киноплёнки и рамки видоискателя.
  * Отрисовывает повторяющуюся по высоте перфорацию 35-мм плёнки, липкую верхнюю панель
- * (верхние белые уголки камеры, индикатор записи ● REC слева и навигацию справа)
- * и нижние уголки рамки на нижней границе контента.
- * Внутренняя сцена передаётся через children и переключается горизонтально,
- * при этом её эффекты могут выходить за пределы рамки.
+ * (верхние белые уголки камеры, левый слот с индикатором ● REC или кнопкой возврата,
+ * а также маршрутную навигацию справа) и нижние уголки рамки у границы контента.
  */
-import type { MouseEvent, ReactNode } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import type { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 import type { HeroNavTab } from '../../types/project';
 import { RecTimer } from './RecTimer';
 
@@ -19,17 +17,19 @@ interface FilmStripFrameProps {
   sectionLabel?: string;
   /** Пункты меню в правом верхнем углу */
   navTabs: HeroNavTab[];
-  /** Идентификатор текущего активного таба */
+  /** Идентификатор текущего активного пункта меню */
   activeTabId: string;
-  /** Обработчик выбора пункта меню */
-  onSelectTab: (tab: HeroNavTab) => void;
+  /** Необязательный пользовательский слот в левой части верхней панели (по умолчанию ● REC) */
+  leftSlot?: ReactNode;
+  /** Необязательный обработчик выбора пункта меню */
+  onSelectTab?: (tab: HeroNavTab) => void;
   /** Внутреннее содержимое сцены видоискателя */
   children: ReactNode;
 }
 
 /**
- * Оборачивает сцену в неподвижную рамку киноплёнки с уголками видоискателя,
- * счётчиком REC и верхней навигацией.
+ * Оборачивает активную страницу в единую рамку киноплёнки с уголками видоискателя,
+ * левым индикатором или кнопкой возврата и верхней маршрутной навигацией.
  * @param props Свойства оболочки видоискателя и навигации.
  * @returns JSX-разметка полноэкранного видоискателя с перфорацией.
  */
@@ -38,34 +38,18 @@ export function FilmStripFrame({
   sectionLabel = 'Экран видоискателя',
   navTabs,
   activeTabId,
+  leftSlot,
   onSelectTab,
   children,
 }: FilmStripFrameProps) {
-  const navigate = useNavigate();
-  const location = useLocation();
-
   /**
-   * Обрабатывает клик по пункту верхнего меню:
-   * - для якорных ссылок (#...) переключает активную вкладку и обновляет хэш URL (или переходит на /tz#...);
-   * - для маршрутов (/...) выполняет переход через React Router.
+   * Сбрасывает вертикальную прокрутку к началу нового маршрута
+   * и уведомляет родительский компонент о переключении пункта меню.
    */
-  const handleTabClick = (event: MouseEvent<HTMLAnchorElement>, tab: HeroNavTab) => {
-    event.preventDefault();
-    onSelectTab(tab);
-
-    if (tab.target.startsWith('#')) {
-      const targetId = tab.target.slice(1);
-      if (location.pathname !== '/tz') {
-        navigate(`/tz#${targetId}`);
-        return;
-      }
-
-      window.history.replaceState(null, '', tab.target);
-      return;
-    }
-
-    if (tab.target.startsWith('/')) {
-      navigate(tab.target);
+  const handleTabSelect = (tab: HeroNavTab) => {
+    onSelectTab?.(tab);
+    if (window.scrollY > 0) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -80,24 +64,23 @@ export function FilmStripFrame({
             <span className="viewfinder-corner viewfinder-corner--tr" aria-hidden="true" />
 
             <header className="darkroom-topbar">
-              <RecTimer />
+              <div className="darkroom-topbar__left">{leftSlot ?? <RecTimer />}</div>
 
               <nav className="darkroom-nav" aria-label="Навигация видоискателя">
                 {navTabs.map((tab) => {
                   const isHighlighted = tab.id === activeTabId;
-                  const href = tab.target.startsWith('#') ? `/tz${tab.target}` : tab.target;
                   return (
-                    <a
+                    <Link
                       key={tab.id}
-                      href={href}
+                      to={tab.target}
                       className={`darkroom-nav__item ${
                         isHighlighted ? 'darkroom-nav__item--highlighted' : ''
                       }`}
                       aria-current={isHighlighted ? 'page' : undefined}
-                      onClick={(event) => handleTabClick(event, tab)}
+                      onClick={() => handleTabSelect(tab)}
                     >
                       {tab.label}
-                    </a>
+                    </Link>
                   );
                 })}
               </nav>

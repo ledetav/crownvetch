@@ -1,7 +1,7 @@
 """
 Скрипт автоматического визуального аудита UI для проекта crownvetch.
-Проверяет рендер ключевых маршрутов (/tz и /game) на десктопе (1440x900)
-и мобильном экране (390x844), отслеживает горизонтальный скролл,
+Проверяет рендер ключевых маршрутов (/tz/character, /tz/owner, /tz/blog/overview и /game)
+на десктопе (1440x900) и мобильном экране (390x844), отслеживает горизонтальный скролл,
 ошибки консоли и сохраняет PNG-скриншоты вместе с отчётами ci-summary.md и ui-report.json.
 """
 
@@ -15,8 +15,9 @@ BASE_URL = os.environ.get("AUDIT_BASE_URL", "http://127.0.0.1:4173")
 OUTPUT_DIR = Path(os.environ.get("AUDIT_OUTPUT_DIR", "ci-artifacts"))
 
 ROUTES = [
-    {"name": "tz", "path": "/tz"},
-    {"name": "owner", "path": "/tz#owner"},
+    {"name": "tz", "path": "/tz/character"},
+    {"name": "owner", "path": "/tz/owner"},
+    {"name": "blog", "path": "/tz/blog/overview"},
     {"name": "game", "path": "/game"},
 ]
 

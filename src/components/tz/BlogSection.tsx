@@ -1,44 +1,28 @@
 /**
- * Секция «О блоге» внутри горизонтального слайдера страницы ТЗ (/tz#blog).
- * На текущем этапе копирует внутреннее наполнение секции «О персонаже»
- * для последующей кастомизации контента.
+ * Очищенная рабочая сцена для подразделов страницы «О блоге» (/tz/blog/*).
+ * Старое наполнение удалено — контейнер служит чистым холстом видоискателя
+ * для последующего поэтапного наполнения разделов блога.
  */
-import { CharacterDossier } from '../darkroom/CharacterDossier';
-import { DarkroomVisualStage } from '../darkroom/DarkroomVisualStage';
-import { ExternalResourceMenu } from '../darkroom/ExternalResourceMenu';
-import type { TzSectionSlideProps } from './CharacterSection';
+
+/** Входные свойства подраздела страницы «О блоге» */
+export interface BlogSectionProps {
+  /** Системный идентификатор активного подраздела блога */
+  sectionId: 'overview' | 'characters' | 'palette' | 'header' | 'acts';
+  /** Человекочитаемое название подраздела для доступности */
+  title: string;
+}
 
 /**
- * Рендерит внутреннее содержимое секции «О блоге» для горизонтального слайдера.
- * @param props Данные секции и флаг активности слайда.
- * @returns JSX-разметка слайда #blog.
+ * Рендерит чистую пустую сцену видоискателя для выбранного подраздела блога.
+ * @param props Идентификатор и название текущего подраздела блога.
+ * @returns JSX-разметка пустого контейнера подраздела.
  */
-export function BlogSection({ heroData, isActive }: TzSectionSlideProps) {
+export function BlogSection({ sectionId, title }: BlogSectionProps) {
   return (
     <section
-      data-section="blog"
-      className={`viewfinder-slide ${isActive ? 'viewfinder-slide--active' : 'viewfinder-slide--inactive'}`}
-      aria-label="Секция: О блоге"
-      aria-hidden={!isActive}
-    >
-      <div className="viewfinder-frame">
-        <CharacterDossier
-          primaryWord={heroData.primaryWord}
-          secondaryWord={heroData.secondaryWord}
-          dossierHeading={heroData.dossierHeading}
-          dossierBody={heroData.dossierBody}
-          headingLevel="h2"
-        />
-
-        <DarkroomVisualStage
-          artworkSrc={heroData.characterArtworkSrc}
-          artworks={heroData.characterArtworks}
-          isStageActive={isActive}
-          altText={`${heroData.primaryWord} (${heroData.secondaryWord}) — персонаж`}
-        />
-
-        <ExternalResourceMenu links={heroData.externalLinks} />
-      </div>
-    </section>
+      data-section={`blog-${sectionId}`}
+      className="viewfinder-slide viewfinder-slide--active blog-empty-stage"
+      aria-label={`О блоге: ${title}`}
+    />
   );
 }

@@ -1,33 +1,32 @@
 /**
- * Секция «О персонаже» внутри горизонтального слайдера страницы ТЗ (/tz#character).
- * Отображает 3-колоночную композицию: досье ВЯЗЕЛЬ слева, арт персонажа с контурной
- * обводкой и тенью в центре и вертикальное меню внешних ресурсов справа.
+ * Секция «О персонаже» на маршруте /tz/character.
+ * Отображает 3-колоночную композицию: досье ВЯЗЕЛЬ слева, сменяемый арт персонажа
+ * с контурной обводкой и тенью в центре и вертикальное меню внешних ресурсов справа.
  */
 import type { TzHeroDataset } from '../../types/project';
 import { CharacterDossier } from '../darkroom/CharacterDossier';
 import { DarkroomVisualStage } from '../darkroom/DarkroomVisualStage';
 import { ExternalResourceMenu } from '../darkroom/ExternalResourceMenu';
 
-/** Входные свойства слайда секции ТЗ */
-export interface TzSectionSlideProps {
+/** Входные свойства секции «О персонаже» */
+export interface CharacterSectionProps {
   /** Конфигурация контента видоискателя из tzHero.json */
   heroData: TzHeroDataset;
-  /** Признак активности текущего слайда в горизонтальной ленте */
-  isActive: boolean;
+  /** Признак активности сцены (по умолчанию true на выделенном маршруте) */
+  isActive?: boolean;
 }
 
 /**
- * Рендерит внутреннее содержимое секции «О персонаже» для горизонтального слайдера.
- * @param props Данные секции и флаг активности слайда.
- * @returns JSX-разметка слайда #character.
+ * Рендерит содержимое маршрута /tz/character внутри рамки видоискателя.
+ * @param props Данные секции и флаг активности галереи артов.
+ * @returns JSX-разметка раздела «О персонаже».
  */
-export function CharacterSection({ heroData, isActive }: TzSectionSlideProps) {
+export function CharacterSection({ heroData, isActive = true }: CharacterSectionProps) {
   return (
     <section
       data-section="character"
-      className={`viewfinder-slide ${isActive ? 'viewfinder-slide--active' : 'viewfinder-slide--inactive'}`}
+      className="viewfinder-slide viewfinder-slide--active"
       aria-label="Секция: О персонаже"
-      aria-hidden={!isActive}
     >
       <div className="viewfinder-frame">
         <CharacterDossier

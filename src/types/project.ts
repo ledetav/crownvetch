@@ -150,3 +150,14 @@ export interface TzOwnerDataset {
   /** Заключительный авторский комментарий под таблицей */
   closingComment: string;
 }
+
+/** Конфигурация навигации и кнопки возврата отдельной страницы «О блоге» из tzBlog.json */
+export interface TzBlogDataset {
+  /** Маршрут возврата при нажатии кнопки стрелки назад */
+  backTarget: string;
+  /** Текст доступного описания и всплывающей подсказки кнопки возврата */
+  backAriaLabel: string;
+  /** Список пунктов верхнего меню раздела «О блоге» */
+  navTabs: HeroNavTab[];
+}
+
