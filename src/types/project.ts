@@ -161,3 +161,67 @@ export interface TzBlogDataset {
   navTabs: HeroNavTab[];
 }
 
+/** Внутренняя якорная микровкладка на странице «Общая информация» */
+export interface BlogOverviewMicroTab {
+  /** Уникальный идентификатор секции */
+  id: 'synopsis' | 'readiness';
+  /** Якорь адресной строки (#synopsis | #readiness) */
+  anchor: string;
+  /** Подпись микровкладки */
+  label: string;
+}
+
+/** Тематический слот-черновик внутри секции синопсиса блога */
+export interface BlogSynopsisSlot {
+  /** Уникальный идентификатор слота */
+  id: string;
+  /** Заголовок смыслового блока синопсиса */
+  title: string;
+  /** Базовый текст-заготовка или набросок */
+  text: string;
+}
+
+/** Возможные статусы готовности акта в таблице планирования */
+export type BlogActStatus = 'planned' | 'in_progress' | 'done';
+
+/** Строка таблицы готовности акта с процентами и дедлайном (ДД) */
+export interface BlogActReadinessRow {
+  /** Уникальный идентификатор акта */
+  id: string;
+  /** Название или номер акта */
+  actLabel: string;
+  /** Основной объём работ на акте */
+  focus: string;
+  /** Текущий статус выполнения */
+  status: BlogActStatus;
+  /** Процент готовности (0..100) */
+  progressPercent: number;
+  /** Целевая дата или срок дедлайна (ДД) */
+  deadline: string;
+  /** Краткий комментарий или открытые вопросы */
+  note: string;
+}
+
+/** Полная конфигурация раздела «О блоге → Общая информация» из tzBlogOverview.json */
+export interface TzBlogOverviewDataset {
+  /** Главный акцентный заголовок страницы */
+  primaryWord: string;
+  /** Вторичный приглушённый подзаголовок */
+  secondaryWord: string;
+  /** Якорные микровкладки (Синопсис / Таблица готовности) */
+  microTabs: BlogOverviewMicroTab[];
+  /** Заголовок секции синопсиса */
+  synopsisHeading: string;
+  /** Вводное описание синопсиса */
+  synopsisLead: string;
+  /** Структурные слоты синопсиса */
+  synopsisSlots: BlogSynopsisSlot[];
+  /** Заголовок секции таблицы готовности */
+  readinessHeading: string;
+  /** Пояснение к таблице и сохранению прогресса */
+  readinessNote: string;
+  /** Базовый список актов для трекинга готовности и сроков ДД */
+  acts: BlogActReadinessRow[];
+}
+
+
