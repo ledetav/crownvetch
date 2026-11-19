@@ -6,6 +6,8 @@
 | Маршрут | Экран | Разрешение | HTTP | Гориз. скролл | Ошибки | Скриншот |
 | :--- | :--- | :--- | :---: | :---: | :---: | :--- |
 | `/tz` | desktop | 1440x900 | 200 | `False` | 0 | `tz_desktop.png` |
+| `/tz#owner` | desktop | 1440x900 | 200 | `False` | 0 | `owner_desktop.png` |
 | `/game` | desktop | 1440x900 | 200 | `False` | 0 | `game_desktop.png` |
 | `/tz` | mobile | 390x844 | 200 | `False` | 0 | `tz_mobile.png` |
+| `/tz#owner` | mobile | 390x844 | 200 | `False` | 0 | `owner_mobile.png` |
 | `/game` | mobile | 390x844 | 200 | `False` | 0 | `game_mobile.png` |

@@ -13,6 +13,17 @@
       "passed": true
     },
     {
+      "route": "/tz#owner",
+      "viewport": "desktop",
+      "dimensions": "1440x900",
+      "httpStatus": 200,
+      "hasHorizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "owner_desktop.png",
+      "passed": true
+    },
+    {
       "route": "/game",
       "viewport": "desktop",
       "dimensions": "1440x900",
@@ -32,6 +43,17 @@
       "consoleErrors": [],
       "pageErrors": [],
       "screenshot": "tz_mobile.png",
+      "passed": true
+    },
+    {
+      "route": "/tz#owner",
+      "viewport": "mobile",
+      "dimensions": "390x844",
+      "httpStatus": 200,
+      "hasHorizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "owner_mobile.png",
       "passed": true
     },
     {
