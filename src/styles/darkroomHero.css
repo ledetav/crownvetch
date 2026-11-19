@@ -1326,7 +1326,7 @@
   margin-right: -12%;
 }
 
-/* Внутренние микровкладки на якорях (#synopsis и #readiness) */
+/* Внутренние вкладки на странице «Общая информация» (#annotation и #readiness) */
 .blog-microtabs {
   display: inline-flex;
   align-items: center;
@@ -1351,6 +1351,7 @@
   color: var(--text-secondary);
   border: 1px solid transparent;
   background: transparent;
+  cursor: pointer;
   transition: color 0.16s ease, border-color 0.16s ease, background-color 0.16s ease;
 }
 
@@ -1367,21 +1368,32 @@
   background: rgba(232, 190, 103, 0.08);
 }
 
-/* Отступ при скролле к якорю, чтобы липкая шапка не перекрывала заголовок секции */
-.blog-anchor-section {
-  scroll-margin-top: 96px;
-}
-
-.blog-synopsis-panel,
+.blog-annotation-panel,
 .blog-readiness-panel {
   position: relative;
   z-index: 4;
   display: flex;
   flex-direction: column;
   gap: 14px;
-  padding: 16px 18px;
+  padding: 18px 20px;
   background: rgba(11, 19, 23, 0.68);
   border: 1px solid rgba(234, 226, 208, 0.16);
+}
+
+/* Текстовый блок аннотации без внутреннего заголовка */
+.blog-annotation-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 72ch;
+}
+
+.blog-annotation-paragraph {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(0.76rem, 0.86vw, 0.84rem);
+  line-height: 1.68;
+  color: var(--text-primary);
 }
 
 .blog-panel-head {
@@ -1396,40 +1408,6 @@
   font-family: var(--font-mono);
   font-size: 0.72rem;
   line-height: 1.55;
-  color: var(--text-secondary);
-}
-
-/* Сетка черновых слотов синопсиса (2×2 на широком экране) */
-.blog-synopsis-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.blog-synopsis-card {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 12px 14px;
-  background: rgba(18, 24, 27, 0.74);
-  border: 1px solid rgba(234, 226, 208, 0.14);
-}
-
-.blog-synopsis-card__title {
-  margin: 0;
-  font-family: var(--font-condensed);
-  font-size: 0.88rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--accent-amber);
-}
-
-.blog-synopsis-card__text {
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  line-height: 1.52;
   color: var(--text-secondary);
 }
 
@@ -1748,8 +1726,7 @@
   }
 
   .owner-top-grid,
-  .owner-tables-grid,
-  .blog-synopsis-grid {
+  .owner-tables-grid {
     grid-template-columns: 1fr;
     gap: 16px;
   }
