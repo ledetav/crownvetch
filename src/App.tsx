@@ -4,6 +4,7 @@
  * /tz/character, /tz/owner, отдельный раздел /tz/blog/* и /game.
  */
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BlogOverviewSection } from './components/tz/BlogOverviewSection';
 import { BlogSection } from './components/tz/BlogSection';
 import { CharacterSection } from './components/tz/CharacterSection';
 import { OwnerSection } from './components/tz/OwnerSection';
@@ -33,10 +34,7 @@ export function App() {
             </Route>
             <Route path="/tz/blog" element={<BlogPage />}>
               <Route index element={<Navigate to="/tz/blog/overview" replace />} />
-              <Route
-                path="overview"
-                element={<BlogSection sectionId="overview" title="Общая информация" />}
-              />
+              <Route path="overview" element={<BlogOverviewSection />} />
               <Route
                 path="characters"
                 element={<BlogSection sectionId="characters" title="Персонажи" />}
