@@ -161,24 +161,14 @@ export interface TzBlogDataset {
   navTabs: HeroNavTab[];
 }
 
-/** Внутренняя якорная микровкладка на странице «Общая информация» */
+/** Внутренняя вкладка на странице «Общая информация» */
 export interface BlogOverviewMicroTab {
-  /** Уникальный идентификатор секции */
-  id: 'synopsis' | 'readiness';
-  /** Якорь адресной строки (#synopsis | #readiness) */
+  /** Уникальный идентификатор вкладки */
+  id: 'annotation' | 'readiness';
+  /** Якорь адресной строки (#annotation | #readiness) */
   anchor: string;
-  /** Подпись микровкладки */
+  /** Подпись вкладки */
   label: string;
-}
-
-/** Тематический слот-черновик внутри секции синопсиса блога */
-export interface BlogSynopsisSlot {
-  /** Уникальный идентификатор слота */
-  id: string;
-  /** Заголовок смыслового блока синопсиса */
-  title: string;
-  /** Базовый текст-заготовка или набросок */
-  text: string;
 }
 
 /** Возможные статусы готовности акта в таблице планирования */
@@ -208,14 +198,10 @@ export interface TzBlogOverviewDataset {
   primaryWord: string;
   /** Вторичный приглушённый подзаголовок */
   secondaryWord: string;
-  /** Якорные микровкладки (Синопсис / Таблица готовности) */
+  /** Внутренние вкладки (Аннотация / Таблица готовности) */
   microTabs: BlogOverviewMicroTab[];
-  /** Заголовок секции синопсиса */
-  synopsisHeading: string;
-  /** Вводное описание синопсиса */
-  synopsisLead: string;
-  /** Структурные слоты синопсиса */
-  synopsisSlots: BlogSynopsisSlot[];
+  /** Дословный текст аннотации блога без внутреннего заголовка */
+  annotationBody: string;
   /** Заголовок секции таблицы готовности */
   readinessHeading: string;
   /** Пояснение к таблице и сохранению прогресса */
