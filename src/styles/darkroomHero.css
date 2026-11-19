@@ -242,7 +242,7 @@
   width: 100%;
   padding: 4px 4px 0;
   display: grid;
-  grid-template-columns: minmax(295px, 0.96fr) minmax(320px, 1.08fr) minmax(240px, auto);
+  grid-template-columns: minmax(340px, 1.12fr) minmax(320px, 1.04fr) minmax(240px, auto);
   align-items: center;
   gap: 16px;
 }
@@ -427,8 +427,9 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 12px;
-  max-width: 44ch;
+  gap: 14px;
+  width: 100%;
+  max-width: min(100%, clamp(48ch, 34vw, 62ch));
 }
 
 .dossier-bio__heading {
@@ -511,7 +512,7 @@
   width: clamp(500px, 44vw, 820px);
   height: clamp(560px, 81vh, 860px);
   max-width: none;
-  transform: translate(28px, -18px);
+  transform: translate(34px, -18px);
   display: flex;
   align-items: center;
   justify-content: center;

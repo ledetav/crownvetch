@@ -31,6 +31,11 @@ export function CharacterDossier({
   headingLevel = 'h1',
 }: CharacterDossierProps) {
   const HeadingTag = headingLevel;
+  // Разбиваем описание на отдельные абзацы по пустой строке
+  const paragraphs = dossierBody
+    .split(/\n{2,}/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
 
   return (
     <div className="dossier-column">
@@ -50,7 +55,11 @@ export function CharacterDossier({
 
       <div className="dossier-bio">
         <h3 className="dossier-bio__heading">{dossierHeading}</h3>
-        <p className="dossier-bio__text">{dossierBody}</p>
+        {paragraphs.map((paragraph, index) => (
+          <p key={`dossier-p-${index}`} className="dossier-bio__text">
+            {paragraph}
+          </p>
+        ))}
       </div>
     </div>
   );
