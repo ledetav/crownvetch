@@ -67,7 +67,7 @@ export function OwnerExtra({
 
       <div className="owner-playlists">
         <h3 className="dossier-bio__heading">{playlistsHeading}</h3>
-        <nav className="owner-playlists__list" aria-label="Плейлисты владельца">
+        <nav className="owner-playlists__list" aria-label="Плейлисты">
           {playlists.map((item) => {
             const accentClass = `external-menu__item--${item.accent}`;
 
