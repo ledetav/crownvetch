@@ -4,6 +4,7 @@
  * /tz/character, /tz/owner, отдельный раздел /tz/blog/* и /game.
  */
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BlogActsSection } from './components/tz/BlogActsSection';
 import { BlogOverviewSection } from './components/tz/BlogOverviewSection';
 import { BlogSection } from './components/tz/BlogSection';
 import { CharacterSection } from './components/tz/CharacterSection';
@@ -41,7 +42,7 @@ export function App() {
               />
               <Route path="palette" element={<BlogSection sectionId="palette" title="Палитра" />} />
               <Route path="header" element={<BlogSection sectionId="header" title="Шапка" />} />
-              <Route path="acts" element={<BlogSection sectionId="acts" title="Акты" />} />
+              <Route path="acts" element={<BlogActsSection />} />
             </Route>
             <Route path="/game" element={<GamePlaceholderPage />} />
             {/* Любые неизвестные маршруты ведут на страницу персонажа */}
