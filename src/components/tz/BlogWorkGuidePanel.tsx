@@ -1,12 +1,16 @@
 /**
  * Секция #guide («Памятка по работе») на странице «О блоге → Общая информация».
- * Содержит внутреннее меню из трёх подразделов («О спрайтах», «О фонах», «О катсценах»)
- * и отображает ключевые параметры, список требований, заметки и переходы к связанным
- * разделам ТЗ строго из JSON в эстетике тёмной фотолаборатории.
+ * Содержит внутреннее меню из трёх подразделов («О спрайтах», «О фонах», «О катсценах»),
+ * отображает маркированный список требований, примечания, галерею референсов с увеличением
+ * по клику и переходы к связанным разделам ТЗ строго из JSON.
  */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import type { BlogWorkGuideData, BlogWorkGuideSectionId } from '../../types/project';
+import type {
+  BlogWorkGuideData,
+  BlogWorkGuideReference,
+  BlogWorkGuideSectionId,
+} from '../../types/project';
 
 /** Входные свойства панели памятки по работе */
 interface BlogWorkGuidePanelProps {
@@ -16,7 +20,7 @@ interface BlogWorkGuidePanelProps {
 
 /**
  * Отрисовывает вкладку «Памятка по работе» с внутренним меню переключения разделов
- * («О спрайтах», «О фонах», «О катсценах»).
+ * («О спрайтах», «О фонах», «О катсценах») и просмотром референсов в увеличенном виде.
  * @param props Объект с заголовком, пояснением и списком подразделов памятки.
  * @returns JSX-разметка панели #guide.
  */
@@ -24,6 +28,21 @@ export function BlogWorkGuidePanel({ guide }: BlogWorkGuidePanelProps) {
   const [activeSectionId, setActiveSectionId] = useState<BlogWorkGuideSectionId>(
     () => guide.sections[0]?.id ?? 'sprites',
   );
+  const [activeLightboxRef, setActiveLightboxRef] = useState<BlogWorkGuideReference | null>(null);
+
+  // Закрываем полноэкранный просмотр референса по клавише Escape
+  useEffect(() => {
+    if (!activeLightboxRef) {
+      return;
+    }
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setActiveLightboxRef(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeLightboxRef]);
 
   const activeSection =
     guide.sections.find((section) => section.id === activeSectionId) ?? guide.sections[0];
@@ -49,7 +68,11 @@ export function BlogWorkGuidePanel({ guide }: BlogWorkGuidePanelProps) {
       </div>
 
       {/* Внутреннее меню памятки: О спрайтах, О фонах, О катсценах */}
-      <div className="blog-section-nav blog-guide-nav" role="tablist" aria-label="Разделы памятки по работе">
+      <div
+        className="blog-section-nav blog-guide-nav"
+        role="tablist"
+        aria-label="Разделы памятки по работе"
+      >
         {guide.sections.map((section) => {
           const isActive = section.id === activeSection.id;
           return (
@@ -75,17 +98,7 @@ export function BlogWorkGuidePanel({ guide }: BlogWorkGuidePanelProps) {
           {activeSection.heading}
         </h3>
 
-        {/* Ключевые параметры в верхней полосе (ориентация, формат, стилистика) */}
-        <dl className="blog-guide-specs">
-          {activeSection.specs.map((spec) => (
-            <div key={spec.label} className="blog-guide-spec">
-              <dt className="blog-guide-spec__label">{spec.label}</dt>
-              <dd className="blog-guide-spec__value">{spec.value}</dd>
-            </div>
-          ))}
-        </dl>
-
-        {/* Основной список правил */}
+        {/* Маркированный список требований */}
         <ul className="blog-guide-list">
           {activeSection.points.map((point, index) => (
             <li key={`${activeSection.id}-point-${index}`} className="blog-guide-list__item">
@@ -94,8 +107,39 @@ export function BlogWorkGuidePanel({ guide }: BlogWorkGuidePanelProps) {
           ))}
         </ul>
 
-        {/* Дополнительная заметка (например, о референсах для фонов) */}
+        {/* Дополнительное примечание (например, про мягкий светлый карандашный лайн) */}
         {activeSection.note && <p className="blog-guide-note">{activeSection.note}</p>}
+
+        {/* Галерея визуальных референсов (при наличии в подразделе) */}
+        {activeSection.references && activeSection.references.length > 0 && (
+          <div className="blog-guide-refs" aria-label="Референсы стиля">
+            <div className="blog-guide-refs__head">
+              <span className="blog-guide-refs__title">Референсы</span>
+              <span className="blog-guide-refs__hint">Нажмите на кадр, чтобы рассмотреть детали</span>
+            </div>
+
+            <div className="blog-guide-refs__grid">
+              {activeSection.references.map((refItem) => (
+                <figure key={refItem.id} className="blog-guide-ref">
+                  <button
+                    type="button"
+                    className="blog-guide-ref__trigger"
+                    onClick={() => setActiveLightboxRef(refItem)}
+                    aria-label={`Открыть в полном размере: ${refItem.caption}`}
+                  >
+                    <img
+                      src={refItem.src}
+                      alt={refItem.caption}
+                      className="blog-guide-ref__img"
+                      loading="lazy"
+                    />
+                  </button>
+                  <figcaption className="blog-guide-ref__caption">{refItem.caption}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Быстрый переход к связанной вкладке ТЗ (например, «Персонажи») */}
         {activeSection.relatedLink && (
@@ -107,6 +151,39 @@ export function BlogWorkGuidePanel({ guide }: BlogWorkGuidePanelProps) {
           </div>
         )}
       </article>
+
+      {/* Полноэкранный просмотр выбранного референса для детального изучения лайна */}
+      {activeLightboxRef && (
+        <div
+          className="blog-guide-lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label={activeLightboxRef.caption}
+          onClick={() => setActiveLightboxRef(null)}
+        >
+          <div
+            className="blog-guide-lightbox__content"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="blog-guide-lightbox__bar">
+              <span className="blog-guide-lightbox__caption">{activeLightboxRef.caption}</span>
+              <button
+                type="button"
+                className="blog-guide-lightbox__close"
+                onClick={() => setActiveLightboxRef(null)}
+                aria-label="Закрыть просмотр референса"
+              >
+                Закрыть ×
+              </button>
+            </div>
+            <img
+              src={activeLightboxRef.src}
+              alt={activeLightboxRef.caption}
+              className="blog-guide-lightbox__img"
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 }
