@@ -164,11 +164,57 @@ export interface TzBlogDataset {
 /** Внутренняя вкладка на странице «Общая информация» */
 export interface BlogOverviewMicroTab {
   /** Уникальный идентификатор вкладки */
-  id: 'annotation' | 'readiness';
-  /** Якорь адресной строки (#annotation | #readiness) */
+  id: 'annotation' | 'guide' | 'readiness';
+  /** Якорь адресной строки (#annotation | #guide | #readiness) */
   anchor: string;
   /** Подпись вкладки */
   label: string;
+}
+
+/** Идентификаторы подразделов вкладки «Памятка по работе» */
+export type BlogWorkGuideSectionId = 'sprites' | 'backgrounds' | 'cutscenes';
+
+/** Изображение-референс внутри подраздела памятки по работе */
+export interface BlogWorkGuideReference {
+  /** Уникальный идентификатор референса */
+  id: string;
+  /** Локальный путь к изображению в public/assets/... */
+  src: string;
+  /** Описание изображения для атрибута alt и подписи */
+  caption: string;
+}
+
+/** Отдельный подраздел памятки по работе (О спрайтах, О фонах, О катсценах) */
+export interface BlogWorkGuideSection {
+  /** Системный идентификатор подраздела */
+  id: BlogWorkGuideSectionId;
+  /** Подпись пункта внутреннего меню */
+  label: string;
+  /** Заголовок активного блока памятки */
+  heading: string;
+  /** Основные правила и требования подраздела (маркированный список) */
+  points: string[];
+  /** Дополнительное примечание к подразделу */
+  note?: string;
+  /** Подборка визуальных референсов (при наличии) */
+  references?: BlogWorkGuideReference[];
+  /** Необязательная внутренняя ссылка на связанный раздел ТЗ */
+  relatedLink?: {
+    /** Подпись ссылки */
+    label: string;
+    /** Целевой маршрут приложения */
+    target: string;
+  };
+}
+
+/** Конфигурация вкладки «Памятка по работе» (#guide) */
+export interface BlogWorkGuideData {
+  /** Заголовок секции памятки */
+  heading: string;
+  /** Краткое пояснение к памятке */
+  lead: string;
+  /** Подразделы памятки (О спрайтах, О фонах, О катсценах) */
+  sections: BlogWorkGuideSection[];
 }
 
 /** Возможные статусы выполнения отдельной работы в таблице готовности */
@@ -226,10 +272,12 @@ export interface TzBlogOverviewDataset {
   secondaryWord: string;
   /** Целевая дата дня рождения в формате YYYY-MM-DD для общей сводки наверху страницы */
   birthdayDate: string;
-  /** Внутренние вкладки (Аннотация / Таблица готовности) */
+  /** Внутренние вкладки (Аннотация / Памятка по работе / Таблица готовности) */
   microTabs: BlogOverviewMicroTab[];
   /** Дословный текст аннотации блога без внутреннего заголовка */
   annotationBody: string;
+  /** Данные вкладки «Памятка по работе» (О спрайтах, О фонах, О катсценах) */
+  workGuide: BlogWorkGuideData;
   /** Заголовок секции таблицы готовности */
   readinessHeading: string;
   /** Краткое пояснение к таблице готовности */
