@@ -133,7 +133,7 @@ export function BlogGlobalSummary({ birthdayDate, sections }: BlogGlobalSummaryP
         <strong className="blog-global-summary__num blog-global-summary__num--cyan">
           {textCount}
         </strong>{' '}
-        {pluralizeRu(textCount, 'текст', 'текста', 'текстов')},{' '}
+        {pluralizeRu(textCount, 'текст', 'текста', 'текстов')} (с репликами),{' '}
         <strong className="blog-global-summary__num">{designCount}</strong>{' '}
         {pluralizeRu(
           designCount,
