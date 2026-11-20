@@ -1,6 +1,7 @@
 {
   "primaryWord": "ОБЩАЯ ИНФОРМАЦИЯ",
   "secondaryWord": "АННОТАЦИЯ И ГОТОВНОСТЬ РАБОТ",
+  "birthdayDate": "2026-12-29",
   "microTabs": [
     {
       "id": "annotation",
@@ -15,7 +16,7 @@
   ],
   "annotationBody": "Кто бы мог подумать, что крыша, прохудившаяся под ноябрьским ливнем принесет в жизнь Лин Вэя что-то новенькое? Под скрипящей половицей чердака оказываются вещи, которые хранят историю его неизвестного предка — изобретателя и астронома, который стоял в шаге от великого открытия, но в роковой вечер отказался от мечты всей своей жизни.\n\nВязель не собирается оставлять загадку без ответа. Желая просто отреставрировать снимок, он обращается в неприметное фотоателье со странноватыми, но хвалебными отзывами. Вот только встреча с его владельцами рушит привычную картину мира.\n\nЧто же на самом деле произошло в ту далёкую ночь? И какую правду откроют трое невольных напарников, решившись заглянуть по ту сторону фотокарточки?",
   "readinessHeading": "Таблица готовности",
-  "readinessNote": "Актуальный статус работ, исполнители, ссылки и крайние сроки по разделам блога.",
+  "readinessNote": "Актуальный статус работ, теги, исполнители, ссылки и крайние сроки по разделам блога.",
   "readinessSections": [
     {
       "id": "general",
@@ -26,6 +27,7 @@
           "id": "general-tz-forming",
           "tzUrl": "",
           "title": "Формирование ТЗ",
+          "tag": "design",
           "status": "in_progress",
           "assignee": "Кифри, Серебряное Древо и Соколишка",
           "resultUrl": ""
@@ -34,6 +36,7 @@
           "id": "general-header-code",
           "tzUrl": "/tz/blog/header",
           "title": "Код шапки",
+          "tag": "code",
           "status": "planned",
           "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
@@ -42,6 +45,7 @@
           "id": "general-act-1-code",
           "tzUrl": "/tz/blog/acts",
           "title": "Код Акта I",
+          "tag": "code",
           "status": "planned",
           "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
@@ -50,6 +54,7 @@
           "id": "general-act-2-code",
           "tzUrl": "/tz/blog/acts",
           "title": "Код Акта II",
+          "tag": "code",
           "status": "planned",
           "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
@@ -58,6 +63,7 @@
           "id": "general-act-3-code",
           "tzUrl": "/tz/blog/acts",
           "title": "Код Акта III",
+          "tag": "code",
           "status": "planned",
           "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
@@ -66,6 +72,7 @@
           "id": "general-act-4-code",
           "tzUrl": "/tz/blog/acts",
           "title": "Код Акта IV",
+          "tag": "code",
           "status": "planned",
           "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
@@ -74,6 +81,7 @@
           "id": "general-congrats",
           "tzUrl": "",
           "title": "Сбор поздравлений",
+          "tag": "design",
           "status": "in_progress",
           "assignee": "Яд Ягоды",
           "resultUrl": ""
@@ -82,6 +90,7 @@
           "id": "general-vyazel-sprites",
           "tzUrl": "/tz/blog/characters",
           "title": "Спрайты Вязеля: вздыхающий, обычный, поймавший идею, расстроенный",
+          "tag": "sprite",
           "status": "planned",
           "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
@@ -90,6 +99,7 @@
           "id": "general-lu-guang-sprites",
           "tzUrl": "/tz/blog/characters",
           "title": "Спрайты Лу Гуана (СКОРО)",
+          "tag": "sprite",
           "status": "planned",
           "assignee": "Соколишка",
           "resultUrl": ""
@@ -98,6 +108,7 @@
           "id": "general-cheng-xiaoshi-sprites",
           "tzUrl": "/tz/blog/characters",
           "title": "Спрайты Чэн Сяоши (СКОРО)",
+          "tag": "sprite",
           "status": "planned",
           "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
@@ -106,6 +117,7 @@
           "id": "general-ancestor-sprites",
           "tzUrl": "/tz/blog/characters",
           "title": "Спрайты предка Вязеля (СКОРО)",
+          "tag": "sprite",
           "status": "planned",
           "assignee": "Глумливая Сойка",
           "resultUrl": ""
@@ -114,6 +126,7 @@
           "id": "general-items",
           "tzUrl": "",
           "title": "Предметы: ведро, свёрток с дневником и фотографией",
+          "tag": "sprite",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -129,6 +142,7 @@
           "id": "header-ancestor-sprite",
           "tzUrl": "/tz/blog/header",
           "title": "Спрайт предка Вязеля",
+          "tag": "sprite",
           "status": "planned",
           "assignee": "Глумливая Сойка",
           "resultUrl": ""
@@ -137,6 +151,7 @@
           "id": "header-vyazel-sprite",
           "tzUrl": "/tz/blog/header",
           "title": "Спрайт Вязеля",
+          "tag": "sprite",
           "status": "planned",
           "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
@@ -145,6 +160,7 @@
           "id": "header-photo-vortex",
           "tzUrl": "/tz/blog/header",
           "title": "Оформление водоворота фотокарточек",
+          "tag": "design",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -160,6 +176,7 @@
           "id": "act1-scene1-text",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 1: Текстовый блок",
+          "tag": "text",
           "status": "planned",
           "assignee": "Яд Ягоды",
           "resultUrl": ""
@@ -168,6 +185,7 @@
           "id": "act1-scene1-cutscene",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 1: Катсцена с Вязелем (+ изменённая)",
+          "tag": "cutscene",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -176,6 +194,7 @@
           "id": "act1-scene2-text",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 2: Текстовый блок",
+          "tag": "text",
           "status": "planned",
           "assignee": "Яд Ягоды",
           "resultUrl": ""
@@ -184,6 +203,7 @@
           "id": "act1-scene3-house-bg",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 3: Фон дома Вязеля (+ вариант без лужи)",
+          "tag": "background",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -192,6 +212,7 @@
           "id": "act1-scene3-thoughts",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 3: Мысли Вязеля",
+          "tag": "dialogue",
           "status": "planned",
           "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
@@ -200,6 +221,7 @@
           "id": "act1-scene4-thoughts",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 4: Мысли Вязеля",
+          "tag": "dialogue",
           "status": "planned",
           "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
@@ -208,6 +230,7 @@
           "id": "act1-scene5-text",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 5: Текстовый блок",
+          "tag": "text",
           "status": "planned",
           "assignee": "Яд Ягоды",
           "resultUrl": ""
@@ -216,6 +239,7 @@
           "id": "act1-scene5-stairs-bg",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 5: Фон лестницы на чердак",
+          "tag": "background",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -224,6 +248,7 @@
           "id": "act1-scene6-thoughts",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 6: Мысли Вязеля",
+          "tag": "dialogue",
           "status": "planned",
           "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
@@ -232,6 +257,7 @@
           "id": "act1-scene6-attic-bg",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 6: Фон чердака (полумрак, со светом, отодвинутый ящик, подставленное ведро)",
+          "tag": "background",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -240,6 +266,7 @@
           "id": "act1-scene7-thoughts",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 7: Мысли Вязеля",
+          "tag": "dialogue",
           "status": "planned",
           "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
@@ -248,6 +275,7 @@
           "id": "act1-scene7-table-bundle-bg",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 7: Фон стола со свёртком (вид сверху вниз)",
+          "tag": "background",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -256,6 +284,7 @@
           "id": "act1-scene8-table-diary-photo-bg",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 8: Фон стола с дневником и фотографией на ткани (вид сверху вниз)",
+          "tag": "background",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -264,6 +293,7 @@
           "id": "act1-scene8-1-diary-text",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 8.1: Текст дневника",
+          "tag": "text",
           "status": "planned",
           "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
@@ -272,6 +302,7 @@
           "id": "act1-scene8-1-hands-diary-bg",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 8.1: Фон с руками Вязеля, держащего открытый дневник",
+          "tag": "background",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -280,6 +311,7 @@
           "id": "act1-scene8-2-thoughts",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 8.2: Мысли Вязеля",
+          "tag": "dialogue",
           "status": "planned",
           "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
@@ -288,6 +320,7 @@
           "id": "act1-scene8-2-hands-photo-bg",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 8.2: Фон с руками Вязеля, держащего фотографию",
+          "tag": "background",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -296,6 +329,7 @@
           "id": "act1-scene9-thoughts",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 9: Мысли Вязеля",
+          "tag": "dialogue",
           "status": "planned",
           "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
@@ -304,6 +338,7 @@
           "id": "act1-scene11-reviews",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 11: Отзывы на 4 фотоателье",
+          "tag": "text",
           "status": "planned",
           "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
@@ -312,6 +347,7 @@
           "id": "act1-scene11-thoughts",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 11: Мысли Вязеля",
+          "tag": "dialogue",
           "status": "planned",
           "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
@@ -320,6 +356,7 @@
           "id": "act1-scene11-laptop-bg",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 11: Фон монитора ноутбука",
+          "tag": "background",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -335,6 +372,7 @@
           "id": "act2-atelier",
           "tzUrl": "/tz/blog/acts",
           "title": "Визит в фотоателье и знакомство с владельцами (текст)",
+          "tag": "text",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -343,6 +381,7 @@
           "id": "act2-scene-art",
           "tzUrl": "/tz/blog/acts",
           "title": "Сюжетный арт встречи в фотоателье",
+          "tag": "cutscene",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -358,6 +397,7 @@
           "id": "act3-turn",
           "tzUrl": "/tz/blog/acts",
           "title": "Переломная ночь и шаг по ту сторону фотокарточки (текст)",
+          "tag": "text",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -366,6 +406,7 @@
           "id": "act3-key-art",
           "tzUrl": "/tz/blog/acts",
           "title": "Ключевая полноформатная иллюстрация кульминации",
+          "tag": "cutscene",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -381,6 +422,7 @@
           "id": "act4-finale-text",
           "tzUrl": "/tz/blog/acts",
           "title": "Разгадка тайны предка и финал истории (текст)",
+          "tag": "text",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -389,6 +431,7 @@
           "id": "act4-finale-art",
           "tzUrl": "/tz/blog/acts",
           "title": "Финальный арт тройки напарников",
+          "tag": "cutscene",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""

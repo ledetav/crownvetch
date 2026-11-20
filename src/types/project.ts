@@ -174,6 +174,16 @@ export interface BlogOverviewMicroTab {
 /** Возможные статусы выполнения отдельной работы в таблице готовности */
 export type BlogWorkStatus = 'done' | 'in_progress' | 'planned';
 
+/** Категория (тег) отдельной работы в таблице готовности */
+export type BlogWorkTag =
+  | 'cutscene'
+  | 'background'
+  | 'sprite'
+  | 'text'
+  | 'dialogue'
+  | 'design'
+  | 'code';
+
 /** Идентификаторы внутренних разделов таблицы готовности блога */
 export type BlogReadinessSectionId =
   | 'general'
@@ -191,6 +201,8 @@ export interface BlogReadinessWorkItem {
   tzUrl?: string;
   /** Название работы */
   title: string;
+  /** Тег типа работы (Катсцена, Фон, Спрайт, Текст, Реплики, Оформление, Код) */
+  tag: BlogWorkTag;
   /** Текущий статус (Готово / В процессе / В планах) */
   status: BlogWorkStatus;
   /** Имя или список исполнителей (пустая строка означает «не взято») */
@@ -217,6 +229,8 @@ export interface TzBlogOverviewDataset {
   primaryWord: string;
   /** Вторичный приглушённый подзаголовок */
   secondaryWord: string;
+  /** Целевая дата дня рождения в формате YYYY-MM-DD для общей сводки наверху страницы */
+  birthdayDate: string;
   /** Внутренние вкладки (Аннотация / Таблица готовности) */
   microTabs: BlogOverviewMicroTab[];
   /** Дословный текст аннотации блога без внутреннего заголовка */
@@ -228,6 +242,7 @@ export interface TzBlogOverviewDataset {
   /** Разделы готовности (Общее, Шапка, Акт I–IV) со списком работ и дедлайнами из JSON */
   readinessSections: BlogReadinessSection[];
 }
+
 
 
 
