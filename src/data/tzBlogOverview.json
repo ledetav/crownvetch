@@ -29,7 +29,7 @@
           "title": "Формирование ТЗ",
           "tag": "other",
           "status": "in_progress",
-          "assignee": "Кифри, Серебряное Древо и Соколишка",
+          "assignee": "Кифри, Серебряное Древо и Соболишка",
           "resultUrl": ""
         },
         {
@@ -98,19 +98,19 @@
         {
           "id": "general-lu-guang-sprites",
           "tzUrl": "/tz/blog/characters",
-          "title": "Спрайты Лу Гуана (СКОРО)",
+          "title": "Спрайты Лу Гуана: обычный, задумчивый, вздыхающий/недовольный",
           "tag": "art",
           "status": "planned",
-          "assignee": "Соколишка",
+          "assignee": "Соболишка",
           "resultUrl": ""
         },
         {
           "id": "general-cheng-xiaoshi-sprites",
           "tzUrl": "/tz/blog/characters",
-          "title": "Спрайты Чэн Сяоши (СКОРО)",
+          "title": "Спрайты Чэн Сяоши: обычный, заинтересованный, смахивающий слезу, радостный",
           "tag": "art",
           "status": "planned",
-          "assignee": "Кифри, Серебряное Древо",
+          "assignee": "Соболишка",
           "resultUrl": ""
         },
         {
@@ -202,7 +202,7 @@
         {
           "id": "act1-scene1-cutscene",
           "tzUrl": "/tz/blog/acts",
-          "title": "Сцена 1: Катсцена с Вязелем (+ изменённая)",
+          "title": "Сцена 1: Катсцена с Вязелем на диване (+ изменённая)",
           "tag": "art",
           "status": "planned",
           "assignee": "",
@@ -353,27 +353,27 @@
           "resultUrl": ""
         },
         {
-          "id": "act1-scene11-reviews",
+          "id": "act1-scene10-reviews",
           "tzUrl": "/tz/blog/acts",
-          "title": "Сцена 11: Отзывы на 4 фотоателье",
+          "title": "Сцена 10: Отзывы на 4 фотоателье",
           "tag": "text",
           "status": "planned",
           "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
         },
         {
-          "id": "act1-scene11-thoughts",
+          "id": "act1-scene10-thoughts",
           "tzUrl": "/tz/blog/acts",
-          "title": "Сцена 11: Мысли Вязеля",
+          "title": "Сцена 10: Мысли Вязеля",
           "tag": "dialogue",
           "status": "planned",
           "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
         },
         {
-          "id": "act1-scene11-laptop-bg",
+          "id": "act1-scene10-laptop-bg",
           "tzUrl": "/tz/blog/acts",
-          "title": "Сцена 11: Фон монитора ноутбука",
+          "title": "Сцена 10: Фон монитора ноутбука",
           "tag": "art",
           "status": "planned",
           "assignee": "",
@@ -387,19 +387,82 @@
       "deadlineDate": "2026-12-13",
       "works": [
         {
-          "id": "act2-atelier",
+          "id": "act2-scene1-text",
           "tzUrl": "/tz/blog/acts",
-          "title": "Визит в фотоателье и знакомство с владельцами (текст)",
+          "title": "Сцена 1: Текстовый блок",
           "tag": "text",
+          "status": "planned",
+          "assignee": "Яд Ягоды",
+          "resultUrl": ""
+        },
+        {
+          "id": "act2-scene1-cutscene",
+          "tzUrl": "/tz/blog/acts",
+          "title": "Сцена 1: Катсцена с Вязелем в кровати",
+          "tag": "art",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
         },
         {
-          "id": "act2-scene-art",
+          "id": "act2-scene2-thoughts",
           "tzUrl": "/tz/blog/acts",
-          "title": "Сюжетный арт встречи в фотоателье",
+          "title": "Сцена 2: Мысли Вязеля",
+          "tag": "dialogue",
+          "status": "planned",
+          "assignee": "Кифри, Серебряное Древо",
+          "resultUrl": ""
+        },
+        {
+          "id": "act2-scene3-cutscene",
+          "tzUrl": "/tz/blog/acts",
+          "title": "Сцена 3: Катсцена прихода Вязеля в фотоателье",
           "tag": "art",
+          "status": "planned",
+          "assignee": "",
+          "resultUrl": ""
+        },
+        {
+          "id": "act2-scene3-text",
+          "tzUrl": "/tz/blog/acts",
+          "title": "Сцена 3: Текстовый блок",
+          "tag": "text",
+          "status": "planned",
+          "assignee": "Яд Ягоды",
+          "resultUrl": ""
+        },
+        {
+          "id": "act2-scene4-atelier-bg",
+          "tzUrl": "/tz/blog/acts",
+          "title": "Сцена 4: Фон фотоателье",
+          "tag": "art",
+          "status": "planned",
+          "assignee": "",
+          "resultUrl": ""
+        },
+        {
+          "id": "act2-scene4-trialogue",
+          "tzUrl": "/tz/blog/acts",
+          "title": "Сцена 4: Триалог между Чэн Сяоши, Лу Гуаном и Вязелем",
+          "tag": "dialogue",
+          "status": "planned",
+          "assignee": "Кифри, Серебряное Древо и Соболишка",
+          "resultUrl": ""
+        },
+        {
+          "id": "act2-scene5-cutscene",
+          "tzUrl": "/tz/blog/acts",
+          "title": "Сцена 5: Катсцена передачи фото между Вязелем и Лу Гуаном",
+          "tag": "art",
+          "status": "planned",
+          "assignee": "",
+          "resultUrl": ""
+        },
+        {
+          "id": "act2-scene5-text",
+          "tzUrl": "/tz/blog/acts",
+          "title": "Сцена 5: Текстовый блок",
+          "tag": "text",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
