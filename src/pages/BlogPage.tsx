@@ -7,7 +7,6 @@
 import { useEffect } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { FilmStripFrame } from '../components/darkroom/FilmStripFrame';
-import { RotateDeviceOverlay } from '../components/darkroom/RotateDeviceOverlay';
 import { getTzBlogDataset } from '../services/projectDataStore';
 import '../styles/darkroomHero.css';
 
@@ -75,18 +74,15 @@ export function BlogPage() {
   );
 
   return (
-    <>
-      <RotateDeviceOverlay />
-      <FilmStripFrame
-        sectionLabel="О блоге — навигация разделов"
-        navTabs={blogData.navTabs}
-        activeTabId={activeTabId}
-        leftSlot={backButton}
-      >
-        <div className="viewfinder-route-stage">
-          <Outlet />
-        </div>
-      </FilmStripFrame>
-    </>
+    <FilmStripFrame
+      sectionLabel="О блоге — навигация разделов"
+      navTabs={blogData.navTabs}
+      activeTabId={activeTabId}
+      leftSlot={backButton}
+    >
+      <div className="viewfinder-route-stage">
+        <Outlet />
+      </div>
+    </FilmStripFrame>
   );
 }
