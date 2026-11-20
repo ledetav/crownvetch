@@ -1736,15 +1736,6 @@
   transform: scale(1.025);
 }
 
-.blog-guide-ref__caption {
-  padding: 8px 10px;
-  border-top: 1px solid rgba(234, 226, 208, 0.1);
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  line-height: 1.45;
-  color: var(--text-secondary);
-}
-
 /* Полноэкранный просмотр референса по клику */
 .blog-guide-lightbox {
   position: fixed;
@@ -1771,17 +1762,11 @@
 .blog-guide-lightbox__bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 12px;
-  padding: 10px 14px;
+  padding: 8px 12px;
   background: rgba(18, 24, 27, 0.94);
   border-bottom: 1px solid rgba(234, 226, 208, 0.14);
-}
-
-.blog-guide-lightbox__caption {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--text-primary);
 }
 
 .blog-guide-lightbox__close {

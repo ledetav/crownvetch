@@ -119,13 +119,13 @@ export function BlogWorkGuidePanel({ guide }: BlogWorkGuidePanelProps) {
             </div>
 
             <div className="blog-guide-refs__grid">
-              {activeSection.references.map((refItem) => (
+              {activeSection.references.map((refItem, index) => (
                 <figure key={refItem.id} className="blog-guide-ref">
                   <button
                     type="button"
                     className="blog-guide-ref__trigger"
                     onClick={() => setActiveLightboxRef(refItem)}
-                    aria-label={`Открыть в полном размере: ${refItem.caption}`}
+                    aria-label={`Открыть референс ${index + 1} в полном размере`}
                   >
                     <img
                       src={refItem.src}
@@ -134,7 +134,6 @@ export function BlogWorkGuidePanel({ guide }: BlogWorkGuidePanelProps) {
                       loading="lazy"
                     />
                   </button>
-                  <figcaption className="blog-guide-ref__caption">{refItem.caption}</figcaption>
                 </figure>
               ))}
             </div>
@@ -158,7 +157,7 @@ export function BlogWorkGuidePanel({ guide }: BlogWorkGuidePanelProps) {
           className="blog-guide-lightbox"
           role="dialog"
           aria-modal="true"
-          aria-label={activeLightboxRef.caption}
+          aria-label="Просмотр референса в полном размере"
           onClick={() => setActiveLightboxRef(null)}
         >
           <div
@@ -166,7 +165,6 @@ export function BlogWorkGuidePanel({ guide }: BlogWorkGuidePanelProps) {
             onClick={(event) => event.stopPropagation()}
           >
             <div className="blog-guide-lightbox__bar">
-              <span className="blog-guide-lightbox__caption">{activeLightboxRef.caption}</span>
               <button
                 type="button"
                 className="blog-guide-lightbox__close"
