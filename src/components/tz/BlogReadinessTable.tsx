@@ -24,13 +24,12 @@ const STATUS_LABELS: Record<BlogWorkStatus, string> = {
 };
 
 const TAG_LABELS: Record<BlogWorkTag, string> = {
-  cutscene: 'Катсцена',
-  background: 'Фон',
-  sprite: 'Спрайт',
-  text: 'Текст',
-  dialogue: 'Реплика',
+  art: 'Арты',
+  text: 'Тексты',
+  dialogue: 'Реплики',
   design: 'Оформление',
   code: 'Код',
+  other: 'Другое',
 };
 
 /** Входные свойства секции таблицы готовности */

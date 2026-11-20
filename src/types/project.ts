@@ -175,14 +175,7 @@ export interface BlogOverviewMicroTab {
 export type BlogWorkStatus = 'done' | 'in_progress' | 'planned';
 
 /** Категория (тег) отдельной работы в таблице готовности */
-export type BlogWorkTag =
-  | 'cutscene'
-  | 'background'
-  | 'sprite'
-  | 'text'
-  | 'dialogue'
-  | 'design'
-  | 'code';
+export type BlogWorkTag = 'art' | 'text' | 'dialogue' | 'design' | 'code' | 'other';
 
 /** Идентификаторы внутренних разделов таблицы готовности блога */
 export type BlogReadinessSectionId =
@@ -201,7 +194,7 @@ export interface BlogReadinessWorkItem {
   tzUrl?: string;
   /** Название работы */
   title: string;
-  /** Тег типа работы (Катсцена, Фон, Спрайт, Текст, Реплики, Оформление, Код) */
+  /** Тег типа работы (Арты, Тексты, Реплики, Оформление, Код, Другое) */
   tag: BlogWorkTag;
   /** Текущий статус (Готово / В процессе / В планах) */
   status: BlogWorkStatus;

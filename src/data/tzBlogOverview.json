@@ -27,7 +27,7 @@
           "id": "general-tz-forming",
           "tzUrl": "",
           "title": "Формирование ТЗ",
-          "tag": "design",
+          "tag": "other",
           "status": "in_progress",
           "assignee": "Кифри, Серебряное Древо и Соколишка",
           "resultUrl": ""
@@ -81,7 +81,7 @@
           "id": "general-congrats",
           "tzUrl": "",
           "title": "Сбор поздравлений",
-          "tag": "design",
+          "tag": "other",
           "status": "in_progress",
           "assignee": "Яд Ягоды",
           "resultUrl": ""
@@ -90,7 +90,7 @@
           "id": "general-vyazel-sprites",
           "tzUrl": "/tz/blog/characters",
           "title": "Спрайты Вязеля: вздыхающий, обычный, поймавший идею, расстроенный",
-          "tag": "sprite",
+          "tag": "art",
           "status": "planned",
           "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
@@ -99,7 +99,7 @@
           "id": "general-lu-guang-sprites",
           "tzUrl": "/tz/blog/characters",
           "title": "Спрайты Лу Гуана (СКОРО)",
-          "tag": "sprite",
+          "tag": "art",
           "status": "planned",
           "assignee": "Соколишка",
           "resultUrl": ""
@@ -108,7 +108,7 @@
           "id": "general-cheng-xiaoshi-sprites",
           "tzUrl": "/tz/blog/characters",
           "title": "Спрайты Чэн Сяоши (СКОРО)",
-          "tag": "sprite",
+          "tag": "art",
           "status": "planned",
           "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
@@ -117,7 +117,7 @@
           "id": "general-ancestor-sprites",
           "tzUrl": "/tz/blog/characters",
           "title": "Спрайты предка Вязеля (СКОРО)",
-          "tag": "sprite",
+          "tag": "art",
           "status": "planned",
           "assignee": "Глумливая Сойка",
           "resultUrl": ""
@@ -126,7 +126,7 @@
           "id": "general-items",
           "tzUrl": "",
           "title": "Предметы: ведро, свёрток с дневником и фотографией",
-          "tag": "sprite",
+          "tag": "art",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -142,7 +142,7 @@
           "id": "header-ancestor-sprite",
           "tzUrl": "/tz/blog/header",
           "title": "Спрайт предка Вязеля",
-          "tag": "sprite",
+          "tag": "art",
           "status": "planned",
           "assignee": "Глумливая Сойка",
           "resultUrl": ""
@@ -151,7 +151,7 @@
           "id": "header-vyazel-sprite",
           "tzUrl": "/tz/blog/header",
           "title": "Спрайт Вязеля",
-          "tag": "sprite",
+          "tag": "art",
           "status": "planned",
           "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
@@ -185,7 +185,7 @@
           "id": "act1-scene1-cutscene",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 1: Катсцена с Вязелем (+ изменённая)",
-          "tag": "cutscene",
+          "tag": "art",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -203,7 +203,7 @@
           "id": "act1-scene3-house-bg",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 3: Фон дома Вязеля (+ вариант без лужи)",
-          "tag": "background",
+          "tag": "art",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -239,7 +239,7 @@
           "id": "act1-scene5-stairs-bg",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 5: Фон лестницы на чердак",
-          "tag": "background",
+          "tag": "art",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -257,7 +257,7 @@
           "id": "act1-scene6-attic-bg",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 6: Фон чердака (полумрак, со светом, отодвинутый ящик, подставленное ведро)",
-          "tag": "background",
+          "tag": "art",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -275,7 +275,7 @@
           "id": "act1-scene7-table-bundle-bg",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 7: Фон стола со свёртком (вид сверху вниз)",
-          "tag": "background",
+          "tag": "art",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -284,7 +284,7 @@
           "id": "act1-scene8-table-diary-photo-bg",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 8: Фон стола с дневником и фотографией на ткани (вид сверху вниз)",
-          "tag": "background",
+          "tag": "art",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -302,7 +302,7 @@
           "id": "act1-scene8-1-hands-diary-bg",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 8.1: Фон с руками Вязеля, держащего открытый дневник",
-          "tag": "background",
+          "tag": "art",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -320,7 +320,7 @@
           "id": "act1-scene8-2-hands-photo-bg",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 8.2: Фон с руками Вязеля, держащего фотографию",
-          "tag": "background",
+          "tag": "art",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -356,7 +356,7 @@
           "id": "act1-scene11-laptop-bg",
           "tzUrl": "/tz/blog/acts",
           "title": "Сцена 11: Фон монитора ноутбука",
-          "tag": "background",
+          "tag": "art",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -381,7 +381,7 @@
           "id": "act2-scene-art",
           "tzUrl": "/tz/blog/acts",
           "title": "Сюжетный арт встречи в фотоателье",
-          "tag": "cutscene",
+          "tag": "art",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -406,7 +406,7 @@
           "id": "act3-key-art",
           "tzUrl": "/tz/blog/acts",
           "title": "Ключевая полноформатная иллюстрация кульминации",
-          "tag": "cutscene",
+          "tag": "art",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
@@ -431,7 +431,7 @@
           "id": "act4-finale-art",
           "tzUrl": "/tz/blog/acts",
           "title": "Финальный арт тройки напарников",
-          "tag": "cutscene",
+          "tag": "art",
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
