@@ -66,7 +66,27 @@
           {
             "id": "bg-ref-interior-warm",
             "src": "/assets/aistudio/image_20cfc9e2.png",
-            "caption": "Светлый интерьер: комната с мягким дневным светом"
+            "caption": "Референс фона 4"
+          },
+          {
+            "id": "bg-ref-studio-stairs",
+            "src": "/assets/aistudio/image_0aab041c.png",
+            "caption": "Референс фона 5"
+          },
+          {
+            "id": "bg-ref-studio-sofa",
+            "src": "/assets/aistudio/image_3cbbd599.png",
+            "caption": "Референс фона 6"
+          },
+          {
+            "id": "bg-ref-studio-hall",
+            "src": "/assets/aistudio/image_3312f052.png",
+            "caption": "Референс фона 7"
+          },
+          {
+            "id": "bg-ref-studio-desk",
+            "src": "/assets/aistudio/image_7adebf8f.png",
+            "caption": "Референс фона 8"
           }
         ]
       },
