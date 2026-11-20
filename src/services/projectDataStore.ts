@@ -2,11 +2,13 @@
  * Сервис доступа к JSON-данным проекта.
  * Предоставляет типизированные методы загрузки конфигурации главного экрана.
  */
+import tzBlogActsData from '../data/tzBlogActs.json';
 import tzBlogData from '../data/tzBlog.json';
 import tzBlogOverviewData from '../data/tzBlogOverview.json';
 import tzHeroData from '../data/tzHero.json';
 import tzOwnerData from '../data/tzOwner.json';
 import type {
+  TzBlogActsDataset,
   TzBlogDataset,
   TzBlogOverviewDataset,
   TzHeroDataset,
@@ -38,12 +40,21 @@ export function getTzBlogDataset(): TzBlogDataset {
 }
 
 /**
- * Возвращает черновые данные вкладки «Общая информация» раздела «О блоге»
- * (якорные микровкладки, каркас синопсиса и стартовую таблицу готовности актов).
+ * Возвращает данные вкладки «Общая информация» раздела «О блоге»
+ * (внутренние вкладки, аннотация, памятка по работе и таблица готовности).
  * @returns Набор данных из tzBlogOverview.json.
  */
 export function getTzBlogOverviewDataset(): TzBlogOverviewDataset {
   return tzBlogOverviewData as unknown as TzBlogOverviewDataset;
+}
+
+/**
+ * Возвращает конфигурацию вкладки «Акты» раздела «О блоге»
+ * (заголовок и список всех четырёх актов для внутреннего меню).
+ * @returns Набор данных из tzBlogActs.json.
+ */
+export function getTzBlogActsDataset(): TzBlogActsDataset {
+  return tzBlogActsData as unknown as TzBlogActsDataset;
 }
 
 

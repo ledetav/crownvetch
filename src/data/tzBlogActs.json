@@ -1,0 +1,38 @@
+{
+  "primaryWord": "АКТЫ",
+  "secondaryWord": "СЦЕНАРНЫЕ АКТЫ И ТЗ ПО СЦЕНАМ",
+  "acts": [
+    {
+      "id": "act-1",
+      "anchor": "#act-1",
+      "label": "Акт I",
+      "heading": "Акт I",
+      "comingSoon": false,
+      "summary": "Подробное техническое задание и описание сцен Акта I будут добавлены сюда."
+    },
+    {
+      "id": "act-2",
+      "anchor": "#act-2",
+      "label": "Акт II",
+      "heading": "Акт II",
+      "comingSoon": false,
+      "summary": "Подробное техническое задание и описание сцен Акта II будут добавлены сюда."
+    },
+    {
+      "id": "act-3",
+      "anchor": "#act-3",
+      "label": "Акт III",
+      "heading": "Акт III",
+      "comingSoon": true,
+      "summary": "Материалы и сцены для Акта III появятся позже."
+    },
+    {
+      "id": "act-4",
+      "anchor": "#act-4",
+      "label": "Акт IV",
+      "heading": "Акт IV",
+      "comingSoon": true,
+      "summary": "Материалы и сцены для Акта IV появятся позже."
+    }
+  ]
+}
