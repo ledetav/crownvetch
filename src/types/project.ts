@@ -171,25 +171,44 @@ export interface BlogOverviewMicroTab {
   label: string;
 }
 
-/** Возможные статусы готовности акта в таблице планирования */
-export type BlogActStatus = 'planned' | 'in_progress' | 'done';
+/** Возможные статусы выполнения отдельной работы в таблице готовности */
+export type BlogWorkStatus = 'done' | 'in_progress' | 'planned';
 
-/** Строка таблицы готовности акта с процентами и дедлайном (ДД) */
-export interface BlogActReadinessRow {
-  /** Уникальный идентификатор акта */
+/** Идентификаторы внутренних разделов таблицы готовности блога */
+export type BlogReadinessSectionId =
+  | 'general'
+  | 'header'
+  | 'act-1'
+  | 'act-2'
+  | 'act-3'
+  | 'act-4';
+
+/** Отдельная строка работы внутри выбранного раздела таблицы готовности */
+export interface BlogReadinessWorkItem {
+  /** Уникальный идентификатор работы */
   id: string;
-  /** Название или номер акта */
-  actLabel: string;
-  /** Основной объём работ на акте */
-  focus: string;
-  /** Текущий статус выполнения */
-  status: BlogActStatus;
-  /** Процент готовности (0..100) */
-  progressPercent: number;
-  /** Целевая дата или срок дедлайна (ДД) */
-  deadline: string;
-  /** Краткий комментарий или открытые вопросы */
-  note: string;
+  /** Ссылка на соответствующее ТЗ (внутренний маршрут /tz/... или внешний URL) */
+  tzUrl?: string;
+  /** Название работы */
+  title: string;
+  /** Текущий статус (Готово / В процессе / В планах) */
+  status: BlogWorkStatus;
+  /** Имя или список исполнителей (пустая строка означает «не взято») */
+  assignee: string;
+  /** Ссылка на готовую работу (внутренний маршрут или внешний URL, если работа готова) */
+  resultUrl?: string;
+}
+
+/** Раздел таблицы готовности (Общее, Шапка, Акты I–IV) со своим дедлайном и работами */
+export interface BlogReadinessSection {
+  /** Системный идентификатор раздела */
+  id: BlogReadinessSectionId;
+  /** Подпись пункта во внутреннем меню над таблицей */
+  label: string;
+  /** Крайний срок сдачи раздела в формате YYYY-MM-DD (пустая строка, если не задан) */
+  deadlineDate: string;
+  /** Список работ раздела */
+  works: BlogReadinessWorkItem[];
 }
 
 /** Полная конфигурация раздела «О блоге → Общая информация» из tzBlogOverview.json */
@@ -204,10 +223,11 @@ export interface TzBlogOverviewDataset {
   annotationBody: string;
   /** Заголовок секции таблицы готовности */
   readinessHeading: string;
-  /** Пояснение к таблице и сохранению прогресса */
+  /** Краткое пояснение к таблице готовности */
   readinessNote: string;
-  /** Базовый список актов для трекинга готовности и сроков ДД */
-  acts: BlogActReadinessRow[];
+  /** Разделы готовности (Общее, Шапка, Акт I–IV) со списком работ и дедлайнами из JSON */
+  readinessSections: BlogReadinessSection[];
 }
+
 
 

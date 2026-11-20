@@ -70,7 +70,7 @@ export function BlogOverviewSection() {
           <BlogReadinessTable
             heading={overviewData.readinessHeading}
             note={overviewData.readinessNote}
-            initialActs={overviewData.acts}
+            sections={overviewData.readinessSections}
           />
         )}
       </div>

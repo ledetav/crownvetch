@@ -1,159 +1,106 @@
 /**
  * Секция #readiness на странице «О блоге → Общая информация».
- * Отрисовывает черновую таблицу готовности по актам с переключением статуса,
- * изменением процента выполнения, редактированием срока дедлайна (ДД)
- * и автоматическим расчётом среднего прогресса (с сохранением в localStorage).
+ * Отрисовывает данные строго из JSON (без внешнего редактирования):
+ * внутреннее меню из 6 разделов («Общее», «Шапка», «Акт I–IV»),
+ * 5-колоночную таблицу работ («Ссылка на ТЗ», «Название работы», «Статус»,
+ * «Исполнитель», «Ссылка на готовую работу») и правую боковую панель
+ * с дедлайном и сводкой прогресса. На узких мобильных экранах строки
+ * таблицы перестраиваются в вертикальные карточки через атрибуты data-label.
  */
-import { useEffect, useState } from 'react';
-import type { BlogActReadinessRow, BlogActStatus } from '../../types/project';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import type {
+  BlogReadinessSection,
+  BlogReadinessSectionId,
+  BlogWorkStatus,
+} from '../../types/project';
+import { BlogReadinessSidebar } from './BlogReadinessSidebar';
 
-const STORAGE_KEY = 'crownvetch:blog-readiness-v1';
-
-const STATUS_LABELS: Record<BlogActStatus, string> = {
-  planned: 'В планах',
-  in_progress: 'В работе',
+const STATUS_LABELS: Record<BlogWorkStatus, string> = {
   done: 'Готово',
+  in_progress: 'В процессе',
+  planned: 'В планах',
 };
 
-const NEXT_STATUS: Record<BlogActStatus, BlogActStatus> = {
-  planned: 'in_progress',
-  in_progress: 'done',
-  done: 'planned',
-};
-
-/** Входные свойства таблицы готовности по актам */
+/** Входные свойства секции таблицы готовности */
 interface BlogReadinessTableProps {
-  /** Заголовок блока таблицы */
+  /** Заголовок секции таблицы */
   heading: string;
-  /** Краткое пояснение к трекеру */
+  /** Краткое пояснение к таблице */
   note: string;
-  /** Стартовые строки актов из tzBlogOverview.json */
-  initialActs: BlogActReadinessRow[];
+  /** Массив разделов готовности из tzBlogOverview.json */
+  sections: BlogReadinessSection[];
 }
 
 /**
- * Безопасно читает сохранённые строки готовности из localStorage,
- * объединяя их со схемой из JSON на случай добавления новых актов.
- * @param defaults Базовый массив актов из JSON.
- * @returns Восстановленный или исходный список актов.
+ * Рендерит компактную ссылку на ТЗ или на готовую работу (внутреннюю или внешнюю),
+ * либо прочерк «—», если ссылка в JSON не указана.
+ * @param url Целевой URL из JSON.
+ * @param label Короткая подпись на кнопке-ссылке.
+ * @param titleText Подсказка для атрибута title.
+ * @param emptyAriaLabel Доступная подпись при отсутствии ссылки.
+ * @param variant Визуальный вариант ссылки ('tz' | 'result').
+ * @returns JSX-разметка ссылки или заглушки «—».
  */
-function loadSavedActs(defaults: BlogActReadinessRow[]): BlogActReadinessRow[] {
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) {
-      return defaults;
-    }
-    const parsed = JSON.parse(raw) as unknown;
-    if (!Array.isArray(parsed)) {
-      return defaults;
-    }
-
-    const byId = new Map<string, Partial<BlogActReadinessRow>>();
-    for (const item of parsed) {
-      if (item && typeof item === 'object' && 'id' in item && typeof item.id === 'string') {
-        byId.set(item.id, item as Partial<BlogActReadinessRow>);
-      }
-    }
-
-    return defaults.map((baseRow) => {
-      const saved = byId.get(baseRow.id);
-      if (!saved) {
-        return baseRow;
-      }
-
-      const validStatus: BlogActStatus =
-        saved.status === 'planned' || saved.status === 'in_progress' || saved.status === 'done'
-          ? saved.status
-          : baseRow.status;
-
-      const validPercent =
-        typeof saved.progressPercent === 'number' && Number.isFinite(saved.progressPercent)
-          ? Math.max(0, Math.min(100, Math.round(saved.progressPercent)))
-          : baseRow.progressPercent;
-
-      return {
-        ...baseRow,
-        status: validStatus,
-        progressPercent: validPercent,
-        deadline: typeof saved.deadline === 'string' ? saved.deadline : baseRow.deadline,
-      };
-    });
-  } catch {
-    return defaults;
+function renderCompactLink(
+  url: string | undefined,
+  label: string,
+  titleText: string,
+  emptyAriaLabel: string,
+  variant: 'tz' | 'result',
+) {
+  const trimmedUrl = url?.trim() ?? '';
+  if (!trimmedUrl) {
+    return (
+      <span className="blog-tz-empty" aria-label={emptyAriaLabel}>
+        —
+      </span>
+    );
   }
+
+  const linkClass = variant === 'result' ? 'blog-tz-link blog-tz-link--result' : 'blog-tz-link';
+  const isInternalRoute = trimmedUrl.startsWith('/');
+
+  if (isInternalRoute) {
+    return (
+      <Link to={trimmedUrl} className={linkClass} title={titleText}>
+        <span>{label}</span>
+        <span aria-hidden="true">↗</span>
+      </Link>
+    );
+  }
+
+  return (
+    <a
+      href={trimmedUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={linkClass}
+      title={titleText}
+    >
+      <span>{label}</span>
+      <span aria-hidden="true">↗</span>
+    </a>
+  );
 }
 
 /**
- * Отрисовывает интерактивную таблицу готовности по актам с процентами и полями ДД.
- * @param props Заголовок, пояснение и начальный список актов.
- * @returns JSX-разметка секции #readiness.
+ * Отрисовывает вкладку «Таблица готовности» в режиме чтения:
+ * меню разделов, 5-колоночную таблицу работ и правую панель дедлайна/прогресса.
+ * @param props Заголовок, пояснение и список разделов из JSON.
+ * @returns JSX-разметка панели #readiness.
  */
-export function BlogReadinessTable({ heading, note, initialActs }: BlogReadinessTableProps) {
-  const [acts, setActs] = useState<BlogActReadinessRow[]>(() => loadSavedActs(initialActs));
+export function BlogReadinessTable({ heading, note, sections }: BlogReadinessTableProps) {
+  const [activeSectionId, setActiveSectionId] = useState<BlogReadinessSectionId>(
+    () => sections[0]?.id ?? 'general',
+  );
 
-  useEffect(() => {
-    try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(acts));
-    } catch {
-      // Игнорируем ограничения localStorage в изолированных iframe-окружениях
-    }
-  }, [acts]);
+  const activeSection =
+    sections.find((section) => section.id === activeSectionId) ?? sections[0];
 
-  // Реальная математика: средний процент по всем актам и количество завершённых актов
-  const totalCount = acts.length;
-  const completedCount = acts.filter((act) => act.status === 'done').length;
-  const averagePercent =
-    totalCount > 0
-      ? Math.round(acts.reduce((sum, act) => sum + act.progressPercent, 0) / totalCount)
-      : 0;
-
-  /** Переключает статус акта по циклу и синхронизирует процент, если нужно */
-  const handleCycleStatus = (id: string) => {
-    setActs((prev) =>
-      prev.map((row) => {
-        if (row.id !== id) {
-          return row;
-        }
-        const nextStatus = NEXT_STATUS[row.status];
-        let nextPercent = row.progressPercent;
-        if (nextStatus === 'done') {
-          nextPercent = 100;
-        } else if (nextStatus === 'planned') {
-          nextPercent = 0;
-        } else if (row.progressPercent === 0 || row.progressPercent === 100) {
-          nextPercent = 50;
-        }
-        return { ...row, status: nextStatus, progressPercent: nextPercent };
-      }),
-    );
-  };
-
-  /** Изменяет процент готовности на заданный шаг (-10 / +10) и обновляет статус */
-  const handleStepProgress = (id: string, delta: number) => {
-    setActs((prev) =>
-      prev.map((row) => {
-        if (row.id !== id) {
-          return row;
-        }
-        const nextPercent = Math.max(0, Math.min(100, row.progressPercent + delta));
-        const nextStatus: BlogActStatus =
-          nextPercent === 100 ? 'done' : nextPercent === 0 ? 'planned' : 'in_progress';
-        return { ...row, progressPercent: nextPercent, status: nextStatus };
-      }),
-    );
-  };
-
-  /** Обновляет строку дедлайна (ДД) для выбранного акта */
-  const handleDeadlineChange = (id: string, value: string) => {
-    setActs((prev) =>
-      prev.map((row) => (row.id === id ? { ...row, deadline: value } : row)),
-    );
-  };
-
-  /** Сбрасывает все отметки таблицы к стартовым значениям из JSON */
-  const handleReset = () => {
-    setActs(initialActs);
-  };
+  if (!activeSection) {
+    return null;
+  }
 
   return (
     <section
@@ -169,102 +116,118 @@ export function BlogReadinessTable({ heading, note, initialActs }: BlogReadiness
           </h2>
           <p className="blog-panel-lead">{note}</p>
         </div>
-
-        <div className="blog-readiness-summary">
-          <div className="blog-readiness-metric">
-            <span className="blog-readiness-metric__label">Готово актов:</span>
-            <span className="blog-readiness-metric__value">
-              {completedCount}/{totalCount}
-            </span>
-          </div>
-          <div className="blog-readiness-metric">
-            <span className="blog-readiness-metric__label">Общий прогресс:</span>
-            <span className="blog-readiness-metric__value blog-readiness-metric__value--amber">
-              {averagePercent}%
-            </span>
-          </div>
-          <button
-            type="button"
-            className="blog-reset-btn"
-            onClick={handleReset}
-            title="Сбросить правки таблицы к стартовым значениям"
-          >
-            Сбросить
-          </button>
-        </div>
       </div>
 
-      <div className="social-table-wrap">
-        <table className="social-table blog-readiness-table">
-          <thead>
-            <tr>
-              <th scope="col">Акт</th>
-              <th scope="col">Этап / фокус</th>
-              <th scope="col">Статус</th>
-              <th scope="col">Готовность</th>
-              <th scope="col">Дедлайн (ДД)</th>
-              <th scope="col">Заметка</th>
-            </tr>
-          </thead>
-          <tbody>
-            {acts.map((row) => (
-              <tr key={row.id}>
-                <td className="blog-readiness-table__act">{row.actLabel}</td>
-                <td className="blog-readiness-table__focus">{row.focus}</td>
-                <td className="blog-readiness-table__status-cell">
-                  <button
-                    type="button"
-                    className={`blog-status-btn blog-status-btn--${row.status}`}
-                    onClick={() => handleCycleStatus(row.id)}
-                    title="Нажмите для смены статуса акта"
-                  >
-                    {STATUS_LABELS[row.status]}
-                  </button>
-                </td>
-                <td className="blog-readiness-table__progress-cell">
-                  <div className="readiness-control">
-                    <button
-                      type="button"
-                      className="readiness-step-btn"
-                      onClick={() => handleStepProgress(row.id, -10)}
-                      aria-label={`Уменьшить готовность для «${row.actLabel}» на 10%`}
-                      disabled={row.progressPercent <= 0}
-                    >
-                      −
-                    </button>
-                    <span className="readiness-percent">{row.progressPercent}%</span>
-                    <button
-                      type="button"
-                      className="readiness-step-btn"
-                      onClick={() => handleStepProgress(row.id, 10)}
-                      aria-label={`Увеличить готовность для «${row.actLabel}» на 10%`}
-                      disabled={row.progressPercent >= 100}
-                    >
-                      +
-                    </button>
-                  </div>
-                  <progress
-                    className={`readiness-progress readiness-progress--${row.status}`}
-                    max={100}
-                    value={row.progressPercent}
-                    aria-label={`Готовность «${row.actLabel}»: ${row.progressPercent}%`}
-                  />
-                </td>
-                <td className="blog-readiness-table__deadline-cell">
-                  <input
-                    type="text"
-                    className="blog-deadline-input"
-                    value={row.deadline}
-                    placeholder="ДД.ММ.ГГГГ"
-                    aria-label={`Дедлайн (ДД) для «${row.actLabel}»`}
-                    onChange={(event) => handleDeadlineChange(row.id, event.target.value)}
-                  />
-                </td>
-                <td className="blog-readiness-table__note">{row.note}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      {/* Внутреннее меню разделов над таблицей: Общее, Шапка, Акт I–IV */}
+      <div
+        className="blog-section-nav"
+        role="tablist"
+        aria-label="Разделы таблицы готовности"
+      >
+        {sections.map((section) => {
+          const isActive = section.id === activeSection.id;
+          return (
+            <button
+              key={section.id}
+              type="button"
+              role="tab"
+              aria-selected={isActive}
+              className={`blog-section-nav__item ${
+                isActive ? 'blog-section-nav__item--active' : ''
+              }`}
+              onClick={() => setActiveSectionId(section.id)}
+            >
+              {section.label}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Двухколоночная рабочая зона: таблица работ слева, дедлайн и прогресс справа */}
+      <div className="blog-readiness-layout">
+        <div className="blog-readiness-table-box">
+          <div className="social-table-wrap">
+            <table className="social-table blog-readiness-table">
+              <thead>
+                <tr>
+                  <th scope="col">Ссылка на ТЗ</th>
+                  <th scope="col">Название работы</th>
+                  <th scope="col">Статус</th>
+                  <th scope="col">Исполнитель</th>
+                  <th scope="col">Ссылка на готовую работу</th>
+                </tr>
+              </thead>
+              <tbody>
+                {activeSection.works.map((work) => {
+                  const assigneeText = work.assignee.trim();
+
+                  return (
+                    <tr key={work.id}>
+                      <td
+                        className="blog-readiness-table__tz-cell"
+                        data-label="Ссылка на ТЗ"
+                      >
+                        {renderCompactLink(
+                          work.tzUrl,
+                          'ТЗ',
+                          `Открыть ТЗ для «${work.title}»`,
+                          'Ссылка на ТЗ не указана',
+                          'tz',
+                        )}
+                      </td>
+
+                      <td
+                        className="blog-readiness-table__title"
+                        data-label="Название работы"
+                      >
+                        {work.title}
+                      </td>
+
+                      <td
+                        className="blog-readiness-table__status-cell"
+                        data-label="Статус"
+                      >
+                        <span className={`blog-status-label blog-status-label--${work.status}`}>
+                          {STATUS_LABELS[work.status]}
+                        </span>
+                      </td>
+
+                      <td
+                        className="blog-readiness-table__assignee-cell"
+                        data-label="Исполнитель"
+                      >
+                        {assigneeText ? (
+                          <span className="blog-assignee-text">{assigneeText}</span>
+                        ) : (
+                          <span className="blog-assignee-empty">Не назначен</span>
+                        )}
+                      </td>
+
+                      <td
+                        className="blog-readiness-table__result-cell"
+                        data-label="Готовая работа"
+                      >
+                        {renderCompactLink(
+                          work.resultUrl,
+                          'Работа',
+                          `Открыть готовую работу «${work.title}»`,
+                          'Ссылка на готовую работу не указана',
+                          'result',
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <BlogReadinessSidebar
+          sectionLabel={activeSection.label}
+          deadlineDate={activeSection.deadlineDate}
+          works={activeSection.works}
+        />
       </div>
     </section>
   );
