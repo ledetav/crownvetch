@@ -164,11 +164,55 @@ export interface TzBlogDataset {
 /** Внутренняя вкладка на странице «Общая информация» */
 export interface BlogOverviewMicroTab {
   /** Уникальный идентификатор вкладки */
-  id: 'annotation' | 'readiness';
-  /** Якорь адресной строки (#annotation | #readiness) */
+  id: 'annotation' | 'guide' | 'readiness';
+  /** Якорь адресной строки (#annotation | #guide | #readiness) */
   anchor: string;
   /** Подпись вкладки */
   label: string;
+}
+
+/** Идентификаторы подразделов вкладки «Памятка по работе» */
+export type BlogWorkGuideSectionId = 'sprites' | 'backgrounds' | 'cutscenes';
+
+/** Ключевой параметр (формат, композиция, стиль) в карточке памятки */
+export interface BlogWorkGuideSpec {
+  /** Название параметра */
+  label: string;
+  /** Значение параметра */
+  value: string;
+}
+
+/** Отдельный подраздел памятки по работе (О спрайтах, О фонах, О катсценах) */
+export interface BlogWorkGuideSection {
+  /** Системный идентификатор подраздела */
+  id: BlogWorkGuideSectionId;
+  /** Подпись пункта внутреннего меню */
+  label: string;
+  /** Заголовок активного блока памятки */
+  heading: string;
+  /** Короткая сводка ключевых требований (формат, кадрирование, стиль) */
+  specs: BlogWorkGuideSpec[];
+  /** Основные правила и требования подраздела */
+  points: string[];
+  /** Дополнительная заметка (например, о будущих референсах) */
+  note?: string;
+  /** Необязательная внутренняя ссылка на связанный раздел ТЗ */
+  relatedLink?: {
+    /** Подпись ссылки */
+    label: string;
+    /** Целевой маршрут приложения */
+    target: string;
+  };
+}
+
+/** Конфигурация вкладки «Памятка по работе» (#guide) */
+export interface BlogWorkGuideData {
+  /** Заголовок секции памятки */
+  heading: string;
+  /** Краткое пояснение к памятке */
+  lead: string;
+  /** Подразделы памятки (О спрайтах, О фонах, О катсценах) */
+  sections: BlogWorkGuideSection[];
 }
 
 /** Возможные статусы выполнения отдельной работы в таблице готовности */
@@ -226,10 +270,12 @@ export interface TzBlogOverviewDataset {
   secondaryWord: string;
   /** Целевая дата дня рождения в формате YYYY-MM-DD для общей сводки наверху страницы */
   birthdayDate: string;
-  /** Внутренние вкладки (Аннотация / Таблица готовности) */
+  /** Внутренние вкладки (Аннотация / Памятка по работе / Таблица готовности) */
   microTabs: BlogOverviewMicroTab[];
   /** Дословный текст аннотации блога без внутреннего заголовка */
   annotationBody: string;
+  /** Данные вкладки «Памятка по работе» (О спрайтах, О фонах, О катсценах) */
+  workGuide: BlogWorkGuideData;
   /** Заголовок секции таблицы готовности */
   readinessHeading: string;
   /** Краткое пояснение к таблице готовности */
