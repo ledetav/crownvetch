@@ -123,9 +123,27 @@
           "resultUrl": ""
         },
         {
+          "id": "general-part1-credits-sprites",
+          "tzUrl": "",
+          "title": "Спрайты участников первой части для кредитов",
+          "tag": "art",
+          "status": "planned",
+          "assignee": "",
+          "resultUrl": ""
+        },
+        {
           "id": "general-items",
           "tzUrl": "",
           "title": "Предметы: ведро, свёрток с дневником и фотографией",
+          "tag": "art",
+          "status": "planned",
+          "assignee": "",
+          "resultUrl": ""
+        },
+        {
+          "id": "general-restored-photo-item",
+          "tzUrl": "",
+          "title": "Предмет: отреставрированное фото с листом бумаги",
           "tag": "art",
           "status": "planned",
           "assignee": "",
