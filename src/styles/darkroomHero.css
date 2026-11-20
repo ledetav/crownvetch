@@ -1599,6 +1599,107 @@
   background: rgba(232, 190, 103, 0.1);
 }
 
+/* Вкладка «Памятка по работе» (#guide): карточка требований и сетка параметров */
+.blog-guide-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 18px 20px;
+  background: rgba(18, 24, 27, 0.78);
+  border: 1px solid rgba(234, 226, 208, 0.16);
+}
+
+.blog-guide-card__title {
+  margin: 0;
+  font-family: var(--font-condensed);
+  font-size: 1.02rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-amber);
+}
+
+.blog-guide-specs {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+  gap: 10px;
+}
+
+.blog-guide-spec {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  background: rgba(11, 19, 23, 0.76);
+  border: 1px solid rgba(234, 226, 208, 0.14);
+  border-left: 2px solid var(--glitch-cyan);
+}
+
+.blog-guide-spec__label {
+  font-family: var(--font-condensed);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(234, 226, 208, 0.56);
+}
+
+.blog-guide-spec__value {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+.blog-guide-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.blog-guide-list__item {
+  position: relative;
+  padding-left: 16px;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  line-height: 1.62;
+  color: var(--text-primary);
+}
+
+.blog-guide-list__item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 7px;
+  height: 2px;
+  background: var(--accent-amber);
+}
+
+.blog-guide-note {
+  margin: 0;
+  padding: 10px 12px;
+  background: rgba(11, 19, 23, 0.68);
+  border-left: 2px solid rgba(232, 190, 103, 0.72);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.blog-guide-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 4px;
+}
+
 /* Двухколоночная рабочая область: таблица работ слева, 2 блока (дедлайн + прогресс) справа */
 .blog-readiness-layout {
   display: grid;
@@ -2868,6 +2969,20 @@
     margin-left: 0;
     min-height: 30px;
     padding: 4px 12px;
+  }
+
+  .blog-guide-card {
+    padding: 14px 12px;
+    gap: 12px;
+  }
+
+  .blog-guide-specs {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .blog-guide-list__item {
+    font-size: 0.75rem;
   }
 
   .blog-tz-link {

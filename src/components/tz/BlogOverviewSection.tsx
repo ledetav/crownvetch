@@ -1,41 +1,51 @@
 /**
  * Секция «Общая информация» внутри отдельной страницы «О блоге» (/tz/blog/overview).
- * Отображает заголовок со световыми прострелами и переключатель двух внутренних вкладок
- * («Аннотация» и «Таблица готовности») слева, общую сводку до дня рождения и по категориям
- * работ справа, а ниже — содержимое активной вкладки.
+ * Отображает заголовок со световыми прострелами и переключатель трёх внутренних вкладок
+ * («Аннотация», «Памятка по работе» и «Таблица готовности») слева, общую сводку
+ * до дня рождения справа, а ниже — содержимое активной вкладки.
  */
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getTzBlogOverviewDataset } from '../../services/projectDataStore';
+import type { BlogOverviewMicroTab } from '../../types/project';
 import { BlogAnnotationBlock } from './BlogAnnotationBlock';
 import { BlogGlobalSummary } from './BlogGlobalSummary';
 import { BlogOverviewSubnav } from './BlogOverviewSubnav';
 import { BlogReadinessTable } from './BlogReadinessTable';
+import { BlogWorkGuidePanel } from './BlogWorkGuidePanel';
+
+type OverviewTabId = BlogOverviewMicroTab['id'];
 
 /**
- * Определяет активную внутреннюю вкладку по хэшу адресной строки (#annotation | #readiness).
+ * Определяет активную внутреннюю вкладку по хэшу адресной строки (#annotation | #guide | #readiness).
  * @param hash Текущий хэш URL.
  * @returns Идентификатор активной вкладки.
  */
-function resolveOverviewTabFromHash(hash: string): 'annotation' | 'readiness' {
-  return hash === '#readiness' ? 'readiness' : 'annotation';
+function resolveOverviewTabFromHash(hash: string): OverviewTabId {
+  if (hash === '#guide') {
+    return 'guide';
+  }
+  if (hash === '#readiness') {
+    return 'readiness';
+  }
+  return 'annotation';
 }
 
 /**
  * Отрисовывает содержимое вкладки «Общая информация» с шапкой, общей сводкой
- * и раздельной сменой вкладок «Аннотация» и «Таблица готовности».
+ * и переключением между вкладками «Аннотация», «Памятка по работе» и «Таблица готовности».
  * @returns JSX-разметка страницы /tz/blog/overview.
  */
 export function BlogOverviewSection() {
   const { hash } = useLocation();
   const overviewData = getTzBlogOverviewDataset();
-  const [activeTab, setActiveTab] = useState<'annotation' | 'readiness'>(() =>
+  const [activeTab, setActiveTab] = useState<OverviewTabId>(() =>
     resolveOverviewTabFromHash(hash),
   );
 
   useEffect(() => {
-    if (hash === '#annotation' || hash === '#readiness') {
-      setActiveTab(hash.slice(1) as 'annotation' | 'readiness');
+    if (hash === '#annotation' || hash === '#guide' || hash === '#readiness') {
+      setActiveTab(hash.slice(1) as OverviewTabId);
     }
   }, [hash]);
 
@@ -73,9 +83,11 @@ export function BlogOverviewSection() {
           />
         </div>
 
-        {activeTab === 'annotation' ? (
-          <BlogAnnotationBlock body={overviewData.annotationBody} />
-        ) : (
+        {activeTab === 'annotation' && <BlogAnnotationBlock body={overviewData.annotationBody} />}
+
+        {activeTab === 'guide' && <BlogWorkGuidePanel guide={overviewData.workGuide} />}
+
+        {activeTab === 'readiness' && (
           <BlogReadinessTable
             heading={overviewData.readinessHeading}
             note={overviewData.readinessNote}
