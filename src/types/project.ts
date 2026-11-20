@@ -161,3 +161,83 @@ export interface TzBlogDataset {
   navTabs: HeroNavTab[];
 }
 
+/** Внутренняя вкладка на странице «Общая информация» */
+export interface BlogOverviewMicroTab {
+  /** Уникальный идентификатор вкладки */
+  id: 'annotation' | 'readiness';
+  /** Якорь адресной строки (#annotation | #readiness) */
+  anchor: string;
+  /** Подпись вкладки */
+  label: string;
+}
+
+/** Возможные статусы выполнения отдельной работы в таблице готовности */
+export type BlogWorkStatus = 'done' | 'in_progress' | 'planned';
+
+/** Категория (тег) отдельной работы в таблице готовности */
+export type BlogWorkTag = 'art' | 'text' | 'dialogue' | 'design' | 'code' | 'other';
+
+/** Идентификаторы внутренних разделов таблицы готовности блога */
+export type BlogReadinessSectionId =
+  | 'general'
+  | 'header'
+  | 'act-1'
+  | 'act-2'
+  | 'act-3'
+  | 'act-4';
+
+/** Отдельная строка работы внутри выбранного раздела таблицы готовности */
+export interface BlogReadinessWorkItem {
+  /** Уникальный идентификатор работы */
+  id: string;
+  /** Ссылка на соответствующее ТЗ (внутренний маршрут /tz/... или внешний URL) */
+  tzUrl?: string;
+  /** Название работы */
+  title: string;
+  /** Тег типа работы (Арты, Тексты, Реплики, Оформление, Код, Другое) */
+  tag: BlogWorkTag;
+  /** Текущий статус (Готово / В процессе / В планах) */
+  status: BlogWorkStatus;
+  /** Имя или список исполнителей (пустая строка означает «не взято») */
+  assignee: string;
+  /** Ссылка на готовую работу (внутренний маршрут или внешний URL, если работа готова) */
+  resultUrl?: string;
+}
+
+/** Раздел таблицы готовности (Общее, Шапка, Акты I–IV) со своим дедлайном и работами */
+export interface BlogReadinessSection {
+  /** Системный идентификатор раздела */
+  id: BlogReadinessSectionId;
+  /** Подпись пункта во внутреннем меню над таблицей */
+  label: string;
+  /** Крайний срок сдачи раздела в формате YYYY-MM-DD (пустая строка, если не задан) */
+  deadlineDate: string;
+  /** Если true, вместо таблицы работ отображается плашка «СКОРО» */
+  comingSoon?: boolean;
+  /** Список работ раздела */
+  works: BlogReadinessWorkItem[];
+}
+
+/** Полная конфигурация раздела «О блоге → Общая информация» из tzBlogOverview.json */
+export interface TzBlogOverviewDataset {
+  /** Главный акцентный заголовок страницы */
+  primaryWord: string;
+  /** Вторичный приглушённый подзаголовок */
+  secondaryWord: string;
+  /** Целевая дата дня рождения в формате YYYY-MM-DD для общей сводки наверху страницы */
+  birthdayDate: string;
+  /** Внутренние вкладки (Аннотация / Таблица готовности) */
+  microTabs: BlogOverviewMicroTab[];
+  /** Дословный текст аннотации блога без внутреннего заголовка */
+  annotationBody: string;
+  /** Заголовок секции таблицы готовности */
+  readinessHeading: string;
+  /** Краткое пояснение к таблице готовности */
+  readinessNote: string;
+  /** Разделы готовности (Общее, Шапка, Акт I–IV) со списком работ и дедлайнами из JSON */
+  readinessSections: BlogReadinessSection[];
+}
+
+
+
+

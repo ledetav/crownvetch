@@ -36,7 +36,7 @@ export function DarkroomViewfinderScreen({
   initialTabId,
   sectionId,
   sectionLabel,
-  showOrientationOverlay = true,
+  showOrientationOverlay = false,
   headingLevel = 'h1',
 }: DarkroomViewfinderScreenProps) {
   const heroData = getTzHeroDataset();
