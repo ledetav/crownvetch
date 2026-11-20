@@ -1613,6 +1613,58 @@
   border: 1px solid rgba(234, 226, 208, 0.14);
 }
 
+/* Плашка «СКОРО» вместо таблицы работ для разделов в подготовке (Акт III, Акт IV) */
+.blog-coming-soon-plate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 290px;
+  padding: 40px 24px;
+  text-align: center;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(234, 226, 208, 0.018) 0,
+      rgba(234, 226, 208, 0.018) 1px,
+      transparent 1px,
+      transparent 14px
+    ),
+    rgba(11, 19, 23, 0.68);
+}
+
+.blog-coming-soon-plate__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--glitch-cyan);
+}
+
+.blog-coming-soon-plate__title {
+  padding: 6px 26px;
+  border-top: 1px solid rgba(232, 190, 103, 0.56);
+  border-bottom: 1px solid rgba(232, 190, 103, 0.56);
+  font-family: var(--font-condensed);
+  font-size: clamp(2rem, 3.2vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: 0.24em;
+  text-indent: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent-amber);
+}
+
+.blog-coming-soon-plate__note {
+  margin: 2px 0 0;
+  max-width: 38ch;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
 /* Панель фильтрации таблицы готовности по тегу */
 .blog-tag-filter {
   display: flex;
@@ -2771,6 +2823,16 @@
 
   .blog-readiness-table__result-cell {
     order: 4;
+  }
+
+  .blog-coming-soon-plate {
+    min-height: 185px;
+    padding: 28px 16px;
+  }
+
+  .blog-coming-soon-plate__title {
+    font-size: 1.85rem;
+    padding: 5px 18px;
   }
 
   .blog-tag-filter {

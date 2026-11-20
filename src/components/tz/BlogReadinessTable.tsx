@@ -186,39 +186,53 @@ export function BlogReadinessTable({ heading, note, sections }: BlogReadinessTab
         })}
       </div>
 
-      {/* Двухколоночная рабочая зона: таблица работ слева, дедлайн и прогресс справа */}
+      {/* Двухколоночная рабочая зона: таблица работ (или плашка «СКОРО») слева, дедлайн и прогресс справа */}
       <div className="blog-readiness-layout">
         <div className="blog-readiness-table-box">
-          {/* Панель фильтрации строк текущей таблицы по тегу */}
-          <div className="blog-tag-filter" role="group" aria-label="Фильтр работ по тегу">
-            <span className="blog-tag-filter__label">Тег:</span>
-            <div className="blog-tag-filter__list">
-              {TAG_FILTER_OPTIONS.map((option) => {
-                const count =
-                  option.id === 'all' ? activeSection.works.length : tagCounts[option.id];
-                const isActive = activeTagFilter === option.id;
-                const isEmpty = option.id !== 'all' && count === 0;
-
-                return (
-                  <button
-                    key={option.id}
-                    type="button"
-                    aria-pressed={isActive}
-                    className={`blog-tag-filter__btn blog-tag-filter__btn--${option.id} ${
-                      isActive ? 'blog-tag-filter__btn--active' : ''
-                    } ${isEmpty ? 'blog-tag-filter__btn--empty' : ''}`}
-                    onClick={() => setActiveTagFilter(option.id)}
-                  >
-                    <span>{option.label}</span>
-                    <span className="blog-tag-filter__count">{count}</span>
-                  </button>
-                );
-              })}
+          {activeSection.comingSoon ? (
+            <div
+              className="blog-coming-soon-plate"
+              role="status"
+              aria-label={`Раздел «${activeSection.label}»: скоро`}
+            >
+              <span className="blog-coming-soon-plate__eyebrow">{activeSection.label}</span>
+              <strong className="blog-coming-soon-plate__title">СКОРО</strong>
+              <p className="blog-coming-soon-plate__note">
+                Список работ для этого акта будет добавлен позже.
+              </p>
             </div>
-          </div>
+          ) : (
+            <>
+              {/* Панель фильтрации строк текущей таблицы по тегу */}
+              <div className="blog-tag-filter" role="group" aria-label="Фильтр работ по тегу">
+                <span className="blog-tag-filter__label">Тег:</span>
+                <div className="blog-tag-filter__list">
+                  {TAG_FILTER_OPTIONS.map((option) => {
+                    const count =
+                      option.id === 'all' ? activeSection.works.length : tagCounts[option.id];
+                    const isActive = activeTagFilter === option.id;
+                    const isEmpty = option.id !== 'all' && count === 0;
 
-          <div className="social-table-wrap">
-            <table className="social-table blog-readiness-table">
+                    return (
+                      <button
+                        key={option.id}
+                        type="button"
+                        aria-pressed={isActive}
+                        className={`blog-tag-filter__btn blog-tag-filter__btn--${option.id} ${
+                          isActive ? 'blog-tag-filter__btn--active' : ''
+                        } ${isEmpty ? 'blog-tag-filter__btn--empty' : ''}`}
+                        onClick={() => setActiveTagFilter(option.id)}
+                      >
+                        <span>{option.label}</span>
+                        <span className="blog-tag-filter__count">{count}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="social-table-wrap">
+                <table className="social-table blog-readiness-table">
               <thead>
                 <tr>
                   <th scope="col">Ссылка на ТЗ</th>
@@ -322,6 +336,8 @@ export function BlogReadinessTable({ heading, note, sections }: BlogReadinessTab
               </tbody>
             </table>
           </div>
+            </>
+          )}
         </div>
 
         <BlogReadinessSidebar

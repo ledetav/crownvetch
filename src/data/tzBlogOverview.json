@@ -473,51 +473,15 @@
       "id": "act-3",
       "label": "Акт III",
       "deadlineDate": "2026-12-20",
-      "works": [
-        {
-          "id": "act3-turn",
-          "tzUrl": "/tz/blog/acts",
-          "title": "Переломная ночь и шаг по ту сторону фотокарточки (текст)",
-          "tag": "text",
-          "status": "planned",
-          "assignee": "",
-          "resultUrl": ""
-        },
-        {
-          "id": "act3-key-art",
-          "tzUrl": "/tz/blog/acts",
-          "title": "Ключевая полноформатная иллюстрация кульминации",
-          "tag": "art",
-          "status": "planned",
-          "assignee": "",
-          "resultUrl": ""
-        }
-      ]
+      "comingSoon": true,
+      "works": []
     },
     {
       "id": "act-4",
       "label": "Акт IV",
       "deadlineDate": "2026-12-26",
-      "works": [
-        {
-          "id": "act4-finale-text",
-          "tzUrl": "/tz/blog/acts",
-          "title": "Разгадка тайны предка и финал истории (текст)",
-          "tag": "text",
-          "status": "planned",
-          "assignee": "",
-          "resultUrl": ""
-        },
-        {
-          "id": "act4-finale-art",
-          "tzUrl": "/tz/blog/acts",
-          "title": "Финальный арт тройки напарников",
-          "tag": "art",
-          "status": "planned",
-          "assignee": "",
-          "resultUrl": ""
-        }
-      ]
+      "comingSoon": true,
+      "works": []
     }
   ]
 }

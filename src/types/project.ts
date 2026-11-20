@@ -212,6 +212,8 @@ export interface BlogReadinessSection {
   label: string;
   /** Крайний срок сдачи раздела в формате YYYY-MM-DD (пустая строка, если не задан) */
   deadlineDate: string;
+  /** Если true, вместо таблицы работ отображается плашка «СКОРО» */
+  comingSoon?: boolean;
   /** Список работ раздела */
   works: BlogReadinessWorkItem[];
 }
