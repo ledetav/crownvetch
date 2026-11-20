@@ -1613,7 +1613,164 @@
   border: 1px solid rgba(234, 226, 208, 0.14);
 }
 
-/* Таблица работ выбранного раздела (Ссылка на ТЗ / Название работы / Статус / Исполнитель) */
+/* Панель фильтрации таблицы готовности по тегу */
+.blog-tag-filter {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  padding: 9px 12px;
+  background: rgba(11, 19, 23, 0.65);
+  border-bottom: 1px solid rgba(234, 226, 208, 0.14);
+}
+
+.blog-tag-filter__label {
+  flex-shrink: 0;
+  font-family: var(--font-condensed);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(234, 226, 208, 0.56);
+}
+
+.blog-tag-filter__list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+}
+
+.blog-tag-filter__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 26px;
+  padding: 3px 8px;
+  background: rgba(18, 24, 27, 0.85);
+  border: 1px solid rgba(234, 226, 208, 0.16);
+  border-left: 2px solid rgba(234, 226, 208, 0.36);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color 0.16s ease, border-color 0.16s ease, background-color 0.16s ease, opacity 0.16s ease;
+}
+
+.blog-tag-filter__btn:hover,
+.blog-tag-filter__btn:focus-visible {
+  outline: none;
+  color: var(--text-primary);
+  border-color: rgba(234, 226, 208, 0.42);
+}
+
+.blog-tag-filter__btn--art {
+  border-left-color: var(--accent-amber);
+}
+
+.blog-tag-filter__btn--text {
+  border-left-color: var(--glitch-cyan);
+}
+
+.blog-tag-filter__btn--dialogue {
+  border-left-color: rgba(59, 199, 214, 0.65);
+}
+
+.blog-tag-filter__btn--design {
+  border-left-color: rgba(234, 226, 208, 0.68);
+}
+
+.blog-tag-filter__btn--code {
+  border-left-color: rgba(214, 54, 56, 0.8);
+}
+
+.blog-tag-filter__btn--other {
+  border-left-color: rgba(234, 226, 208, 0.36);
+}
+
+.blog-tag-filter__btn--empty {
+  opacity: 0.46;
+}
+
+.blog-tag-filter__btn--empty:hover,
+.blog-tag-filter__btn--empty:focus-visible {
+  opacity: 0.82;
+}
+
+.blog-tag-filter__btn--active {
+  opacity: 1;
+  color: var(--accent-amber);
+  border-color: var(--accent-amber);
+  border-left-color: var(--accent-amber);
+  background: rgba(232, 190, 103, 0.12);
+}
+
+.blog-tag-filter__btn--active.blog-tag-filter__btn--text,
+.blog-tag-filter__btn--active.blog-tag-filter__btn--dialogue {
+  color: var(--glitch-cyan);
+  border-color: var(--glitch-cyan);
+  border-left-color: var(--glitch-cyan);
+  background: rgba(59, 199, 214, 0.12);
+}
+
+.blog-tag-filter__btn--active.blog-tag-filter__btn--code {
+  color: #eb7c7e;
+  border-color: rgba(214, 54, 56, 0.8);
+  border-left-color: rgba(214, 54, 56, 0.92);
+  background: rgba(214, 54, 56, 0.12);
+}
+
+.blog-tag-filter__btn--active.blog-tag-filter__btn--design,
+.blog-tag-filter__btn--active.blog-tag-filter__btn--other {
+  color: var(--text-primary);
+  border-color: rgba(234, 226, 208, 0.62);
+  border-left-color: var(--text-primary);
+  background: rgba(234, 226, 208, 0.1);
+}
+
+.blog-tag-filter__count {
+  font-size: 0.62rem;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.72;
+}
+
+.blog-readiness-table__empty-cell {
+  padding: 20px 14px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.blog-tag-filter__reset {
+  margin-left: 10px;
+  padding: 3px 9px;
+  background: rgba(11, 19, 23, 0.85);
+  border: 1px solid rgba(232, 190, 103, 0.56);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent-amber);
+  cursor: pointer;
+  transition: color 0.16s ease, border-color 0.16s ease, background-color 0.16s ease;
+}
+
+.blog-tag-filter__reset:hover,
+.blog-tag-filter__reset:focus-visible {
+  outline: none;
+  color: var(--glitch-cyan);
+  border-color: var(--glitch-cyan);
+  background: rgba(59, 199, 214, 0.1);
+}
+
+/* Таблица работ выбранного раздела (Ссылка на ТЗ / Название работы / Тег / Статус / Исполнитель / Ссылка на готовую работу) */
 .blog-readiness-table th,
 .blog-readiness-table td {
   vertical-align: middle;
@@ -2614,6 +2771,41 @@
 
   .blog-readiness-table__result-cell {
     order: 4;
+  }
+
+  .blog-tag-filter {
+    padding: 10px;
+    gap: 6px 8px;
+  }
+
+  .blog-tag-filter__btn {
+    min-height: 30px;
+    padding: 4px 8px;
+    font-size: 0.66rem;
+  }
+
+  .blog-readiness-table__empty-row {
+    align-items: center;
+    text-align: center;
+  }
+
+  .blog-readiness-table__empty-cell {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 4px;
+    border-bottom: none;
+  }
+
+  .blog-readiness-table__empty-cell::before {
+    display: none;
+  }
+
+  .blog-tag-filter__reset {
+    margin-left: 0;
+    min-height: 30px;
+    padding: 4px 12px;
   }
 
   .blog-tz-link {
