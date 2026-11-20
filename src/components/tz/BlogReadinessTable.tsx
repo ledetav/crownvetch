@@ -2,7 +2,7 @@
  * Секция #readiness на странице «О блоге → Общая информация».
  * Отрисовывает данные строго из JSON (без внешнего редактирования):
  * внутреннее меню из 6 разделов («Общее», «Шапка», «Акт I–IV»),
- * 5-колоночную таблицу работ («Ссылка на ТЗ», «Название работы», «Статус»,
+ * 6-колоночную таблицу работ («Ссылка на ТЗ», «Название работы», «Тег», «Статус»,
  * «Исполнитель», «Ссылка на готовую работу») и правую боковую панель
  * с дедлайном и сводкой прогресса. На узких мобильных экранах строки
  * таблицы перестраиваются в вертикальные карточки через атрибуты data-label.
@@ -13,6 +13,7 @@ import type {
   BlogReadinessSection,
   BlogReadinessSectionId,
   BlogWorkStatus,
+  BlogWorkTag,
 } from '../../types/project';
 import { BlogReadinessSidebar } from './BlogReadinessSidebar';
 
@@ -20,6 +21,16 @@ const STATUS_LABELS: Record<BlogWorkStatus, string> = {
   done: 'Готово',
   in_progress: 'В процессе',
   planned: 'В планах',
+};
+
+const TAG_LABELS: Record<BlogWorkTag, string> = {
+  cutscene: 'Катсцена',
+  background: 'Фон',
+  sprite: 'Спрайт',
+  text: 'Текст',
+  dialogue: 'Реплика',
+  design: 'Оформление',
+  code: 'Код',
 };
 
 /** Входные свойства секции таблицы готовности */
@@ -86,7 +97,7 @@ function renderCompactLink(
 
 /**
  * Отрисовывает вкладку «Таблица готовности» в режиме чтения:
- * меню разделов, 5-колоночную таблицу работ и правую панель дедлайна/прогресса.
+ * меню разделов, 6-колоночную таблицу работ с тегами и правую панель дедлайна/прогресса.
  * @param props Заголовок, пояснение и список разделов из JSON.
  * @returns JSX-разметка панели #readiness.
  */
@@ -152,6 +163,7 @@ export function BlogReadinessTable({ heading, note, sections }: BlogReadinessTab
                 <tr>
                   <th scope="col">Ссылка на ТЗ</th>
                   <th scope="col">Название работы</th>
+                  <th scope="col">Тег</th>
                   <th scope="col">Статус</th>
                   <th scope="col">Исполнитель</th>
                   <th scope="col">Ссылка на готовую работу</th>
@@ -181,6 +193,15 @@ export function BlogReadinessTable({ heading, note, sections }: BlogReadinessTab
                         data-label="Название работы"
                       >
                         {work.title}
+                      </td>
+
+                      <td
+                        className="blog-readiness-table__tag-cell"
+                        data-label="Тег"
+                      >
+                        <span className={`blog-work-tag blog-work-tag--${work.tag}`}>
+                          {TAG_LABELS[work.tag]}
+                        </span>
                       </td>
 
                       <td

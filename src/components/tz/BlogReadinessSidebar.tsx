@@ -5,6 +5,7 @@
  * 2) Прогресс — общее количество работ, взято/не взято и готово.
  */
 import type { BlogReadinessWorkItem } from '../../types/project';
+import { calculateDateCountdown, pluralizeDays } from '../../utils/dateCountdown';
 
 /** Входные свойства боковой панели прогресса и дедлайна */
 interface BlogReadinessSidebarProps {
@@ -17,28 +18,7 @@ interface BlogReadinessSidebarProps {
 }
 
 /**
- * Подбирает правильную форму русского слова «день» по числу.
- * @param count Абсолютное целое число дней.
- * @returns Строка «день», «дня» или «дней».
- */
-function pluralizeDays(count: number): string {
-  const mod100 = Math.abs(count) % 100;
-  const mod10 = mod100 % 10;
-  if (mod100 >= 11 && mod100 <= 14) {
-    return 'дней';
-  }
-  if (mod10 === 1) {
-    return 'день';
-  }
-  if (mod10 >= 2 && mod10 <= 4) {
-    return 'дня';
-  }
-  return 'дней';
-}
-
-/**
- * Форматирует ISO-дату YYYY-MM-DD в читаемый формат ДД.ММ.ГГГГ
- * и вычисляет остаток дней до дедлайна относительно локального начала суток.
+ * Форматирует подпись оставшихся дней до крайнего срока раздела.
  * @param isoDate Строка даты YYYY-MM-DD.
  * @returns Отформатированная дата, подпись остатка и тон индикации.
  */
@@ -47,32 +27,22 @@ function getDeadlineInfo(isoDate: string): {
   countdownText: string;
   tone: 'neutral' | 'soon' | 'overdue' | 'empty';
 } {
-  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(isoDate.trim());
-  if (!match) {
+  const { formattedDate, diffDays, tone } = calculateDateCountdown(isoDate);
+
+  if (diffDays === null) {
     return {
-      formattedDate: 'НЕ ЗАДАН',
+      formattedDate,
       countdownText: 'Крайний срок не указан',
-      tone: 'empty',
+      tone,
     };
   }
-
-  const year = Number(match[1]);
-  const month = Number(match[2]);
-  const day = Number(match[3]);
-  const formattedDate = `${String(day).padStart(2, '0')}.${String(month).padStart(2, '0')}.${year}`;
-
-  // Сравниваем даты по локальной полуночи, чтобы исключить сдвиги из-за часов и минут
-  const now = new Date();
-  const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
-  const targetMidnight = new Date(year, month - 1, day).getTime();
-  const diffDays = Math.round((targetMidnight - todayMidnight) / (1000 * 60 * 60 * 24));
 
   if (diffDays > 0) {
     const verb = diffDays % 10 === 1 && diffDays % 100 !== 11 ? 'Остался' : 'Осталось';
     return {
       formattedDate,
       countdownText: `${verb} ${diffDays} ${pluralizeDays(diffDays)} до крайнего срока`,
-      tone: diffDays <= 5 ? 'soon' : 'neutral',
+      tone,
     };
   }
 
@@ -80,7 +50,7 @@ function getDeadlineInfo(isoDate: string): {
     return {
       formattedDate,
       countdownText: 'Сегодня крайний срок',
-      tone: 'soon',
+      tone,
     };
   }
 
@@ -88,7 +58,7 @@ function getDeadlineInfo(isoDate: string): {
   return {
     formattedDate,
     countdownText: `Просрочено на ${overdueDays} ${pluralizeDays(overdueDays)}`,
-    tone: 'overdue',
+    tone,
   };
 }
 

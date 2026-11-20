@@ -1,12 +1,14 @@
 /**
  * Секция «Общая информация» внутри отдельной страницы «О блоге» (/tz/blog/overview).
- * Отображает заголовок со световыми прострелами, переключатель двух отдельных
- * внутренних вкладок («Аннотация» и «Таблица готовности») и содержимое активной вкладки.
+ * Отображает заголовок со световыми прострелами и переключатель двух внутренних вкладок
+ * («Аннотация» и «Таблица готовности») слева, общую сводку до дня рождения и по категориям
+ * работ справа, а ниже — содержимое активной вкладки.
  */
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getTzBlogOverviewDataset } from '../../services/projectDataStore';
 import { BlogAnnotationBlock } from './BlogAnnotationBlock';
+import { BlogGlobalSummary } from './BlogGlobalSummary';
 import { BlogOverviewSubnav } from './BlogOverviewSubnav';
 import { BlogReadinessTable } from './BlogReadinessTable';
 
@@ -20,8 +22,8 @@ function resolveOverviewTabFromHash(hash: string): 'annotation' | 'readiness' {
 }
 
 /**
- * Отрисовывает содержимое вкладки «Общая информация» с раздельной сменой
- * вкладок «Аннотация» и «Таблица готовности».
+ * Отрисовывает содержимое вкладки «Общая информация» с шапкой, общей сводкой
+ * и раздельной сменой вкладок «Аннотация» и «Таблица готовности».
  * @returns JSX-разметка страницы /tz/blog/overview.
  */
 export function BlogOverviewSection() {
@@ -45,22 +47,29 @@ export function BlogOverviewSection() {
     >
       <div className="blog-overview-frame">
         <div className="blog-overview-header">
-          <div className="dossier-headline-block">
-            <div className="vyazel-wrapper">
-              <div className="vyazel-ribbon" aria-hidden="true">
-                <span className="vyazel-streak vyazel-streak--1" />
-                <span className="vyazel-streak vyazel-streak--2" />
-                <span className="vyazel-streak vyazel-streak--3" />
+          <div className="blog-overview-header__left">
+            <div className="dossier-headline-block">
+              <div className="vyazel-wrapper">
+                <div className="vyazel-ribbon" aria-hidden="true">
+                  <span className="vyazel-streak vyazel-streak--1" />
+                  <span className="vyazel-streak vyazel-streak--2" />
+                  <span className="vyazel-streak vyazel-streak--3" />
+                </div>
+                <h1 className="serif-vyazel serif-vyazel--blog">{overviewData.primaryWord}</h1>
               </div>
-              <h1 className="serif-vyazel serif-vyazel--blog">{overviewData.primaryWord}</h1>
+              <p className="dossier-secondary-word">{overviewData.secondaryWord}</p>
             </div>
-            <p className="dossier-secondary-word">{overviewData.secondaryWord}</p>
+
+            <BlogOverviewSubnav
+              tabs={overviewData.microTabs}
+              activeId={activeTab}
+              onSelect={setActiveTab}
+            />
           </div>
 
-          <BlogOverviewSubnav
-            tabs={overviewData.microTabs}
-            activeId={activeTab}
-            onSelect={setActiveTab}
+          <BlogGlobalSummary
+            birthdayDate={overviewData.birthdayDate}
+            sections={overviewData.readinessSections}
           />
         </div>
 
