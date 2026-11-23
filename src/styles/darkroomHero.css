@@ -1957,6 +1957,10 @@
   border-top: 6px solid rgba(59, 199, 214, 0.82);
 }
 
+.act-flow-connector--compact .act-flow-connector__line {
+  height: 12px;
+}
+
 .act-flow-connector--amber .act-flow-connector__line {
   background: rgba(232, 190, 103, 0.65);
 }
@@ -1968,9 +1972,10 @@
 /* Карточка-разворот отдельной сцены */
 .act-scene-card {
   width: 100%;
+  scroll-margin-top: 96px;
   background: rgba(11, 19, 23, 0.78);
   border: 1px solid rgba(234, 226, 208, 0.16);
-  transition: border-color 0.18s ease, background-color 0.18s ease;
+  transition: border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.22s ease;
 }
 
 .act-scene-card:hover {
@@ -1980,6 +1985,11 @@
 .act-scene-card--expanded {
   background: rgba(18, 24, 27, 0.92);
   border-color: rgba(232, 190, 103, 0.62);
+}
+
+.act-scene-card--focused {
+  border-color: var(--glitch-cyan);
+  box-shadow: 0 0 0 1px rgba(59, 199, 214, 0.42), 0 0 18px rgba(59, 199, 214, 0.16);
 }
 
 .act-scene-card__trigger {
@@ -2127,65 +2137,86 @@
   white-space: pre-line;
 }
 
-/* Закольцованный узел схемы: Сцена 8 <-> (Сцена 8.1 | Сцена 8.2) -> Сцена 9 */
-.act-flow-loop {
-  position: relative;
-  padding-left: 36px;
+/* Нераскрывающийся блок-мостик с действием между сценами */
+.act-action-bridge {
+  width: min(100%, 760px);
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 9px 14px;
+  background: rgba(232, 190, 103, 0.07);
+  border: 1px solid rgba(232, 190, 103, 0.36);
+  border-left: 3px solid var(--accent-amber);
 }
 
-/* Левая петля возврата от выхода предметов обратно в левый край Сцены 8 */
-.act-flow-loop__return-rail {
-  position: absolute;
-  left: 10px;
-  top: 26px;
-  bottom: 18px;
-  width: 26px;
-  border-left: 1.5px solid rgba(59, 199, 214, 0.65);
-  border-top: 1.5px solid rgba(59, 199, 214, 0.65);
-  border-bottom: 1.5px solid rgba(59, 199, 214, 0.65);
-  pointer-events: none;
+.act-action-bridge--compact {
+  width: 100%;
+  padding: 8px 12px;
 }
 
-.act-flow-loop__return-top-arrow {
-  position: absolute;
-  top: -5.5px;
-  right: -1px;
-  width: 0;
-  height: 0;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-left: 7px solid var(--glitch-cyan);
+.act-action-bridge__head {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
 }
 
-.act-flow-loop__content {
+.act-action-bridge__arrow {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--accent-amber);
+}
+
+.act-action-bridge__label {
+  font-family: var(--font-condensed);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-amber);
+}
+
+.act-action-bridge__desc {
+  margin: 0;
+  padding-left: 17px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.54;
+  color: var(--text-secondary);
+  white-space: pre-line;
+}
+
+/* Параллельное ветвление (Сцена 8.1 и Сцена 8.2), сходящееся стрелками к Сцене 9 */
+.act-flow-branch {
   display: flex;
   flex-direction: column;
   align-items: stretch;
 }
 
-.act-flow-loop__fork-down,
-.act-flow-loop__merge-down {
+.act-flow-branch__fork,
+.act-flow-branch__merge {
   display: flex;
   flex-direction: column;
   align-items: stretch;
 }
 
-.act-flow-loop__stem {
+.act-flow-branch__stem {
   align-self: center;
   width: 1px;
   height: 14px;
-  background: rgba(59, 199, 214, 0.55);
+  background: rgba(232, 190, 103, 0.65);
 }
 
-.act-flow-loop__rails {
+.act-flow-branch__rails {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   height: 20px;
   position: relative;
 }
 
-.act-flow-loop__rails--top::before,
-.act-flow-loop__rails--bottom::before {
+.act-flow-branch__rails--top::before,
+.act-flow-branch__rails--bottom::before {
   content: '';
   position: absolute;
   left: 25%;
@@ -2194,21 +2225,21 @@
   background: rgba(59, 199, 214, 0.55);
 }
 
-.act-flow-loop__rails--top::before {
+.act-flow-branch__rails--top::before {
   top: 0;
 }
 
-.act-flow-loop__rails--bottom::before {
+.act-flow-branch__rails--bottom::before {
   bottom: 0;
 }
 
-.act-flow-loop__rail-left,
-.act-flow-loop__rail-right {
+.act-flow-branch__rail-left,
+.act-flow-branch__rail-right {
   position: relative;
 }
 
-.act-flow-loop__rail-left::after,
-.act-flow-loop__rail-right::after {
+.act-flow-branch__rail-left::after,
+.act-flow-branch__rail-right::after {
   content: '';
   position: absolute;
   left: 50%;
@@ -2218,7 +2249,7 @@
   background: rgba(59, 199, 214, 0.55);
 }
 
-.act-flow-loop__down-arrow {
+.act-flow-branch__down-arrow {
   position: absolute;
   left: 50%;
   bottom: 0;
@@ -2230,73 +2261,18 @@
   border-top: 6px solid rgba(59, 199, 214, 0.85);
 }
 
-.act-flow-loop__grid {
+.act-flow-branch__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
   gap: 14px;
 }
 
-.act-flow-loop__col {
+.act-flow-branch__col {
   min-width: 0;
-}
-
-/* Нижняя панель выбора выхода из петли: возврат в Сцену 8 ИЛИ переход к Сцене 9 */
-.act-flow-loop__exit-bar {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 8px 12px;
-  padding: 8px 12px;
-  background: rgba(11, 19, 23, 0.88);
-  border: 1px solid rgba(59, 199, 214, 0.32);
-}
-
-.act-flow-loop__return-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
-  background: rgba(59, 199, 214, 0.08);
-  border: 1px solid rgba(59, 199, 214, 0.5);
-  font-family: var(--font-condensed);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: var(--glitch-cyan);
-  cursor: pointer;
-  transition: background-color 0.16s ease, border-color 0.16s ease;
-}
-
-.act-flow-loop__return-btn:hover,
-.act-flow-loop__return-btn:focus-visible {
-  outline: none;
-  background: rgba(59, 199, 214, 0.16);
-  border-color: var(--glitch-cyan);
-}
-
-.act-flow-loop__or {
-  font-family: var(--font-mono);
-  font-size: 0.64rem;
-  letter-spacing: 0.1em;
-  color: rgba(234, 226, 208, 0.48);
-}
-
-.act-flow-loop__exit-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
-  background: rgba(232, 190, 103, 0.08);
-  border: 1px solid rgba(232, 190, 103, 0.48);
-  font-family: var(--font-condensed);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: var(--accent-amber);
+  flex-direction: column;
+  align-items: stretch;
 }
 
 /* Двухколоночная рабочая область: таблица работ слева, 2 блока (дедлайн + прогресс) справа */
@@ -3593,42 +3569,28 @@
     font-size: 0.72rem;
   }
 
-  /* На мобильном петля возврата остаётся компактной слева, а 8.1 и 8.2 идут вертикально */
-  .act-flow-loop {
-    padding-left: 22px;
+  .act-action-bridge {
+    width: 100%;
+    padding: 8px 10px;
   }
 
-  .act-flow-loop__return-rail {
-    left: 4px;
-    top: 23px;
-    bottom: 20px;
-    width: 18px;
+  .act-action-bridge__label {
+    font-size: 0.74rem;
   }
 
-  .act-flow-loop__rails {
+  .act-action-bridge__desc {
+    padding-left: 0;
+    font-size: 0.7rem;
+  }
+
+  /* На мобильном ветки 8.1 и 8.2 перестраиваются в вертикальный стек без горизонтального скролла */
+  .act-flow-branch__rails {
     display: none;
   }
 
-  .act-flow-loop__grid {
+  .act-flow-branch__grid {
     grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  .act-flow-loop__exit-bar {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 6px;
-    padding: 8px;
-  }
-
-  .act-flow-loop__return-btn,
-  .act-flow-loop__exit-tag {
-    justify-content: center;
-    text-align: center;
-  }
-
-  .act-flow-loop__or {
-    text-align: center;
+    gap: 12px;
   }
 
   .blog-tag-filter {

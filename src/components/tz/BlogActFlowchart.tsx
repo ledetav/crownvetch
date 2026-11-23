@@ -1,18 +1,27 @@
 /**
  * Сценарная схема-цепочка для выбранного акта в разделе «О блоге → Акты».
  * Отрисовывает сцены сверху вниз в виде соединённой схемы из свёрнутых по умолчанию
- * блоков-разворотов (аккордеонов), поддерживает закольцованные развилки предметов
- * с возвратом в сцену-хаб или переходом дальше, а также кнопки раскрытия/сворачивания всех сцен.
+ * блоков-разворотов (аккордеонов), выносит действия в нераскрывающиеся блоки-мостики
+ * между сценами, поддерживает сходящиеся ветки (8.1 / 8.2 → 9) и автофокус
+ * с автоматическим раскрытием сцены при переходе по якорной ссылке из таблицы готовности.
  */
 import { useEffect, useMemo, useState } from 'react';
-import type { BlogActFlowNode, BlogActId, BlogActScene, BlogActSceneMode } from '../../types/project';
+import type {
+  BlogActActionBridge,
+  BlogActFlowNode,
+  BlogActId,
+  BlogActScene,
+  BlogActSceneMode,
+} from '../../types/project';
 
 /** Входные свойства компонента сценарной схемы акта */
 interface BlogActFlowchartProps {
   /** Идентификатор активного акта для сброса состояния раскрытия при переключении */
   actId: BlogActId;
-  /** Упорядоченный список узлов схемы (линейные сцены и закольцованные развилки) */
+  /** Упорядоченный список узлов схемы (сцены, мостики-действия и ветвления) */
   flow: BlogActFlowNode[];
+  /** Идентификатор целевой сцены из якоря URL для автофокуса и раскрытия */
+  focusedSceneId?: string | null;
 }
 
 /** Входные свойства карточки отдельной сцены-разворота */
@@ -21,8 +30,18 @@ interface ActSceneAccordionCardProps {
   scene: BlogActScene;
   /** Флаг раскрытого состояния блока */
   isExpanded: boolean;
+  /** Флаг визуального акцента при переходе по прямой ссылке из таблицы готовности */
+  isFocused: boolean;
   /** Обработчик переключения состояния блока */
   onToggle: (sceneId: string) => void;
+}
+
+/** Входные свойства нераскрывающегося мостика-действия между сценами */
+interface ActActionBridgeCardProps {
+  /** Данные мостика-действия */
+  action: BlogActActionBridge;
+  /** Компактный режим для действий внутри колонок ветвления */
+  compact?: boolean;
 }
 
 /**
@@ -35,7 +54,7 @@ function formatSceneModeLabel(mode: BlogActSceneMode): string {
 }
 
 /**
- * Собирает плоский список всех идентификаторов сцен из линейных и закольцованных узлов.
+ * Собирает плоский список всех идентификаторов сцен из линейных узлов и веток.
  * @param flow Узлы сценарной цепочки акта.
  * @returns Массив идентификаторов всех сцен акта.
  */
@@ -44,10 +63,9 @@ function collectAllSceneIds(flow: BlogActFlowNode[]): string[] {
   for (const node of flow) {
     if (node.kind === 'scene') {
       ids.push(node.scene.id);
-    } else {
-      ids.push(node.hub.id);
-      for (const branchScene of node.branches) {
-        ids.push(branchScene.id);
+    } else if (node.kind === 'branch') {
+      for (const column of node.columns) {
+        ids.push(column.scene.id);
       }
     }
   }
@@ -55,15 +73,45 @@ function collectAllSceneIds(flow: BlogActFlowNode[]): string[] {
 }
 
 /**
+ * Отрисовывает нераскрывающийся блок-мостик с действием между сценами.
+ * @param props Данные действия и необязательный флаг компактного вида.
+ * @returns JSX-разметка мостика-действия.
+ */
+function ActActionBridgeCard({ action, compact = false }: ActActionBridgeCardProps) {
+  return (
+    <div
+      id={action.id}
+      className={`act-action-bridge ${compact ? 'act-action-bridge--compact' : ''}`}
+    >
+      <div className="act-action-bridge__head">
+        <span className="act-action-bridge__arrow" aria-hidden="true">
+          →
+        </span>
+        <span className="act-action-bridge__label">{action.label}</span>
+      </div>
+      {action.description && (
+        <p className="act-action-bridge__desc">{action.description}</p>
+      )}
+    </div>
+  );
+}
+
+/**
  * Отрисовывает отдельную сцену сценария в виде сворачиваемого блока-разворота.
  * В шапке отображаются строго название «Сцена Номер» и бейдж формата
  * («Текстовый блок» или «Визуальная новелла»), а внутри — структурированные поля:
  * Катсцена/Фон, Текстовый блок/Мысли и Спрайты (для визуальной новеллы).
- * @param props Данные сцены, состояние раскрытия и обработчик переключения.
+ * @param props Данные сцены, состояния раскрытия/фокуса и обработчик переключения.
  * @returns JSX-разметка карточки сцены.
  */
-function ActSceneAccordionCard({ scene, isExpanded, onToggle }: ActSceneAccordionCardProps) {
+function ActSceneAccordionCard({
+  scene,
+  isExpanded,
+  isFocused,
+  onToggle,
+}: ActSceneAccordionCardProps) {
   const bodyId = `${scene.id}-body`;
+  const triggerId = `${scene.id}-trigger`;
 
   // Для текстовых блоков поле «Спрайты» не выводится
   const visibleBlocks =
@@ -74,9 +122,12 @@ function ActSceneAccordionCard({ scene, isExpanded, onToggle }: ActSceneAccordio
   return (
     <article
       id={scene.id}
-      className={`act-scene-card ${isExpanded ? 'act-scene-card--expanded' : ''}`}
+      className={`act-scene-card ${isExpanded ? 'act-scene-card--expanded' : ''} ${
+        isFocused ? 'act-scene-card--focused' : ''
+      }`}
     >
       <button
+        id={triggerId}
         type="button"
         className="act-scene-card__trigger"
         aria-expanded={isExpanded}
@@ -115,19 +166,48 @@ function ActSceneAccordionCard({ scene, isExpanded, onToggle }: ActSceneAccordio
 }
 
 /**
- * Отрисовывает вертикальную схему-цепочку сцен выбранного акта с соединителями,
- * закольцованными развилками и управлением разворотом всех сцен.
- * @param props Идентификатор акта и список узлов схемы.
+ * Отрисовывает вертикальную схему-цепочку сцен выбранного акта с мостиками-действиями,
+ * сходящимися ветками и автоматическим раскрытием/фокусировкой сцены по якорной ссылке.
+ * @param props Идентификатор акта, узлы схемы и необязательный ID целевой сцены.
  * @returns JSX-разметка сценарной цепочки.
  */
-export function BlogActFlowchart({ actId, flow }: BlogActFlowchartProps) {
+export function BlogActFlowchart({ actId, flow, focusedSceneId = null }: BlogActFlowchartProps) {
   const allSceneIds = useMemo(() => collectAllSceneIds(flow), [flow]);
-  const [expandedIds, setExpandedIds] = useState<Set<string>>(() => new Set());
 
-  // При переключении на другой акт все сцены по умолчанию свёрнуты
+  const [expandedIds, setExpandedIds] = useState<Set<string>>(() =>
+    focusedSceneId && allSceneIds.includes(focusedSceneId)
+      ? new Set([focusedSceneId])
+      : new Set(),
+  );
+
+  // При переключении акта сбрасываем открытые сцены, но сразу раскрываем целевую сцену из якоря
   useEffect(() => {
+    if (focusedSceneId && allSceneIds.includes(focusedSceneId)) {
+      setExpandedIds(new Set([focusedSceneId]));
+      return;
+    }
     setExpandedIds(new Set());
-  }, [actId]);
+  }, [actId, focusedSceneId, allSceneIds]);
+
+  // После раскрытия целевой сцены плавно прокручиваем страницу к ней и переводим клавиатурный фокус
+  useEffect(() => {
+    if (!focusedSceneId || !allSceneIds.includes(focusedSceneId)) {
+      return;
+    }
+
+    const frameId = window.requestAnimationFrame(() => {
+      const cardEl = document.getElementById(focusedSceneId);
+      const triggerEl = document.getElementById(`${focusedSceneId}-trigger`);
+      if (cardEl) {
+        cardEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      if (triggerEl instanceof HTMLElement) {
+        triggerEl.focus({ preventScroll: true });
+      }
+    });
+
+    return () => window.cancelAnimationFrame(frameId);
+  }, [focusedSceneId, allSceneIds]);
 
   /** Переключает развёрнутое состояние отдельной сцены */
   const handleToggleScene = (sceneId: string) => {
@@ -140,17 +220,6 @@ export function BlogActFlowchart({ actId, flow }: BlogActFlowchartProps) {
       }
       return next;
     });
-  };
-
-  /** Возвращает фокус и прокрутку к сцене-хабу закольцованной развилки */
-  const handleReturnToHub = (hubId: string) => {
-    setExpandedIds((prev) => {
-      const next = new Set(prev);
-      next.add(hubId);
-      return next;
-    });
-    const hubElement = document.getElementById(hubId);
-    hubElement?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
 
   /** Разворачивает все сцены текущего акта одновременно */
@@ -198,95 +267,78 @@ export function BlogActFlowchart({ actId, flow }: BlogActFlowchartProps) {
       <ol className="act-flowchart__chain" aria-label="Сценарная цепочка акта">
         {flow.map((node, index) => {
           const isLast = index === flow.length - 1;
+          const nextNode = flow[index + 1];
+          // Перед ветвлением стрелка рисуется самим узлом ветвления (вилка вниз в две колонки)
+          const showConnectorAfter = !isLast && nextNode?.kind !== 'branch';
 
           return (
             <li key={node.id} className="act-flowchart__step">
-              {node.kind === 'scene' ? (
+              {node.kind === 'scene' && (
                 <ActSceneAccordionCard
                   scene={node.scene}
                   isExpanded={expandedIds.has(node.scene.id)}
+                  isFocused={focusedSceneId === node.scene.id}
                   onToggle={handleToggleScene}
                 />
-              ) : (
-                <div
-                  className="act-flow-loop"
-                  aria-label={`Закольцованный переход: ${node.hub.title} и осмотр предметов`}
-                >
-                  {/* Левая магистраль петли возврата: идёт вверх и стрелкой входит в сцену-хаб */}
-                  <div className="act-flow-loop__return-rail" aria-hidden="true">
-                    <span className="act-flow-loop__return-top-arrow" />
+              )}
+
+              {node.kind === 'action' && <ActActionBridgeCard action={node.action} />}
+
+              {node.kind === 'branch' && (
+                <div className="act-flow-branch">
+                  {/* Разветвление сверху вниз в две параллельные сцены */}
+                  <div className="act-flow-branch__fork" aria-hidden="true">
+                    <span className="act-flow-branch__stem" />
+                    <div className="act-flow-branch__rails act-flow-branch__rails--top">
+                      <span className="act-flow-branch__rail-left">
+                        <span className="act-flow-branch__down-arrow" />
+                      </span>
+                      <span className="act-flow-branch__rail-right">
+                        <span className="act-flow-branch__down-arrow" />
+                      </span>
+                    </div>
                   </div>
 
-                  <div className="act-flow-loop__content">
-                    {/* Сцена-хаб (например, Сцена 8) */}
-                    <ActSceneAccordionCard
-                      scene={node.hub}
-                      isExpanded={expandedIds.has(node.hub.id)}
-                      onToggle={handleToggleScene}
-                    />
-
-                    {/* Ветвление вниз от сцены-хаба к параллельным сценам осмотра предметов */}
-                    <div className="act-flow-loop__fork-down" aria-hidden="true">
-                      <span className="act-flow-loop__stem" />
-                      <div className="act-flow-loop__rails act-flow-loop__rails--top">
-                        <span className="act-flow-loop__rail-left">
-                          <span className="act-flow-loop__down-arrow" />
-                        </span>
-                        <span className="act-flow-loop__rail-right">
-                          <span className="act-flow-loop__down-arrow" />
-                        </span>
+                  {/* Две параллельные колонки: сцена + закрывающее действие под ней */}
+                  <div className="act-flow-branch__grid">
+                    {node.columns.map((column) => (
+                      <div key={column.scene.id} className="act-flow-branch__col">
+                        <ActSceneAccordionCard
+                          scene={column.scene}
+                          isExpanded={expandedIds.has(column.scene.id)}
+                          isFocused={focusedSceneId === column.scene.id}
+                          onToggle={handleToggleScene}
+                        />
+                        {column.afterAction && (
+                          <>
+                            <div
+                              className="act-flow-connector act-flow-connector--compact"
+                              aria-hidden="true"
+                            >
+                              <span className="act-flow-connector__line" />
+                              <span className="act-flow-connector__arrow" />
+                            </div>
+                            <ActActionBridgeCard action={column.afterAction} compact />
+                          </>
+                        )}
                       </div>
-                    </div>
+                    ))}
+                  </div>
 
-                    {/* Параллельные сцены осмотра предметов (8.1 и 8.2) */}
-                    <div className="act-flow-loop__grid">
-                      {node.branches.map((branchScene) => (
-                        <div key={branchScene.id} className="act-flow-loop__col">
-                          <ActSceneAccordionCard
-                            scene={branchScene}
-                            isExpanded={expandedIds.has(branchScene.id)}
-                            onToggle={handleToggleScene}
-                          />
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Схождение выходов из 8.1 и 8.2 в развилку «возврат к Сцене 8 ИЛИ далее к Сцене 9» */}
-                    <div className="act-flow-loop__merge-down" aria-hidden="true">
-                      <div className="act-flow-loop__rails act-flow-loop__rails--bottom">
-                        <span className="act-flow-loop__rail-left" />
-                        <span className="act-flow-loop__rail-right" />
-                      </div>
-                      <span className="act-flow-loop__stem" />
-                    </div>
-
-                    <div className="act-flow-loop__exit-bar">
-                      <button
-                        type="button"
-                        className="act-flow-loop__return-btn"
-                        onClick={() => handleReturnToHub(node.hub.id)}
-                      >
-                        <span aria-hidden="true">↺</span>
-                        <span>{node.returnLabel}</span>
-                      </button>
-
-                      <span className="act-flow-loop__or" aria-hidden="true">
-                        ИЛИ
-                      </span>
-
-                      <span className="act-flow-loop__exit-tag">
-                        <span aria-hidden="true">↓</span>
-                        <span>{node.exitLabel}</span>
-                      </span>
+                  {/* Схождение двух веток в одну линию перед стрелкой к следующей сцене (Сцена 9) */}
+                  <div className="act-flow-branch__merge" aria-hidden="true">
+                    <div className="act-flow-branch__rails act-flow-branch__rails--bottom">
+                      <span className="act-flow-branch__rail-left" />
+                      <span className="act-flow-branch__rail-right" />
                     </div>
                   </div>
                 </div>
               )}
 
-              {!isLast && (
+              {showConnectorAfter && (
                 <div
                   className={`act-flow-connector ${
-                    node.kind === 'loop_branch' ? 'act-flow-connector--amber' : ''
+                    node.kind === 'action' ? 'act-flow-connector--amber' : ''
                   }`}
                   aria-hidden="true"
                 >
