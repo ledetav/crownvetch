@@ -119,60 +119,6 @@
           "resultUrl": ""
         },
         {
-          "id": "general-header-code",
-          "tzUrl": "/tz/blog/header",
-          "title": "Код шапки",
-          "tag": "code",
-          "status": "planned",
-          "assignee": "Кифри, Серебряное Древо",
-          "resultUrl": ""
-        },
-        {
-          "id": "general-act-1-code",
-          "tzUrl": "/tz/blog/acts",
-          "title": "Код Акта I",
-          "tag": "code",
-          "status": "planned",
-          "assignee": "Кифри, Серебряное Древо",
-          "resultUrl": ""
-        },
-        {
-          "id": "general-act-2-code",
-          "tzUrl": "/tz/blog/acts",
-          "title": "Код Акта II",
-          "tag": "code",
-          "status": "planned",
-          "assignee": "Кифри, Серебряное Древо",
-          "resultUrl": ""
-        },
-        {
-          "id": "general-act-3-code",
-          "tzUrl": "/tz/blog/acts",
-          "title": "Код Акта III",
-          "tag": "code",
-          "status": "planned",
-          "assignee": "Кифри, Серебряное Древо",
-          "resultUrl": ""
-        },
-        {
-          "id": "general-act-4-code",
-          "tzUrl": "/tz/blog/acts",
-          "title": "Код Акта IV",
-          "tag": "code",
-          "status": "planned",
-          "assignee": "Кифри, Серебряное Древо",
-          "resultUrl": ""
-        },
-        {
-          "id": "general-congrats",
-          "tzUrl": "",
-          "title": "Сбор поздравлений",
-          "tag": "other",
-          "status": "in_progress",
-          "assignee": "Яд Ягоды",
-          "resultUrl": ""
-        },
-        {
           "id": "general-vyazel-sprites",
           "tzUrl": "/tz/blog/characters",
           "title": "Спрайты Вязеля: вздыхающий, обычный, поймавший идею, расстроенный",
@@ -206,15 +152,6 @@
           "tag": "art",
           "status": "planned",
           "assignee": "Глумливая Сойка",
-          "resultUrl": ""
-        },
-        {
-          "id": "general-part1-credits-sprites",
-          "tzUrl": "",
-          "title": "Спрайты участников первой части для кредитов",
-          "tag": "art",
-          "status": "planned",
-          "assignee": "",
           "resultUrl": ""
         },
         {
@@ -268,6 +205,15 @@
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
+        },
+        {
+          "id": "general-header-code",
+          "tzUrl": "/tz/blog/header",
+          "title": "Код шапки",
+          "tag": "code",
+          "status": "planned",
+          "assignee": "Кифри, Серебряное Древо",
+          "resultUrl": ""
         }
       ]
     },
@@ -278,7 +224,7 @@
       "works": [
         {
           "id": "act1-scene1-text",
-          "tzUrl": "/tz/blog/acts",
+          "tzUrl": "/tz/blog/acts#act-1-scene-1",
           "title": "Сцена 1: Текстовый блок",
           "tag": "text",
           "status": "planned",
@@ -287,7 +233,7 @@
         },
         {
           "id": "act1-scene1-cutscene",
-          "tzUrl": "/tz/blog/acts",
+          "tzUrl": "/tz/blog/acts#act-1-scene-1",
           "title": "Сцена 1: Катсцена с Вязелем на диване (+ изменённая)",
           "tag": "art",
           "status": "planned",
@@ -296,7 +242,7 @@
         },
         {
           "id": "act1-scene2-text",
-          "tzUrl": "/tz/blog/acts",
+          "tzUrl": "/tz/blog/acts#act-1-scene-2",
           "title": "Сцена 2: Текстовый блок",
           "tag": "text",
           "status": "planned",
@@ -305,7 +251,7 @@
         },
         {
           "id": "act1-scene3-house-bg",
-          "tzUrl": "/tz/blog/acts",
+          "tzUrl": "/tz/blog/acts#act-1-scene-3",
           "title": "Сцена 3: Фон дома Вязеля (+ вариант без лужи)",
           "tag": "art",
           "status": "planned",
@@ -314,7 +260,7 @@
         },
         {
           "id": "act1-scene3-thoughts",
-          "tzUrl": "/tz/blog/acts",
+          "tzUrl": "/tz/blog/acts#act-1-scene-3",
           "title": "Сцена 3: Мысли Вязеля",
           "tag": "dialogue",
           "status": "planned",
@@ -323,7 +269,7 @@
         },
         {
           "id": "act1-scene4-thoughts",
-          "tzUrl": "/tz/blog/acts",
+          "tzUrl": "/tz/blog/acts#act-1-scene-4",
           "title": "Сцена 4: Мысли Вязеля",
           "tag": "dialogue",
           "status": "planned",
@@ -332,7 +278,7 @@
         },
         {
           "id": "act1-scene5-text",
-          "tzUrl": "/tz/blog/acts",
+          "tzUrl": "/tz/blog/acts#act-1-scene-5",
           "title": "Сцена 5: Текстовый блок",
           "tag": "text",
           "status": "planned",
@@ -341,7 +287,7 @@
         },
         {
           "id": "act1-scene5-stairs-bg",
-          "tzUrl": "/tz/blog/acts",
+          "tzUrl": "/tz/blog/acts#act-1-scene-5",
           "title": "Сцена 5: Фон лестницы на чердак",
           "tag": "art",
           "status": "planned",
@@ -350,7 +296,7 @@
         },
         {
           "id": "act1-scene6-thoughts",
-          "tzUrl": "/tz/blog/acts",
+          "tzUrl": "/tz/blog/acts#act-1-scene-6-1",
           "title": "Сцена 6: Мысли Вязеля",
           "tag": "dialogue",
           "status": "planned",
@@ -359,7 +305,7 @@
         },
         {
           "id": "act1-scene6-attic-bg",
-          "tzUrl": "/tz/blog/acts",
+          "tzUrl": "/tz/blog/acts#act-1-scene-6-1",
           "title": "Сцена 6: Фон чердака (полумрак, со светом, отодвинутый ящик, подставленное ведро)",
           "tag": "art",
           "status": "planned",
@@ -368,7 +314,7 @@
         },
         {
           "id": "act1-scene7-thoughts",
-          "tzUrl": "/tz/blog/acts",
+          "tzUrl": "/tz/blog/acts#act-1-scene-7",
           "title": "Сцена 7: Мысли Вязеля",
           "tag": "dialogue",
           "status": "planned",
@@ -377,7 +323,7 @@
         },
         {
           "id": "act1-scene7-table-bundle-bg",
-          "tzUrl": "/tz/blog/acts",
+          "tzUrl": "/tz/blog/acts#act-1-scene-7",
           "title": "Сцена 7: Фон стола со свёртком (вид сверху вниз)",
           "tag": "art",
           "status": "planned",
@@ -386,7 +332,7 @@
         },
         {
           "id": "act1-scene8-table-diary-photo-bg",
-          "tzUrl": "/tz/blog/acts",
+          "tzUrl": "/tz/blog/acts#act-1-scene-8",
           "title": "Сцена 8: Фон стола с дневником и фотографией на ткани (вид сверху вниз)",
           "tag": "art",
           "status": "planned",
@@ -395,7 +341,7 @@
         },
         {
           "id": "act1-scene8-1-diary-text",
-          "tzUrl": "/tz/blog/acts",
+          "tzUrl": "/tz/blog/acts#act-1-scene-8-1",
           "title": "Сцена 8.1: Текст дневника",
           "tag": "text",
           "status": "planned",
@@ -404,7 +350,7 @@
         },
         {
           "id": "act1-scene8-1-hands-diary-bg",
-          "tzUrl": "/tz/blog/acts",
+          "tzUrl": "/tz/blog/acts#act-1-scene-8-1",
           "title": "Сцена 8.1: Фон с руками Вязеля, держащего открытый дневник",
           "tag": "art",
           "status": "planned",
@@ -413,7 +359,7 @@
         },
         {
           "id": "act1-scene8-2-thoughts",
-          "tzUrl": "/tz/blog/acts",
+          "tzUrl": "/tz/blog/acts#act-1-scene-8-2",
           "title": "Сцена 8.2: Мысли Вязеля",
           "tag": "dialogue",
           "status": "planned",
@@ -422,7 +368,7 @@
         },
         {
           "id": "act1-scene8-2-hands-photo-bg",
-          "tzUrl": "/tz/blog/acts",
+          "tzUrl": "/tz/blog/acts#act-1-scene-8-2",
           "title": "Сцена 8.2: Фон с руками Вязеля, держащего фотографию",
           "tag": "art",
           "status": "planned",
@@ -431,7 +377,7 @@
         },
         {
           "id": "act1-scene9-thoughts",
-          "tzUrl": "/tz/blog/acts",
+          "tzUrl": "/tz/blog/acts#act-1-scene-9",
           "title": "Сцена 9: Мысли Вязеля",
           "tag": "dialogue",
           "status": "planned",
@@ -440,7 +386,7 @@
         },
         {
           "id": "act1-scene10-reviews",
-          "tzUrl": "/tz/blog/acts",
+          "tzUrl": "/tz/blog/acts#act-1-scene-10",
           "title": "Сцена 10: Отзывы на 4 фотоателье",
           "tag": "text",
           "status": "planned",
@@ -449,7 +395,7 @@
         },
         {
           "id": "act1-scene10-thoughts",
-          "tzUrl": "/tz/blog/acts",
+          "tzUrl": "/tz/blog/acts#act-1-scene-10",
           "title": "Сцена 10: Мысли Вязеля",
           "tag": "dialogue",
           "status": "planned",
@@ -458,11 +404,20 @@
         },
         {
           "id": "act1-scene10-laptop-bg",
-          "tzUrl": "/tz/blog/acts",
+          "tzUrl": "/tz/blog/acts#act-1-scene-10",
           "title": "Сцена 10: Фон монитора ноутбука",
           "tag": "art",
           "status": "planned",
           "assignee": "",
+          "resultUrl": ""
+        },
+        {
+          "id": "general-act-1-code",
+          "tzUrl": "/tz/blog/acts#act-1",
+          "title": "Код Акта I",
+          "tag": "code",
+          "status": "planned",
+          "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
         }
       ]
@@ -546,11 +501,20 @@
         },
         {
           "id": "act2-scene5-text",
-          "tzUrl": "/tz/blog/acts",
+          "tzUrl": "/tz/blog/acts#act-2",
           "title": "Сцена 5: Текстовый блок",
           "tag": "text",
           "status": "planned",
           "assignee": "",
+          "resultUrl": ""
+        },
+        {
+          "id": "general-act-2-code",
+          "tzUrl": "/tz/blog/acts#act-2",
+          "title": "Код Акта II",
+          "tag": "code",
+          "status": "planned",
+          "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
         }
       ]
@@ -559,15 +523,83 @@
       "id": "act-3",
       "label": "Акт III",
       "deadlineDate": "2026-12-20",
-      "comingSoon": true,
-      "works": []
+      "works": [
+        {
+          "id": "general-act-3-code",
+          "tzUrl": "/tz/blog/acts#act-3",
+          "title": "Код Акта III",
+          "tag": "code",
+          "status": "planned",
+          "assignee": "Кифри, Серебряное Древо",
+          "resultUrl": ""
+        }
+      ]
     },
     {
       "id": "act-4",
       "label": "Акт IV",
       "deadlineDate": "2026-12-26",
-      "comingSoon": true,
-      "works": []
+      "works": [
+        {
+          "id": "general-act-4-code",
+          "tzUrl": "/tz/blog/acts#act-4",
+          "title": "Код Акта IV",
+          "tag": "code",
+          "status": "planned",
+          "assignee": "Кифри, Серебряное Древо",
+          "resultUrl": ""
+        }
+      ]
+    },
+    {
+      "id": "part-2",
+      "label": "Вторая часть",
+      "deadlineDate": "2026-12-28",
+      "works": [
+        {
+          "id": "general-congrats",
+          "tzUrl": "",
+          "title": "Сбор поздравлений",
+          "tag": "other",
+          "status": "in_progress",
+          "assignee": "Яд Ягоды",
+          "resultUrl": ""
+        },
+        {
+          "id": "part2-code",
+          "tzUrl": "",
+          "title": "Код второй части",
+          "tag": "code",
+          "status": "planned",
+          "assignee": "Кифри, Серебряное Древо",
+          "resultUrl": ""
+        }
+      ]
+    },
+    {
+      "id": "credits",
+      "label": "Кредиты",
+      "deadlineDate": "2026-12-28",
+      "works": [
+        {
+          "id": "general-part1-credits-sprites",
+          "tzUrl": "",
+          "title": "Спрайты участников первой части для кредитов",
+          "tag": "art",
+          "status": "planned",
+          "assignee": "Кифри, Серебряное Древо",
+          "resultUrl": ""
+        },
+        {
+          "id": "credits-code",
+          "tzUrl": "",
+          "title": "Код кредитов",
+          "tag": "code",
+          "status": "planned",
+          "assignee": "Кифри, Серебряное Древо",
+          "resultUrl": ""
+        }
+      ]
     }
   ]
 }
