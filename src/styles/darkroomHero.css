@@ -1920,6 +1920,7 @@
   font-size: clamp(0.78rem, 0.86vw, 0.86rem);
   line-height: 1.76;
   color: var(--text-primary);
+  white-space: pre-line;
 }
 
 .blog-inline-character-link {
@@ -2019,6 +2020,35 @@
 .blog-header-sketch__fallback-note code {
   color: var(--text-primary);
   word-break: break-all;
+}
+
+/* Раздел «О блоге → Персонажи»: заготовка вкладок «Спрайты» и «Дизайн и референсы» */
+.blog-character-stub {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px 20px;
+  background: rgba(18, 24, 27, 0.78);
+  border: 1px solid rgba(234, 226, 208, 0.14);
+  border-left: 3px solid rgba(232, 190, 103, 0.72);
+}
+
+.blog-character-stub__heading {
+  margin: 0;
+  font-family: var(--font-condensed);
+  font-size: 0.96rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-amber);
+}
+
+.blog-character-stub__text {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  line-height: 1.66;
+  color: var(--text-secondary);
 }
 
 /* Сценарная схема-цепочка акта: свёрнутые блоки-развороты сверху вниз */
@@ -3769,6 +3799,26 @@
   .blog-header-sketch__fallback {
     min-height: 140px;
     padding: 18px 12px;
+  }
+
+  .blog-characters-nav .blog-microtabs__item {
+    padding: 6px 8px;
+    font-size: 0.72rem;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.25;
+  }
+
+  .blog-character-stub {
+    padding: 14px 12px;
+  }
+
+  .blog-character-stub__heading {
+    font-size: 0.88rem;
+  }
+
+  .blog-character-stub__text {
+    font-size: 0.72rem;
   }
 
   .act-flowchart__toolbar {
