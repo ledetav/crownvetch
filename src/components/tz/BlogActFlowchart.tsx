@@ -97,12 +97,13 @@ function ActActionBridgeCard({ action, compact = false }: ActActionBridgeCardPro
 }
 
 /**
- * Отрисовывает отдельную сцену сценария в виде сворачиваемого блока-разворота.
- * В шапке отображаются строго название «Сцена Номер» и бейдж формата
- * («Текстовый блок» или «Визуальная новелла»), а внутри — структурированные поля:
- * Катсцена/Фон, Текстовый блок/Мысли и Спрайты (для визуальной новеллы).
+ * Отрисовывает отдельную сцену сценария как компактную кнопку по центру схемы
+ * и отдельный текстовый блок-панель, разворачивающийся под кнопкой при нажатии.
+ * В кнопке отображаются строго название «Сцена Номер» и бейдж формата
+ * («Текстовый блок» или «Визуальная новелла»), а в панели под ней — поля
+ * Катсцена/Фон, Текстовый блок/Мысли и Спрайты (при наличии для визуальной новеллы).
  * @param props Данные сцены, состояния раскрытия/фокуса и обработчик переключения.
- * @returns JSX-разметка карточки сцены.
+ * @returns JSX-разметка узла сцены.
  */
 function ActSceneAccordionCard({
   scene,
@@ -122,44 +123,42 @@ function ActSceneAccordionCard({
   return (
     <article
       id={scene.id}
-      className={`act-scene-card ${isExpanded ? 'act-scene-card--expanded' : ''} ${
-        isFocused ? 'act-scene-card--focused' : ''
+      className={`act-scene-node ${isExpanded ? 'act-scene-node--expanded' : ''} ${
+        isFocused ? 'act-scene-node--focused' : ''
       }`}
     >
       <button
         id={triggerId}
         type="button"
-        className="act-scene-card__trigger"
+        className="act-scene-node__btn"
         aria-expanded={isExpanded}
         aria-controls={bodyId}
         onClick={() => onToggle(scene.id)}
       >
-        <div className="act-scene-card__header-row">
-          <div className="act-scene-card__heading-group">
-            <h3 className="act-scene-card__title">{scene.title}</h3>
-            <span className={`act-scene-card__mode act-scene-card__mode--${scene.mode}`}>
-              {formatSceneModeLabel(scene.mode)}
-            </span>
-          </div>
-
-          <span className="act-scene-card__toggle" aria-hidden="true">
-            {isExpanded ? '−' : '+'}
-          </span>
-        </div>
+        <h3 className="act-scene-node__title">{scene.title}</h3>
+        <span className={`act-scene-card__mode act-scene-card__mode--${scene.mode}`}>
+          {formatSceneModeLabel(scene.mode)}
+        </span>
+        <span className="act-scene-node__toggle" aria-hidden="true">
+          {isExpanded ? '−' : '+'}
+        </span>
       </button>
 
       {isExpanded && (
-        <div id={bodyId} className="act-scene-card__body">
-          {visibleBlocks.map((block, index) => (
-            <div
-              key={`${scene.id}-block-${index}`}
-              className={`act-scene-block act-scene-block--${block.kind}`}
-            >
-              <div className="act-scene-block__label">{block.label}</div>
-              <p className="act-scene-block__text">{block.text}</p>
-            </div>
-          ))}
-        </div>
+        <>
+          <span className="act-scene-node__stem" aria-hidden="true" />
+          <div id={bodyId} className="act-scene-node__panel">
+            {visibleBlocks.map((block, index) => (
+              <div
+                key={`${scene.id}-block-${index}`}
+                className={`act-scene-block act-scene-block--${block.kind}`}
+              >
+                <div className="act-scene-block__label">{block.label}</div>
+                <p className="act-scene-block__text">{block.text}</p>
+              </div>
+            ))}
+          </div>
+        </>
       )}
     </article>
   );

@@ -1969,77 +1969,71 @@
   border-top-color: var(--accent-amber);
 }
 
-/* Карточка-разворот отдельной сцены */
-.act-scene-card {
+/* Узел сцены: компактная кнопка по центру схемы + отдельный текстовый блок под ней */
+.act-scene-node {
   width: 100%;
   scroll-margin-top: 96px;
-  background: rgba(11, 19, 23, 0.78);
-  border: 1px solid rgba(234, 226, 208, 0.16);
-  transition: border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.22s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.act-scene-card:hover {
-  border-color: rgba(232, 190, 103, 0.44);
-}
-
-.act-scene-card--expanded {
-  background: rgba(18, 24, 27, 0.92);
-  border-color: rgba(232, 190, 103, 0.62);
-}
-
-.act-scene-card--focused {
-  border-color: var(--glitch-cyan);
-  box-shadow: 0 0 0 1px rgba(59, 199, 214, 0.42), 0 0 18px rgba(59, 199, 214, 0.16);
-}
-
-.act-scene-card__trigger {
-  width: 100%;
-  display: block;
-  padding: 13px 16px;
-  background: transparent;
-  border: none;
+.act-scene-node__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  min-height: 44px;
+  max-width: 100%;
+  padding: 9px 14px 9px 16px;
+  background: rgba(11, 19, 23, 0.86);
+  border: 1px solid rgba(234, 226, 208, 0.22);
   text-align: left;
   cursor: pointer;
   color: inherit;
+  transition: border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.22s ease;
 }
 
-.act-scene-card__trigger:focus-visible {
+.act-scene-node__btn:hover {
+  border-color: rgba(232, 190, 103, 0.56);
+  background: rgba(18, 24, 27, 0.94);
+}
+
+.act-scene-node__btn:focus-visible {
   outline: 1px solid var(--glitch-cyan);
-  outline-offset: -1px;
+  outline-offset: 2px;
 }
 
-.act-scene-card__header-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+.act-scene-node--expanded .act-scene-node__btn {
+  background: rgba(18, 24, 27, 0.96);
+  border-color: rgba(232, 190, 103, 0.72);
 }
 
-.act-scene-card__heading-group {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px 12px;
-  min-width: 0;
+.act-scene-node--focused .act-scene-node__btn {
+  border-color: var(--glitch-cyan);
+  box-shadow: 0 0 0 1px rgba(59, 199, 214, 0.42), 0 0 16px rgba(59, 199, 214, 0.18);
 }
 
-.act-scene-card__title {
+.act-scene-node__title {
   margin: 0;
   font-family: var(--font-condensed);
-  font-size: 1.05rem;
+  font-size: 0.98rem;
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  white-space: nowrap;
   color: var(--text-primary);
 }
 
 .act-scene-card__mode {
-  padding: 2px 9px;
+  padding: 2px 8px;
   border: 1px solid rgba(234, 226, 208, 0.22);
   font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: 0.64rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .act-scene-card__mode--text_quest {
@@ -2054,34 +2048,56 @@
   color: var(--accent-amber);
 }
 
-.act-scene-card__toggle {
+.act-scene-node__toggle {
   flex-shrink: 0;
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(11, 19, 23, 0.88);
+  background: rgba(8, 13, 16, 0.9);
   border: 1px solid rgba(234, 226, 208, 0.24);
   font-family: var(--font-mono);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   line-height: 1;
   color: var(--accent-amber);
 }
 
-.act-scene-card--expanded .act-scene-card__toggle {
+.act-scene-node--expanded .act-scene-node__toggle {
   border-color: var(--accent-amber);
-  background: rgba(232, 190, 103, 0.12);
+  background: rgba(232, 190, 103, 0.14);
 }
 
-/* Раскрытое содержимое сцены: 1) Катсцена/Фон, 2) Текстовый блок/Мысли, 3) Спрайты (для ВН) */
-.act-scene-card__body {
+/* Короткий вертикальный штрих, соединяющий кнопку сцены с отдельным раскрытым блоком под ней */
+.act-scene-node__stem {
+  width: 1px;
+  height: 10px;
+  background: rgba(232, 190, 103, 0.65);
+}
+
+.act-scene-node--focused .act-scene-node__stem {
+  background: var(--glitch-cyan);
+}
+
+/* Отдельный текстовый блок, разворачивающийся под компактной кнопкой сцены */
+.act-scene-node__panel {
+  width: min(100%, 840px);
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 14px 16px 16px;
-  border-top: 1px solid rgba(234, 226, 208, 0.12);
-  background: rgba(8, 13, 16, 0.52);
+  padding: 14px 16px;
+  background: rgba(11, 19, 23, 0.92);
+  border: 1px solid rgba(232, 190, 103, 0.48);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+}
+
+.act-scene-node--focused .act-scene-node__panel {
+  border-color: var(--glitch-cyan);
+  box-shadow: 0 0 0 1px rgba(59, 199, 214, 0.34), 0 10px 24px rgba(0, 0, 0, 0.32);
+}
+
+.act-flow-branch__col .act-scene-node__panel {
+  width: 100%;
 }
 
 .act-scene-block {
@@ -2139,19 +2155,21 @@
 
 /* Нераскрывающийся блок-мостик с действием между сценами */
 .act-action-bridge {
-  width: min(100%, 760px);
+  width: fit-content;
+  max-width: min(100%, 640px);
   align-self: center;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  padding: 9px 14px;
+  gap: 4px;
+  padding: 8px 14px;
   background: rgba(232, 190, 103, 0.07);
   border: 1px solid rgba(232, 190, 103, 0.36);
   border-left: 3px solid var(--accent-amber);
 }
 
 .act-action-bridge--compact {
-  width: 100%;
+  width: fit-content;
+  max-width: 100%;
   padding: 8px 12px;
 }
 
@@ -3557,15 +3575,17 @@
     min-height: 32px;
   }
 
-  .act-scene-card__trigger {
-    padding: 11px 12px;
+  .act-scene-node__btn {
+    padding: 8px 10px 8px 12px;
+    gap: 6px 8px;
   }
 
-  .act-scene-card__title {
-    font-size: 0.94rem;
+  .act-scene-node__title {
+    font-size: 0.9rem;
   }
 
-  .act-scene-card__body {
+  .act-scene-node__panel {
+    width: 100%;
     padding: 10px 12px 12px;
   }
 
