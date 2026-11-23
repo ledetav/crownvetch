@@ -45,10 +45,7 @@ export function BlogCharacterSpritesList({
 
   return (
     <div className="blog-character-sprites" aria-label={heading}>
-      <div className="blog-character-sprites__head">
-        <h3 className="blog-character-stub__heading">{heading}</h3>
-        {note && <p className="blog-character-sprites__note">{note}</p>}
-      </div>
+      {note && <p className="blog-character-sprites__note">{note}</p>}
 
       <ol className="blog-character-sprites__grid">
         {sprites.map((sprite, index) => {
@@ -61,7 +58,7 @@ export function BlogCharacterSpritesList({
               </div>
 
               <div className="blog-sprite-card__body">
-                <span className="blog-sprite-card__label">Текстовое описание</span>
+                <span className="blog-sprite-card__label">Описание</span>
                 <p className="blog-sprite-card__desc">{sprite.description}</p>
               </div>
 

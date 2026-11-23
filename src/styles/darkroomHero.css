@@ -2051,19 +2051,18 @@
   color: var(--text-secondary);
 }
 
+/* Шапка карточки персонажа: имя и ссылка на таблицу готовности рядом */
+.blog-character-head {
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px 14px;
+}
+
 /* Список карточек спрайтов персонажа во вкладке «Спрайты» */
 .blog-character-sprites {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-}
-
-.blog-character-sprites__head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 8px 16px;
+  gap: 12px;
 }
 
 .blog-character-sprites__note {

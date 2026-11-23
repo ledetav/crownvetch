@@ -165,13 +165,10 @@ export function BlogCharactersSection() {
           className="blog-readiness-panel blog-character-panel"
           aria-labelledby="blog-character-heading"
         >
-          <div className="blog-readiness-head">
-            <div className="blog-panel-head">
-              <h2 id="blog-character-heading" className="dossier-bio__heading">
-                {activeCharacter.heading}
-              </h2>
-              <p className="blog-panel-lead">{activeCharacter.summary}</p>
-            </div>
+          <div className="blog-readiness-head blog-character-head">
+            <h2 id="blog-character-heading" className="dossier-bio__heading">
+              {activeCharacter.heading}
+            </h2>
 
             <Link to="/tz/blog/overview#readiness" className="blog-tz-link">
               <span>Таблица готовности</span>
