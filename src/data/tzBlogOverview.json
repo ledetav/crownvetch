@@ -554,7 +554,7 @@
     {
       "id": "part-2",
       "label": "Вторая часть",
-      "deadlineDate": "",
+      "deadlineDate": "2026-12-28",
       "works": [
         {
           "id": "general-congrats",
@@ -579,7 +579,7 @@
     {
       "id": "credits",
       "label": "Кредиты",
-      "deadlineDate": "",
+      "deadlineDate": "2026-12-28",
       "works": [
         {
           "id": "general-part1-credits-sprites",
