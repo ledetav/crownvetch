@@ -455,6 +455,49 @@ export interface TzBlogHeaderDataset {
   sketch: BlogHeaderSketch;
 }
 
+/** Идентификаторы четырёх персонажей во внутреннем меню раздела «О блоге → Персонажи» */
+export type BlogCharacterId = 'vyazel' | 'ancestor' | 'lu-guang' | 'cheng-xiaoshi';
+
+/** Идентификаторы внутренних вкладок внутри карточки каждого персонажа */
+export type BlogCharacterSubTabId = 'sprites' | 'design';
+
+/** Контент отдельной внутренней вкладки персонажа («Спрайты» или «Дизайн и референсы») */
+export interface BlogCharacterSubTabContent {
+  /** Подпись вкладки во внутреннем подменю персонажа */
+  label: string;
+  /** Заголовок рабочей области выбранной вкладки */
+  heading: string;
+  /** Текст-заготовка или описание вкладки до наполнения материалами */
+  placeholder: string;
+}
+
+/** Профиль одного персонажа в разделе «О блоге → Персонажи» */
+export interface BlogCharacterProfile {
+  /** Системный идентификатор персонажа */
+  id: BlogCharacterId;
+  /** Базовый якорь адресной строки (#vyazel, #ancestor, #lu-guang, #cheng-xiaoshi) */
+  anchor: string;
+  /** Подпись пункта в верхнем меню персонажей */
+  label: string;
+  /** Полный заголовок панели персонажа */
+  heading: string;
+  /** Краткая вводная строка под заголовком персонажа */
+  summary: string;
+  /** Содержимое внутренних вкладок персонажа («Спрайты» и «Дизайн и референсы») */
+  tabs: Record<BlogCharacterSubTabId, BlogCharacterSubTabContent>;
+}
+
+/** Полная конфигурация раздела «О блоге → Персонажи» из tzBlogCharacters.json */
+export interface TzBlogCharactersDataset {
+  /** Главный акцентный заголовок страницы */
+  primaryWord: string;
+  /** Вторичный приглушённый подзаголовок */
+  secondaryWord: string;
+  /** Упорядоченный список всех четырёх персонажей */
+  characters: BlogCharacterProfile[];
+}
+
+
 
 
 

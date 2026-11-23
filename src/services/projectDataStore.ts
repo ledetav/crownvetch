@@ -3,6 +3,7 @@
  * Предоставляет типизированные методы загрузки конфигурации главного экрана.
  */
 import tzBlogActsData from '../data/tzBlogActs.json';
+import tzBlogCharactersData from '../data/tzBlogCharacters.json';
 import tzBlogData from '../data/tzBlog.json';
 import tzBlogHeaderData from '../data/tzBlogHeader.json';
 import tzBlogOverviewData from '../data/tzBlogOverview.json';
@@ -10,6 +11,7 @@ import tzHeroData from '../data/tzHero.json';
 import tzOwnerData from '../data/tzOwner.json';
 import type {
   TzBlogActsDataset,
+  TzBlogCharactersDataset,
   TzBlogDataset,
   TzBlogHeaderDataset,
   TzBlogOverviewDataset,
@@ -66,6 +68,15 @@ export function getTzBlogActsDataset(): TzBlogActsDataset {
  */
 export function getTzBlogHeaderDataset(): TzBlogHeaderDataset {
   return tzBlogHeaderData as unknown as TzBlogHeaderDataset;
+}
+
+/**
+ * Возвращает конфигурацию вкладки «Персонажи» раздела «О блоге»
+ * (список из четырёх персонажей и заготовки их внутренних вкладок «Спрайты» / «Дизайн и референсы»).
+ * @returns Набор данных из tzBlogCharacters.json.
+ */
+export function getTzBlogCharactersDataset(): TzBlogCharactersDataset {
+  return tzBlogCharactersData as unknown as TzBlogCharactersDataset;
 }
 
 
