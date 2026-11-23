@@ -3076,8 +3076,12 @@
 
   .blog-section-nav {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 8px;
+  }
+
+  .blog-section-nav.blog-guide-nav {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .blog-section-nav__item {
@@ -3375,8 +3379,12 @@
 
   .blog-section-nav {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 6px;
+  }
+
+  .blog-section-nav.blog-guide-nav {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .blog-section-nav__item {

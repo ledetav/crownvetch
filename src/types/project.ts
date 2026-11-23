@@ -230,7 +230,9 @@ export type BlogReadinessSectionId =
   | 'act-1'
   | 'act-2'
   | 'act-3'
-  | 'act-4';
+  | 'act-4'
+  | 'part-2'
+  | 'credits';
 
 /** Отдельная строка работы внутри выбранного раздела таблицы готовности */
 export interface BlogReadinessWorkItem {

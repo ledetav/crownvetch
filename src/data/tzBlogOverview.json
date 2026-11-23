@@ -119,60 +119,6 @@
           "resultUrl": ""
         },
         {
-          "id": "general-header-code",
-          "tzUrl": "/tz/blog/header",
-          "title": "Код шапки",
-          "tag": "code",
-          "status": "planned",
-          "assignee": "Кифри, Серебряное Древо",
-          "resultUrl": ""
-        },
-        {
-          "id": "general-act-1-code",
-          "tzUrl": "/tz/blog/acts",
-          "title": "Код Акта I",
-          "tag": "code",
-          "status": "planned",
-          "assignee": "Кифри, Серебряное Древо",
-          "resultUrl": ""
-        },
-        {
-          "id": "general-act-2-code",
-          "tzUrl": "/tz/blog/acts",
-          "title": "Код Акта II",
-          "tag": "code",
-          "status": "planned",
-          "assignee": "Кифри, Серебряное Древо",
-          "resultUrl": ""
-        },
-        {
-          "id": "general-act-3-code",
-          "tzUrl": "/tz/blog/acts",
-          "title": "Код Акта III",
-          "tag": "code",
-          "status": "planned",
-          "assignee": "Кифри, Серебряное Древо",
-          "resultUrl": ""
-        },
-        {
-          "id": "general-act-4-code",
-          "tzUrl": "/tz/blog/acts",
-          "title": "Код Акта IV",
-          "tag": "code",
-          "status": "planned",
-          "assignee": "Кифри, Серебряное Древо",
-          "resultUrl": ""
-        },
-        {
-          "id": "general-congrats",
-          "tzUrl": "",
-          "title": "Сбор поздравлений",
-          "tag": "other",
-          "status": "in_progress",
-          "assignee": "Яд Ягоды",
-          "resultUrl": ""
-        },
-        {
           "id": "general-vyazel-sprites",
           "tzUrl": "/tz/blog/characters",
           "title": "Спрайты Вязеля: вздыхающий, обычный, поймавший идею, расстроенный",
@@ -206,15 +152,6 @@
           "tag": "art",
           "status": "planned",
           "assignee": "Глумливая Сойка",
-          "resultUrl": ""
-        },
-        {
-          "id": "general-part1-credits-sprites",
-          "tzUrl": "",
-          "title": "Спрайты участников первой части для кредитов",
-          "tag": "art",
-          "status": "planned",
-          "assignee": "",
           "resultUrl": ""
         },
         {
@@ -267,6 +204,15 @@
           "tag": "design",
           "status": "planned",
           "assignee": "",
+          "resultUrl": ""
+        },
+        {
+          "id": "general-header-code",
+          "tzUrl": "/tz/blog/header",
+          "title": "Код шапки",
+          "tag": "code",
+          "status": "planned",
+          "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
         }
       ]
@@ -350,7 +296,7 @@
         },
         {
           "id": "act1-scene6-thoughts",
-          "tzUrl": "/tz/blog/acts#act-1-scene-6",
+          "tzUrl": "/tz/blog/acts#act-1-scene-6-1",
           "title": "Сцена 6: Мысли Вязеля",
           "tag": "dialogue",
           "status": "planned",
@@ -359,7 +305,7 @@
         },
         {
           "id": "act1-scene6-attic-bg",
-          "tzUrl": "/tz/blog/acts#act-1-scene-6",
+          "tzUrl": "/tz/blog/acts#act-1-scene-6-1",
           "title": "Сцена 6: Фон чердака (полумрак, со светом, отодвинутый ящик, подставленное ведро)",
           "tag": "art",
           "status": "planned",
@@ -464,6 +410,15 @@
           "status": "planned",
           "assignee": "",
           "resultUrl": ""
+        },
+        {
+          "id": "general-act-1-code",
+          "tzUrl": "/tz/blog/acts#act-1",
+          "title": "Код Акта I",
+          "tag": "code",
+          "status": "planned",
+          "assignee": "Кифри, Серебряное Древо",
+          "resultUrl": ""
         }
       ]
     },
@@ -546,11 +501,20 @@
         },
         {
           "id": "act2-scene5-text",
-          "tzUrl": "/tz/blog/acts",
+          "tzUrl": "/tz/blog/acts#act-2",
           "title": "Сцена 5: Текстовый блок",
           "tag": "text",
           "status": "planned",
           "assignee": "",
+          "resultUrl": ""
+        },
+        {
+          "id": "general-act-2-code",
+          "tzUrl": "/tz/blog/acts#act-2",
+          "title": "Код Акта II",
+          "tag": "code",
+          "status": "planned",
+          "assignee": "Кифри, Серебряное Древо",
           "resultUrl": ""
         }
       ]
@@ -560,14 +524,84 @@
       "label": "Акт III",
       "deadlineDate": "2026-12-20",
       "comingSoon": true,
-      "works": []
+      "works": [
+        {
+          "id": "general-act-3-code",
+          "tzUrl": "/tz/blog/acts#act-3",
+          "title": "Код Акта III",
+          "tag": "code",
+          "status": "planned",
+          "assignee": "Кифри, Серебряное Древо",
+          "resultUrl": ""
+        }
+      ]
     },
     {
       "id": "act-4",
       "label": "Акт IV",
       "deadlineDate": "2026-12-26",
       "comingSoon": true,
-      "works": []
+      "works": [
+        {
+          "id": "general-act-4-code",
+          "tzUrl": "/tz/blog/acts#act-4",
+          "title": "Код Акта IV",
+          "tag": "code",
+          "status": "planned",
+          "assignee": "Кифри, Серебряное Древо",
+          "resultUrl": ""
+        }
+      ]
+    },
+    {
+      "id": "part-2",
+      "label": "Вторая часть",
+      "deadlineDate": "",
+      "works": [
+        {
+          "id": "general-congrats",
+          "tzUrl": "",
+          "title": "Сбор поздравлений",
+          "tag": "other",
+          "status": "in_progress",
+          "assignee": "Яд Ягоды",
+          "resultUrl": ""
+        },
+        {
+          "id": "part2-code",
+          "tzUrl": "",
+          "title": "Код второй части",
+          "tag": "code",
+          "status": "planned",
+          "assignee": "Кифри, Серебряное Древо",
+          "resultUrl": ""
+        }
+      ]
+    },
+    {
+      "id": "credits",
+      "label": "Кредиты",
+      "deadlineDate": "",
+      "works": [
+        {
+          "id": "general-part1-credits-sprites",
+          "tzUrl": "",
+          "title": "Спрайты участников первой части для кредитов",
+          "tag": "art",
+          "status": "planned",
+          "assignee": "Кифри, Серебряное Древо",
+          "resultUrl": ""
+        },
+        {
+          "id": "credits-code",
+          "tzUrl": "",
+          "title": "Код кредитов",
+          "tag": "code",
+          "status": "planned",
+          "assignee": "Кифри, Серебряное Древо",
+          "resultUrl": ""
+        }
+      ]
     }
   ]
 }
