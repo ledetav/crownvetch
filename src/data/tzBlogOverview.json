@@ -523,7 +523,6 @@
       "id": "act-3",
       "label": "Акт III",
       "deadlineDate": "2026-12-20",
-      "comingSoon": true,
       "works": [
         {
           "id": "general-act-3-code",
@@ -540,7 +539,6 @@
       "id": "act-4",
       "label": "Акт IV",
       "deadlineDate": "2026-12-26",
-      "comingSoon": true,
       "works": [
         {
           "id": "general-act-4-code",
