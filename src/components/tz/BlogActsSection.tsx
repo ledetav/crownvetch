@@ -2,12 +2,14 @@
  * Секция «Акты» внутри отдельной страницы «О блоге» (/tz/blog/acts).
  * Отображает заголовок «АКТЫ» со световыми прострелами, внутреннее меню всех
  * четырёх актов (Акт I, Акт II, Акт III, Акт IV) с синхронизацией якоря URL
- * (#act-1..#act-4) и рабочую область выбранного акта (или плашку «СКОРО»).
+ * (#act-1..#act-4), общее примечание по работе со сценарием (видно на всех актах)
+ * и рабочую область выбранного акта (сценарную схему-цепочку или плашку «СКОРО»).
  */
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { getTzBlogActsDataset } from '../../services/projectDataStore';
 import type { BlogActId, BlogActItem } from '../../types/project';
+import { BlogActFlowchart } from './BlogActFlowchart';
 
 /**
  * Определяет идентификатор активного акта по хэшу адресной строки (#act-1..#act-4).
@@ -23,7 +25,7 @@ function resolveActIdFromHash(hash: string, acts: BlogActItem[]): BlogActId {
 
 /**
  * Отрисовывает страницу «О блоге → Акты» с внутренним меню переключения
- * между четырьмя актами и панелью содержимого активного акта.
+ * между четырьмя актами, общим примечанием под меню и панелью содержимого активного акта.
  * @returns JSX-разметка раздела /tz/blog/acts.
  */
 export function BlogActsSection() {
@@ -52,6 +54,8 @@ export function BlogActsSection() {
   if (!activeAct) {
     return null;
   }
+
+  const hasFlow = Boolean(activeAct.flow && activeAct.flow.length > 0);
 
   return (
     <section
@@ -98,6 +102,12 @@ export function BlogActsSection() {
               );
             })}
           </div>
+
+          {/* Общая памятка редакции сценария — отображается на всех актах под меню */}
+          <aside className="blog-acts-editorial-note" aria-label={actsData.editorialNote.label}>
+            <span className="blog-acts-editorial-note__label">{actsData.editorialNote.label}</span>
+            <p className="blog-acts-editorial-note__text">{actsData.editorialNote.text}</p>
+          </aside>
         </div>
 
         {/* Содержимое активного акта */}
@@ -112,6 +122,7 @@ export function BlogActsSection() {
               <h2 id="blog-act-heading" className="dossier-bio__heading">
                 {activeAct.heading}
               </h2>
+              {hasFlow && <p className="blog-panel-lead">{activeAct.summary}</p>}
             </div>
 
             <Link to="/tz/blog/overview#readiness" className="blog-tz-link">
@@ -126,6 +137,8 @@ export function BlogActsSection() {
               <span className="blog-coming-soon-plate__title">СКОРО</span>
               <p className="blog-coming-soon-plate__note">{activeAct.summary}</p>
             </div>
+          ) : hasFlow && activeAct.flow ? (
+            <BlogActFlowchart actId={activeAct.id} flow={activeAct.flow} />
           ) : (
             <div className="blog-act-placeholder">
               <p className="blog-act-placeholder__text">{activeAct.summary}</p>

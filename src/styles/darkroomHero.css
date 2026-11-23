@@ -1807,12 +1807,41 @@
   padding-top: 4px;
 }
 
-/* Шапка раздела «О блоге → Акты» с заголовком и внутренним меню четырёх актов */
+/* Шапка раздела «О блоге → Акты» с заголовком, меню четырёх актов и общей заметкой */
 .blog-acts-header {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
+  gap: 14px;
+}
+
+/* Постоянное примечание редакции под меню актов (отображается на всех актах) */
+.blog-acts-editorial-note {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 12px 16px;
+  background: rgba(18, 24, 27, 0.78);
+  border: 1px solid rgba(234, 226, 208, 0.14);
+  border-left: 3px solid var(--accent-amber);
+}
+
+.blog-acts-editorial-note__label {
+  font-family: var(--font-condensed);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-amber);
+}
+
+.blog-acts-editorial-note__text {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  line-height: 1.58;
+  color: var(--text-primary);
 }
 
 .blog-act-placeholder {
@@ -1827,6 +1856,391 @@
   font-size: 0.78rem;
   line-height: 1.65;
   color: var(--text-secondary);
+}
+
+/* Сценарная схема-цепочка акта: свёрнутые блоки-развороты сверху вниз */
+.act-flowchart {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.act-flowchart__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  padding: 10px 14px;
+  background: rgba(11, 19, 23, 0.68);
+  border: 1px solid rgba(234, 226, 208, 0.14);
+}
+
+.act-flowchart__counter {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.act-flowchart__counter strong {
+  color: var(--accent-amber);
+  font-weight: 600;
+}
+
+.act-flowchart__controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.act-flowchart__ctrl-btn {
+  padding: 5px 11px;
+  background: rgba(18, 24, 27, 0.9);
+  border: 1px solid rgba(234, 226, 208, 0.22);
+  font-family: var(--font-condensed);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: border-color 0.16s ease, color 0.16s ease, opacity 0.16s ease;
+}
+
+.act-flowchart__ctrl-btn:hover:not(:disabled),
+.act-flowchart__ctrl-btn:focus-visible:not(:disabled) {
+  outline: none;
+  border-color: var(--glitch-cyan);
+  color: var(--glitch-cyan);
+}
+
+.act-flowchart__ctrl-btn:disabled {
+  opacity: 0.38;
+  cursor: default;
+}
+
+.act-flowchart__chain {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.act-flowchart__step {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Вертикальный соединитель-стрелка между узлами схемы */
+.act-flow-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2px 0;
+}
+
+.act-flow-connector__line {
+  width: 1px;
+  height: 20px;
+  background: rgba(59, 199, 214, 0.55);
+}
+
+.act-flow-connector__arrow {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid rgba(59, 199, 214, 0.82);
+}
+
+/* Карточка-разворот отдельной сцены */
+.act-scene-card {
+  width: 100%;
+  background: rgba(11, 19, 23, 0.78);
+  border: 1px solid rgba(234, 226, 208, 0.16);
+  transition: border-color 0.18s ease, background-color 0.18s ease;
+}
+
+.act-scene-card:hover {
+  border-color: rgba(232, 190, 103, 0.44);
+}
+
+.act-scene-card--expanded {
+  background: rgba(18, 24, 27, 0.92);
+  border-color: rgba(232, 190, 103, 0.62);
+}
+
+.act-scene-card__trigger {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 13px 16px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+}
+
+.act-scene-card__trigger:focus-visible {
+  outline: 1px solid var(--glitch-cyan);
+  outline-offset: -1px;
+}
+
+.act-scene-card__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.act-scene-card__code {
+  padding: 2px 8px;
+  background: rgba(232, 190, 103, 0.12);
+  border: 1px solid rgba(232, 190, 103, 0.46);
+  font-family: var(--font-condensed);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-amber);
+}
+
+.act-scene-card__mode {
+  padding: 2px 8px;
+  border: 1px solid rgba(234, 226, 208, 0.22);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.act-scene-card__mode--text_quest {
+  background: rgba(59, 199, 214, 0.08);
+  border-color: rgba(59, 199, 214, 0.42);
+  color: var(--glitch-cyan);
+}
+
+.act-scene-card__mode--visual_novel {
+  background: rgba(234, 226, 208, 0.06);
+  border-color: rgba(234, 226, 208, 0.26);
+  color: var(--text-primary);
+}
+
+.act-scene-card__condition {
+  padding: 2px 8px;
+  background: rgba(214, 54, 56, 0.12);
+  border: 1px solid rgba(214, 54, 56, 0.48);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.03em;
+  color: #f49b9c;
+}
+
+.act-scene-card__title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.act-scene-card__title {
+  margin: 0;
+  font-family: var(--font-condensed);
+  font-size: 1.04rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--text-primary);
+}
+
+.act-scene-card__toggle {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(11, 19, 23, 0.88);
+  border: 1px solid rgba(234, 226, 208, 0.24);
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  line-height: 1;
+  color: var(--accent-amber);
+}
+
+.act-scene-card--expanded .act-scene-card__toggle {
+  border-color: var(--accent-amber);
+  background: rgba(232, 190, 103, 0.12);
+}
+
+/* Раскрытое содержимое сцены: техтребования, текст/мысли и блоки действий */
+.act-scene-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px 16px;
+  border-top: 1px solid rgba(234, 226, 208, 0.12);
+  background: rgba(8, 13, 16, 0.52);
+}
+
+.act-scene-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  border: 1px solid rgba(234, 226, 208, 0.1);
+}
+
+.act-scene-block--tech {
+  background: rgba(59, 199, 214, 0.05);
+  border-left: 2px solid var(--glitch-cyan);
+}
+
+.act-scene-block--text {
+  background: rgba(18, 24, 27, 0.72);
+  border-left: 2px solid rgba(234, 226, 208, 0.42);
+}
+
+.act-scene-block--action {
+  background: rgba(232, 190, 103, 0.07);
+  border-color: rgba(232, 190, 103, 0.28);
+  border-left: 3px solid var(--accent-amber);
+}
+
+.act-scene-block__label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-condensed);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.act-scene-block--tech .act-scene-block__label {
+  color: var(--glitch-cyan);
+}
+
+.act-scene-block--text .act-scene-block__label {
+  color: rgba(234, 226, 208, 0.66);
+}
+
+.act-scene-block--action .act-scene-block__label {
+  color: var(--accent-amber);
+}
+
+.act-scene-block__arrow {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+
+.act-scene-block__text {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  line-height: 1.62;
+  color: var(--text-primary);
+  white-space: pre-line;
+}
+
+/* Развилка сценарной схемы (например, 8.1 и 8.2 рядом с общим схождением) */
+.act-flow-branch {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 14px 14px 12px;
+  background: rgba(18, 24, 27, 0.44);
+  border: 1px dashed rgba(59, 199, 214, 0.36);
+}
+
+.act-flow-branch__header,
+.act-flow-branch__merge {
+  display: flex;
+  justify-content: center;
+}
+
+.act-flow-branch__badge {
+  padding: 3px 12px;
+  background: rgba(11, 19, 23, 0.92);
+  border: 1px solid rgba(59, 199, 214, 0.48);
+  font-family: var(--font-condensed);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--glitch-cyan);
+  text-align: center;
+}
+
+.act-flow-branch__merge-badge {
+  padding: 4px 14px;
+  background: rgba(11, 19, 23, 0.94);
+  border: 1px solid rgba(232, 190, 103, 0.58);
+  font-family: var(--font-condensed);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-amber);
+  text-align: center;
+}
+
+.act-flow-branch__rails {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  height: 18px;
+  position: relative;
+}
+
+.act-flow-branch__rails--top::before,
+.act-flow-branch__rails--bottom::before {
+  content: '';
+  position: absolute;
+  left: 25%;
+  right: 25%;
+  height: 1px;
+  background: rgba(59, 199, 214, 0.46);
+}
+
+.act-flow-branch__rails--top::before {
+  top: 0;
+}
+
+.act-flow-branch__rails--bottom::before {
+  bottom: 0;
+}
+
+.act-flow-branch__rail-left,
+.act-flow-branch__rail-right {
+  position: relative;
+}
+
+.act-flow-branch__rail-left::after,
+.act-flow-branch__rail-right::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(59, 199, 214, 0.46);
+}
+
+.act-flow-branch__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 14px;
+}
+
+.act-flow-branch__col {
+  min-width: 0;
 }
 
 /* Двухколоночная рабочая область: таблица работ слева, 2 блока (дедлайн + прогресс) справа */
@@ -3079,6 +3493,63 @@
 
   .blog-act-placeholder {
     padding: 18px 14px;
+  }
+
+  .blog-acts-editorial-note {
+    padding: 10px 12px;
+  }
+
+  .blog-acts-editorial-note__text {
+    font-size: 0.72rem;
+  }
+
+  .act-flowchart__toolbar {
+    padding: 9px 10px;
+  }
+
+  .act-flowchart__controls {
+    width: 100%;
+  }
+
+  .act-flowchart__ctrl-btn {
+    flex: 1 1 auto;
+    text-align: center;
+    min-height: 32px;
+  }
+
+  .act-scene-card__trigger {
+    padding: 11px 12px;
+  }
+
+  .act-scene-card__title {
+    font-size: 0.94rem;
+  }
+
+  .act-scene-card__body {
+    padding: 10px 12px 12px;
+  }
+
+  .act-scene-block {
+    padding: 8px 10px;
+  }
+
+  .act-scene-block__text {
+    font-size: 0.72rem;
+  }
+
+  /* На мобильном развилка 8.1 / 8.2 перестраивается в вертикальный стек без горизонтального скролла */
+  .act-flow-branch {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .act-flow-branch__rails {
+    display: none;
+  }
+
+  .act-flow-branch__grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
   }
 
   .blog-tag-filter {
