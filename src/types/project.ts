@@ -286,6 +286,36 @@ export interface TzBlogOverviewDataset {
   readinessSections: BlogReadinessSection[];
 }
 
+/** Идентификаторы четырёх актов в разделе «О блоге → Акты» */
+export type BlogActId = 'act-1' | 'act-2' | 'act-3' | 'act-4';
+
+/** Описание отдельного акта во внутреннем меню раздела «Акты» */
+export interface BlogActItem {
+  /** Системный идентификатор акта */
+  id: BlogActId;
+  /** Якорь адресной строки (#act-1 .. #act-4) */
+  anchor: string;
+  /** Короткая подпись во внутреннем меню (Акт I .. Акт IV) */
+  label: string;
+  /** Полный заголовок панели акта */
+  heading: string;
+  /** Если true, содержимое акта отображается плашкой «СКОРО» */
+  comingSoon?: boolean;
+  /** Краткое пояснение или заглушка до наполнения сцен ТЗ */
+  summary: string;
+}
+
+/** Полная конфигурация раздела «О блоге → Акты» из tzBlogActs.json */
+export interface TzBlogActsDataset {
+  /** Главный акцентный заголовок страницы */
+  primaryWord: string;
+  /** Вторичный приглушённый подзаголовок */
+  secondaryWord: string;
+  /** Список всех четырёх актов для внутреннего меню */
+  acts: BlogActItem[];
+}
+
+
 
 
 
