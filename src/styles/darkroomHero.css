@@ -1957,6 +1957,14 @@
   border-top: 6px solid rgba(59, 199, 214, 0.82);
 }
 
+.act-flow-connector--amber .act-flow-connector__line {
+  background: rgba(232, 190, 103, 0.65);
+}
+
+.act-flow-connector--amber .act-flow-connector__arrow {
+  border-top-color: var(--accent-amber);
+}
+
 /* Карточка-разворот отдельной сцены */
 .act-scene-card {
   width: 100%;
@@ -1976,9 +1984,7 @@
 
 .act-scene-card__trigger {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  display: block;
   padding: 13px 16px;
   background: transparent;
   border: none;
@@ -1992,27 +1998,33 @@
   outline-offset: -1px;
 }
 
-.act-scene-card__meta {
+.act-scene-card__header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.act-scene-card__heading-group {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 8px 12px;
+  min-width: 0;
 }
 
-.act-scene-card__code {
-  padding: 2px 8px;
-  background: rgba(232, 190, 103, 0.12);
-  border: 1px solid rgba(232, 190, 103, 0.46);
+.act-scene-card__title {
+  margin: 0;
   font-family: var(--font-condensed);
-  font-size: 0.72rem;
+  font-size: 1.05rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--accent-amber);
+  color: var(--text-primary);
 }
 
 .act-scene-card__mode {
-  padding: 2px 8px;
+  padding: 2px 9px;
   border: 1px solid rgba(234, 226, 208, 0.22);
   font-family: var(--font-mono);
   font-size: 0.66rem;
@@ -2022,40 +2034,14 @@
 
 .act-scene-card__mode--text_quest {
   background: rgba(59, 199, 214, 0.08);
-  border-color: rgba(59, 199, 214, 0.42);
+  border-color: rgba(59, 199, 214, 0.44);
   color: var(--glitch-cyan);
 }
 
 .act-scene-card__mode--visual_novel {
-  background: rgba(234, 226, 208, 0.06);
-  border-color: rgba(234, 226, 208, 0.26);
-  color: var(--text-primary);
-}
-
-.act-scene-card__condition {
-  padding: 2px 8px;
-  background: rgba(214, 54, 56, 0.12);
-  border: 1px solid rgba(214, 54, 56, 0.48);
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.03em;
-  color: #f49b9c;
-}
-
-.act-scene-card__title-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.act-scene-card__title {
-  margin: 0;
-  font-family: var(--font-condensed);
-  font-size: 1.04rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  color: var(--text-primary);
+  background: rgba(232, 190, 103, 0.08);
+  border-color: rgba(232, 190, 103, 0.42);
+  color: var(--accent-amber);
 }
 
 .act-scene-card__toggle {
@@ -2078,7 +2064,7 @@
   background: rgba(232, 190, 103, 0.12);
 }
 
-/* Раскрытое содержимое сцены: техтребования, текст/мысли и блоки действий */
+/* Раскрытое содержимое сцены: 1) Катсцена/Фон, 2) Текстовый блок/Мысли, 3) Спрайты (для ВН) */
 .act-scene-card__body {
   display: flex;
   flex-direction: column;
@@ -2091,53 +2077,45 @@
 .act-scene-block {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
   padding: 10px 12px;
   border: 1px solid rgba(234, 226, 208, 0.1);
 }
 
-.act-scene-block--tech {
+.act-scene-block--visual {
   background: rgba(59, 199, 214, 0.05);
   border-left: 2px solid var(--glitch-cyan);
 }
 
-.act-scene-block--text {
+.act-scene-block--narrative {
   background: rgba(18, 24, 27, 0.72);
-  border-left: 2px solid rgba(234, 226, 208, 0.42);
+  border-left: 2px solid rgba(234, 226, 208, 0.44);
 }
 
-.act-scene-block--action {
-  background: rgba(232, 190, 103, 0.07);
-  border-color: rgba(232, 190, 103, 0.28);
-  border-left: 3px solid var(--accent-amber);
+.act-scene-block--sprites {
+  background: rgba(232, 190, 103, 0.06);
+  border-color: rgba(232, 190, 103, 0.22);
+  border-left: 2px solid var(--accent-amber);
 }
 
 .act-scene-block__label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
   font-family: var(--font-condensed);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.act-scene-block--tech .act-scene-block__label {
+.act-scene-block--visual .act-scene-block__label {
   color: var(--glitch-cyan);
 }
 
-.act-scene-block--text .act-scene-block__label {
-  color: rgba(234, 226, 208, 0.66);
+.act-scene-block--narrative .act-scene-block__label {
+  color: rgba(234, 226, 208, 0.72);
 }
 
-.act-scene-block--action .act-scene-block__label {
+.act-scene-block--sprites .act-scene-block__label {
   color: var(--accent-amber);
-}
-
-.act-scene-block__arrow {
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
 }
 
 .act-scene-block__text {
@@ -2149,98 +2127,176 @@
   white-space: pre-line;
 }
 
-/* Развилка сценарной схемы (например, 8.1 и 8.2 рядом с общим схождением) */
-.act-flow-branch {
+/* Закольцованный узел схемы: Сцена 8 <-> (Сцена 8.1 | Сцена 8.2) -> Сцена 9 */
+.act-flow-loop {
+  position: relative;
+  padding-left: 36px;
+}
+
+/* Левая петля возврата от выхода предметов обратно в левый край Сцены 8 */
+.act-flow-loop__return-rail {
+  position: absolute;
+  left: 10px;
+  top: 26px;
+  bottom: 18px;
+  width: 26px;
+  border-left: 1.5px solid rgba(59, 199, 214, 0.65);
+  border-top: 1.5px solid rgba(59, 199, 214, 0.65);
+  border-bottom: 1.5px solid rgba(59, 199, 214, 0.65);
+  pointer-events: none;
+}
+
+.act-flow-loop__return-top-arrow {
+  position: absolute;
+  top: -5.5px;
+  right: -1px;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 7px solid var(--glitch-cyan);
+}
+
+.act-flow-loop__content {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  padding: 14px 14px 12px;
-  background: rgba(18, 24, 27, 0.44);
-  border: 1px dashed rgba(59, 199, 214, 0.36);
 }
 
-.act-flow-branch__header,
-.act-flow-branch__merge {
+.act-flow-loop__fork-down,
+.act-flow-loop__merge-down {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: stretch;
 }
 
-.act-flow-branch__badge {
-  padding: 3px 12px;
-  background: rgba(11, 19, 23, 0.92);
-  border: 1px solid rgba(59, 199, 214, 0.48);
-  font-family: var(--font-condensed);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--glitch-cyan);
-  text-align: center;
+.act-flow-loop__stem {
+  align-self: center;
+  width: 1px;
+  height: 14px;
+  background: rgba(59, 199, 214, 0.55);
 }
 
-.act-flow-branch__merge-badge {
-  padding: 4px 14px;
-  background: rgba(11, 19, 23, 0.94);
-  border: 1px solid rgba(232, 190, 103, 0.58);
-  font-family: var(--font-condensed);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent-amber);
-  text-align: center;
-}
-
-.act-flow-branch__rails {
+.act-flow-loop__rails {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  height: 18px;
+  height: 20px;
   position: relative;
 }
 
-.act-flow-branch__rails--top::before,
-.act-flow-branch__rails--bottom::before {
+.act-flow-loop__rails--top::before,
+.act-flow-loop__rails--bottom::before {
   content: '';
   position: absolute;
   left: 25%;
   right: 25%;
   height: 1px;
-  background: rgba(59, 199, 214, 0.46);
+  background: rgba(59, 199, 214, 0.55);
 }
 
-.act-flow-branch__rails--top::before {
+.act-flow-loop__rails--top::before {
   top: 0;
 }
 
-.act-flow-branch__rails--bottom::before {
+.act-flow-loop__rails--bottom::before {
   bottom: 0;
 }
 
-.act-flow-branch__rail-left,
-.act-flow-branch__rail-right {
+.act-flow-loop__rail-left,
+.act-flow-loop__rail-right {
   position: relative;
 }
 
-.act-flow-branch__rail-left::after,
-.act-flow-branch__rail-right::after {
+.act-flow-loop__rail-left::after,
+.act-flow-loop__rail-right::after {
   content: '';
   position: absolute;
   left: 50%;
   top: 0;
   bottom: 0;
   width: 1px;
-  background: rgba(59, 199, 214, 0.46);
+  background: rgba(59, 199, 214, 0.55);
 }
 
-.act-flow-branch__grid {
+.act-flow-loop__down-arrow {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 4.5px solid transparent;
+  border-right: 4.5px solid transparent;
+  border-top: 6px solid rgba(59, 199, 214, 0.85);
+}
+
+.act-flow-loop__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
   gap: 14px;
 }
 
-.act-flow-branch__col {
+.act-flow-loop__col {
   min-width: 0;
+}
+
+/* Нижняя панель выбора выхода из петли: возврат в Сцену 8 ИЛИ переход к Сцене 9 */
+.act-flow-loop__exit-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  padding: 8px 12px;
+  background: rgba(11, 19, 23, 0.88);
+  border: 1px solid rgba(59, 199, 214, 0.32);
+}
+
+.act-flow-loop__return-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: rgba(59, 199, 214, 0.08);
+  border: 1px solid rgba(59, 199, 214, 0.5);
+  font-family: var(--font-condensed);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--glitch-cyan);
+  cursor: pointer;
+  transition: background-color 0.16s ease, border-color 0.16s ease;
+}
+
+.act-flow-loop__return-btn:hover,
+.act-flow-loop__return-btn:focus-visible {
+  outline: none;
+  background: rgba(59, 199, 214, 0.16);
+  border-color: var(--glitch-cyan);
+}
+
+.act-flow-loop__or {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  color: rgba(234, 226, 208, 0.48);
+}
+
+.act-flow-loop__exit-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: rgba(232, 190, 103, 0.08);
+  border: 1px solid rgba(232, 190, 103, 0.48);
+  font-family: var(--font-condensed);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--accent-amber);
 }
 
 /* Двухколоночная рабочая область: таблица работ слева, 2 блока (дедлайн + прогресс) справа */
@@ -3537,19 +3593,42 @@
     font-size: 0.72rem;
   }
 
-  /* На мобильном развилка 8.1 / 8.2 перестраивается в вертикальный стек без горизонтального скролла */
-  .act-flow-branch {
-    padding: 10px;
-    gap: 10px;
+  /* На мобильном петля возврата остаётся компактной слева, а 8.1 и 8.2 идут вертикально */
+  .act-flow-loop {
+    padding-left: 22px;
   }
 
-  .act-flow-branch__rails {
+  .act-flow-loop__return-rail {
+    left: 4px;
+    top: 23px;
+    bottom: 20px;
+    width: 18px;
+  }
+
+  .act-flow-loop__rails {
     display: none;
   }
 
-  .act-flow-branch__grid {
+  .act-flow-loop__grid {
     grid-template-columns: 1fr;
     gap: 10px;
+  }
+
+  .act-flow-loop__exit-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    padding: 8px;
+  }
+
+  .act-flow-loop__return-btn,
+  .act-flow-loop__exit-tag {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .act-flow-loop__or {
+    text-align: center;
   }
 
   .blog-tag-filter {
