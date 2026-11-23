@@ -59,7 +59,13 @@ export function BlogCharacterSpritesList({
 
               <div className="blog-sprite-card__body">
                 <span className="blog-sprite-card__label">Описание</span>
-                <p className="blog-sprite-card__desc">{sprite.description}</p>
+                {sprite.description ? (
+                  <p className="blog-sprite-card__desc">{sprite.description}</p>
+                ) : (
+                  <p className="blog-sprite-card__desc blog-sprite-card__desc--pending">
+                    Будет позже.
+                  </p>
+                )}
               </div>
 
               {sprite.sketchSrc ? (

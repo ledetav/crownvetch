@@ -2141,6 +2141,11 @@
   color: var(--text-primary);
 }
 
+.blog-sprite-card__desc--pending {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
 .blog-sprite-card__sketch {
   margin: 0;
   border: 1px solid rgba(234, 226, 208, 0.14);
