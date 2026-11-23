@@ -2051,6 +2051,140 @@
   color: var(--text-secondary);
 }
 
+/* Список карточек спрайтов персонажа во вкладке «Спрайты» */
+.blog-character-sprites {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.blog-character-sprites__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.blog-character-sprites__note {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.blog-character-sprites__grid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.blog-sprite-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 18px;
+  background: rgba(18, 24, 27, 0.8);
+  border: 1px solid rgba(234, 226, 208, 0.14);
+  border-left: 3px solid rgba(232, 190, 103, 0.75);
+}
+
+.blog-sprite-card__header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(234, 226, 208, 0.1);
+}
+
+.blog-sprite-card__index {
+  font-family: var(--font-condensed);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--accent-amber);
+}
+
+.blog-sprite-card__title {
+  margin: 0;
+  font-family: var(--font-condensed);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.blog-sprite-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1 1 auto;
+}
+
+.blog-sprite-card__label {
+  font-family: var(--font-condensed);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--glitch-cyan);
+}
+
+.blog-sprite-card__desc {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  line-height: 1.65;
+  color: var(--text-primary);
+}
+
+.blog-sprite-card__sketch {
+  margin: 0;
+  border: 1px solid rgba(234, 226, 208, 0.14);
+  background: rgba(11, 19, 23, 0.78);
+  overflow: hidden;
+}
+
+.blog-sprite-card__sketch-trigger {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.blog-sprite-card__sketch-img {
+  display: block;
+  width: 100%;
+  max-height: 260px;
+  object-fit: contain;
+}
+
+.blog-sprite-card__sketch-soon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 8px 12px;
+  background: rgba(11, 19, 23, 0.56);
+  border: 1px dashed rgba(234, 226, 208, 0.16);
+}
+
+.blog-sprite-card__sketch-soon-label {
+  font-family: var(--font-condensed);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
 /* Сценарная схема-цепочка акта: свёрнутые блоки-развороты сверху вниз */
 .act-flowchart {
   display: flex;
@@ -3818,6 +3952,24 @@
   }
 
   .blog-character-stub__text {
+    font-size: 0.72rem;
+  }
+
+  .blog-character-sprites__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .blog-sprite-card {
+    padding: 12px 12px;
+    gap: 10px;
+  }
+
+  .blog-sprite-card__title {
+    font-size: 0.92rem;
+  }
+
+  .blog-sprite-card__desc {
     font-size: 0.72rem;
   }
 

@@ -461,6 +461,20 @@ export type BlogCharacterId = 'vyazel' | 'ancestor' | 'lu-guang' | 'cheng-xiaosh
 /** Идентификаторы внутренних вкладок внутри карточки каждого персонажа */
 export type BlogCharacterSubTabId = 'sprites' | 'design';
 
+/** Описание одного спрайта персонажа (эмоция/поза, текстовое ТЗ и необязательный скетч) */
+export interface BlogCharacterSpriteItem {
+  /** Уникальный идентификатор спрайта */
+  id: string;
+  /** Название эмоции или состояния спрайта (например, «Вздыхающий») */
+  title: string;
+  /** Текстовое описание позы, мимики и деталей спрайта */
+  description: string;
+  /** Необязательный путь к прикреплённому скетчу в public/assets/... */
+  sketchSrc?: string;
+  /** Описание скетча для атрибута alt */
+  sketchAlt?: string;
+}
+
 /** Контент отдельной внутренней вкладки персонажа («Спрайты» или «Дизайн и референсы») */
 export interface BlogCharacterSubTabContent {
   /** Подпись вкладки во внутреннем подменю персонажа */
@@ -469,6 +483,10 @@ export interface BlogCharacterSubTabContent {
   heading: string;
   /** Текст-заготовка или описание вкладки до наполнения материалами */
   placeholder: string;
+  /** Необязательное общее примечание к вкладке (например, «Все скетчи будут позже.») */
+  note?: string;
+  /** Структурированный список спрайтов персонажа (для вкладки «Спрайты») */
+  sprites?: BlogCharacterSpriteItem[];
 }
 
 /** Профиль одного персонажа в разделе «О блоге → Персонажи» */

@@ -13,6 +13,7 @@ import type {
   BlogCharacterProfile,
   BlogCharacterSubTabId,
 } from '../../types/project';
+import { BlogCharacterSpritesList } from './BlogCharacterSpritesList';
 
 /** Упорядоченный список внутренних вкладок внутри карточки персонажа */
 const CHARACTER_SUBTAB_ORDER: BlogCharacterSubTabId[] = ['sprites', 'design'];
@@ -108,6 +109,7 @@ export function BlogCharactersSection() {
   };
 
   const activeSubTab = activeCharacter.tabs[activeSubTabId];
+  const hasSprites = Boolean(activeSubTab.sprites && activeSubTab.sprites.length > 0);
 
   return (
     <section
@@ -204,18 +206,26 @@ export function BlogCharactersSection() {
             })}
           </div>
 
-          {/* Карточка-заготовка выбранной вкладки персонажа */}
-          <article
-            id={`${activeCharacter.id}-${activeSubTabId}`}
-            role="tabpanel"
-            className="blog-character-stub"
-            aria-labelledby="blog-character-subtab-heading"
-          >
-            <h3 id="blog-character-subtab-heading" className="blog-character-stub__heading">
-              {activeSubTab.heading}
-            </h3>
-            <p className="blog-character-stub__text">{activeSubTab.placeholder}</p>
-          </article>
+          {/* Рабочее содержимое выбранной вкладки персонажа */}
+          <div id={`${activeCharacter.id}-${activeSubTabId}`} role="tabpanel">
+            {hasSprites && activeSubTab.sprites ? (
+              <BlogCharacterSpritesList
+                heading={activeSubTab.heading}
+                note={activeSubTab.note}
+                sprites={activeSubTab.sprites}
+              />
+            ) : (
+              <article
+                className="blog-character-stub"
+                aria-labelledby="blog-character-subtab-heading"
+              >
+                <h3 id="blog-character-subtab-heading" className="blog-character-stub__heading">
+                  {activeSubTab.heading}
+                </h3>
+                <p className="blog-character-stub__text">{activeSubTab.placeholder}</p>
+              </article>
+            )}
+          </div>
         </section>
       </div>
     </section>
