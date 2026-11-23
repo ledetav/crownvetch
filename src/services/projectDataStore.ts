@@ -4,12 +4,14 @@
  */
 import tzBlogActsData from '../data/tzBlogActs.json';
 import tzBlogData from '../data/tzBlog.json';
+import tzBlogHeaderData from '../data/tzBlogHeader.json';
 import tzBlogOverviewData from '../data/tzBlogOverview.json';
 import tzHeroData from '../data/tzHero.json';
 import tzOwnerData from '../data/tzOwner.json';
 import type {
   TzBlogActsDataset,
   TzBlogDataset,
+  TzBlogHeaderDataset,
   TzBlogOverviewDataset,
   TzHeroDataset,
   TzOwnerDataset,
@@ -55,6 +57,15 @@ export function getTzBlogOverviewDataset(): TzBlogOverviewDataset {
  */
 export function getTzBlogActsDataset(): TzBlogActsDataset {
   return tzBlogActsData as unknown as TzBlogActsDataset;
+}
+
+/**
+ * Возвращает конфигурацию вкладки «Шапка» раздела «О блоге»
+ * (текстовое описание со ссылками на персонажей и данные композиционного скетча).
+ * @returns Набор данных из tzBlogHeader.json.
+ */
+export function getTzBlogHeaderDataset(): TzBlogHeaderDataset {
+  return tzBlogHeaderData as unknown as TzBlogHeaderDataset;
 }
 
 
