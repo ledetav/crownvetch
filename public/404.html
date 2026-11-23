@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting...</title>
+    <!--
+      Fallback для статического хостинга GitHub Pages: при прямом запросе глубокого SPA-маршрута
+      сохраняет исходный путь, query-строку и #якорь в sessionStorage и возвращает на корень проекта.
+    -->
+    <script>
+      (function () {
+        var SPA_REDIRECT_KEY = 'crownvetch_spa_redirect';
+        var PAGES_BASE_PATH = '/crownvetch/';
+
+        // Формирует полный целевой адрес с сохранением вложенного маршрута, параметров и якоря
+        var targetUrl =
+          window.location.pathname +
+          window.location.search +
+          window.location.hash;
+
+        sessionStorage.setItem(SPA_REDIRECT_KEY, targetUrl);
+        window.location.replace(PAGES_BASE_PATH);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
