@@ -5,6 +5,7 @@
  */
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { BlogActsSection } from './components/tz/BlogActsSection';
+import { BlogHeaderSection } from './components/tz/BlogHeaderSection';
 import { BlogOverviewSection } from './components/tz/BlogOverviewSection';
 import { BlogSection } from './components/tz/BlogSection';
 import { CharacterSection } from './components/tz/CharacterSection';
@@ -41,7 +42,7 @@ export function App() {
                 element={<BlogSection sectionId="characters" title="Персонажи" />}
               />
               <Route path="palette" element={<BlogSection sectionId="palette" title="Палитра" />} />
-              <Route path="header" element={<BlogSection sectionId="header" title="Шапка" />} />
+              <Route path="header" element={<BlogHeaderSection />} />
               <Route path="acts" element={<BlogActsSection />} />
             </Route>
             <Route path="/game" element={<GamePlaceholderPage />} />

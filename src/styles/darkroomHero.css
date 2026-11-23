@@ -1902,6 +1902,125 @@
   color: var(--text-primary);
 }
 
+/* Раздел «О блоге → Шапка»: описание композиции со ссылками на персонажей и скетч */
+.blog-header-panel {
+  gap: 18px;
+}
+
+.blog-header-description {
+  padding: 16px 18px;
+  background: rgba(18, 24, 27, 0.78);
+  border: 1px solid rgba(234, 226, 208, 0.14);
+  border-left: 3px solid rgba(232, 190, 103, 0.78);
+}
+
+.blog-header-description__text {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(0.78rem, 0.86vw, 0.86rem);
+  line-height: 1.76;
+  color: var(--text-primary);
+}
+
+.blog-inline-character-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+  color: var(--accent-amber);
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(232, 190, 103, 0.65);
+  transition: color 0.16s ease, border-color 0.16s ease, background-color 0.16s ease;
+}
+
+.blog-inline-character-link:hover,
+.blog-inline-character-link:focus-visible {
+  outline: none;
+  color: var(--glitch-cyan);
+  border-bottom-color: var(--glitch-cyan);
+  background: rgba(59, 199, 214, 0.08);
+}
+
+.blog-inline-character-link__arrow {
+  font-size: 0.72em;
+  opacity: 0.82;
+}
+
+.blog-header-sketch {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.blog-header-sketch__frame {
+  margin: 0;
+  width: 100%;
+  background: rgba(11, 19, 23, 0.86);
+  border: 1px solid rgba(234, 226, 208, 0.18);
+  overflow: hidden;
+}
+
+.blog-header-sketch__trigger {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+  transition: opacity 0.18s ease;
+}
+
+.blog-header-sketch__trigger:hover,
+.blog-header-sketch__trigger:focus-visible {
+  outline: 1px solid var(--glitch-cyan);
+  outline-offset: -1px;
+  opacity: 0.94;
+}
+
+.blog-header-sketch__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 620px;
+  object-fit: contain;
+}
+
+.blog-header-sketch__fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 180px;
+  padding: 24px 18px;
+  text-align: center;
+  background: rgba(11, 19, 23, 0.72);
+  border: 1px dashed rgba(232, 190, 103, 0.35);
+}
+
+.blog-header-sketch__fallback-label {
+  font-family: var(--font-condensed);
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-amber);
+}
+
+.blog-header-sketch__fallback-note {
+  margin: 0;
+  max-width: 58ch;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.blog-header-sketch__fallback-note code {
+  color: var(--text-primary);
+  word-break: break-all;
+}
+
 /* Сценарная схема-цепочка акта: свёрнутые блоки-развороты сверху вниз */
 .act-flowchart {
   display: flex;
@@ -3636,6 +3755,20 @@
   .blog-act-description__paragraph {
     font-size: 0.73rem;
     line-height: 1.65;
+  }
+
+  .blog-header-description {
+    padding: 12px 12px;
+  }
+
+  .blog-header-description__text {
+    font-size: 0.74rem;
+    line-height: 1.68;
+  }
+
+  .blog-header-sketch__fallback {
+    min-height: 140px;
+    padding: 18px 12px;
   }
 
   .act-flowchart__toolbar {
