@@ -120,7 +120,7 @@
         },
         {
           "id": "general-vyazel-sprites",
-          "tzUrl": "/tz/blog/characters",
+          "tzUrl": "/tz/blog/characters#vyazel-sprites",
           "title": "Спрайты Вязеля: вздыхающий, обычный, поймавший идею, расстроенный",
           "tag": "art",
           "status": "planned",
@@ -129,7 +129,7 @@
         },
         {
           "id": "general-lu-guang-sprites",
-          "tzUrl": "/tz/blog/characters",
+          "tzUrl": "/tz/blog/characters#lu-guang-sprites",
           "title": "Спрайты Лу Гуана: обычный, задумчивый, вздыхающий/недовольный",
           "tag": "art",
           "status": "planned",
@@ -138,7 +138,7 @@
         },
         {
           "id": "general-cheng-xiaoshi-sprites",
-          "tzUrl": "/tz/blog/characters",
+          "tzUrl": "/tz/blog/characters#cheng-xiaoshi-sprites",
           "title": "Спрайты Чэн Сяоши: обычный, заинтересованный, смахивающий слезу, радостный",
           "tag": "art",
           "status": "planned",
@@ -147,7 +147,7 @@
         },
         {
           "id": "general-ancestor-sprites",
-          "tzUrl": "/tz/blog/characters",
+          "tzUrl": "/tz/blog/characters#ancestor-sprites",
           "title": "Спрайты предка Вязеля (СКОРО)",
           "tag": "art",
           "status": "planned",
@@ -181,7 +181,7 @@
       "works": [
         {
           "id": "header-ancestor-sprite",
-          "tzUrl": "/tz/blog/header",
+          "tzUrl": "/tz/blog/characters#ancestor-sprites",
           "title": "Спрайт предка Вязеля",
           "tag": "art",
           "status": "planned",
@@ -190,7 +190,7 @@
         },
         {
           "id": "header-vyazel-sprite",
-          "tzUrl": "/tz/blog/header",
+          "tzUrl": "/tz/blog/characters#vyazel-sprites",
           "title": "Спрайт Вязеля",
           "tag": "art",
           "status": "planned",
