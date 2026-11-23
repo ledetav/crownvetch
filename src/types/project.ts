@@ -364,6 +364,14 @@ export type BlogActFlowNode =
       columns: BlogActBranchColumn[];
     };
 
+/** Отдельная пронумерованная часть текстового описания (пересказа) акта */
+export interface BlogActDescriptionPart {
+  /** Порядковый номер части (например, «1», «2», «3») */
+  index: string;
+  /** Абзацы текста внутри этой части */
+  paragraphs: string[];
+}
+
 /** Описание отдельного акта во внутреннем меню раздела «Акты» */
 export interface BlogActItem {
   /** Системный идентификатор акта */
@@ -378,6 +386,8 @@ export interface BlogActItem {
   comingSoon?: boolean;
   /** Краткое пояснение или заглушка до наполнения сцен ТЗ */
   summary: string;
+  /** Пронумерованное текстовое описание событий акта (если добавлено) */
+  descriptionParts?: BlogActDescriptionPart[];
   /** Сценарная цепочка-схема акта из блоков-разворотов (если уже расписана) */
   flow?: BlogActFlowNode[];
 }

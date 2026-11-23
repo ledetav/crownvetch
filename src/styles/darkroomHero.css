@@ -1858,6 +1858,50 @@
   color: var(--text-secondary);
 }
 
+/* Внутреннее текстовое описание (пересказ) акта по пронумерованным частям */
+.blog-act-description {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.blog-act-description__item {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 14px;
+  padding: 16px 18px;
+  background: rgba(18, 24, 27, 0.78);
+  border: 1px solid rgba(234, 226, 208, 0.14);
+  border-left: 3px solid rgba(232, 190, 103, 0.75);
+}
+
+.blog-act-description__index {
+  font-family: var(--font-condensed);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+  color: var(--accent-amber);
+}
+
+.blog-act-description__content {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.blog-act-description__paragraph {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(0.76rem, 0.84vw, 0.83rem);
+  line-height: 1.72;
+  color: var(--text-primary);
+}
+
 /* Сценарная схема-цепочка акта: свёрнутые блоки-развороты сверху вниз */
 .act-flowchart {
   display: flex;
@@ -3559,6 +3603,39 @@
 
   .blog-acts-editorial-note__text {
     font-size: 0.72rem;
+  }
+
+  .blog-act-subnav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .blog-act-subnav .blog-section-nav__item {
+    justify-content: center;
+    padding: 5px 8px;
+    font-size: 0.72rem;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .blog-act-description {
+    gap: 10px;
+  }
+
+  .blog-act-description__item {
+    grid-template-columns: 24px minmax(0, 1fr);
+    gap: 10px;
+    padding: 12px 12px;
+  }
+
+  .blog-act-description__index {
+    font-size: 1rem;
+  }
+
+  .blog-act-description__paragraph {
+    font-size: 0.73rem;
+    line-height: 1.65;
   }
 
   .act-flowchart__toolbar {
