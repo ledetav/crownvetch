@@ -1724,9 +1724,13 @@
   outline-offset: -2px;
 }
 
-/* Портретный формат карточек для переиспользуемой галереи референсов персонажей */
+/* Портретный формат карточек для переиспользуемой галереи референсов персонажей (без обрезки полноростовых листов) */
 .blog-guide-refs--portrait .blog-guide-ref__trigger {
   aspect-ratio: 4 / 5;
+}
+
+.blog-guide-refs--portrait .blog-guide-ref__img {
+  object-fit: contain;
 }
 
 .blog-guide-ref__img {
@@ -2083,6 +2087,10 @@
 
 .blog-character-design__refs {
   padding-top: 0;
+}
+
+.blog-character-design__refs--wide .blog-guide-refs__grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .blog-character-design__sketch .blog-header-sketch__img {
@@ -4122,7 +4130,8 @@
     font-size: 0.75rem;
   }
 
-  .blog-guide-refs__grid {
+  .blog-guide-refs__grid,
+  .blog-character-design__refs--wide .blog-guide-refs__grid {
     grid-template-columns: 1fr;
     gap: 10px;
   }

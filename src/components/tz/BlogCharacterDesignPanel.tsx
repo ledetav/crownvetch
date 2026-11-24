@@ -100,7 +100,9 @@ export function BlogCharacterDesignPanel({
             ariaLabel={`Референсы — ${heading}`}
             items={references}
             aspect="portrait"
-            className="blog-character-design__refs"
+            className={`blog-character-design__refs ${
+              !isSplitLayout && references.length >= 3 ? 'blog-character-design__refs--wide' : ''
+            }`}
           />
         )}
       </div>
