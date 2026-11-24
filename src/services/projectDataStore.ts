@@ -7,6 +7,7 @@ import tzBlogCharactersData from '../data/tzBlogCharacters.json';
 import tzBlogData from '../data/tzBlog.json';
 import tzBlogHeaderData from '../data/tzBlogHeader.json';
 import tzBlogOverviewData from '../data/tzBlogOverview.json';
+import tzBlogPaletteData from '../data/tzBlogPalette.json';
 import tzHeroData from '../data/tzHero.json';
 import tzOwnerData from '../data/tzOwner.json';
 import type {
@@ -15,6 +16,7 @@ import type {
   TzBlogDataset,
   TzBlogHeaderDataset,
   TzBlogOverviewDataset,
+  TzBlogPaletteDataset,
   TzHeroDataset,
   TzOwnerDataset,
 } from '../types/project';
@@ -77,6 +79,15 @@ export function getTzBlogHeaderDataset(): TzBlogHeaderDataset {
  */
 export function getTzBlogCharactersDataset(): TzBlogCharactersDataset {
   return tzBlogCharactersData as unknown as TzBlogCharactersDataset;
+}
+
+/**
+ * Возвращает конфигурацию вкладки «Палитра» раздела «О блоге»
+ * (примечание с подписью и список палеток с HEX-кодами оттенков).
+ * @returns Набор данных из tzBlogPalette.json.
+ */
+export function getTzBlogPaletteDataset(): TzBlogPaletteDataset {
+  return tzBlogPaletteData as unknown as TzBlogPaletteDataset;
 }
 
 
