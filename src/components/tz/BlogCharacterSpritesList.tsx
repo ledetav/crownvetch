@@ -5,6 +5,7 @@
  */
 import { useEffect, useState } from 'react';
 import type { BlogCharacterSpriteItem } from '../../types/project';
+import { resolveAssetUrl } from '../../utils/assetUrl';
 
 /** Входные свойства списка спрайтов персонажа */
 interface BlogCharacterSpritesListProps {
@@ -77,7 +78,7 @@ export function BlogCharacterSpritesList({
                     aria-label={`Открыть скетч спрайта «${sprite.title}» в полном размере`}
                   >
                     <img
-                      src={sprite.sketchSrc}
+                      src={resolveAssetUrl(sprite.sketchSrc)}
                       alt={sprite.sketchAlt ?? `Скетч спрайта «${sprite.title}»`}
                       className="blog-sprite-card__sketch-img"
                       loading="lazy"
@@ -118,7 +119,7 @@ export function BlogCharacterSpritesList({
               </button>
             </div>
             <img
-              src={lightboxSprite.sketchSrc}
+              src={resolveAssetUrl(lightboxSprite.sketchSrc)}
               alt={lightboxSprite.sketchAlt ?? `Скетч спрайта «${lightboxSprite.title}»`}
               className="blog-guide-lightbox__img"
             />
