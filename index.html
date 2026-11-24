@@ -1,15 +1,49 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PARADOX // DARKROOM — CROWNVETCH</title>
+    <title>Crownvetch — Darkroom / Script</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=DM+Serif+Display&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&family=Oswald:wght@500;600;700&family=Playfair+Display:wght@800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500;1,600&family=Playfair+Display:ital,wght@0,500;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
       rel="stylesheet"
     />
+    <!--
+      Восстанавливает полный путь (pathname + search + hash) после редиректа со страницы 404.html на GitHub Pages
+      и доскролливает к целевому элементу по якорю после загрузки DOM/ресурсов.
+    -->
+    <script>
+      (function () {
+        var SPA_REDIRECT_KEY = 'crownvetch_spa_redirect';
+
+        // Извлекает сохранённый путь из sessionStorage до монтирования клиентского роутера
+        var pendingRedirect = sessionStorage.getItem(SPA_REDIRECT_KEY);
+        if (pendingRedirect) {
+          sessionStorage.removeItem(SPA_REDIRECT_KEY);
+          window.history.replaceState(null, '', pendingRedirect);
+        }
+
+        // Прокручивает страницу к элементу с id, соответствующему текущему hash-якорю
+        function scrollToAnchorHash() {
+          var currentHash = window.location.hash;
+          if (!currentHash || currentHash.length < 2) {
+            return;
+          }
+
+          var targetId = decodeURIComponent(currentHash.slice(1));
+          var targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView();
+          }
+        }
+
+        // Повторная проверка на load нужна для элементов, размер и позиция которых уточняются после загрузки медиа/шрифтов
+        window.addEventListener('DOMContentLoaded', scrollToAnchorHash);
+        window.addEventListener('load', scrollToAnchorHash);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
