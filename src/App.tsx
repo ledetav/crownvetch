@@ -8,7 +8,7 @@ import { BlogActsSection } from './components/tz/BlogActsSection';
 import { BlogCharactersSection } from './components/tz/BlogCharactersSection';
 import { BlogHeaderSection } from './components/tz/BlogHeaderSection';
 import { BlogOverviewSection } from './components/tz/BlogOverviewSection';
-import { BlogSection } from './components/tz/BlogSection';
+import { BlogPaletteSection } from './components/tz/BlogPaletteSection';
 import { CharacterSection } from './components/tz/CharacterSection';
 import { OwnerSection } from './components/tz/OwnerSection';
 import { BlogPage } from './pages/BlogPage';
@@ -46,7 +46,7 @@ export function App() {
               <Route index element={<Navigate to="/tz/blog/overview" replace />} />
               <Route path="overview" element={<BlogOverviewSection />} />
               <Route path="characters" element={<BlogCharactersSection />} />
-              <Route path="palette" element={<BlogSection sectionId="palette" title="Палитра" />} />
+              <Route path="palette" element={<BlogPaletteSection />} />
               <Route path="header" element={<BlogHeaderSection />} />
               <Route path="acts" element={<BlogActsSection />} />
             </Route>
