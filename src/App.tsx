@@ -5,6 +5,7 @@
  */
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { BlogActsSection } from './components/tz/BlogActsSection';
+import { BlogCharactersSection } from './components/tz/BlogCharactersSection';
 import { BlogHeaderSection } from './components/tz/BlogHeaderSection';
 import { BlogOverviewSection } from './components/tz/BlogOverviewSection';
 import { BlogSection } from './components/tz/BlogSection';
@@ -37,10 +38,7 @@ export function App() {
             <Route path="/tz/blog" element={<BlogPage />}>
               <Route index element={<Navigate to="/tz/blog/overview" replace />} />
               <Route path="overview" element={<BlogOverviewSection />} />
-              <Route
-                path="characters"
-                element={<BlogSection sectionId="characters" title="Персонажи" />}
-              />
+              <Route path="characters" element={<BlogCharactersSection />} />
               <Route path="palette" element={<BlogSection sectionId="palette" title="Палитра" />} />
               <Route path="header" element={<BlogHeaderSection />} />
               <Route path="acts" element={<BlogActsSection />} />

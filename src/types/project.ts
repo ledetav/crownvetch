@@ -455,6 +455,67 @@ export interface TzBlogHeaderDataset {
   sketch: BlogHeaderSketch;
 }
 
+/** Идентификаторы четырёх персонажей во внутреннем меню раздела «О блоге → Персонажи» */
+export type BlogCharacterId = 'vyazel' | 'ancestor' | 'lu-guang' | 'cheng-xiaoshi';
+
+/** Идентификаторы внутренних вкладок внутри карточки каждого персонажа */
+export type BlogCharacterSubTabId = 'sprites' | 'design';
+
+/** Описание одного спрайта персонажа (эмоция/поза, текстовое ТЗ и необязательный скетч) */
+export interface BlogCharacterSpriteItem {
+  /** Уникальный идентификатор спрайта */
+  id: string;
+  /** Название эмоции или состояния спрайта (например, «Вздыхающий») */
+  title: string;
+  /** Текстовое описание позы, мимики и деталей спрайта (если уже составлено) */
+  description?: string;
+  /** Необязательный путь к прикреплённому скетчу в public/assets/... */
+  sketchSrc?: string;
+  /** Описание скетча для атрибута alt */
+  sketchAlt?: string;
+}
+
+/** Контент отдельной внутренней вкладки персонажа («Спрайты» или «Дизайн и референсы») */
+export interface BlogCharacterSubTabContent {
+  /** Подпись вкладки во внутреннем подменю персонажа */
+  label: string;
+  /** Заголовок рабочей области выбранной вкладки */
+  heading: string;
+  /** Текст-заготовка или описание вкладки до наполнения материалами */
+  placeholder: string;
+  /** Необязательное общее примечание к вкладке (например, «Все скетчи будут позже.») */
+  note?: string;
+  /** Структурированный список спрайтов персонажа (для вкладки «Спрайты») */
+  sprites?: BlogCharacterSpriteItem[];
+}
+
+/** Профиль одного персонажа в разделе «О блоге → Персонажи» */
+export interface BlogCharacterProfile {
+  /** Системный идентификатор персонажа */
+  id: BlogCharacterId;
+  /** Базовый якорь адресной строки (#vyazel, #ancestor, #lu-guang, #cheng-xiaoshi) */
+  anchor: string;
+  /** Подпись пункта в верхнем меню персонажей */
+  label: string;
+  /** Полный заголовок панели персонажа */
+  heading: string;
+  /** Краткая вводная строка под заголовком персонажа */
+  summary: string;
+  /** Содержимое внутренних вкладок персонажа («Спрайты» и «Дизайн и референсы») */
+  tabs: Record<BlogCharacterSubTabId, BlogCharacterSubTabContent>;
+}
+
+/** Полная конфигурация раздела «О блоге → Персонажи» из tzBlogCharacters.json */
+export interface TzBlogCharactersDataset {
+  /** Главный акцентный заголовок страницы */
+  primaryWord: string;
+  /** Вторичный приглушённый подзаголовок */
+  secondaryWord: string;
+  /** Упорядоченный список всех четырёх персонажей */
+  characters: BlogCharacterProfile[];
+}
+
+
 
 
 
