@@ -22,7 +22,23 @@
         var pendingRedirect = sessionStorage.getItem(SPA_REDIRECT_KEY);
         if (pendingRedirect) {
           sessionStorage.removeItem(SPA_REDIRECT_KEY);
-          window.history.replaceState(null, '', pendingRedirect);
+          // Восстанавливаем только безопасный путь текущего origin, совпадающий с текущей базой приложения
+          if (pendingRedirect.charAt(0) === '/' && pendingRedirect.charAt(1) !== '/') {
+            var currentBase = window.location.pathname.endsWith('/')
+              ? window.location.pathname
+              : window.location.pathname + '/';
+            var baseWithoutSlash = currentBase === '/' ? '' : currentBase.slice(0, -1);
+            var isMatchingBase =
+              currentBase === '/' ||
+              pendingRedirect === baseWithoutSlash ||
+              pendingRedirect.indexOf(currentBase) === 0 ||
+              pendingRedirect.indexOf(baseWithoutSlash + '?') === 0 ||
+              pendingRedirect.indexOf(baseWithoutSlash + '#') === 0;
+
+            if (isMatchingBase) {
+              window.history.replaceState(null, '', pendingRedirect);
+            }
+          }
         }
 
         // Прокручивает страницу к элементу с id, соответствующему текущему hash-якорю
