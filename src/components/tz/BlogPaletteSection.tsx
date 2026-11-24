@@ -151,11 +151,9 @@ export function BlogPaletteSection() {
                     />
                     <span className="blog-palette-swatch__footer">
                       <span className="blog-palette-swatch__icon" aria-hidden="true">
-                        {isCopied ? <Check size={13} /> : <Copy size={13} />}
+                        {isCopied ? <Check size={11} /> : <Copy size={11} />}
                       </span>
-                      <span className="blog-palette-swatch__hex">
-                        {isCopied ? 'Скопировано' : normalizedHex}
-                      </span>
+                      <span className="blog-palette-swatch__hex">{normalizedHex}</span>
                     </span>
                   </button>
                 );
