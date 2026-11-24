@@ -475,6 +475,30 @@ export interface BlogCharacterSpriteItem {
   sketchAlt?: string;
 }
 
+/** Данные скетча примерного образа персонажа во вкладке «Дизайн и референсы» */
+export interface BlogCharacterDesignSketch {
+  /** Заголовок блока скетча (например, «Скетч примерного образа») */
+  title: string;
+  /** Необязательная подсказка справа от заголовка */
+  hint?: string;
+  /** Локальный путь к файлу скетча в public/assets/... */
+  src: string;
+  /** Альтернативный текст изображения для атрибута alt */
+  alt: string;
+}
+
+/** Материалы вкладки «Дизайн и референсы» персонажа (скетч образа и подборка референсов) */
+export interface BlogCharacterDesignContent {
+  /** Скетч примерного образа персонажа */
+  sketch?: BlogCharacterDesignSketch;
+  /** Необязательный заголовок блока референсов (по умолчанию «Референсы») */
+  referencesTitle?: string;
+  /** Необязательная подсказка справа от заголовка блока референсов */
+  referencesHint?: string;
+  /** Подборка визуальных референсов (одежда, ткани, аксессуары, детали) */
+  references?: BlogWorkGuideReference[];
+}
+
 /** Контент отдельной внутренней вкладки персонажа («Спрайты» или «Дизайн и референсы») */
 export interface BlogCharacterSubTabContent {
   /** Подпись вкладки во внутреннем подменю персонажа */
@@ -487,6 +511,8 @@ export interface BlogCharacterSubTabContent {
   note?: string;
   /** Структурированный список спрайтов персонажа (для вкладки «Спрайты») */
   sprites?: BlogCharacterSpriteItem[];
+  /** Визуальные материалы вкладки «Дизайн и референсы» (скетч образа и референсы) */
+  design?: BlogCharacterDesignContent;
 }
 
 /** Профиль одного персонажа в разделе «О блоге → Персонажи» */

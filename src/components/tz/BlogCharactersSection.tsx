@@ -13,6 +13,8 @@ import type {
   BlogCharacterProfile,
   BlogCharacterSubTabId,
 } from '../../types/project';
+import { resolveAssetUrl } from '../../utils/assetUrl';
+import { BlogCharacterDesignPanel } from './BlogCharacterDesignPanel';
 import { BlogCharacterSpritesList } from './BlogCharacterSpritesList';
 
 /** Упорядоченный список внутренних вкладок внутри карточки персонажа */
@@ -88,6 +90,18 @@ export function BlogCharactersSection() {
     setActiveSubTabId(target.subTabId);
   }, [hash, charactersData.characters]);
 
+  // Предзагружаем скетчи примерных образов персонажей, чтобы переключение между героями было мгновенным
+  useEffect(() => {
+    charactersData.characters.forEach((character) => {
+      const sketchSrc = character.tabs.design.design?.sketch?.src;
+      if (!sketchSrc) {
+        return;
+      }
+      const preloadImg = new window.Image();
+      preloadImg.src = resolveAssetUrl(sketchSrc);
+    });
+  }, [charactersData.characters]);
+
   const activeCharacter =
     charactersData.characters.find((item) => item.id === activeCharacterId) ??
     charactersData.characters[0];
@@ -110,6 +124,11 @@ export function BlogCharactersSection() {
 
   const activeSubTab = activeCharacter.tabs[activeSubTabId];
   const hasSprites = Boolean(activeSubTab.sprites && activeSubTab.sprites.length > 0);
+  const hasDesignMaterials = Boolean(
+    activeSubTab.design &&
+      (activeSubTab.design.sketch?.src ||
+        (activeSubTab.design.references && activeSubTab.design.references.length > 0)),
+  );
 
   return (
     <section
@@ -207,9 +226,17 @@ export function BlogCharactersSection() {
           <div id={`${activeCharacter.id}-${activeSubTabId}`} role="tabpanel">
             {hasSprites && activeSubTab.sprites ? (
               <BlogCharacterSpritesList
+                key={`${activeCharacter.id}-${activeSubTabId}`}
                 heading={activeSubTab.heading}
                 note={activeSubTab.note}
                 sprites={activeSubTab.sprites}
+              />
+            ) : hasDesignMaterials && activeSubTab.design ? (
+              <BlogCharacterDesignPanel
+                key={`${activeCharacter.id}-${activeSubTabId}`}
+                heading={activeSubTab.heading}
+                note={activeSubTab.note}
+                design={activeSubTab.design}
               />
             ) : (
               <article
