@@ -83,6 +83,7 @@ export function BlogCharacterDesignPanel({
                 aria-label={`Открыть «${design.sketch.title}» в полном размере`}
               >
                 <img
+                  key={resolvedSketchSrc}
                   src={resolvedSketchSrc}
                   alt={design.sketch.alt}
                   className="blog-header-sketch__img"
@@ -131,6 +132,7 @@ export function BlogCharacterDesignPanel({
               </button>
             </div>
             <img
+              key={resolvedSketchSrc}
               src={resolvedSketchSrc}
               alt={design.sketch.alt}
               className="blog-guide-lightbox__img"
