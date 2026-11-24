@@ -541,6 +541,38 @@ export interface TzBlogCharactersDataset {
   characters: BlogCharacterProfile[];
 }
 
+/** Примечание редакции на странице «О блоге → Палитра» с авторской подписью */
+export interface BlogPaletteEditorialNote {
+  /** Короткий заголовок блока примечания */
+  label: string;
+  /** Основной текст примечания о палитре блога, фонов и образа персонажа */
+  text: string;
+  /** Подпись автора примечания (например, «— Кифри, Серебряное Древо») */
+  signature: string;
+}
+
+/** Отдельный набор цветов (палетка) в разделе «О блоге → Палитра» */
+export interface BlogPaletteGroup {
+  /** Уникальный идентификатор палетки */
+  id: string;
+  /** Название палетки (например, «Палитра образа Вязеля») */
+  title: string;
+  /** Массив HEX-кодов оттенков, отсортированный от тёмного к светлому */
+  colors: string[];
+}
+
+/** Полная конфигурация раздела «О блоге → Палитра» из tzBlogPalette.json */
+export interface TzBlogPaletteDataset {
+  /** Главный акцентный заголовок страницы */
+  primaryWord: string;
+  /** Вторичный приглушённый подзаголовок */
+  secondaryWord: string;
+  /** Блок примечания о подходе к палитре с подписью автора */
+  editorialNote: BlogPaletteEditorialNote;
+  /** Список цветовых палеток (образ персонажа, при необходимости — фоны) */
+  groups: BlogPaletteGroup[];
+}
+
 
 
 
