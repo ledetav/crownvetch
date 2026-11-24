@@ -13,6 +13,7 @@ import type {
   BlogCharacterProfile,
   BlogCharacterSubTabId,
 } from '../../types/project';
+import { BlogCharacterDesignPanel } from './BlogCharacterDesignPanel';
 import { BlogCharacterSpritesList } from './BlogCharacterSpritesList';
 
 /** Упорядоченный список внутренних вкладок внутри карточки персонажа */
@@ -110,6 +111,11 @@ export function BlogCharactersSection() {
 
   const activeSubTab = activeCharacter.tabs[activeSubTabId];
   const hasSprites = Boolean(activeSubTab.sprites && activeSubTab.sprites.length > 0);
+  const hasDesignMaterials = Boolean(
+    activeSubTab.design &&
+      (activeSubTab.design.sketch?.src ||
+        (activeSubTab.design.references && activeSubTab.design.references.length > 0)),
+  );
 
   return (
     <section
@@ -210,6 +216,12 @@ export function BlogCharactersSection() {
                 heading={activeSubTab.heading}
                 note={activeSubTab.note}
                 sprites={activeSubTab.sprites}
+              />
+            ) : hasDesignMaterials && activeSubTab.design ? (
+              <BlogCharacterDesignPanel
+                heading={activeSubTab.heading}
+                note={activeSubTab.note}
+                design={activeSubTab.design}
               />
             ) : (
               <article
