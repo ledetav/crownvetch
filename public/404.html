@@ -11,16 +11,23 @@
     <script>
       (function () {
         var SPA_REDIRECT_KEY = 'crownvetch_spa_redirect';
-        var PAGES_BASE_PATH = '/crownvetch/';
+        var PAGES_PREFIX = '/crownvetch';
+        var currentPathname = window.location.pathname;
+
+        // Определяет корень приложения: '/crownvetch/' на GitHub Pages или '/' на корневом домене
+        var isPagesSubpath =
+          currentPathname === PAGES_PREFIX ||
+          currentPathname.indexOf(PAGES_PREFIX + '/') === 0;
+        var basePath = isPagesSubpath ? PAGES_PREFIX + '/' : '/';
 
         // Формирует полный целевой адрес с сохранением вложенного маршрута, параметров и якоря
         var targetUrl =
-          window.location.pathname +
+          currentPathname +
           window.location.search +
           window.location.hash;
 
         sessionStorage.setItem(SPA_REDIRECT_KEY, targetUrl);
-        window.location.replace(PAGES_BASE_PATH);
+        window.location.replace(basePath);
       })();
     </script>
   </head>

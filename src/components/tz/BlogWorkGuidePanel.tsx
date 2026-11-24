@@ -11,6 +11,7 @@ import type {
   BlogWorkGuideReference,
   BlogWorkGuideSectionId,
 } from '../../types/project';
+import { resolveAssetUrl } from '../../utils/assetUrl';
 
 /** Входные свойства панели памятки по работе */
 interface BlogWorkGuidePanelProps {
@@ -128,7 +129,7 @@ export function BlogWorkGuidePanel({ guide }: BlogWorkGuidePanelProps) {
                     aria-label={`Открыть референс ${index + 1} в полном размере`}
                   >
                     <img
-                      src={refItem.src}
+                      src={resolveAssetUrl(refItem.src)}
                       alt={refItem.caption}
                       className="blog-guide-ref__img"
                       loading="lazy"
@@ -175,7 +176,7 @@ export function BlogWorkGuidePanel({ guide }: BlogWorkGuidePanelProps) {
               </button>
             </div>
             <img
-              src={activeLightboxRef.src}
+              src={resolveAssetUrl(activeLightboxRef.src)}
               alt={activeLightboxRef.caption}
               className="blog-guide-lightbox__img"
             />

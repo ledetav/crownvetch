@@ -8,6 +8,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getTzBlogHeaderDataset } from '../../services/projectDataStore';
+import { resolveAssetUrl } from '../../utils/assetUrl';
 
 /**
  * Отрисовывает страницу «О блоге → Шапка» с описанием композиции,
@@ -16,6 +17,8 @@ import { getTzBlogHeaderDataset } from '../../services/projectDataStore';
  */
 export function BlogHeaderSection() {
   const headerData = getTzBlogHeaderDataset();
+  // Приводим путь скетча к текущему BASE_URL (для работы в подпапке GitHub Pages)
+  const resolvedSketchSrc = resolveAssetUrl(headerData.sketch.src);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [isSketchUnavailable, setIsSketchUnavailable] = useState(false);
 
@@ -123,7 +126,7 @@ export function BlogHeaderSection() {
                   aria-label="Открыть скетч композиции шапки в полном размере"
                 >
                   <img
-                    src={headerData.sketch.src}
+                    src={resolvedSketchSrc}
                     alt={headerData.sketch.alt}
                     className="blog-header-sketch__img"
                     onError={() => setIsSketchUnavailable(true)}
@@ -159,7 +162,7 @@ export function BlogHeaderSection() {
               </button>
             </div>
             <img
-              src={headerData.sketch.src}
+              src={resolvedSketchSrc}
               alt={headerData.sketch.alt}
               className="blog-guide-lightbox__img"
             />

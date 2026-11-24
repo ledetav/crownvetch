@@ -7,6 +7,7 @@
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { CharacterArtworkItem } from '../../types/project';
+import { resolveAssetUrl } from '../../utils/assetUrl';
 
 /** Интервал автоматического переключения иллюстраций персонажа (10 секунд) */
 const AUTO_SWITCH_INTERVAL_MS = 10000;
@@ -233,14 +234,18 @@ export function DarkroomVisualStage({
   isStageActive = true,
 }: DarkroomVisualStageProps) {
   const resolvedArtworks = useMemo<CharacterArtworkItem[]>(() => {
+    // Преобразуем пути к ассетам с учётом Vite BASE_URL для корректной загрузки на GitHub Pages
     if (artworks && artworks.length > 0) {
-      return artworks;
+      return artworks.map((item) => ({
+        ...item,
+        src: resolveAssetUrl(item.src),
+      }));
     }
 
     return [
       {
         id: 'default-vyazel',
-        src: artworkSrc,
+        src: resolveAssetUrl(artworkSrc),
         downloadName: 'vyazel-original.png',
         alt: altText,
         stylePreset: 'classic-cyan-amber',

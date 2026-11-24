@@ -18,13 +18,20 @@ import { getTzHeroDataset } from './services/projectDataStore';
 
 /**
  * Определяет корневой роутер приложения crownvetch.
+ * Подставляет Vite BASE_URL в качестве basename, чтобы маршруты и ссылки
+ * сохраняли базовый префикс на GitHub Pages ('/crownvetch') и работали в корне ('/').
  * @returns Корневое дерево маршрутизации React.
  */
 export function App() {
   const heroData = getTzHeroDataset();
+  // Нормализуем BASE_URL: для корня оставляем '/', для подпапки убираем завершающий слэш ('/crownvetch')
+  const routerBasename =
+    import.meta.env.BASE_URL === '/'
+      ? '/'
+      : import.meta.env.BASE_URL.replace(/\/+$/, '');
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={routerBasename}>
       <div className="app-shell">
         <main className="app-content">
           <Routes>
