@@ -12,22 +12,16 @@ import { useState } from 'react';
 import type {
   BlogReadinessSection,
   BlogReadinessSectionId,
-  BlogWorkStatus,
   BlogWorkTag,
 } from '../../types/project';
+import {
+  BLOG_WORK_STATUS_LABELS,
+  BLOG_WORK_TAG_LABELS,
+  type BlogTagFilterValue,
+} from '../../utils/blogReadinessLabels';
 import { BlogCompactLink } from './BlogCompactLink';
 import { BlogReadinessSidebar } from './BlogReadinessSidebar';
-import {
-  BLOG_WORK_TAG_LABELS,
-  BlogReadinessTagFilter,
-  type BlogTagFilterValue,
-} from './BlogReadinessTagFilter';
-
-const STATUS_LABELS: Record<BlogWorkStatus, string> = {
-  done: 'Готово',
-  in_progress: 'В процессе',
-  planned: 'В планах',
-};
+import { BlogReadinessTagFilter } from './BlogReadinessTagFilter';
 
 /** Входные свойства секции таблицы готовности */
 interface BlogReadinessTableProps {
@@ -212,7 +206,7 @@ export function BlogReadinessTable({ heading, note, sections }: BlogReadinessTab
                           <span
                             className={`blog-status-label blog-status-label--${work.status}`}
                           >
-                            {STATUS_LABELS[work.status]}
+                            {BLOG_WORK_STATUS_LABELS[work.status]}
                           </span>
                         </td>
 
