@@ -9,6 +9,7 @@
  */
 import type { BlogReadinessSection } from '../../types/project';
 import { calculateDateCountdown, pluralizeDays } from '../../utils/dateCountdown';
+import { pluralizeRu } from '../../utils/pluralizeRu';
 
 /** Входные свойства общей сводки готовности блога */
 interface BlogGlobalSummaryProps {
@@ -16,29 +17,6 @@ interface BlogGlobalSummaryProps {
   birthdayDate: string;
   /** Все разделы таблицы готовности из tzBlogOverview.json */
   sections: BlogReadinessSection[];
-}
-
-/**
- * Склоняет русское существительное или словосочетание по числительному.
- * @param count Неотрицательное целое число.
- * @param one Форма для 1 (например, «арт»).
- * @param few Форма для 2–4 (например, «арта»).
- * @param many Форма для 5–20 и 0 (например, «артов»).
- * @returns Корректная словоформа.
- */
-function pluralizeRu(count: number, one: string, few: string, many: string): string {
-  const abs = Math.abs(count) % 100;
-  const lastDigit = abs % 10;
-  if (abs >= 11 && abs <= 19) {
-    return many;
-  }
-  if (lastDigit === 1) {
-    return one;
-  }
-  if (lastDigit >= 2 && lastDigit <= 4) {
-    return few;
-  }
-  return many;
 }
 
 /**

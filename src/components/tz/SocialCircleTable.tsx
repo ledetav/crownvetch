@@ -6,6 +6,7 @@
  */
 import { useEffect, useRef, useState } from 'react';
 import type { OwnerContactGroup } from '../../types/project';
+import { copyTextToClipboard } from '../../utils/clipboard';
 import { ExternalArrowIcon } from '../darkroom/ExternalResourceMenu';
 
 /** Входные свойства таблицы круга общения */
@@ -39,31 +40,6 @@ function CopyGlyphIcon() {
 }
 
 /**
- * Копирует строку в буфер обмена с резервным способом для ограниченных окружений.
- * @param text Строка ID для копирования.
- */
-async function copyTextSafe(text: string): Promise<void> {
-  if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
-    try {
-      await navigator.clipboard.writeText(text);
-      return;
-    } catch {
-      // Переходим к резервному копированию через временный элемент textarea
-    }
-  }
-
-  const textarea = document.createElement('textarea');
-  textarea.value = text;
-  textarea.setAttribute('readonly', 'true');
-  textarea.style.position = 'fixed';
-  textarea.style.opacity = '0';
-  document.body.appendChild(textarea);
-  textarea.select();
-  document.execCommand('copy');
-  document.body.removeChild(textarea);
-}
-
-/**
  * Отрисовывает правую колонку секции «О владельце» с таблицами контактов и комментариями.
  * @param props Заголовок, группы контактов и нижняя приписка.
  * @returns JSX-разметка реестра круга общения.
@@ -82,7 +58,7 @@ export function SocialCircleTable({ heading, groups, closingComment }: SocialCir
 
   /** Фиксирует скопированный ID и сбрасывает визуальный статус через 1.8 секунды */
   const handleCopyId = async (value: string) => {
-    await copyTextSafe(value);
+    await copyTextToClipboard(value);
     setCopiedId(value);
 
     if (resetTimerRef.current !== null) {

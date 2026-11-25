@@ -3,9 +3,10 @@
  * Используется в «Памятке по работе» (фоны/катсцены, формат 16:9) и во вкладке
  * «Дизайн и референсы» персонажей (референсы одежды и деталей, вертикальный формат 4:5).
  */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import type { BlogWorkGuideReference } from '../../types/project';
 import { resolveAssetUrl } from '../../utils/assetUrl';
+import { BlogImageLightbox } from './BlogImageLightbox';
 
 /** Пропорции карточек в сетке галереи референсов */
 export type BlogReferenceGalleryAspect = 'landscape' | 'portrait';
@@ -28,8 +29,7 @@ interface BlogReferenceGalleryProps {
 
 /**
  * Отрисовывает сетку карточек-референсов (.blog-guide-refs) с увеличением
- * выбранного изображения в полноэкранном лайтбоксе (.blog-guide-lightbox)
- * и закрытием по клику на фон или клавише Escape.
+ * выбранного изображения в полноэкранном лайтбоксе (BlogImageLightbox).
  * @param props Заголовок, подсказка, массив референсов и пропорции карточек.
  * @returns JSX-разметка галереи референсов или null при пустом списке.
  */
@@ -42,20 +42,6 @@ export function BlogReferenceGallery({
   className = '',
 }: BlogReferenceGalleryProps) {
   const [activeLightboxItem, setActiveLightboxItem] = useState<BlogWorkGuideReference | null>(null);
-
-  // Закрываем полноэкранный просмотр референса по клавише Escape
-  useEffect(() => {
-    if (!activeLightboxItem) {
-      return;
-    }
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setActiveLightboxItem(null);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeLightboxItem]);
 
   if (items.length === 0) {
     return null;
@@ -93,37 +79,13 @@ export function BlogReferenceGallery({
         </div>
       </div>
 
-      {/* Полноэкранный просмотр выбранного референса */}
-      {activeLightboxItem && (
-        <div
-          className="blog-guide-lightbox"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Просмотр референса в полном размере"
-          onClick={() => setActiveLightboxItem(null)}
-        >
-          <div
-            className="blog-guide-lightbox__content"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div className="blog-guide-lightbox__bar">
-              <button
-                type="button"
-                className="blog-guide-lightbox__close"
-                onClick={() => setActiveLightboxItem(null)}
-                aria-label="Закрыть просмотр референса"
-              >
-                Закрыть ×
-              </button>
-            </div>
-            <img
-              src={resolveAssetUrl(activeLightboxItem.src)}
-              alt={activeLightboxItem.caption}
-              className="blog-guide-lightbox__img"
-            />
-          </div>
-        </div>
-      )}
+      <BlogImageLightbox
+        src={activeLightboxItem?.src}
+        alt={activeLightboxItem?.caption ?? ''}
+        dialogAriaLabel="Просмотр референса в полном размере"
+        closeAriaLabel="Закрыть просмотр референса"
+        onClose={() => setActiveLightboxItem(null)}
+      />
     </>
   );
 }

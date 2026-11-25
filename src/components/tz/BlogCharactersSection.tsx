@@ -14,54 +14,12 @@ import type {
   BlogCharacterSubTabId,
 } from '../../types/project';
 import { resolveAssetUrl } from '../../utils/assetUrl';
+import {
+  CHARACTER_SUBTAB_ORDER,
+  resolveCharacterTargetFromHash,
+} from '../../utils/blogCharacterHash';
 import { BlogCharacterDesignPanel } from './BlogCharacterDesignPanel';
 import { BlogCharacterSpritesList } from './BlogCharacterSpritesList';
-
-/** Упорядоченный список внутренних вкладок внутри карточки персонажа */
-const CHARACTER_SUBTAB_ORDER: BlogCharacterSubTabId[] = ['sprites', 'design'];
-
-/** Результат разбора хэша URL: активный персонаж и выбранная внутренняя вкладка */
-interface ResolvedCharacterHashTarget {
-  /** Системный идентификатор выбранного персонажа */
-  characterId: BlogCharacterId;
-  /** Активная внутренняя вкладка («sprites» или «design») */
-  subTabId: BlogCharacterSubTabId;
-}
-
-/**
- * Разбирает хэш URL вида #<characterId>, #<characterId>-sprites или #<characterId>-design
- * и определяет целевого персонажа вместе с нужной внутренней вкладкой.
- * @param hash Текущий хэш адресной строки из React Router.
- * @param characters Полный список персонажей из JSON-хранилища.
- * @returns Идентификатор персонажа и вкладки (по умолчанию первый персонаж и «Спрайты»).
- */
-function resolveCharacterTargetFromHash(
-  hash: string,
-  characters: BlogCharacterProfile[],
-): ResolvedCharacterHashTarget {
-  const cleanHash = hash.replace(/^#/, '').trim();
-  const fallbackCharacterId = characters[0]?.id ?? 'vyazel';
-
-  if (!cleanHash) {
-    return { characterId: fallbackCharacterId, subTabId: 'sprites' };
-  }
-
-  for (const character of characters) {
-    // 1. Точное совпадение по базовому якорю персонажа (#vyazel, #ancestor и т. д.)
-    if (cleanHash === character.id || hash === character.anchor) {
-      return { characterId: character.id, subTabId: 'sprites' };
-    }
-
-    // 2. Совпадение по конкретной внутренней вкладке (#vyazel-sprites, #ancestor-design)
-    for (const subTabId of CHARACTER_SUBTAB_ORDER) {
-      if (cleanHash === `${character.id}-${subTabId}`) {
-        return { characterId: character.id, subTabId };
-      }
-    }
-  }
-
-  return { characterId: fallbackCharacterId, subTabId: 'sprites' };
-}
 
 /**
  * Отрисовывает раздел «О блоге → Персонажи» с двухуровневой навигацией:

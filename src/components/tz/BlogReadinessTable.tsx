@@ -9,42 +9,19 @@
  * таблицы перестраиваются в вертикальные карточки через атрибуты data-label.
  */
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import type {
   BlogReadinessSection,
   BlogReadinessSectionId,
-  BlogWorkStatus,
   BlogWorkTag,
 } from '../../types/project';
+import {
+  BLOG_WORK_STATUS_LABELS,
+  BLOG_WORK_TAG_LABELS,
+  type BlogTagFilterValue,
+} from '../../utils/blogReadinessLabels';
+import { BlogCompactLink } from './BlogCompactLink';
 import { BlogReadinessSidebar } from './BlogReadinessSidebar';
-
-/** Возможные значения фильтра таблицы готовности по тегу */
-type BlogTagFilterValue = BlogWorkTag | 'all';
-
-const STATUS_LABELS: Record<BlogWorkStatus, string> = {
-  done: 'Готово',
-  in_progress: 'В процессе',
-  planned: 'В планах',
-};
-
-const TAG_LABELS: Record<BlogWorkTag, string> = {
-  art: 'Арты',
-  text: 'Тексты',
-  dialogue: 'Реплики',
-  design: 'Оформление',
-  code: 'Код',
-  other: 'Другое',
-};
-
-const TAG_FILTER_OPTIONS: ReadonlyArray<{ id: BlogTagFilterValue; label: string }> = [
-  { id: 'all', label: 'Все' },
-  { id: 'art', label: TAG_LABELS.art },
-  { id: 'text', label: TAG_LABELS.text },
-  { id: 'dialogue', label: TAG_LABELS.dialogue },
-  { id: 'design', label: TAG_LABELS.design },
-  { id: 'code', label: TAG_LABELS.code },
-  { id: 'other', label: TAG_LABELS.other },
-];
+import { BlogReadinessTagFilter } from './BlogReadinessTagFilter';
 
 /** Входные свойства секции таблицы готовности */
 interface BlogReadinessTableProps {
@@ -54,58 +31,6 @@ interface BlogReadinessTableProps {
   note: string;
   /** Массив разделов готовности из tzBlogOverview.json */
   sections: BlogReadinessSection[];
-}
-
-/**
- * Рендерит компактную ссылку на ТЗ или на готовую работу (внутреннюю или внешнюю),
- * либо прочерк «—», если ссылка в JSON не указана.
- * @param url Целевой URL из JSON.
- * @param label Короткая подпись на кнопке-ссылке.
- * @param titleText Подсказка для атрибута title.
- * @param emptyAriaLabel Доступная подпись при отсутствии ссылки.
- * @param variant Визуальный вариант ссылки ('tz' | 'result').
- * @returns JSX-разметка ссылки или заглушки «—».
- */
-function renderCompactLink(
-  url: string | undefined,
-  label: string,
-  titleText: string,
-  emptyAriaLabel: string,
-  variant: 'tz' | 'result',
-) {
-  const trimmedUrl = url?.trim() ?? '';
-  if (!trimmedUrl) {
-    return (
-      <span className="blog-tz-empty" aria-label={emptyAriaLabel}>
-        —
-      </span>
-    );
-  }
-
-  const linkClass = variant === 'result' ? 'blog-tz-link blog-tz-link--result' : 'blog-tz-link';
-  const isInternalRoute = trimmedUrl.startsWith('/');
-
-  if (isInternalRoute) {
-    return (
-      <Link to={trimmedUrl} className={linkClass} title={titleText}>
-        <span>{label}</span>
-        <span aria-hidden="true">↗</span>
-      </Link>
-    );
-  }
-
-  return (
-    <a
-      href={trimmedUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={linkClass}
-      title={titleText}
-    >
-      <span>{label}</span>
-      <span aria-hidden="true">↗</span>
-    </a>
-  );
 }
 
 /**
@@ -203,33 +128,12 @@ export function BlogReadinessTable({ heading, note, sections }: BlogReadinessTab
             </div>
           ) : (
             <>
-              {/* Панель фильтрации строк текущей таблицы по тегу */}
-              <div className="blog-tag-filter" role="group" aria-label="Фильтр работ по тегу">
-                <span className="blog-tag-filter__label">Тег:</span>
-                <div className="blog-tag-filter__list">
-                  {TAG_FILTER_OPTIONS.map((option) => {
-                    const count =
-                      option.id === 'all' ? activeSection.works.length : tagCounts[option.id];
-                    const isActive = activeTagFilter === option.id;
-                    const isEmpty = option.id !== 'all' && count === 0;
-
-                    return (
-                      <button
-                        key={option.id}
-                        type="button"
-                        aria-pressed={isActive}
-                        className={`blog-tag-filter__btn blog-tag-filter__btn--${option.id} ${
-                          isActive ? 'blog-tag-filter__btn--active' : ''
-                        } ${isEmpty ? 'blog-tag-filter__btn--empty' : ''}`}
-                        onClick={() => setActiveTagFilter(option.id)}
-                      >
-                        <span>{option.label}</span>
-                        <span className="blog-tag-filter__count">{count}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+              <BlogReadinessTagFilter
+                activeTag={activeTagFilter}
+                totalCount={activeSection.works.length}
+                tagCounts={tagCounts}
+                onSelectTag={setActiveTagFilter}
+              />
 
               <div className="social-table-wrap">
                 <table className="social-table blog-readiness-table">
@@ -249,7 +153,7 @@ export function BlogReadinessTable({ heading, note, sections }: BlogReadinessTab
                     <td colSpan={6} className="blog-readiness-table__empty-cell">
                       <span>
                         В разделе «{activeSection.label}» нет работ с тегом «
-                        {TAG_LABELS[activeTagFilter as BlogWorkTag]}».
+                        {BLOG_WORK_TAG_LABELS[activeTagFilter as BlogWorkTag]}».
                       </span>
                       <button
                         type="button"
@@ -270,13 +174,13 @@ export function BlogReadinessTable({ heading, note, sections }: BlogReadinessTab
                           className="blog-readiness-table__tz-cell"
                           data-label="Ссылка на ТЗ"
                         >
-                          {renderCompactLink(
-                            work.tzUrl,
-                            'ТЗ',
-                            `Открыть ТЗ для «${work.title}»`,
-                            'Ссылка на ТЗ не указана',
-                            'tz',
-                          )}
+                          <BlogCompactLink
+                            url={work.tzUrl}
+                            label="ТЗ"
+                            titleText={`Открыть ТЗ для «${work.title}»`}
+                            emptyAriaLabel="Ссылка на ТЗ не указана"
+                            variant="tz"
+                          />
                         </td>
 
                         <td
@@ -291,7 +195,7 @@ export function BlogReadinessTable({ heading, note, sections }: BlogReadinessTab
                           data-label="Тег"
                         >
                           <span className={`blog-work-tag blog-work-tag--${work.tag}`}>
-                            {TAG_LABELS[work.tag]}
+                            {BLOG_WORK_TAG_LABELS[work.tag]}
                           </span>
                         </td>
 
@@ -302,7 +206,7 @@ export function BlogReadinessTable({ heading, note, sections }: BlogReadinessTab
                           <span
                             className={`blog-status-label blog-status-label--${work.status}`}
                           >
-                            {STATUS_LABELS[work.status]}
+                            {BLOG_WORK_STATUS_LABELS[work.status]}
                           </span>
                         </td>
 
@@ -321,13 +225,13 @@ export function BlogReadinessTable({ heading, note, sections }: BlogReadinessTab
                           className="blog-readiness-table__result-cell"
                           data-label="Готовая работа"
                         >
-                          {renderCompactLink(
-                            work.resultUrl,
-                            'Работа',
-                            `Открыть готовую работу «${work.title}»`,
-                            'Ссылка на готовую работу не указана',
-                            'result',
-                          )}
+                          <BlogCompactLink
+                            url={work.resultUrl}
+                            label="Работа"
+                            titleText={`Открыть готовую работу «${work.title}»`}
+                            emptyAriaLabel="Ссылка на готовую работу не указана"
+                            variant="result"
+                          />
                         </td>
                       </tr>
                     );

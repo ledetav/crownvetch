@@ -5,10 +5,11 @@
  * (/tz/blog/characters#ancestor и /tz/blog/characters#vyazel) и блок
  * композиционного скетча с просмотром в полном размере (лайтбоксом).
  */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getTzBlogHeaderDataset } from '../../services/projectDataStore';
 import { resolveAssetUrl } from '../../utils/assetUrl';
+import { BlogImageLightbox } from './BlogImageLightbox';
 
 /**
  * Отрисовывает страницу «О блоге → Шапка» с описанием композиции,
@@ -21,20 +22,6 @@ export function BlogHeaderSection() {
   const resolvedSketchSrc = resolveAssetUrl(headerData.sketch.src);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [isSketchUnavailable, setIsSketchUnavailable] = useState(false);
-
-  // Закрываем полноэкранный просмотр скетча по клавише Escape
-  useEffect(() => {
-    if (!isLightboxOpen) {
-      return;
-    }
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsLightboxOpen(false);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isLightboxOpen]);
 
   return (
     <section
@@ -138,37 +125,13 @@ export function BlogHeaderSection() {
         </section>
       </div>
 
-      {/* Полноэкранный просмотр скетча в лайтбоксе */}
-      {isLightboxOpen && !isSketchUnavailable && (
-        <div
-          className="blog-guide-lightbox"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Просмотр скетча шапки в полном размере"
-          onClick={() => setIsLightboxOpen(false)}
-        >
-          <div
-            className="blog-guide-lightbox__content"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div className="blog-guide-lightbox__bar">
-              <button
-                type="button"
-                className="blog-guide-lightbox__close"
-                onClick={() => setIsLightboxOpen(false)}
-                aria-label="Закрыть просмотр скетча"
-              >
-                Закрыть ×
-              </button>
-            </div>
-            <img
-              src={resolvedSketchSrc}
-              alt={headerData.sketch.alt}
-              className="blog-guide-lightbox__img"
-            />
-          </div>
-        </div>
-      )}
+      <BlogImageLightbox
+        src={isLightboxOpen && !isSketchUnavailable ? headerData.sketch.src : null}
+        alt={headerData.sketch.alt}
+        dialogAriaLabel="Просмотр скетча шапки в полном размере"
+        closeAriaLabel="Закрыть просмотр скетча"
+        onClose={() => setIsLightboxOpen(false)}
+      />
     </section>
   );
 }
