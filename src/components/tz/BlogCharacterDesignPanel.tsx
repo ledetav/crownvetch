@@ -4,9 +4,10 @@
  * и переиспользует общий компонент галереи референсов BlogReferenceGallery
  * из «Памятки по работе» в портретном формате карточек.
  */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import type { BlogCharacterDesignContent } from '../../types/project';
 import { resolveAssetUrl } from '../../utils/assetUrl';
+import { BlogImageLightbox } from './BlogImageLightbox';
 import { BlogReferenceGallery } from './BlogReferenceGallery';
 
 /** Входные свойства панели дизайна и референсов персонажа */
@@ -32,20 +33,6 @@ export function BlogCharacterDesignPanel({
   design,
 }: BlogCharacterDesignPanelProps) {
   const [isSketchLightboxOpen, setIsSketchLightboxOpen] = useState(false);
-
-  // Закрываем полноэкранный просмотр скетча образа по клавише Escape
-  useEffect(() => {
-    if (!isSketchLightboxOpen) {
-      return;
-    }
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsSketchLightboxOpen(false);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isSketchLightboxOpen]);
 
   const hasSketch = Boolean(design.sketch?.src);
   const references = design.references ?? [];
@@ -108,38 +95,13 @@ export function BlogCharacterDesignPanel({
         )}
       </div>
 
-      {/* Полноэкранный просмотр скетча примерного образа */}
-      {isSketchLightboxOpen && design.sketch && (
-        <div
-          className="blog-guide-lightbox"
-          role="dialog"
-          aria-modal="true"
-          aria-label={`Просмотр: ${design.sketch.title}`}
-          onClick={() => setIsSketchLightboxOpen(false)}
-        >
-          <div
-            className="blog-guide-lightbox__content"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div className="blog-guide-lightbox__bar">
-              <button
-                type="button"
-                className="blog-guide-lightbox__close"
-                onClick={() => setIsSketchLightboxOpen(false)}
-                aria-label="Закрыть просмотр скетча"
-              >
-                Закрыть ×
-              </button>
-            </div>
-            <img
-              key={resolvedSketchSrc}
-              src={resolvedSketchSrc}
-              alt={design.sketch.alt}
-              className="blog-guide-lightbox__img"
-            />
-          </div>
-        </div>
-      )}
+      <BlogImageLightbox
+        src={isSketchLightboxOpen ? design.sketch?.src : null}
+        alt={design.sketch?.alt ?? ''}
+        dialogAriaLabel={design.sketch ? `Просмотр: ${design.sketch.title}` : 'Просмотр скетча'}
+        closeAriaLabel="Закрыть просмотр скетча"
+        onClose={() => setIsSketchLightboxOpen(false)}
+      />
     </div>
   );
 }

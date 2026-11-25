@@ -3,9 +3,10 @@
  * Отрисовывает общее примечание (при наличии), нумерованную сетку эмоций/поз
  * с текстовым описанием и слотом под скетч (с просмотром в лайтбоксе, когда скетч добавлен).
  */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import type { BlogCharacterSpriteItem } from '../../types/project';
 import { resolveAssetUrl } from '../../utils/assetUrl';
+import { BlogImageLightbox } from './BlogImageLightbox';
 
 /** Входные свойства списка спрайтов персонажа */
 interface BlogCharacterSpritesListProps {
@@ -29,20 +30,6 @@ export function BlogCharacterSpritesList({
   sprites,
 }: BlogCharacterSpritesListProps) {
   const [lightboxSprite, setLightboxSprite] = useState<BlogCharacterSpriteItem | null>(null);
-
-  // Закрываем лайтбокс скетча по клавише Escape
-  useEffect(() => {
-    if (!lightboxSprite) {
-      return;
-    }
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setLightboxSprite(null);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [lightboxSprite]);
 
   return (
     <div className="blog-character-sprites" aria-label={heading}>
@@ -95,37 +82,19 @@ export function BlogCharacterSpritesList({
         })}
       </ol>
 
-      {/* Полноэкранный просмотр скетча спрайта при клике */}
-      {lightboxSprite?.sketchSrc && (
-        <div
-          className="blog-guide-lightbox"
-          role="dialog"
-          aria-modal="true"
-          aria-label={`Скетч спрайта «${lightboxSprite.title}»`}
-          onClick={() => setLightboxSprite(null)}
-        >
-          <div
-            className="blog-guide-lightbox__content"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div className="blog-guide-lightbox__bar">
-              <button
-                type="button"
-                className="blog-guide-lightbox__close"
-                onClick={() => setLightboxSprite(null)}
-                aria-label="Закрыть просмотр скетча"
-              >
-                Закрыть ×
-              </button>
-            </div>
-            <img
-              src={resolveAssetUrl(lightboxSprite.sketchSrc)}
-              alt={lightboxSprite.sketchAlt ?? `Скетч спрайта «${lightboxSprite.title}»`}
-              className="blog-guide-lightbox__img"
-            />
-          </div>
-        </div>
-      )}
+      <BlogImageLightbox
+        src={lightboxSprite?.sketchSrc}
+        alt={
+          lightboxSprite
+            ? (lightboxSprite.sketchAlt ?? `Скетч спрайта «${lightboxSprite.title}»`)
+            : ''
+        }
+        dialogAriaLabel={
+          lightboxSprite ? `Скетч спрайта «${lightboxSprite.title}»` : 'Просмотр скетча спрайта'
+        }
+        closeAriaLabel="Закрыть просмотр скетча"
+        onClose={() => setLightboxSprite(null)}
+      />
     </div>
   );
 }

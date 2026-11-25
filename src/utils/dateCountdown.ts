@@ -4,6 +4,8 @@
  * и в правой карточке дедлайна конкретного раздела (BlogReadinessSidebar).
  */
 
+import { pluralizeRu } from './pluralizeRu';
+
 /** Результат расчёта целевой даты и разницы в календарных днях */
 export interface DateCountdownInfo {
   /** Отформатированная дата в формате ДД.ММ.ГГГГ либо «НЕ ЗАДАНА» */
@@ -20,18 +22,7 @@ export interface DateCountdownInfo {
  * @returns Строка «день», «дня» или «дней».
  */
 export function pluralizeDays(count: number): string {
-  const mod100 = Math.abs(count) % 100;
-  const mod10 = mod100 % 10;
-  if (mod100 >= 11 && mod100 <= 14) {
-    return 'дней';
-  }
-  if (mod10 === 1) {
-    return 'день';
-  }
-  if (mod10 >= 2 && mod10 <= 4) {
-    return 'дня';
-  }
-  return 'дней';
+  return pluralizeRu(count, 'день', 'дня', 'дней');
 }
 
 /**

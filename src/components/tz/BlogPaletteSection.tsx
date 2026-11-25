@@ -7,39 +7,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { Check, Copy } from 'lucide-react';
 import { getTzBlogPaletteDataset } from '../../services/projectDataStore';
+import { copyTextToClipboard } from '../../utils/clipboard';
 
 /** Длительность отображения подтверждения копирования HEX-кода (мс) */
 const COPY_FEEDBACK_DURATION_MS = 1500;
-
-/**
- * Копирует строку в буфер обмена через Clipboard API с резервным fallback
- * для окружений с ограничениями прав доступа к буферу (например, встроенный iframe).
- * @param value Текст для копирования (HEX-код оттенка).
- * @returns Промис, завершающийся после попытки копирования.
- */
-async function copyHexToClipboard(value: string): Promise<void> {
-  if (navigator.clipboard?.writeText) {
-    try {
-      await navigator.clipboard.writeText(value);
-      return;
-    } catch {
-      // Переходим к резервному способу копирования через скрытое текстовое поле
-    }
-  }
-
-  const textarea = document.createElement('textarea');
-  textarea.value = value;
-  textarea.setAttribute('readonly', '');
-  textarea.style.position = 'fixed';
-  textarea.style.opacity = '0';
-  document.body.appendChild(textarea);
-  textarea.select();
-  try {
-    document.execCommand('copy');
-  } finally {
-    document.body.removeChild(textarea);
-  }
-}
 
 /**
  * Отрисовывает раздел «О блоге → Палитра» с примечанием и интерактивными
@@ -66,7 +37,7 @@ export function BlogPaletteSection() {
    * @param hex Значение цвета в формате #RRGGBB.
    */
   const handleCopyColor = async (swatchKey: string, hex: string) => {
-    await copyHexToClipboard(hex);
+    await copyTextToClipboard(hex);
     setCopiedKey(swatchKey);
 
     if (resetTimerRef.current !== null) {
