@@ -6,13 +6,9 @@
  * с автоматическим раскрытием сцены при переходе по якорной ссылке из таблицы готовности.
  */
 import { useEffect, useMemo, useState } from 'react';
-import type {
-  BlogActActionBridge,
-  BlogActFlowNode,
-  BlogActId,
-  BlogActScene,
-  BlogActSceneMode,
-} from '../../types/project';
+import type { BlogActFlowNode, BlogActId } from '../../types/project';
+import { BlogActActionBridge } from './BlogActActionBridge';
+import { BlogActSceneCard } from './BlogActSceneCard';
 
 /** Входные свойства компонента сценарной схемы акта */
 interface BlogActFlowchartProps {
@@ -22,35 +18,6 @@ interface BlogActFlowchartProps {
   flow: BlogActFlowNode[];
   /** Идентификатор целевой сцены из якоря URL для автофокуса и раскрытия */
   focusedSceneId?: string | null;
-}
-
-/** Входные свойства карточки отдельной сцены-разворота */
-interface ActSceneAccordionCardProps {
-  /** Данные сцены */
-  scene: BlogActScene;
-  /** Флаг раскрытого состояния блока */
-  isExpanded: boolean;
-  /** Флаг визуального акцента при переходе по прямой ссылке из таблицы готовности */
-  isFocused: boolean;
-  /** Обработчик переключения состояния блока */
-  onToggle: (sceneId: string) => void;
-}
-
-/** Входные свойства нераскрывающегося мостика-действия между сценами */
-interface ActActionBridgeCardProps {
-  /** Данные мостика-действия */
-  action: BlogActActionBridge;
-  /** Компактный режим для действий внутри колонок ветвления */
-  compact?: boolean;
-}
-
-/**
- * Возвращает подпись формата сцены для бейджа в шапке карточки.
- * @param mode Системный код формата сцены.
- * @returns Строка «Текстовый блок» или «Визуальная новелла».
- */
-function formatSceneModeLabel(mode: BlogActSceneMode): string {
-  return mode === 'text_quest' ? 'Текстовый блок' : 'Визуальная новелла';
 }
 
 /**
@@ -70,98 +37,6 @@ function collectAllSceneIds(flow: BlogActFlowNode[]): string[] {
     }
   }
   return ids;
-}
-
-/**
- * Отрисовывает нераскрывающийся блок-мостик с действием между сценами.
- * @param props Данные действия и необязательный флаг компактного вида.
- * @returns JSX-разметка мостика-действия.
- */
-function ActActionBridgeCard({ action, compact = false }: ActActionBridgeCardProps) {
-  return (
-    <div
-      id={action.id}
-      className={`act-action-bridge ${compact ? 'act-action-bridge--compact' : ''}`}
-    >
-      <div className="act-action-bridge__head">
-        <span className="act-action-bridge__arrow" aria-hidden="true">
-          →
-        </span>
-        <span className="act-action-bridge__label">{action.label}</span>
-      </div>
-      {action.description && (
-        <p className="act-action-bridge__desc">{action.description}</p>
-      )}
-    </div>
-  );
-}
-
-/**
- * Отрисовывает отдельную сцену сценария как компактную кнопку по центру схемы
- * и отдельный текстовый блок-панель, разворачивающийся под кнопкой при нажатии.
- * В кнопке отображаются строго название «Сцена Номер» и бейдж формата
- * («Текстовый блок» или «Визуальная новелла»), а в панели под ней — поля
- * Катсцена/Фон, Текстовый блок/Мысли и Спрайты (при наличии для визуальной новеллы).
- * @param props Данные сцены, состояния раскрытия/фокуса и обработчик переключения.
- * @returns JSX-разметка узла сцены.
- */
-function ActSceneAccordionCard({
-  scene,
-  isExpanded,
-  isFocused,
-  onToggle,
-}: ActSceneAccordionCardProps) {
-  const bodyId = `${scene.id}-body`;
-  const triggerId = `${scene.id}-trigger`;
-
-  // Для текстовых блоков поле «Спрайты» не выводится
-  const visibleBlocks =
-    scene.mode === 'visual_novel'
-      ? scene.blocks
-      : scene.blocks.filter((block) => block.kind !== 'sprites');
-
-  return (
-    <article
-      id={scene.id}
-      className={`act-scene-node ${isExpanded ? 'act-scene-node--expanded' : ''} ${
-        isFocused ? 'act-scene-node--focused' : ''
-      }`}
-    >
-      <button
-        id={triggerId}
-        type="button"
-        className="act-scene-node__btn"
-        aria-expanded={isExpanded}
-        aria-controls={bodyId}
-        onClick={() => onToggle(scene.id)}
-      >
-        <h3 className="act-scene-node__title">{scene.title}</h3>
-        <span className={`act-scene-card__mode act-scene-card__mode--${scene.mode}`}>
-          {formatSceneModeLabel(scene.mode)}
-        </span>
-        <span className="act-scene-node__toggle" aria-hidden="true">
-          {isExpanded ? '−' : '+'}
-        </span>
-      </button>
-
-      {isExpanded && (
-        <>
-          <span className="act-scene-node__stem" aria-hidden="true" />
-          <div id={bodyId} className="act-scene-node__panel">
-            {visibleBlocks.map((block, index) => (
-              <div
-                key={`${scene.id}-block-${index}`}
-                className={`act-scene-block act-scene-block--${block.kind}`}
-              >
-                <div className="act-scene-block__label">{block.label}</div>
-                <p className="act-scene-block__text">{block.text}</p>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
-    </article>
-  );
 }
 
 /**
@@ -273,7 +148,7 @@ export function BlogActFlowchart({ actId, flow, focusedSceneId = null }: BlogAct
           return (
             <li key={node.id} className="act-flowchart__step">
               {node.kind === 'scene' && (
-                <ActSceneAccordionCard
+                <BlogActSceneCard
                   scene={node.scene}
                   isExpanded={expandedIds.has(node.scene.id)}
                   isFocused={focusedSceneId === node.scene.id}
@@ -281,7 +156,7 @@ export function BlogActFlowchart({ actId, flow, focusedSceneId = null }: BlogAct
                 />
               )}
 
-              {node.kind === 'action' && <ActActionBridgeCard action={node.action} />}
+              {node.kind === 'action' && <BlogActActionBridge action={node.action} />}
 
               {node.kind === 'branch' && (
                 <div className="act-flow-branch">
@@ -302,7 +177,7 @@ export function BlogActFlowchart({ actId, flow, focusedSceneId = null }: BlogAct
                   <div className="act-flow-branch__grid">
                     {node.columns.map((column) => (
                       <div key={column.scene.id} className="act-flow-branch__col">
-                        <ActSceneAccordionCard
+                        <BlogActSceneCard
                           scene={column.scene}
                           isExpanded={expandedIds.has(column.scene.id)}
                           isFocused={focusedSceneId === column.scene.id}
@@ -317,7 +192,7 @@ export function BlogActFlowchart({ actId, flow, focusedSceneId = null }: BlogAct
                               <span className="act-flow-connector__line" />
                               <span className="act-flow-connector__arrow" />
                             </div>
-                            <ActActionBridgeCard action={column.afterAction} compact />
+                            <BlogActActionBridge action={column.afterAction} compact />
                           </>
                         )}
                       </div>
